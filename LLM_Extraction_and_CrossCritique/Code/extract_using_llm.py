@@ -10,17 +10,17 @@ from post_processing import *
 
 def extract_using_llms(model, model_key, prompt_size, pdf_folder_path, variable_file_path):
     
-    df = pd.read_csv(variable_file_path)
+    df = pd.read_excel(variable_file_path,sheet_name='Definitions')
     variables = []
-    for x,y in zip(df['Column Name'],df['Definition']):
-        variables.append(x+":"+y)
+    for x,y,z in zip(df['Column Name'],df['Definition'],df['Procedure']):
+        variables.append(x+":"+ y + "How to extract:" + z)
     #variables = list(dd.loc[0])
     
     pdf_folder_path = pdf_folder_path + "/"
                     
     print ('~'*90)
     print ("LLMs are in Process to Generate Responses")
-    print ("Model:", model, "\tPompt Size:", prompt_size, "\t# of Variables:", len(variables))
+    print ("Model:", model, "\t Prompt Size:", prompt_size, "\t# of Variables:", len(variables))
     print ('~'*90)
 
     results, input_text, output_text, kf_count = apply_prompts(pdf_folder_path, model, model_key, variables, prompt_size)
