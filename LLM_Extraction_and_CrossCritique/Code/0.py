@@ -14,7 +14,7 @@ def retrieve_chunks(query, chunks, top_n=5):
 def main():
     query = "What is the efficacy of Darolutamide in high-risk prostate cancer patients?"
     
-    with open("chunks.json", "r", encoding="utf-8") as f:
+    with open("db/Document_Name/hybrid_chunks.json", "r", encoding="utf-8") as f:
         chunks = json.load(f)
 
     relevant_chunks = retrieve_chunks(query, chunks, top_n=5)

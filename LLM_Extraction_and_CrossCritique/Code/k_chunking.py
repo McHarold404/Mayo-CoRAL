@@ -19,7 +19,7 @@ def semantic_text_chunking(text, min_size=500, merge_threshold=0.8):
     chunks = []
     current_chunk = ""
 
-    # Split text into sentences and form meaningful chunks
+    # Split text into sentences and form meaningful chunks00
     for sent in doc.sents:
         if len(current_chunk) < min_size:
             current_chunk += " " + sent.text.strip()
@@ -258,6 +258,7 @@ if __name__ == "__main__":
 #         prompt = "Unknown chunk type."
 
 #     return prompt
+
 
 
 
