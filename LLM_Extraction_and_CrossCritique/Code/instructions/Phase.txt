@@ -1,0 +1,15 @@
+Column Name: Phase
+Definition: "The stage or step in the clinical trial process, typically denoted by a Roman numeral (e.g. I, II, III, IV), which defines the scope, objectives, and duration of the trial."
+
+Detailed Extraction Instructions:
+- Step 1: Search for the term "Phase" followed by a Roman numeral (I, II, III, or IV) or the full word (e.g., "Phase One," "Phase Two").
+- Step 2: Verify that the identified Roman numeral or word is associated with the clinical trial being described in the document.
+- Step 3: Extract the Roman numeral (e.g., "III") or the full word (e.g., "Phase Two") representing the trial phase.
+- Step 4: If no phase is explicitly stated, search for terms like "early phase," "late phase," or "pivotal trial" which might imply the phase. If these are found, use them to infer the phase if possible (e.g., "pivotal trial" often implies Phase III).
+- Step 5: If no phase information can be found, conclude "not present."
+
+Key Reminders:
+- Ensure the Roman numeral is correctly interpreted (e.g., "II" is not confused with "III").
+- If the phase is described in words (e.g., "Phase One"), extract the corresponding Roman numeral ("I").
+- If multiple phases are mentioned, ensure the extracted phase is for the specific trial being analyzed.
+- If a phase is implied but not explicitly stated, use the implied phase only if it is clear and unambiguous.
