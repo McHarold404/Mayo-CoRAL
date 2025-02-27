@@ -151,7 +151,7 @@ def save_chunks_to_json(chunks, output_path):
 def main():
     # Path to the PDF
     pdf_path = "NCT02799602_Hussain_ARASENS_JCO'23.pdf"
-    json_output_path = "hybrid_chunks.json"
+    json_output_path = "hybrid2_chunks.json"
 
     if os.path.exists(pdf_path):
         print(f"Processing PDF: {pdf_path}")
