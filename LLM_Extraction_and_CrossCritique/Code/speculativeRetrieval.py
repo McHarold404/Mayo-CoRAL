@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.cluster import AgglomerativeClustering
 import numpy as np
 from rank_bm25 import BM25Okapi
-from model_inference.gpt import ask_chatgpt_inline  # Explicit import
+from model_inference.gpt import ask_chatgpt  # Explicit import
 from model_inference.gemini import *
 from model_inference.llama import * 
 import sys
@@ -49,12 +49,13 @@ def sample_chunks_from_clusters(clustered_chunks):
     return [cluster[0] for cluster in clustered_chunks.values() if cluster]
 
 
-def speculative_rag_pipeline(query, chunks):
+def speculative_rag_pipeline(query, chunks,columns_info):
     """ Full Speculative RAG: retrieval → clustering → sampling → verification → final answer selection. """
     if not chunks:
         return "No relevant chunks found."
 
     # Retrieve relevant chunks
+    print(columns_info)
     relevant_chunks = retrieve_chunks(query, chunks, top_n=min(10, len(chunks)))
 
     # Cluster retrieved chunks
@@ -68,8 +69,14 @@ def speculative_rag_pipeline(query, chunks):
 
     # Generate responses for each sampled chunk
     responses = []
-    for chunk in sampled_chunks:
-        response = ask_chatgpt_inline(prompt="Answer this based on context", text=chunk["content"])
+    for chunk in sampled_chunks[:5]:  # Limit to 5 chunks
+        print(f"Query: {query}")  # Debugging line
+        print(f"Processing chunk: {chunk['content']}")  # Debugging line
+        input_text = f"Query: {query}\n\nContext: {chunk['content']}"
+        response = ask_chatgpt(prompt_path = "prompts/draft_answer.txt", text=input_text)
+        # print("****************************")
+        # print(f"Response for chunk: {response}")  # Debugging line
+        # print("****************************")
         if response:
             responses.append(response)
 
@@ -77,31 +84,63 @@ def speculative_rag_pipeline(query, chunks):
         return "Failed to generate responses."
 
     # Select the most relevant response (could use ranking if needed)
-    best_answer = select_best_answer(responses=responses)  # Can be improved using scoring
-
+    best_answer = select_best_answer(responses=responses,columns_info=columns_info)  # Can be improved using scoring
+    print(f"Best answer selected: {best_answer}")  # Debugging line
     return best_answer
 
-def select_best_answer(responses):
-    """ Selects the best answer from the generated responses. """
-    # Placeholder for a more sophisticated ranking mechanism
-    input_text = "\n".join(responses)
-    best_answer = ask_chatgpt_inline(prompt="Select the best answer", text=responses) ## To be improved, use  proper prompt for this task
-    return best_answer 
+def select_best_answer(responses, columns_info):
+    """
+    Selects the best candidate response for extracting structured information for the specified columns.
+    
+    Parameters:
+      - responses: A list of candidate JSON response strings.
+      - columns_info: A list of dictionaries for the group, each with "Column Name" and "Definition".
+    
+    Returns:
+      - A JSON string representing the best candidate response.
+    
+    This function calls ask_chatgpt using a system prompt from a file and passes the variable parts (column definitions and candidate responses) via the text parameter.
+    """
+    # Build a text block with the columns and their definitions.
+    columns_text = "\n".join(
+        [f"{col['Column Name']}: {col['Definition']}" for col in columns_info]
+    )
+    
+    # Combine the candidate responses with newline separation.
+    candidates_text = "\n".join(responses)
+    
+    # Construct the variable text to be passed alongside the system prompt.
+    text_param = f"""
+Columns and their Definitions:
+{columns_text}
 
-def main():
-    query = "What is the efficacy of Darolutamide in high-risk prostate cancer patients?"
-    try:
-        with open("db/Document_Name/hybrid_chunks.json", "r", encoding="utf-8") as f:
-            chunks = json.load(f)
-    except FileNotFoundError:
-        print("Error: hybrid_chunks.json not found.")
-        return
-    except json.JSONDecodeError:
-        print("Error: JSON file is not properly formatted.")
-        return
+Candidate Responses:
+{candidates_text}
 
-    best_response = speculative_rag_pipeline(query, chunks)
-    print("\nFinal Best Answer:\n", best_response)
+Instructions:
+- Review each candidate JSON response for completeness, accuracy, and clarity.
+- Evaluate which candidate best extracts the required values for the above columns.
+- Return only the selected JSON object exactly as is, with no additional commentary or explanation.
+"""
+    # The prompt file (system prompt) should contain the static instructions for best answer selection.
+    prompt_path = "prompts/select_best_answer.txt"
+    
+    best_answer = ask_chatgpt(prompt_path=prompt_path, text=text_param)
+    return best_answer.strip()
+# def main():
+#     query = "What is the efficacy of Darolutamide in high-risk prostate cancer patients?"
+#     try:
+#         with open("db/Document_Name/hybrid_chunks.json", "r", encoding="utf-8") as f:
+#             chunks = json.load(f)
+#     except FileNotFoundError:
+#         print("Error: hybrid_chunks.json not found.")
+#         return
+#     except json.JSONDecodeError:
+#         print("Error: JSON file is not properly formatted.")
+#         return
 
-if __name__ == "__main__":
-    main()
+#     best_response = speculative_rag_pipeline(query, chunks)
+#     print("\nFinal Best Answer:\n", best_response)
+
+# if __name__ == "__main__":
+#     main()
