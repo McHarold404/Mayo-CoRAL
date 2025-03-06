@@ -69,8 +69,8 @@ def speculative_rag_pipeline(query, chunks,columns_info):
 
     # Generate responses for each sampled chunk
     responses = []
+    print(f"Query: {query}")  # Debugging line
     for chunk in sampled_chunks[:5]:  # Limit to 5 chunks
-        print(f"Query: {query}")  # Debugging line
         print(f"Processing chunk: {chunk['content']}")  # Debugging line
         input_text = f"Query: {query}\n\nContext: {chunk['content']}"
         response = ask_chatgpt(prompt_path = "prompts/draft_answer.txt", text=input_text)
