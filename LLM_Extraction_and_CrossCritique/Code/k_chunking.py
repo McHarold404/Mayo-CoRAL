@@ -1,11 +1,13 @@
 import fitz  # PyMuPDF for text and image extraction
-import camelot  # For table extraction
+import pdfplumber  # Alternative table extraction
 import os
 import json
 import base64
 import spacy
+import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+from model_inference.gemini import *
 
 # Load NLP model for text segmentation
 nlp = spacy.load("en_core_web_sm")
@@ -18,8 +20,7 @@ def semantic_text_chunking(text, min_size=500, merge_threshold=0.8):
     doc = nlp(text)
     chunks = []
     current_chunk = ""
-
-    # Split text into sentences and form meaningful chunks00
+    
     for sent in doc.sents:
         if len(current_chunk) < min_size:
             current_chunk += " " + sent.text.strip()
@@ -29,14 +30,13 @@ def semantic_text_chunking(text, min_size=500, merge_threshold=0.8):
     
     if current_chunk:
         chunks.append(current_chunk.strip())
-
-    # Merge semantically similar chunks
+    
     embeddings = embedding_model.encode(chunks)
     similarities = cosine_similarity(embeddings, embeddings)
     
     merged_chunks = []
     visited = set()
-
+    
     for i, chunk in enumerate(chunks):
         if i in visited:
             continue
@@ -46,22 +46,73 @@ def semantic_text_chunking(text, min_size=500, merge_threshold=0.8):
             if similarities[i][j] > merge_threshold:
                 similar.append(chunks[j])
                 visited.add(j)
-
+        
         merged_chunks.append(" ".join(similar))
 
     return merged_chunks
 
+def extract_tables(pdf_path):
+    """
+    Extract tables using PDFPlumber and format them in Markdown.
+    """
+    extracted_tables = []
+    
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            for page_num, page in enumerate(pdf.pages, start=1):
+                tables_on_page = page.extract_tables()
+                
+                if tables_on_page:
+                    combined_table = ""  # Store combined markdown tables
+                    
+                    for table in tables_on_page:
+                        df = pd.DataFrame(table)
+                        header = df.iloc[0].tolist() if df.shape[0] > 1 else None
+                        df = df[1:].reset_index(drop=True) if header else df
+                        markdown_table = df.to_markdown(index=False, headers=header) if header else df.to_markdown(index=False)
+                        combined_table += "\n\n" + markdown_table
+                    
+                    extracted_tables.append({
+                        "type": "table",
+                        "content": combined_table.strip(),
+                        "page": page_num,
+                        "length": len(combined_table)
+                    })
+    except Exception as e:
+        print(f"Error extracting tables: {e}")
+    
+    return extracted_tables
+
+def extract_images(pdf_path):
+    """ Extracts images and encodes them in Base64. """
+    image_chunks = []
+    doc = fitz.open(pdf_path)
+    
+    for page_num, page in enumerate(doc, start=1):
+        images = page.get_images(full=True)
+        for img_index, img in enumerate(images):
+            xref = img[0]
+            base_image = doc.extract_image(xref)
+            image_bytes = base_image["image"]
+            image_base64 = base64.b64encode(image_bytes).decode('utf-8')
+            image_chunks.append({
+                "type": "image",
+                "content": f"Image of size {len(image_base64)} characters (Base64)",
+                "page": page_num,
+                "length": len(image_base64)
+            })
+    
+    return image_chunks
 
 def chunking(pdf_path):
     """
     Extract and segment the document into semantic text chunks, tables, and images.
     """
     chunks = []
+    
+    # Extract text
     try:
-        # Open the PDF document
         doc = fitz.open(pdf_path)
-
-        # Extract and process text sections using semantic chunking
         for page_num, page in enumerate(doc, start=1):
             raw_text = page.get_text("text")
             if raw_text.strip():
@@ -73,71 +124,16 @@ def chunking(pdf_path):
                         "page": page_num,
                         "length": len(chunk)
                     })
-
-        # Extract tables using Camelot
-        try:
-            tables = camelot.read_pdf(pdf_path, pages="all", flavor="stream")
-            for i, table in enumerate(tables):
-                table_str = table.df.to_string(index=False)
-                chunks.append({
-                    "type": "table",
-                    "content": table_str,
-                    "page": table.parsing_report['page'],
-                    "length": len(table_str)
-                })
-        except Exception as e:
-            print(f"Error extracting tables: {e}")
-
-        # Extract images and associate them with their pages
-        for page_num, page in enumerate(doc, start=1):
-            images = page.get_images(full=True)
-            for img_index, img in enumerate(images):
-                xref = img[0]
-                base_image = doc.extract_image(xref)
-                image_bytes = base_image["image"]
-                image_base64 = base64.b64encode(image_bytes).decode('utf-8')
-                chunks.append({
-                    "type": "image",
-                    "content": f"Image of size {len(image_base64)} characters (Base64)",
-                    "page": page_num,
-                    "length": len(image_base64)
-                })
-
     except Exception as e:
-        print(f"Error processing PDF: {e}")
-
+        print(f"Error extracting text: {e}")
+    
+    # Extract tables
+    chunks.extend(extract_tables(pdf_path))
+    
+    # Extract images
+    chunks.extend(extract_images(pdf_path))
+    
     return chunks
-
-
-def check_chunk_quality(chunks):
-    """
-    Analyze chunk quality by providing insights into size, type, and coverage.
-    """
-    text_chunks = [chunk for chunk in chunks if chunk["type"] == "text"]
-    table_chunks = [chunk for chunk in chunks if chunk["type"] == "table"]
-    image_chunks = [chunk for chunk in chunks if chunk["type"] == "image"]
-
-    print("\n=== Chunk Quality Report ===")
-    print(f"Total Chunks: {len(chunks)}")
-    print(f"Text Chunks: {len(text_chunks)}")
-    print(f"Table Chunks: {len(table_chunks)}")
-    print(f"Image Chunks: {len(image_chunks)}")
-
-    if text_chunks:
-        text_lengths = [chunk["length"] for chunk in text_chunks]
-        print(f"Text Chunk Sizes - Min: {min(text_lengths)}, Max: {max(text_lengths)}, Avg: {sum(text_lengths)//len(text_lengths)}")
-
-    if table_chunks:
-        table_lengths = [chunk["length"] for chunk in table_chunks]
-        print(f"Table Chunk Sizes - Min: {min(table_lengths)}, Max: {max(table_lengths)}, Avg: {sum(table_lengths)//len(table_lengths)}")
-
-    if image_chunks:
-        image_lengths = [chunk["length"] for chunk in image_chunks]
-        print(f"Image Chunk Sizes - Min: {min(image_lengths)}, Max: {max(image_lengths)}, Avg: {sum(image_lengths)//len(image_lengths)}")
-
-    pages_covered = sorted(set(chunk["page"] for chunk in chunks))
-    print(f"Pages Covered: {pages_covered}")
-
 
 def save_chunks_to_json(chunks, output_path):
     """
@@ -146,120 +142,65 @@ def save_chunks_to_json(chunks, output_path):
     with open(output_path, "w", encoding="utf-8") as json_file:
         json.dump(chunks, json_file, ensure_ascii=False, indent=4)
     print(f"Chunks saved to JSON file: {output_path}")
+    
+import fitz  # PyMuPDF
+from PIL import Image
+from io import BytesIO
 
+def enrich_table_chunks(chunks, pdf_path, prompt_path):
+    """
+    For each table chunk in the provided chunks, this function extracts the corresponding page image 
+    from the PDF as a PIL object and sends it to Gemini using the ask_gemini_with_images function 
+    along with a prompt. The Gemini output (improved table extraction) is then added to the chunk.
 
-def main():
-    # Path to the PDF
-    pdf_path = "NCT02799602_Hussain_ARASENS_JCO'23.pdf"
-    json_output_path = "hybrid2_chunks.json"
+    Parameters:
+        chunks (list): List of chunk dictionaries (each with keys like "type", "content", "page", "length").
+        pdf_path (str): Path to the original PDF file.
+        prompt_path (str): Path to the prompt file used by the ask_gemini_with_images function.
 
-    if os.path.exists(pdf_path):
-        print(f"Processing PDF: {pdf_path}")
-        chunks = chunking(pdf_path)
+    Returns:
+        list: The updated list of chunks with enriched table data.
+    """
+    try:
+        doc = fitz.open(pdf_path)
+    except Exception as e:
+        print(f"Error opening PDF file: {e}")
+        return chunks
 
-        check_chunk_quality(chunks)
-        save_chunks_to_json(chunks, json_output_path)
-    else:
-        print(f"PDF file not found at: {pdf_path}")
+    for chunk in chunks:
+        if chunk.get("type") == "table":
+            page_num = chunk.get("page")
+            if page_num is None:
+                continue
+            try:
+                page = doc[page_num - 1]
+                pix = page.get_pixmap()
+                img_bytes = pix.tobytes("png")
 
+                # Convert bytes to PIL Image object
+                img_pil = Image.open(BytesIO(img_bytes))
 
-if __name__ == "__main__":
-    main()
+                # Call ask_gemini_with_images with the PIL image and prompt_path.
+                gemini_output = ask_gemini_with_image(img_pil,prompt_path)
 
+                # Save the output from Gemini into the chunk.
+                chunk["content"] = gemini_output
+            except Exception as e:
+                print(f"Error processing table chunk on page {page_num}: {e}")
 
-####### Add OCR to Image Processing
+    doc.close()
+    return chunks
 
-# import pytesseract
-# from PIL import Image
-# import io
+# def main():
+#     pdf_path = "./training_studies/NCT02799602_Hussain_ARASENS_JCO'23.pdf"
+#     json_output_path = "db/enhanced_chunks.json"
 
-# def extract_images_and_ocr(pdf_path):
-#     """ Extracts images and applies OCR. """
-#     image_chunks = []
-#     doc = fitz.open(pdf_path)
-
-#     for page_num, page in enumerate(doc, start=1):
-#         images = page.get_images(full=True)
-#         for img in images:
-#             xref = img[0]
-#             base_image = doc.extract_image(xref)
-#             image_bytes = base_image["image"]
-
-#             # Convert image bytes to PIL image
-#             image = Image.open(io.BytesIO(image_bytes))
-
-#             # Apply OCR
-#             ocr_text = pytesseract.image_to_string(image)
-
-#             image_chunks.append({
-#                 "type": "image",
-#                 "content": ocr_text if ocr_text.strip() else "Image extracted",
-#                 "page": page_num,
-#                 "length": len(image_bytes)
-#             })
-
-#     return image_chunks
-
-
-
-
-
-# def extract_using_llms(model, model_key, pdf_folder_path, variable_file_path):
-#     """
-#     Main function to process PDFs using semantic chunking and LLMs.
-#     """
-#     # Read variable definitions (this remains unchanged)
-#     df = pd.read_excel(variable_file_path, sheet_name='Definitions')
-#     variables = [
-#         x + ":" + y + "How to extract:" + z 
-#         for x, y, z in zip(df['Column Name'], df['Definition'], df['Procedure'])
-#     ]
-
-#     pdf_folder_path = pdf_folder_path + "/"
-#     semantic_chunks = []
-
-#     # Perform semantic chunking on each PDF
-#     for pdf_file in os.listdir(pdf_folder_path):
-#         if pdf_file.endswith(".pdf"):
-#             pdf_path = os.path.join(pdf_folder_path, pdf_file)
-#             chunks = chunking(pdf_path)
-#             semantic_chunks.extend(chunks)
-
-#     print(f"Semantic chunking completed. Total chunks: {len(semantic_chunks)}")
-
-#     # Process each semantic chunk with the LLM
-#     results = []
-#     for chunk in semantic_chunks:
-#         prompt = prompt_design(chunk)  # Create a prompt based on the chunk
-#         response = call_llm(model, model_key, prompt)  # Send prompt to LLM
-#         results.append(response)
-
-#     # Save raw responses
-#     write_raw_responses(results, f"{model}_raw_responses.txt")
-#     print("\nRaw responses saved to file.")
-
-#     # Post-process the responses
-#     pp_resps = post_processing(f"{model}_raw_responses.txt", model_key, model)
-#     write_raw_responses(pp_resps, f"{model}_post_processed_responses.txt")
-#     print("\nPost-processed responses saved to file.")
-
-#     return pp_resps
-
-
-# def prompt_design(chunk):
-#     # Generate a prompt for the LLM based on the type of chunk.
-#     if chunk["type"] == "text":
-#         prompt = f"Extract the relevant information from the following text:\n\n{chunk['content']}"
-#     elif chunk["type"] == "table":
-#         prompt = f"Analyze the following table and extract relevant variables:\n\n{chunk['content']}"
-#     elif chunk["type"] == "image":
-#         prompt = f"Describe the content of the image found on page {chunk['page']} of the document."
+#     if os.path.exists(pdf_path):
+#         print(f"Processing PDF: {pdf_path}")
+#         chunks = chunking(pdf_path)
+        
+#         save_chunks_to_json(chunks, json_output_path)
 #     else:
-#         prompt = "Unknown chunk type."
+#         print(f"PDF file not found at: {pdf_path}")
 
-#     return prompt
-
-
-
-
-
+# main()
