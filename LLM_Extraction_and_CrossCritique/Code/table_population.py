@@ -19,7 +19,7 @@ def generate_dynamic_query(group_label, columns_info):
     system_prompt_path = "prompts/dynamic_query_prompt.txt"
     
     # Call ask_gemini using the system prompt (from file) and the group definitions as text.
-    dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text, key=1)
+    dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text)
     
     return dynamic_query.strip()
 import os
@@ -79,7 +79,8 @@ def populate_table_row(document_name, definitions_groups, chunks):
 
         group_file_path = os.path.join(output_dir, f"{sanitize_filename(group_label)}.txt")
         # Save the text file for this group.
-        group_file_path = os.path.join(output_dir, f"{group_label.replace("/",)}.txt")
+        
+        # group_file_path = os.path.join(output_dir, f"{group_label.replace("/",)}.txt")
         with open(group_file_path, "w", encoding="utf-8") as f:
             f.write(file_content)
         print(f"Group details saved to: {group_file_path}")

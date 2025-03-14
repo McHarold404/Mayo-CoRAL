@@ -114,7 +114,7 @@ class GeminiBot:
             json.dump(results,json_file,indent=2)
         return results
 
-def ask_gemini(text : str, prompt_path : str =None, key = 1,model_name = "gemini-2.0-flash"):
+def ask_gemini(text : str, prompt_path : str =None, key = 2,model_name = "gemini-2.0-flash"):
     
     # Import necessary module for GenerativeModel if not already done
     load_dotenv()
@@ -173,7 +173,7 @@ import os
 from dotenv import load_dotenv
 from PIL import Image
 
-def ask_gemini_with_image(image, prompt_path: str, key=1, model_name="gemini-2.0-flash"):
+def ask_gemini_with_image(image, prompt_path: str, key=2, model_name="gemini-2.0-flash"):
     """
     Sends a single image to the Gemini model for processing, using a system prompt from a file.
 
