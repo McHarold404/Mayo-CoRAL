@@ -49,28 +49,29 @@ def sample_chunks_from_clusters(clustered_chunks):
     return [cluster[0] for cluster in clustered_chunks.values() if cluster]
 
 
-def speculative_rag_pipeline(query, chunks,columns_info):
+def speculative_rag_pipeline(retreival_query, chunks,columns_info):
     """ Full Speculative RAG: retrieval → clustering → sampling → verification → final answer selection. """
     if not chunks:
         return "No relevant chunks found."
 
 
-    relevant_chunks = retrieve_chunks(query, chunks, top_n=min(10, len(chunks)))
-
-    clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
+    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(10, len(chunks)))
+    clustered_chunks = relevant_chunks
+    #clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
 
     # Sample representative chunks
-    sampled_chunks = sample_chunks_from_clusters(clustered_chunks)
+    sampled_chunks = clustered_chunks
+    #sampled_chunks = sample_chunks_from_clusters(clustered_chunks)
     print("Sampled chunks:", len(sampled_chunks))  # Debugging line
     if not sampled_chunks:
         return "No sufficient context to generate an answer."
 
     # Generate responses for each sampled chunk
     responses = []
-    print(f"Query: {query}")  # Debugging line
+    print(f"Column values to be extracted: {columns_info}")  # Debugging line
     for chunk in sampled_chunks:  # Limit to 5 chunks
         #print(f"Processing chunk: {chunk['content']}")  # Debugging line
-        input_text = f"Query: {query}\n\nContext: {chunk['content']}"
+        input_text = f"Column Values to be Extracted: {columns_info} \n\nContext: {chunk['content']}"
         response = ask_gemini(prompt_path = "prompts/draft_answer.txt", text=input_text, key = 1)
         time.sleep(4)
         if response:
@@ -82,7 +83,7 @@ def speculative_rag_pipeline(query, chunks,columns_info):
     # Select the most relevant response (could use ranking if needed)
     best_answer = select_best_answer(responses=responses,columns_info=columns_info)  # Can be improved using scoring
     #print(f"Best answer selected: {best_answer}")  # Debugging line
-    return best_answer
+    return sampled_chunks,best_answer
 
 def select_best_answer(responses, columns_info):
     """ Selects the best answer from the generated responses. """

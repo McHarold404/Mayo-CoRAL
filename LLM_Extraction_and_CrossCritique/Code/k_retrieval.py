@@ -55,7 +55,15 @@ from sklearn.cluster import AgglomerativeClustering
 import numpy as np
 
 # Load sentence embedding model
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+# embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+
+from sentence_transformers import SentenceTransformer, models
+# Load the transformer model
+word_embedding_model = models.Transformer("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
+# Create a pooling layer. This will convert token embeddings to a fixed-size sentence embedding.
+pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
+# Construct the SentenceTransformer model
+embedding_model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
 
 def retrieve_chunks(query, chunks, top_n=3):
     """ Retrieves top N relevant chunks using BM42 (BM25+ variant). """

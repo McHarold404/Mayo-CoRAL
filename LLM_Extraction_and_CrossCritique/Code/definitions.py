@@ -11,7 +11,7 @@ def load_definitions(csv_path="Definitions.csv"):
     
     # Group by the 'Label' column
     groups = {}
-    for label, group_df in df.groupby("Label"):
+    for label, group_df in df.groupby("Column Name"):
         # Convert the group DataFrame to a list of dicts containing only the "Column Name" and "Definition"
         groups[label] = group_df[["Column Name", "Definition"]].to_dict(orient="records")
         

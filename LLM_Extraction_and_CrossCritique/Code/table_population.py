@@ -22,6 +22,9 @@ def generate_dynamic_query(group_label, columns_info):
     dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text, key=1)
     
     return dynamic_query.strip()
+import os
+import json
+import time
 
 def populate_table_row(document_name, definitions_groups, chunks):
     """
@@ -31,32 +34,57 @@ def populate_table_row(document_name, definitions_groups, chunks):
       3. Map the group answer to each column in that group.
       
     Save the final table row (as a dict) to db/{document_name}/document.json.
+    Also, for each group, save a .txt file (named by the group label) in the same directory
+    that contains the column info and the retrieved chunks (up to 5) for verification.
     """
     table_row = {}
     
     print(f"Processing document: {document_name}")
     print(f"Total groups to process: {len(definitions_groups)}")
     cnt = 0
+    
+    # Ensure output directory exists
+    output_dir = os.path.join("db", document_name)
+    os.makedirs(output_dir, exist_ok=True)
+    
     for group_label, columns_info in definitions_groups.items():
-        # Generate a dynamic query based on the group's definitions using ask_gemini.
-        time.sleep(30)
+        time.sleep(30)  # Simulate wait time for dynamic query generation
         print(cnt)
         cnt += 1
         print(f"Processing group: {group_label}, columns: {len(columns_info)}")
+        
+        # Generate dynamic query for this group
         query = generate_dynamic_query(group_label, columns_info)
-
-        group_answer = speculative_rag_pipeline(query, chunks, columns_info)
-        #print(f"Retrieved answer for group '{group_label}': {group_answer}")
         
-        # Map the same answer to each column in this group.
+        # Run the speculative retrieval pipeline for the current group.
+        sampled_chunks,group_answer = speculative_rag_pipeline(retreival_query=query, chunks=chunks, columns_info=columns_info)
+        
+        # Map the answer to the group label in the final table row.
         table_row[group_label] = group_answer
-        # for col in columns_info:
-        #     table_row[col["Column Name"]] = group_answer
-        
         print(f"Group '{group_label}' processed.")
         
+        # Prepare text file content.
+        file_content = f"Group: {group_label}\n\n"
+        file_content += "Column Info:\n"
+        file_content += json.dumps(columns_info, indent=4, ensure_ascii=False) + "\n\n"
+        file_content += "Retrieved Chunks:\n"
+        
+        for i, chunk in enumerate(sampled_chunks):
+                file_content += f"Chunk {i+1}:\n{chunk['content']}\n\n"
+
+        def sanitize_filename(filename):
+            import re
+            # Replace invalid characters (/, \, :, *, ?, ", <, >, |) with an underscore
+            return re.sub(r'[\/\\:*?"<>|]', '_', filename)
+
+        group_file_path = os.path.join(output_dir, f"{sanitize_filename(group_label)}.txt")
+        # Save the text file for this group.
+        group_file_path = os.path.join(output_dir, f"{group_label.replace("/",)}.txt")
+        with open(group_file_path, "w", encoding="utf-8") as f:
+            f.write(file_content)
+        print(f"Group details saved to: {group_file_path}")
+    
     # Save the final table row to a JSON file.
-    output_dir = os.path.join("db", document_name)
     output_path = os.path.join(output_dir, "document.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(table_row, f, ensure_ascii=False, indent=4)
