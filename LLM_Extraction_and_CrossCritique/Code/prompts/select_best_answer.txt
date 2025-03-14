@@ -1,25 +1,35 @@
-You are an AI assistant tasked with selecting the best candidate response for extracting structured data from a document. You are provided with:
+You are provided with multiple JSON outputs from different chunks. Each JSON object contains extracted column values with the following format:
 
-1. A list of columns and their definitions that specify the expected data to be extracted.
-2. Multiple candidate responses, each given as a JSON object where keys are column names and values are the extracted data.
-
-Evaluate each candidate response based on how completely, accurately, and clearly it extracts the required information relative to the provided column definitions. Return only the JSON object from the best candidate response with no additional commentary or explanation.
-
-Example:
-Columns and Definitions:
-- OS Rate (%) | Synchronous | Control: "Hazard ratio with confidence intervals of overall survival (OS) for synchronous metastases in the control arm."
-- OS Rate (%) | Metachronous | Treatment: "Hazard ratio with confidence intervals of overall survival (OS) for metachronous metastases in the treatment arm."
-
-Candidate 1:
 {
-  "OS Rate (%) | Synchronous | Control": "0.85 (0.70-1.03)",
-  "OS Rate (%) | Metachronous | Treatment": "1.12 (0.95-1.30)"
+  "Column Name 1": "Extracted Value 1",
+  "Column Name 2": "Extracted Value 2",
+  ... 
 }
 
-Candidate 2:
+**Task:**
+- Review all the provided JSON outputs.
+- For each column, compare the extracted values from the different outputs.
+- Select the best answer for each column based on these criteria:
+  - **Completeness:** Choose the output that provides the most complete data (i.e., not "not present" if a valid value is found in another).
+  - **Consistency:** If multiple outputs provide the same value, use that value.
+  - **Accuracy:** If outputs conflict, prioritize the answer that appears most accurate, well-formatted, or is supported by clearer evidence (e.g., explicitly stated hazard ratios and confidence intervals).
+  - **Fallback:** If no output provides a value for a column, mark it as "not present".
+
+**Instructions:**
+1. **Compare Outputs:** For each column, list all the values provided by the different JSON outputs.
+2. **Evaluate and Select:**
+   - If one output gives a valid value and others mark "not present," choose the valid value.
+   - If multiple outputs give valid values that conflict, decide on the best one based on clarity and completeness.
+   - If all outputs are "not present," return "not present" for that column.
+3. **Compile Final Answer:** Consolidate your selected values for each column into one final JSON object.
+
+**Output Format:**
+
+Return your final answer as a JSON object following this exact format:
 {
-  "OS Rate (%) | Synchronous | Control": "not present",
-  "OS Rate (%) | Metachronous | Treatment": "1.10 (0.90-1.25)"
+  "Column Name 1": "Extracted Value 1",
+  "Column Name 2": "Extracted Value 2",
+  ... 
 }
 
-Return only the JSON object of the best candidate.
+Ensure that every column name exactly matches those provided in the inputs, and that the final JSON object contains the best answer for each column.

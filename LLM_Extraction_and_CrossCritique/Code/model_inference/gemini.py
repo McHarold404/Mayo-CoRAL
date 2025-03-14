@@ -114,7 +114,7 @@ class GeminiBot:
             json.dump(results,json_file,indent=2)
         return results
 
-def ask_gemini(text : str, prompt_path : str =None, key = 1,model_name = "gemini-1.5-flash"):
+def ask_gemini(text : str, prompt_path : str =None, key = 1,model_name = "gemini-2.0-flash"):
     
     # Import necessary module for GenerativeModel if not already done
     load_dotenv()
@@ -166,3 +166,79 @@ def ask_gemini(text : str, prompt_path : str =None, key = 1,model_name = "gemini
 
     except Exception as e:
         return f"An error occurred: {str(e)}"
+    
+    
+import google.generativeai as genai
+import os
+from dotenv import load_dotenv
+from PIL import Image
+
+def ask_gemini_with_image(image, prompt_path: str, key=1, model_name="gemini-2.0-flash"):
+    """
+    Sends a single image to the Gemini model for processing, using a system prompt from a file.
+
+    Args:
+        image: An image file path or a PIL Image object.
+        prompt_path: Path to a file containing the system prompt.
+        key: Integer specifying which API key to use (1-6).
+        model_name: The name of the Gemini model to use (defaults to "gemini-pro-vision").
+
+    Returns:
+        The text response from the Gemini model, or an error message.
+    """
+    from dotenv import load_dotenv
+    import os
+    import PIL.Image
+    import google.generativeai as genai
+
+    load_dotenv()
+    if key == 1:
+        api_key = os.getenv("GEMINI_KEY")
+    elif key == 2:
+        api_key = os.getenv("GEMINI_KEY_2")
+    elif key == 3:
+        api_key = os.getenv("GEMINI_KEY_3")
+    elif key == 4:
+        api_key = os.getenv("GEMINI_KEY_4")
+    elif key == 5:
+        api_key = os.getenv("GEMINI_KEY_5")
+    elif key == 6:
+        api_key = os.getenv("GEMINI_KEY_6")
+    else:
+        raise ValueError("No key specified")
+
+    if not prompt_path:
+        return "Error: No prompt path provided."
+
+    try:
+        with open(prompt_path, 'r') as file:
+            prompt = file.read().strip()
+    except FileNotFoundError:
+        return f"Error: Prompt file not found: {prompt_path}"
+    except Exception as e:
+        return f"Error reading prompt file: {e}"
+
+    # Configure Gemini with the API key.
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel(model_name=model_name)
+
+    # Process the image: if it's a file path, open it; if it's already a PIL Image, use it directly.
+    try:
+        if isinstance(image, str):
+            processed_image = PIL.Image.open(image)
+        elif isinstance(image, PIL.Image.Image):
+            processed_image = image
+        else:
+            return "Error: Image must be a file path or a PIL Image object."
+    except Exception as e:
+        return f"Error processing image: {e}"
+
+    # Call the Gemini model with the prompt and the image directly.
+    try:
+        response = model.generate_content([prompt, processed_image])
+        if response and hasattr(response, 'text'):
+            return response.text
+        else:
+            return "No valid response received from Gemini."
+    except Exception as e:
+        return f"Error: {e}"
