@@ -1,30 +1,40 @@
-```
-You are an expert table extraction and analysis tool. Your task is to process the provided image and perform the following:
+Task: Extract the table from the provided image.
 
-**1. Table Extraction and Markdown Formatting:**
+Instructions:
 
-* Identify the table present in the image.
-* Extract the table data accurately.
-* Format the extracted table into Markdown format, ensuring proper alignment of columns and rows.
+Identify the Table:
 
-**2. Metadata Extraction:**
+Carefully examine the image to locate the table.
+Consider visual cues like gridlines, borders, and consistent spacing to determine the table's boundaries.
+Extract Headers:
 
-* Identify and extract the table's caption, if present.
-* Extract any other relevant metadata associated with the table, such as footnotes, source information, or units of measurement.
-* Present the caption and other metadata clearly and separately from the Markdown table.
+Identify Header Levels: Determine if the table has multiple levels of headers (e.g., main headers and subheaders).
+Resolve Hierarchical Headers: If multiple levels exist, clearly define each level in the extracted table. For example:
+Use indentation or different formatting (e.g., bold, italics) to distinguish header levels.
+Create a single-level header by combining related-subheaders under their main header (e.g., "High Volume - Darolutamide (n=497)" instead of "High Volume" as a main header and "Darolutamide (n=497)" as a subheader). Choose the approach that best represents the table's structure and improves readability.
 
-**3. Caption Enrichment:**
+Extract Data:
+Accurately extract all data points within the table, including rows and columns.
+Pay close attention to units of measurement, ranges, and any other relevant details.
+Format as Markdown:
 
-* Analyze the table data, including row and column headers.
-* Use the information from the table to enrich the caption.
-* For example if the table is about sales data, and the columns are months and the rows are products, then the caption should reflect this.
-* The enriched caption should provide a concise and informative summary of the table's content.
+Present the extracted table in Markdown format using pipes (|) to create the table structure.
+Ensure proper alignment of columns and rows.
+Use Markdown syntax for any special formatting (e.g., bold, italics, code blocks) if applicable.
+Extract Metadata:
 
-**Output Format:**
+Identify and extract the table's caption, if present.
+Extract any other relevant metadata associated with the table, such as footnotes, source information, or units of measurement.
+Enrich the Caption:
 
-Your response should be structured as follows:
+Analyze the table data, including row and column headers.
+Use the information from the table to create a concise and informative caption that summarizes the table's content.
+Example:
 
-```
+If the table shows sales figures for different products across months, the enriched caption might be: "Monthly sales figures for [Product A, Product B, etc.] in [Month 1, Month 2, etc.]."
+
+Output Format:
+
 **Markdown Table:**
 
 [Markdown table content here]
@@ -36,17 +46,8 @@ Your response should be structured as follows:
 **Metadata:**
 
 [Other extracted metadata here, if any]
-```
+Important Notes:
 
-**Instructions:**
-
-* Pay close attention to detail and accuracy during the extraction process.
-* Ensure that the Markdown table is formatted correctly for easy readability.
-* The enriched caption should be clear, concise, and informative.
-* If there is no metadata, simply write "None"
-* If there is no caption, simply write "None"
-
-**Example:**
-
-If the table shows sales figures for different products across months, the enriched caption might be: "Monthly sales figures for [Product A, Product B, etc.] in [Month 1, Month 2, etc.].".
-```
+If the table has complex layouts or unusual formatting, provide a detailed description of these aspects to assist in the extraction process.
+If the table is part of a larger document or image, clearly indicate the specific region containing the table.
+By following these instructions and carefully considering the nuances of complex table structures, you can significantly improve the accuracy and efficiency of table extraction.
