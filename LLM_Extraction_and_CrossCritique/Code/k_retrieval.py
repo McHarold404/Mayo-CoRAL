@@ -54,20 +54,20 @@ from sentence_transformers import SentenceTransformer
 from sklearn.cluster import AgglomerativeClustering
 import numpy as np
 
-# Load sentence embedding model
-# embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+#Load sentence embedding model
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
-from sentence_transformers import SentenceTransformer, models
-# Load the transformer model
-word_embedding_model = models.Transformer("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
-# Create a pooling layer. This will convert token embeddings to a fixed-size sentence embedding.
-pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
-# Construct the SentenceTransformer model
-embedding_model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
+# from sentence_transformers import SentenceTransformer, models
+# # Load the transformer model
+# word_embedding_model = models.Transformer("microsoft/BiomedNLP-PubMedBERT-base-uncased-abstract")
+# # Create a pooling layer. This will convert token embeddings to a fixed-size sentence embedding.
+# pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
+# # Construct the SentenceTransformer model
+# embedding_model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
 
 def retrieve_chunks(query, chunks, top_n=3):
     """ Retrieves top N relevant chunks using BM42 (BM25+ variant). """
-    tokenized_chunks = [chunk["content"].lower().split() for chunk in chunks]
+    tokenized_chunks = [chunk["content"].lower().split() for chunk in chunks if chunk['type'] == 'table']
     bm42 = BM25Plus(tokenized_chunks)
     query_tokens = query.lower().split()
     scores = bm42.get_scores(query_tokens)
@@ -75,35 +75,35 @@ def retrieve_chunks(query, chunks, top_n=3):
     ranked_chunks = sorted(zip(chunks, scores), key=lambda x: x[1], reverse=True)
     return [chunk[0] for chunk in ranked_chunks[:top_n]]
 
-def cluster_chunks(chunks, n_clusters=5):
-    """
-    Clusters similar chunks together based on semantic similarity.
-    """
-    chunk_texts = [chunk["content"] for chunk in chunks]
-    chunk_embeddings = embedding_model.encode(chunk_texts)  # Convert chunks to embeddings
+# def cluster_chunks(chunks, n_clusters=5):
+#     """
+#     Clusters similar chunks together based on semantic similarity.
+#     """
+#     chunk_texts = [chunk["content"] for chunk in chunks]
+#     chunk_embeddings = embedding_model.encode(chunk_texts)  # Convert chunks to embeddings
 
-    # Apply Agglomerative Clustering (Hierarchical)
-    clustering_model = AgglomerativeClustering(n_clusters=n_clusters)
-    labels = clustering_model.fit_predict(chunk_embeddings)
+#     # Apply Agglomerative Clustering (Hierarchical)
+#     clustering_model = AgglomerativeClustering(n_clusters=n_clusters)
+#     labels = clustering_model.fit_predict(chunk_embeddings)
 
-    # Group chunks by their cluster labels
-    clustered_chunks = {}
-    for idx, label in enumerate(labels):
-        if label not in clustered_chunks:
-            clustered_chunks[label] = []
-        clustered_chunks[label].append(chunks[idx])
+#     # Group chunks by their cluster labels
+#     clustered_chunks = {}
+#     for idx, label in enumerate(labels):
+#         if label not in clustered_chunks:
+#             clustered_chunks[label] = []
+#         clustered_chunks[label].append(chunks[idx])
 
-    return clustered_chunks
+#     return clustered_chunks
 
-def sample_chunks_from_clusters(clustered_chunks):
-    """
-    Selects one representative chunk per cluster.
-    """
-    sampled_chunks = []
-    for cluster in clustered_chunks.values():
-        sampled_chunks.append(cluster[0])  # Select the first chunk as the representative
+# def sample_chunks_from_clusters(clustered_chunks):
+#     """
+#     Selects one representative chunk per cluster.
+#     """
+#     sampled_chunks = []
+#     for cluster in clustered_chunks.values():
+#         sampled_chunks.append(cluster[0])  # Select the first chunk as the representative
 
-    return sampled_chunks
+#     return sampled_chunks
 
 # from haystack.nodes import BM25Retriever
 # from haystack.document_stores import InMemoryDocumentStore
