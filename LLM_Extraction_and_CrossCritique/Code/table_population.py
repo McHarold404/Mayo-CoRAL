@@ -12,16 +12,16 @@ def generate_dynamic_query(group_label, columns_info):
     """
     # Create a string representation of the definitions for the group.
     definitions_text = "\n".join(
-        [f"{col['Column Name']}: {col['Definition']}" for col in columns_info]
+        [f"Find the value of {col['Column Name']}: {col['Definition']}" for col in columns_info]
     )
-    
+    return definitions_text
     # Set the path for the system prompt file containing the detailed extraction instructions.
-    system_prompt_path = "prompts/dynamic_query_prompt.txt"
+    # system_prompt_path = "prompts/dynamic_query_prompt.txt"
     
-    # Call ask_gemini using the system prompt (from file) and the group definitions as text.
-    dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text)
+    # # Call ask_gemini using the system prompt (from file) and the group definitions as text.
+    # dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text)
     
-    return dynamic_query.strip()
+    # return dynamic_query.strip()
 import os
 import json
 import time
