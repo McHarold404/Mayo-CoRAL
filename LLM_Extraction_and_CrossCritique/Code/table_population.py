@@ -5,7 +5,17 @@ from model_inference.gemini import ask_gemini  # Using ask_gemini with system pr
 import time
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
 from utils import evaluate_post_processed_output
-def generate_dynamic_query(group_label, columns_info):
+
+def get_model_function(model_type):
+    """Returns the appropriate model function based on the config."""
+    if model_type.lower() == "gemini":
+        return ask_gemini
+    elif model_type.lower() == "gpt":
+        return ask_chatgpt
+    else:
+        raise ValueError(f"Unsupported model type: {model_type}")
+
+def generate_dynamic_query(group_label, columns_info, config):
     """
     Generates a dynamic retrieval query for a group of columns.
     It calls ask_gemini with a system prompt (from a file) and the group’s column definitions as the text.
@@ -14,19 +24,24 @@ def generate_dynamic_query(group_label, columns_info):
     definitions_text = "\n".join(
         [f"Find the value of {col['Column Name']}: {col['Definition']}" for col in columns_info]
     )
-    return definitions_text
+    
     # Set the path for the system prompt file containing the detailed extraction instructions.
     # system_prompt_path = "prompts/dynamic_query_prompt.txt"
     
     # # Call ask_gemini using the system prompt (from file) and the group definitions as text.
     # dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text)
     
-    # return dynamic_query.strip()
-import os
-import json
-import time
+    model_fn = get_model_function(config["model"]["type"])
+    system_prompt_path = config["prompts"]["dynamic_query_prompt"]
+    dynamic_query = model_fn(
+        prompt_path=system_prompt_path,
+        text=definitions_text,
+        api_key=config["model"]["api_key"]
+    )
+    
+    return dynamic_query.strip()
 
-def populate_table_row(document_name, definitions_groups, chunks):
+def populate_table_row(document_name, definitions_groups, chunks, config):
     """
     For each group (label) in the definitions:
       1. Generate a dynamic query for the group.
@@ -44,8 +59,10 @@ def populate_table_row(document_name, definitions_groups, chunks):
     cnt = 0
     
     # Ensure output directory exists
-    output_dir = os.path.join("db", document_name)
+    output_dir = os.path.join(config["output_dir"], document_name)
     os.makedirs(output_dir, exist_ok=True)
+    
+    model_fn = get_model_function(config["model"]["type"])
     
     for group_label, columns_info in definitions_groups.items():
         time.sleep(30)  # Simulate wait time for dynamic query generation
@@ -54,10 +71,10 @@ def populate_table_row(document_name, definitions_groups, chunks):
         print(f"Processing group: {group_label}, columns: {len(columns_info)}")
         
         # Generate dynamic query for this group
-        query = generate_dynamic_query(group_label, columns_info)
+        query = generate_dynamic_query(group_label, columns_info, config)
         table_chunks = [chunk for chunk in chunks if chunk['type'] == 'table']
         # Run the speculative retrieval pipeline for the current group.
-        sampled_chunks,group_answer = speculative_rag_pipeline(retreival_query=query, chunks= chunks, columns_info=columns_info)
+        sampled_chunks, group_answer = speculative_rag_pipeline(retreival_query=query, chunks=chunks, columns_info=columns_info)
         
         # Map the answer to the group label in the final table row.
         table_row[group_label] = group_answer
@@ -94,7 +111,11 @@ def populate_table_row(document_name, definitions_groups, chunks):
     ## Post Processing and saving the final output
     pp_output_path = os.path.join(output_dir, "document_pp.txt")
     table_string = json.dumps(table_row, indent=2)
-    pp_output = ask_gemini(text = table_string,prompt_path="prompts/post_processing.txt")
+    pp_output = model_fn(
+        text=table_string,
+        prompt_path=config["prompts"]["post_processing"],
+        api_key=config["model"]["api_key"]
+    )
     with open(pp_output_path, "w", encoding="utf-8") as f:
         f.write(pp_output)
         
@@ -104,7 +125,12 @@ def populate_table_row(document_name, definitions_groups, chunks):
     full_document_name = document_name + ".pdf"
     gold_csv_file = "GoldTable.csv"
     print("Evaluating...")    
-    result = evaluate_post_processed_output(document_name = full_document_name,post_processed_text=pp_output,gold_csv_file = gold_csv_file, prompt_path = "prompts/evaluation_prompt.txt")
+    result = evaluate_post_processed_output(
+        document_name=full_document_name,
+        post_processed_text=pp_output,
+        gold_csv_file=gold_csv_file,
+        prompt_path=config["prompts"]["evaluation_prompt"]
+    )
     with open(os.path.join(output_dir, "evaluation_results.txt"), "w", encoding="utf-8") as f:
         f.write(result)
     return table_row
