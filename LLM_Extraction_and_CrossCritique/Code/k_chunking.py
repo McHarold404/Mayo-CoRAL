@@ -203,4 +203,8 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path):
 #     else:
 #         print(f"PDF file not found at: {pdf_path}")
 
+<<<<<<< HEAD
 # main()
+=======
+# main
+>>>>>>> 0e2ddef4d4dfa1377c16914ba9425e7ffd959e52
