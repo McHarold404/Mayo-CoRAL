@@ -67,7 +67,7 @@ embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def retrieve_chunks(query, chunks, top_n=3):
     """ Retrieves top N relevant chunks using BM42 (BM25+ variant). """
-    tokenized_chunks = [chunk["content"].lower().split() for chunk in chunks if chunk['type'] == 'table']
+    tokenized_chunks = [chunk["content"].lower().split() for chunk in chunks] # else chunk["content"].lower().split()
     bm42 = BM25Plus(tokenized_chunks)
     query_tokens = query.lower().split()
     scores = bm42.get_scores(query_tokens)

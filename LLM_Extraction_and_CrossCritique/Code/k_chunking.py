@@ -8,6 +8,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from model_inference.gemini import *
+from utils import extract_caption
 
 # Load NLP model for text segmentation
 nlp = spacy.load("en_core_web_sm")
@@ -184,7 +185,8 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path):
                 gemini_output = ask_gemini_with_image(img_pil,prompt_path)
 
                 # Save the output from Gemini into the chunk.
-                chunk["content"] = gemini_output
+                chunk["table_content"] = gemini_output
+                chunk["content"] = extract_caption(gemini_output)
             except Exception as e:
                 print(f"Error processing table chunk on page {page_num}: {e}")
 
