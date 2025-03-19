@@ -1,32 +1,31 @@
+# table_population.py
 import os
 import json
-from model_inference.gpt import ask_chatgpt # Using ask_gemini with system prompt path
-from model_inference.gemini import ask_gemini  # Using ask_gemini with system prompt path
-import time
+from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
 
-def generate_dynamic_query(group_label, columns_info):
+def generate_dynamic_query(group_label, columns_info, config):
     """
     Generates a dynamic retrieval query for a group of columns.
-    It calls ask_gemini with a system prompt (from a file) and the group’s column definitions as the text.
+    It calls ask_chatgpt with a system prompt (from a file) and the group’s column definitions as the text.
     """
     # Create a string representation of the definitions for the group.
     definitions_text = "\n".join(
         [f"{col['Column Name']}: {col['Definition']}" for col in columns_info]
     )
     
-    # Set the path for the system prompt file containing the detailed extraction instructions.
-    system_prompt_path = "prompts/dynamic_query_prompt.txt"
+    # Get the path for the system prompt file from the config.
+    system_prompt_path = config["prompt_settings"]["dynamic_query_prompt_path"]
     
-    # Call ask_gemini using the system prompt (from file) and the group definitions as text.
-    dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text)
+    # Get the model name from the config.
+    model_name = config["model_settings"]["model_name"]
+    
+    # Call ask_chatgpt using the system prompt (from file) and the group definitions as text.
+    dynamic_query = ask_chatgpt(prompt_path=system_prompt_path, text=definitions_text, model_name=model_name)
     
     return dynamic_query.strip()
-import os
-import json
-import time
 
-def populate_table_row(document_name, definitions_groups, chunks):
+def populate_table_row(document_name, definitions_groups, chunks, config):
     """
     For each group (label) in the definitions:
       1. Generate a dynamic query for the group.
@@ -34,58 +33,33 @@ def populate_table_row(document_name, definitions_groups, chunks):
       3. Map the group answer to each column in that group.
       
     Save the final table row (as a dict) to db/{document_name}/document.json.
-    Also, for each group, save a .txt file (named by the group label) in the same directory
-    that contains the column info and the retrieved chunks (up to 5) for verification.
     """
     table_row = {}
     
     print(f"Processing document: {document_name}")
     print(f"Total groups to process: {len(definitions_groups)}")
     cnt = 0
-    
-    # Ensure output directory exists
-    output_dir = os.path.join("db", document_name)
-    os.makedirs(output_dir, exist_ok=True)
-    
     for group_label, columns_info in definitions_groups.items():
-        time.sleep(30)  # Simulate wait time for dynamic query generation
+        # Generate a dynamic query based on the group's definitions using ask_chatgpt.
         print(cnt)
         cnt += 1
         print(f"Processing group: {group_label}, columns: {len(columns_info)}")
+        query = generate_dynamic_query(group_label, columns_info, config)
+        #print(f"Dynamic query for group '{group_label}': {query}")
         
-        # Generate dynamic query for this group
-        query = generate_dynamic_query(group_label, columns_info)
+        # Run speculative retrieval on the document chunks, passing retrieval settings from config.
+        retrieval_settings = config.get("retrieval_settings", {})  # Default to empty dict if not present
+        group_answer = speculative_rag_pipeline(query, chunks, columns_info, **retrieval_settings)
+        #print(f"Retrieved answer for group '{group_label}': {group_answer}")
         
-        # Run the speculative retrieval pipeline for the current group.
-        sampled_chunks,group_answer = speculative_rag_pipeline(retreival_query=query, chunks=chunks, columns_info=columns_info)
-        
-        # Map the answer to the group label in the final table row.
+        # Map the same answer to each column in this group.
         table_row[group_label] = group_answer
+        
         print(f"Group '{group_label}' processed.")
         
-        # Prepare text file content.
-        file_content = f"Group: {group_label}\n\n"
-        file_content += "Column Info:\n"
-        file_content += json.dumps(columns_info, indent=4, ensure_ascii=False) + "\n\n"
-        file_content += "Retrieved Chunks:\n"
-        
-        for i, chunk in enumerate(sampled_chunks):
-                file_content += f"Chunk {i+1}:\n{chunk['content']}\n\n"
-
-        def sanitize_filename(filename):
-            import re
-            # Replace invalid characters (/, \, :, *, ?, ", <, >, |) with an underscore
-            return re.sub(r'[\/\\:*?"<>|]', '_', filename)
-
-        group_file_path = os.path.join(output_dir, f"{sanitize_filename(group_label)}.txt")
-        # Save the text file for this group.
-        
-        # group_file_path = os.path.join(output_dir, f"{group_label.replace("/",)}.txt")
-        with open(group_file_path, "w", encoding="utf-8") as f:
-            f.write(file_content)
-        print(f"Group details saved to: {group_file_path}")
-    
-    # Save the final table row to a JSON file.
+    # Save the final table row to a JSON file using the output directory from config.
+    output_dir = os.path.join(config["output_dir"], document_name)
+    os.makedirs(output_dir, exist_ok=True)  # Create the directory if it doesn't exist
     output_path = os.path.join(output_dir, "document.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(table_row, f, ensure_ascii=False, indent=4)
