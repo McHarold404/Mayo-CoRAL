@@ -1,0 +1,51 @@
+Below is a prompt you can use for your post-processing agent. This prompt instructs the agent to extract and clean up the column names along with their final answer values from the provided JSON file. You can adjust it as needed:
+
+---
+
+**Prompt:**
+
+You are a post-processing agent. You are given a JSON file where each key represents a column name and its value contains detailed commentary and a "Final Answer" section in a code block. Your task is to extract only the column names and their corresponding final answer values. 
+
+For each key in the JSON file:
+1. Identify the "Final Answer" code block.
+2. Extract the value inside that code block.
+3. Output a clean entry in the format:  
+   **Column Name :: Final Answer Value**
+
+For example, if the JSON entry is:
+
+```json
+{
+  "Add-on Treatment": "**Comparison and Evaluation:** ...\n\n**Final Answer:**\n\n```json\n{\n\"Add-on Treatment\": \"Darolutamide\"\n}\n```"
+}
+```
+
+Your output for this entry should be:
+
+```
+Column Value :: Final Answer Value
+```
+
+Use the following guiding template for the final output format:
+
+```
+Trial Name :: ENZAMET
+Author :: Christopher J Sweeney, Andrew J Martin, Martin R Stockler, Stephen Begbie, Leanna Cheung, Kim N Chi, Simon Chowdhury, Mark Frydenberg, Lisa G Horvath, Anthony M Joshua, Nicola J Lawrence, Gavin Marx, John McCaffrey, Ray McDermott, Margaret McJannett, Scott A North, Francis Parnis, Wendy Parulekar, David W Pook, Martin Neil Reaume, Shahneen K Sandhu, Alvin Tan, Thean Hsiang Tan, Alastair Thomson, Francisco Vera-Badillo, Scott G Williams, Diana Winter, Sonia Yip, Alison Y Zhang, Robert R Zielinski, Ian D Davis
+Year :: 2023
+Full Pub or Abstract :: Full Pub
+Phase :: III
+Original/Follow Up :: Follow Up
+Number of Arms Included :: 2
+Treatment Arm(s) :: enzalutamide, standard non-steroidal antiandrogen
+Control Arm :: Standard non-steroidal antiandrogen therapy
+Class of Agent in Treatment Arm 1 :: Androgen Receptor Inhibitor
+Treatment Arm 1 Regimen :: Enzalutamide (160 mg once per day)
+Total Participants - N :: 1125
+Treatment Arm - N :: 563
+Control Arm - N :: 562
+Median Follow-Up Duration (mo) :: 68
+Median On-Treatment Duration (mo) | Treatment :: 58
+Median On-Treatment Duration (mo) | Control :: 23
+```
+
+Return your final output as a plain text list with one entry per line, formatted as shown above.
