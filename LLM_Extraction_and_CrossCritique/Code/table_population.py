@@ -91,6 +91,7 @@ def populate_table_row(document_name, definitions_groups, chunks):
         json.dump(table_row, f, ensure_ascii=False, indent=4)
     print(f"Final table row saved to: {output_path}")
     
+    ## Post Processing and saving the final output
     pp_output_path = os.path.join(output_dir, "document_pp.txt")
     table_string = json.dumps(table_row, indent=2)
     pp_output = ask_gemini(text = table_string,prompt_path="prompts/post_processing.txt")
@@ -98,11 +99,12 @@ def populate_table_row(document_name, definitions_groups, chunks):
         f.write(pp_output)
         
     print(f"Final post processed table row saved to: {pp_output_path}")
+    
     # Evaluate the post-processed output    
     full_document_name = document_name + ".pdf"
     gold_csv_file = "GoldTable.csv"
     print("Evaluating...")    
-    result = evaluate_post_processed_output(document_name,post_processed_text=pp_output,gold_csv_file = gold_csv_file, prompt_path = "prompts/evaluation_prompt.txt")
+    result = evaluate_post_processed_output(document_name = full_document_name,post_processed_text=pp_output,gold_csv_file = gold_csv_file, prompt_path = "prompts/evaluation_prompt.txt")
     with open(os.path.join(output_dir, "evaluation_results.txt"), "w", encoding="utf-8") as f:
         f.write(result)
     return table_row
