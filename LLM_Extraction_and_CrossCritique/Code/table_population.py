@@ -4,7 +4,7 @@ from model_inference.gpt import ask_chatgpt # Using ask_gemini with system promp
 from model_inference.gemini import ask_gemini  # Using ask_gemini with system prompt path
 import time
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
-
+from utils import evaluate_post_processed_output
 def generate_dynamic_query(group_label, columns_info):
     """
     Generates a dynamic retrieval query for a group of columns.
@@ -55,9 +55,9 @@ def populate_table_row(document_name, definitions_groups, chunks):
         
         # Generate dynamic query for this group
         query = generate_dynamic_query(group_label, columns_info)
-        
+        table_chunks = [chunk for chunk in chunks if chunk['type'] == 'table']
         # Run the speculative retrieval pipeline for the current group.
-        sampled_chunks,group_answer = speculative_rag_pipeline(retreival_query=query, chunks=chunks, columns_info=columns_info)
+        sampled_chunks,group_answer = speculative_rag_pipeline(retreival_query=query, chunks= chunks, columns_info=columns_info)
         
         # Map the answer to the group label in the final table row.
         table_row[group_label] = group_answer
@@ -89,6 +89,20 @@ def populate_table_row(document_name, definitions_groups, chunks):
     output_path = os.path.join(output_dir, "document.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(table_row, f, ensure_ascii=False, indent=4)
-    
     print(f"Final table row saved to: {output_path}")
+    
+    pp_output_path = os.path.join(output_dir, "document_pp.txt")
+    table_string = json.dumps(table_row, indent=2)
+    pp_output = ask_gemini(text = table_string,prompt_path="prompts/post_processing.txt")
+    with open(pp_output_path, "w", encoding="utf-8") as f:
+        f.write(pp_output)
+        
+    print(f"Final post processed table row saved to: {pp_output_path}")
+    # Evaluate the post-processed output    
+    full_document_name = document_name + ".pdf"
+    gold_csv_file = "GoldTable.csv"
+    print("Evaluating...")    
+    result = evaluate_post_processed_output(document_name,post_processed_text=pp_output,gold_csv_file = gold_csv_file, prompt_path = "prompts/evaluation_prompt.txt")
+    with open(os.path.join(output_dir, "evaluation_results.txt"), "w", encoding="utf-8") as f:
+        f.write(result)
     return table_row

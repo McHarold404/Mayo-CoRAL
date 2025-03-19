@@ -71,7 +71,7 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info):
     print(f"Column values to be extracted: {columns_info}")  # Debugging line
     for chunk in sampled_chunks:  # Limit to 5 chunks
         #print(f"Processing chunk: {chunk['content']}")  # Debugging line
-        input_text = f"Column Values to be Extracted: {columns_info} \n\nContext: {chunk['content']}"
+        input_text = f"Column Values to be Extracted: {columns_info} \n\nContext: {chunk['content'] if chunk['type'] == 'text' else chunk['table_content']}"
         response = ask_gemini(prompt_path = "prompts/draft_answer.txt", text=input_text)
         time.sleep(4)
         if response:
