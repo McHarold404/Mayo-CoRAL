@@ -3,6 +3,7 @@ import google.generativeai as genai
 import time 
 import json
 from dotenv import load_dotenv
+from token_tracker import add_tokens
 
 class GeminiBot:
     def __init__(self, api_key=None, model_name="gemini-1.5-flash", 
@@ -37,6 +38,9 @@ class GeminiBot:
     def get_response(self, user_message):
         try:
             response = self.chat_session.send_message(user_message)
+            if response.usage_metadata:
+                global total_token_usage
+                total_token_usage += response.usage_metadata.total_token_count
             return response.text
         except Exception as e:
             return f"An error occurred: {str(e)}"
@@ -162,7 +166,11 @@ def ask_gemini(text : str, prompt_path : str =None, key = 2,model_name = "gemini
         chat_session = model.start_chat(history=[])
         # Get the response by sending the prompt
         response = chat_session.send_message(text)
+        if response.usage_metadata:
+            add_tokens(response.usage_metadata.prompt_token_count,response.usage_metadata.candidates_token_count)
+
         return response.text
+
 
     except Exception as e:
         return f"An error occurred: {str(e)}"
@@ -237,7 +245,10 @@ def ask_gemini_with_image(image, prompt_path: str, key=2, model_name="gemini-2.0
     try:
         response = model.generate_content([prompt, processed_image])
         if response and hasattr(response, 'text'):
+            if response.usage_metadata:
+                add_tokens(response.usage_metadata.prompt_token_count,response.usage_metadata.candidates_token_count)
             return response.text
+       
         else:
             return "No valid response received from Gemini."
     except Exception as e:

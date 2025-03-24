@@ -1,35 +1,48 @@
-You are provided with multiple JSON outputs from different chunks. Each JSON object contains extracted column values with the following format:
-
+You are provided with multiple responses, each containing two parts:
+1. A **reasoning chain** that explains how the extracted values were derived.
+2. A **JSON object** that contains the extracted column values in the following format:
+  
+```json
 {
   "Column Name 1": "Extracted Value 1",
   "Column Name 2": "Extracted Value 2",
-  ... 
+  ...
 }
+```
 
 **Task:**
-- Review all the provided JSON outputs.
-- For each column, compare the extracted values from the different outputs.
-- Select the best answer for each column based on these criteria:
-  - **Completeness:** Choose the output that provides the most complete data (i.e., not "not present" if a valid value is found in another).
-  - **Consistency:** If multiple outputs provide the same value, use that value.
-  - **Accuracy:** If outputs conflict, prioritize the answer that appears most accurate, well-formatted, or is supported by clearer evidence (e.g., explicitly stated hazard ratios and confidence intervals).
-  - **Fallback:** If no output provides a value for a column, mark it as "not present".
 
-**Instructions:**
-1. **Compare Outputs:** For each column, list all the values provided by the different JSON outputs.
-2. **Evaluate and Select:**
-   - If one output gives a valid value and others mark "not present," choose the valid value.
-   - If multiple outputs give valid values that conflict, decide on the best one based on clarity and completeness.
-   - If all outputs are "not present," return "not present" for that column.
-3. **Compile Final Answer:** Consolidate your selected values for each column into one final JSON object.
+1. **Review All Responses:**  
+   - For each column, review the extracted values across the different responses.
+   - Also review each response’s reasoning chain to understand the derivation of its values.
+
+2. **Compare and Evaluate:**  
+   For every column, determine the best extracted value by considering:
+   - **Completeness:** Choose a response that does not use “not present” if at least one valid value is provided.
+   - **Consistency:** If multiple responses agree on a value, that consensus value should be preferred.
+   - **Accuracy:** If there is conflict, prioritize the value that is supported by a clear and logical reasoning chain (e.g., explicit numbers, hazard ratios, confidence intervals).
+   - **Fallback:** If every response indicates “not present” for a column, then the final answer for that column should be “not present.”
+
+3. **Compile the Final Answer:**  
+   Consolidate your best-selected values for each column into a single final JSON object.
 
 **Output Format:**
 
-Return your final answer as a JSON object following this exact format:
+Return your answer in the exact following structure:
+
+```
+### REASONING STEPS
+[Provide a detailed, step-by-step explanation of how you evaluated each column. For each column, list all candidate values along with the key points from the reasoning chains that influenced your decision.]
+
+### FINAL ANSWER
 {
   "Column Name 1": "Extracted Value 1",
   "Column Name 2": "Extracted Value 2",
-  ... 
+  ...
 }
+```
 
-Ensure that every column name exactly matches those provided in the inputs, and that the final JSON object contains the best answer for each column.
+Ensure that:
+- Every column name in the final JSON object exactly matches those provided in the inputs.
+- You include both the detailed reasoning and the final answer in the specified format.
+- No extra commentary is added outside the two designated sections.

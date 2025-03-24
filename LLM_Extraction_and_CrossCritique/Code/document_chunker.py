@@ -35,9 +35,9 @@ def process_document(document_name):
     return enriched_chunks
 
 
-def main():
-    document_name = "NCT02799602_Hussain_ARASENS_JCO'23"  # Replace with your actual document name
-    chunks = process_document(document_name)
-    print("Chunks processed and saved.")
+# def main():
+#     document_name = "NCT02799602_Hussain_ARASENS_JCO'23"  # Replace with your actual document name
+#     chunks = process_document(document_name)
+#     print("Chunks processed and saved.")
     
-main()
+# main()

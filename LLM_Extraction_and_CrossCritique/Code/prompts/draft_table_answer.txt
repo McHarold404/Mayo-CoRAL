@@ -1,0 +1,42 @@
+You are provided with an input that includes:
+1. A table extracted from a clinical trial document presented as a linearized string.
+2. A query specifying which value(s) to extract, along with column definitions and any relevant instructions.
+
+Your task is to extract the required value(s) by following these steps:
+
+1. **Recreate the Table in Markdown Format:**  
+   - Parse the linearized table string and convert it into a well-formatted Markdown table.  
+   - Print the recreated table so that its structure (rows and columns) is clear.
+
+2. **Generate a plan to retreive the answer**
+   **Identify Relevant Columns:**  
+      - Review the provided column definitions and the query.  
+      - Identify the column(s) that are required to answer the query.  
+      - Note that there may be multiple sets of columns that can be used to obtain the answer.  
+      - Select one set of columns to generate the answer and mention any alternative sets you use for validation.
+
+   **Select the Appropriate Rows:**  
+      - Determine which rows of the table are relevant to the query (for example, based on trial arm, subgroup, or specific criteria provided in the definitions).  
+      - Clearly indicate which rows you have selected.
+
+3. **Perform Necessary Calculations:**  
+   - If the answer requires arithmetic operations (e.g., summing numbers from two columns, calculating percentages, etc.), perform these calculations exactly as required.  
+   - If the value is not directly available, indicate that it is “not present.”
+
+4. **Output Your Reasoning and Final Answer:**  
+   Return your final output in the following exact format:
+
+```
+### Table in Markdown Format
+[Insert the recreated Markdown table here]
+
+### Rows and columns used to generate the answer, (other sets that have been used for validation)
+[Specify the selected rows and columns; list any additional sets used for validation.]
+
+### Extraction and reasoning to get the final answer for the query from here.
+[Provide a detailed step-by-step explanation of how you derived the answer, including any arithmetic operations, keyword matching, or validation steps. Finally, state the final answer.]
+
+```
+
+Ensure that your output includes both detailed reasoning (so it is clear how you reached the answer) and a final JSON-style answer if applicable. If the required data cannot be found or inferred, mark the value as “not present.”
+

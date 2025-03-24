@@ -1,8 +1,9 @@
 import os
 import json
-from model_inference.gpt import ask_chatgpt # Using ask_gemini with system prompt path
-from model_inference.gemini import ask_gemini  # Using ask_gemini with system prompt path
 import time
+import sys
+from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system prompt path
+from model_inference.gemini import ask_gemini    # Using ask_gemini with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
 from utils import evaluate_post_processed_output
 
@@ -24,22 +25,7 @@ def generate_dynamic_query(group_label, columns_info, config):
     definitions_text = "\n".join(
         [f"Find the value of {col['Column Name']}: {col['Definition']}" for col in columns_info]
     )
-    
-    # Set the path for the system prompt file containing the detailed extraction instructions.
-    # system_prompt_path = "prompts/dynamic_query_prompt.txt"
-    
-    # # Call ask_gemini using the system prompt (from file) and the group definitions as text.
-    # dynamic_query = ask_gemini(prompt_path=system_prompt_path, text=definitions_text)
-    
-    model_fn = get_model_function(config["model"]["type"])
-    system_prompt_path = config["prompts"]["dynamic_query_prompt"]
-    dynamic_query = model_fn(
-        prompt_path=system_prompt_path,
-        text=definitions_text,
-        api_key=config["model"]["api_key"]
-    )
-    
-    return dynamic_query.strip()
+    return definitions_text
 
 def populate_table_row(document_name, definitions_groups, chunks, config):
     """
@@ -51,6 +37,8 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
     Save the final table row (as a dict) to db/{document_name}/document.json.
     Also, for each group, save a .txt file (named by the group label) in the same directory
     that contains the column info and the retrieved chunks (up to 5) for verification.
+    After processing each group, store its final answer in a file running_outputs.txt in the same directory.
+    Then, use the contents of this file as input to the post processing call.
     """
     table_row = {}
     
@@ -64,8 +52,33 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
     
     model_fn = get_model_function(config["model"]["type"])
     
+    # Define a path for the running outputs file.
+    running_outputs_path = os.path.join(output_dir, "running_outputs.txt")
+    
+    # Load previous running outputs if available
+    running_outputs = {}
+    if os.path.exists(running_outputs_path):
+        with open(running_outputs_path, "r", encoding="utf-8") as f:
+            try:
+                running_outputs = json.load(f)
+            except Exception:
+                running_outputs = {}
+    
+    # Define sanitize_filename function to handle group file naming.
+    def sanitize_filename(filename):
+        import re
+        return re.sub(r'[\/\\:*?"<>|]', '_', filename)
+    
     for group_label, columns_info in definitions_groups.items():
-        time.sleep(30)  # Simulate wait time for dynamic query generation
+        group_file_path = os.path.join(output_dir, f"{sanitize_filename(group_label)}.txt")
+        # If the group file exists, skip reprocessing this group.
+        if os.path.exists(group_file_path):
+            print(f"Group '{group_label}' already processed. Skipping.")
+            if group_label in running_outputs:
+                table_row[group_label] = running_outputs[group_label]
+            continue
+        
+        time.sleep(10)  # Simulate wait time for dynamic query generation
         print(cnt)
         cnt += 1
         print(f"Processing group: {group_label}, columns: {len(columns_info)}")
@@ -73,34 +86,35 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         # Generate dynamic query for this group
         query = generate_dynamic_query(group_label, columns_info, config)
         table_chunks = [chunk for chunk in chunks if chunk['type'] == 'table']
+        
         # Run the speculative retrieval pipeline for the current group.
-        sampled_chunks, group_answer = speculative_rag_pipeline(retreival_query=query, chunks=chunks, columns_info=columns_info)
+        sampled_chunks, candidate_answers, group_answer = speculative_rag_pipeline(
+            retreival_query=query, chunks=chunks, columns_info=columns_info)
         
         # Map the answer to the group label in the final table row.
         table_row[group_label] = group_answer
+        running_outputs[group_label] = group_answer  # update running outputs
+        
         print(f"Group '{group_label}' processed.")
         
-        # Prepare text file content.
+        # Prepare text file content for verification.
         file_content = f"Group: {group_label}\n\n"
         file_content += "Column Info:\n"
         file_content += json.dumps(columns_info, indent=4, ensure_ascii=False) + "\n\n"
-        file_content += "Retrieved Chunks:\n"
+        file_content += "Retrieved Chunks and Answers Generated from Each:\n"
         
         for i, chunk in enumerate(sampled_chunks):
-                file_content += f"Chunk {i+1}:\n{chunk['content']}\n\n"
-
-        def sanitize_filename(filename):
-            import re
-            # Replace invalid characters (/, \, :, *, ?, ", <, >, |) with an underscore
-            return re.sub(r'[\/\\:*?"<>|]', '_', filename)
-
-        group_file_path = os.path.join(output_dir, f"{sanitize_filename(group_label)}.txt")
-        # Save the text file for this group.
+            file_content += f"Chunk {i+1}:\n{chunk['content']}\n\n"
+            file_content += f"Answer {i+1}:\n{candidate_answers[i]}\n\n"
+        file_content += f"Selected Answer:\n{group_answer}\n\n"
         
-        # group_file_path = os.path.join(output_dir, f"{group_label.replace("/",)}.txt")
         with open(group_file_path, "w", encoding="utf-8") as f:
             f.write(file_content)
         print(f"Group details saved to: {group_file_path}")
+        
+        # Update running outputs file after each group.
+        with open(running_outputs_path, "w", encoding="utf-8") as f:
+            json.dump(running_outputs, f, indent=4, ensure_ascii=False)
     
     # Save the final table row to a JSON file.
     output_path = os.path.join(output_dir, "document.json")
@@ -110,11 +124,14 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
     
     ## Post Processing and saving the final output
     pp_output_path = os.path.join(output_dir, "document_pp.txt")
-    table_string = json.dumps(table_row, indent=2)
+    # Instead of using table_row, load running outputs from the file to ensure all groups are included.
+    with open(running_outputs_path, "r", encoding="utf-8") as f:
+        running_outputs = json.load(f)
+    table_string = json.dumps(running_outputs, indent=2)
     pp_output = model_fn(
         text=table_string,
         prompt_path=config["prompts"]["post_processing"],
-        api_key=config["model"]["api_key"]
+        key=config["model"]["key"]
     )
     with open(pp_output_path, "w", encoding="utf-8") as f:
         f.write(pp_output)
@@ -131,6 +148,8 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         gold_csv_file=gold_csv_file,
         prompt_path=config["prompts"]["evaluation_prompt"]
     )
-    with open(os.path.join(output_dir, "evaluation_results.txt"), "w", encoding="utf-8") as f:
+    evaluation_path = os.path.join(output_dir, "evaluation_results.txt")
+    with open(evaluation_path, "w", encoding="utf-8") as f:
         f.write(result)
+    print(f"Evaluation results saved to: {evaluation_path}")
     return table_row

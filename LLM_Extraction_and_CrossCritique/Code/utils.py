@@ -99,13 +99,13 @@ def evaluate_post_processed_output(document_name, post_processed_text, gold_csv_
     evaluation = ask_gemini(prompt_path = prompt_path,text = unified_mapping)
     return evaluation
 
-with open("db/NCT02799602_Hussain_ARASENS_JCO'23/document_pp_only_tables.txt", "r", encoding="utf-8") as f:
-    pp_text = f.read()
+# with open("db/NCT02799602_Hussain_ARASENS_JCO'23/document_pp_only_tables.txt", "r", encoding="utf-8") as f:
+#     pp_text = f.read()
 
-evaluation = evaluate_post_processed_output(document_name="NCT02799602_Hussain_ARASENS_JCO'23.pdf",
-                                post_processed_text=pp_text,
-                                gold_csv_file="GoldTable.csv",
-                                prompt_path="prompts/evaluation_prompt.txt")
+# evaluation = evaluate_post_processed_output(document_name="NCT02799602_Hussain_ARASENS_JCO'23.pdf",
+#                                 post_processed_text=pp_text,
+#                                 gold_csv_file="GoldTable.csv",
+#                                 prompt_path="prompts/evaluation_prompt.txt")
 
-with open("db/NCT02799602_Hussain_ARASENS_JCO'23/eval_only_tables.txt", "w", encoding="utf-8") as f:
-    f.write(evaluation)
+# with open("db/NCT02799602_Hussain_ARASENS_JCO'23/eval_only_tables.txt", "w", encoding="utf-8") as f:
+#     f.write(evaluation)

@@ -55,7 +55,7 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info):
         return "No relevant chunks found."
 
 
-    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(10, len(chunks)))
+    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(5, len(chunks)))
     clustered_chunks = relevant_chunks
     #clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
 
@@ -71,8 +71,9 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info):
     print(f"Column values to be extracted: {columns_info}")  # Debugging line
     for chunk in sampled_chunks:  # Limit to 5 chunks
         #print(f"Processing chunk: {chunk['content']}")  # Debugging line
-        input_text = f"Column Values to be Extracted: {columns_info} \n\nContext: {chunk['content'] if chunk['type'] == 'text' else chunk['table_content']}"
-        response = ask_gemini(prompt_path = "prompts/draft_answer.txt", text=input_text)
+        input_text = f"Find the value of: {columns_info} \n\nContext: {chunk['content'] if chunk['type'] == 'text' else chunk['table_content']}"
+        system_prompt_path = "prompts/draft_answer.txt" if chunk['type'] == 'text' else "prompts/draft_table_answer.txt"
+        response = ask_gemini(prompt_path = system_prompt_path, text=input_text)
         time.sleep(4)
         if response:
             responses.append(response)
@@ -83,7 +84,7 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info):
     # Select the most relevant response (could use ranking if needed)
     best_answer = select_best_answer(responses=responses,columns_info=columns_info)  # Can be improved using scoring
     #print(f"Best answer selected: {best_answer}")  # Debugging line
-    return sampled_chunks,best_answer
+    return sampled_chunks,responses, best_answer
 
 def select_best_answer(responses, columns_info):
     """ Selects the best answer from the generated responses. """
