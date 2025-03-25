@@ -8,6 +8,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from model_inference.gemini import *
+from model_inference.gpt import *
 from utils import extract_caption
 
 # Load NLP model for text segmentation
@@ -148,7 +149,7 @@ import fitz  # PyMuPDF
 from PIL import Image
 from io import BytesIO
 
-def enrich_table_chunks(chunks, pdf_path, prompt_path):
+def enrich_table_chunks(chunks, pdf_path, prompt_path,config):
     """
     For each table chunk in the provided chunks, this function extracts the corresponding page image 
     from the PDF as a PIL object and sends it to Gemini using the ask_gemini_with_images function 
@@ -180,9 +181,9 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path):
 
                 # Convert bytes to PIL Image object
                 img_pil = Image.open(BytesIO(img_bytes))
-
+                
                 # Call ask_gemini_with_images with the PIL image and prompt_path.
-                gemini_output = ask_gemini_with_image(img_pil,prompt_path)
+                gemini_output = ask_gemini_with_image(img_bytes,prompt_path,key = config["model"]["key"])
 
                 # Save the output from Gemini into the chunk.
                 chunk["table_content"] = gemini_output

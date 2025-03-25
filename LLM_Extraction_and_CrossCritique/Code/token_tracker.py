@@ -2,8 +2,8 @@
 total_output_tokens = 0
 total_input_tokens = 0
 total_token_cost = 0  # renamed for clarity
-input_token_cost_per_million = 0.1
-output_token_cost_per_million = 0.4
+input_token_cost_per_million = 0.1 #for gpt - 2.5 dollars
+output_token_cost_per_million = 0.4 #for gpt - 10 dollars
 
 def add_tokens(input_tokens: int, output_tokens: int):
     global total_input_tokens, total_output_tokens

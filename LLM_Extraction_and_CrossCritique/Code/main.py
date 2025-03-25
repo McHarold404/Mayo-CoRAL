@@ -16,7 +16,7 @@ def main(config):
     document_name = config["document_name"]
     
     # Step 1: Process the document (chunking + storing hybrid_chunks.json)
-    chunks = process_document(document_name)
+    chunks = process_document(document_name,config=config)
     
     # Step 2: Load the column definitions from Definitions.csv and group them by label
     definitions_groups = load_definitions(config["definitions_file"])

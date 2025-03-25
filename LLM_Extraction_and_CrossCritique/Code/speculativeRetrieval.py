@@ -10,6 +10,7 @@ from model_inference.llama import *
 import sys
 import os
 from dotenv import load_dotenv  # Correct import
+from utils import get_model_function
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from k_retrieval import retrieve_chunks  # Now Python should find it
@@ -49,7 +50,7 @@ def sample_chunks_from_clusters(clustered_chunks):
     return [cluster[0] for cluster in clustered_chunks.values() if cluster]
 
 
-def speculative_rag_pipeline(retreival_query, chunks,columns_info):
+def speculative_rag_pipeline(retreival_query, chunks,columns_info,config):
     """ Full Speculative RAG: retrieval → clustering → sampling → verification → final answer selection. """
     if not chunks:
         return "No relevant chunks found."
@@ -73,8 +74,11 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info):
         #print(f"Processing chunk: {chunk['content']}")  # Debugging line
         input_text = f"Find the value of: {columns_info} \n\nContext: {chunk['content'] if chunk['type'] == 'text' else chunk['table_content']}"
         system_prompt_path = "prompts/draft_answer.txt" if chunk['type'] == 'text' else "prompts/draft_table_answer.txt"
-        response = ask_gemini(prompt_path = system_prompt_path, text=input_text)
-        time.sleep(4)
+        model_fn = get_model_function(config["model"]["type"])
+        response = model_fn(
+        text=input_text,
+        prompt_path=system_prompt_path,
+        key=config["model"]["key"])
         if response:
             responses.append(response)
 
@@ -82,16 +86,16 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info):
         return "Failed to generate responses."
 
     # Select the most relevant response (could use ranking if needed)
-    best_answer = select_best_answer(responses=responses,columns_info=columns_info)  # Can be improved using scoring
+    best_answer = select_best_answer(responses=responses,columns_info=columns_info,config=config)  # Can be improved using scoring
     #print(f"Best answer selected: {best_answer}")  # Debugging line
     return sampled_chunks,responses, best_answer
 
-def select_best_answer(responses, columns_info):
+def select_best_answer(responses, columns_info,config):
     """ Selects the best answer from the generated responses. """
     # Combine the candidate responses with newline separation.
     candidates_text = "\n\n".join([f"Response{i}:{response}\n" for i, response in enumerate(responses)])
     prompt_path = "prompts/select_best_answer.txt"
-    
-    best_answer = ask_gemini(prompt_path=prompt_path, text= candidates_text)
+    model_fn = get_model_function(config["model"]["type"])
+    best_answer = model_fn(prompt_path=prompt_path, text= candidates_text,key=config["model"]["key"])
     return best_answer.strip()
 

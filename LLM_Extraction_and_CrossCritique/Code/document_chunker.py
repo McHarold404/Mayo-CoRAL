@@ -2,7 +2,7 @@ import os
 import json
 from k_chunking import chunking, save_chunks_to_json, enrich_table_chunks  # Using your existing chunking functions
 
-def process_document(document_name):
+def process_document(document_name,config):
     """
     Processes a single document by:
       1. Checking if hybrid_chunks.json already exists in db/{document_name}.
@@ -28,7 +28,7 @@ def process_document(document_name):
     
     # Process document using the existing chunking code
     chunks = chunking(pdf_path)
-    enriched_chunks = enrich_table_chunks(chunks = chunks, pdf_path= pdf_path,prompt_path= "prompts/extract_table.txt")
+    enriched_chunks = enrich_table_chunks(chunks = chunks, pdf_path= pdf_path,prompt_path= "prompts/extract_table.txt",config=config)
     save_chunks_to_json(enriched_chunks, output_path)
     
     print(f"Document processed and chunks saved to: {output_path}")

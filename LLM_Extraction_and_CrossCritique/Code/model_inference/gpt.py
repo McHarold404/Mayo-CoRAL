@@ -1,6 +1,8 @@
 import os
 from openai import OpenAI
 import json
+from token_tracker import add_tokens
+import base64
 
 client = OpenAI(api_key="")
 from dotenv import load_dotenv
@@ -112,11 +114,94 @@ if __name__ == "__main__":
     )
     bot.run_inference()
 
+# def ask_chatgpt_with_image(img, prompt_path=None, temperature=0.1, model_name="gpt-4o", key=1):
+#     # Load environment variables
+#     load_dotenv()
+#     if key == 1:
+#         api_key = os.getenv("OPENAI_API_KEY")
+#     elif key == 2:
+#         api_key = os.getenv("OPENAI_API_KEY_2")
+#     else:
+#         return "Error: API key not found"
+    
+#     client = OpenAI(api_key=api_key)
+    
+#     if prompt_path and img:
+#         with open(prompt_path, 'r') as file:
+#             prompt = file.read().strip()
+#     else:
+#         return "Error: no data given"
+    
+#     # Encode the image as base64
+#     formatted_img = base64.b64encode(img).decode('utf-8')
+    
+#     response = client.chat.completions.create(
+#         model=model_name,
+#         messages=[
+#             {'role': "system", "content": prompt},
+#             {'role': "user", "content": [
+#                 formatted_img
+#          ] }
+#         ],
+#         temperature=temperature,
+#     )
+    
+#     # Access usage using attribute notation
+#     usage = getattr(response, "usage", None)
+#     if usage is not None:
+#         add_tokens(usage.prompt_tokens, usage.completion_tokens)
+    
+#     # Retrieve the first choice using iteration
+#     content = None
+#     for choice in response.choices:
+#         content = choice.message.content
+#         break  # Use the first available choice
+    
+#     return content
+# def ask_chatgpt_with_image(img, prompt_path=None,temperature = 0.1,model_name = "gpt-4o",key = 1):
+#     # Check if a prompt path is provided and read prompt text
+#     load_dotenv()
+#     if key == 1:
+#         api_key =os.getenv("OPENAI_API_KEY")
+#     elif key == 2:
+#         api_key =os.getenv("OPENAI_API_KEY_2")
+#     else :
+#         return "Error: API key not found"
+#     client = OpenAI(api_key = api_key)
+#     if prompt_path and img:
+#         with open(prompt_path, 'r') as file:
+#             prompt = file.read().strip()
+#     else:
+#         return "Error: no data given"
 
-def ask_chatgpt(text: str, prompt_path=None,temperature = 0.1,model_name = "gpt-4o"):
+#     # Model configuration - replace 'gpt-4' with the specific model if needed
+#     #input = text + prompt
+#     # Send the prompt to the model
+#     formatted_img = base64.b64encode(img).decode('utf-8') 
+#     response = client.chat.completions.create(
+#     model=model_name,
+#     messages=[
+#         {'role' : "system" , "content" : prompt},
+#         {'role': "user" , "content": formatted_img}
+#     ],
+#     temperature=temperature,
+#     #top_p=0.1
+#     )
+        
+#     # Return the response content
+#     if response["usage"]:
+#         add_tokens(response["usage"]["prompt_tokens"],response["usage"]["completion_tokens"])
+#     return response.choices[0].message.content
+
+def ask_chatgpt(text:str, prompt_path=None,temperature = 0.1,model_name = "gpt-4o",key = 1):
     # Check if a prompt path is provided and read prompt text
     load_dotenv()
-    api_key =os.getenv("OPENAI_API_KEY")
+    if key == 1:
+        api_key =os.getenv("OPENAI_API_KEY")
+    elif key == 2:
+        api_key =os.getenv("OPENAI_API_KEY_2")
+    else :
+        return "Error: API key not found"
     client = OpenAI(api_key = api_key)
     if prompt_path and text:
         with open(prompt_path, 'r') as file:
@@ -124,9 +209,6 @@ def ask_chatgpt(text: str, prompt_path=None,temperature = 0.1,model_name = "gpt-
     else:
         return "Error: no data given"
 
-    # Model configuration - replace 'gpt-4' with the specific model if needed
-    #input = text + prompt
-    # Send the prompt to the model
     response = client.chat.completions.create(
     model=model_name,
     messages=[
@@ -138,53 +220,9 @@ def ask_chatgpt(text: str, prompt_path=None,temperature = 0.1,model_name = "gpt-
     )
         
     # Return the response content
+    usage = getattr(response, "usage", None)
+    if usage is not None:
+        add_tokens(usage.prompt_tokens, usage.completion_tokens)
     return response.choices[0].message.content
 
-import os
-from dotenv import load_dotenv
-import openai
 
-def ask_chatgpt_inline(prompt: str, text: str, temperature=0.1, top_p=1.0, model_name="gpt-4o"):
-    """
-    Send the prompt and text directly as variables to ChatGPT.
-    
-    Parameters:
-        prompt (str): The system prompt text.
-        text (str): The user's input text.
-        temperature (float): Sampling temperature.
-        top_p (float): Nucleus sampling probability threshold.
-        top_k (Optional[int]): Not supported by the OpenAI Chat API; provided for interface consistency.
-        model_name (str): The model to use.
-        
-    Returns:
-        str: The response content from ChatGPT.
-    """
-    load_dotenv()  # Load environment variables from a .env file, if available.
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        return "Error: OPENAI_API_KEY not set in the environment."
-    
-    openai.api_key = api_key
-
-    # if not prompt or not text:
-    #     return "Error: no data given"
-    
-    # Note: top_k is not supported by the OpenAI Chat API.
-    response = openai.chat.completions.create(
-        model=model_name,
-        messages=[
-            {"role": "system", "content": prompt},
-            {"role": "user", "content": text}
-        ],
-        temperature=temperature,
-        top_p=top_p
-    )
-    
-    return response.choices[0].message.content
-
-# Example usage:
-if __name__ == "__main__":
-    system_prompt = "You are a helpful assistant."
-    user_input = "Can you explain the benefits of a balanced diet?"
-    result = ask_chatgpt_inline(system_prompt, user_input, temperature=0.2, top_p=0.9, top_k=50)
-    print("ChatGPT Response:", result)

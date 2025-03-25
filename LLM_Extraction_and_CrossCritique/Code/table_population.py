@@ -5,16 +5,8 @@ import sys
 from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system prompt path
 from model_inference.gemini import ask_gemini    # Using ask_gemini with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
-from utils import evaluate_post_processed_output
+from utils import evaluate_post_processed_output,get_model_function
 
-def get_model_function(model_type):
-    """Returns the appropriate model function based on the config."""
-    if model_type.lower() == "gemini":
-        return ask_gemini
-    elif model_type.lower() == "gpt":
-        return ask_chatgpt
-    else:
-        raise ValueError(f"Unsupported model type: {model_type}")
 
 def generate_dynamic_query(group_label, columns_info, config):
     """
@@ -77,8 +69,8 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
             if group_label in running_outputs:
                 table_row[group_label] = running_outputs[group_label]
             continue
-        
-        time.sleep(10)  # Simulate wait time for dynamic query generation
+        if config["model"]["type"] == 'gemini':
+            time.sleep(60)  # Simulate wait time for dynamic query generation
         print(cnt)
         cnt += 1
         print(f"Processing group: {group_label}, columns: {len(columns_info)}")
@@ -89,7 +81,7 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         
         # Run the speculative retrieval pipeline for the current group.
         sampled_chunks, candidate_answers, group_answer = speculative_rag_pipeline(
-            retreival_query=query, chunks=chunks, columns_info=columns_info)
+            retreival_query=query, chunks=chunks, columns_info=columns_info,config = config)
         
         # Map the answer to the group label in the final table row.
         table_row[group_label] = group_answer
@@ -146,8 +138,9 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         document_name=full_document_name,
         post_processed_text=pp_output,
         gold_csv_file=gold_csv_file,
-        prompt_path=config["prompts"]["evaluation_prompt"]
-    )
+        prompt_path=config["prompts"]["evaluation_prompt"],
+        config=config
+        )
     evaluation_path = os.path.join(output_dir, "evaluation_results.txt")
     with open(evaluation_path, "w", encoding="utf-8") as f:
         f.write(result)

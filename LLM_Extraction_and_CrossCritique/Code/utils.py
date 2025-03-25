@@ -1,6 +1,15 @@
 import re
 from model_inference.gemini import ask_gemini
+from model_inference.gpt import ask_chatgpt
 
+def get_model_function(model_type):
+    """Returns the appropriate model function based on the config."""
+    if model_type.lower() == "gemini":
+        return ask_gemini
+    elif model_type.lower() == "gpt":
+        return ask_chatgpt
+    else:
+        raise ValueError(f"Unsupported model type: {model_type}")
 def extract_caption(text):
     """
     Extracts the caption portion from the provided text.
@@ -55,7 +64,7 @@ def build_unified_mapping(filtered_gold, post_processed_output):
         lines.append(f"{key}: {gold_value}, {predicted_value}")
     return "\n".join(lines)
 
-def evaluate_post_processed_output(document_name, post_processed_text, gold_csv_file, prompt_path):
+def evaluate_post_processed_output(document_name, post_processed_text, gold_csv_file, prompt_path,config):
     """
     Evaluates the post-processed output against the gold labels for a given document.
     
@@ -95,8 +104,8 @@ def evaluate_post_processed_output(document_name, post_processed_text, gold_csv_
     
     # Step 4: Build unified mapping string.
     unified_mapping = build_unified_mapping(filtered_gold_labels, post_processed_output)
-
-    evaluation = ask_gemini(prompt_path = prompt_path,text = unified_mapping)
+    model_fn = get_model_function(config["model"]["type"])
+    evaluation = model_fn(prompt_path = prompt_path,text = unified_mapping,key = config["model"]["key"])
     return evaluation
 
 # with open("db/NCT02799602_Hussain_ARASENS_JCO'23/document_pp_only_tables.txt", "r", encoding="utf-8") as f:
