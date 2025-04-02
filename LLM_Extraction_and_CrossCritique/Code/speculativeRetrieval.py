@@ -28,6 +28,13 @@ client = openai.OpenAI(api_key=api_key)  # New API format
 # Sentence Transformer Model for embeddings
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
 
+
+# from transformers import AutoTokenizer, HF_ColBERT
+
+# tokenizer = AutoTokenizer.from_pretrained("colbert-ir/colbertv2.0")
+# model = HF_ColBERT.from_pretrained("colbert-ir/colbertv2.0")
+
+
 def cluster_chunks(chunks, n_clusters=5):
     """ Groups similar chunks together based on semantic similarity. """
     if not chunks:
@@ -58,9 +65,9 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info,config):
 
     relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(5, len(chunks)))
     clustered_chunks = relevant_chunks
-    #clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
+    # clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
 
-    # Sample representative chunks
+    # # Sample representative chunks
     sampled_chunks = clustered_chunks
     #sampled_chunks = sample_chunks_from_clusters(clustered_chunks)
     print("Sampled chunks:", len(sampled_chunks))  # Debugging line
