@@ -15,7 +15,7 @@ from utils import extract_caption
 nlp = spacy.load("en_core_web_sm")
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2")  # Lightweight model for semantic merging
 
-def semantic_text_chunking(text, min_size=500, merge_threshold=0.8):
+def semantic_text_chunking(text, min_size=1000,merge_threshold=0.8):
     """
     Uses NLP to split text into semantic chunks and merges similar chunks based on embeddings.
     """
@@ -118,7 +118,7 @@ def chunking(pdf_path):
         for page_num, page in enumerate(doc, start=1):
             raw_text = page.get_text("text")
             if raw_text.strip():
-                text_chunks = semantic_text_chunking(raw_text)
+                text_chunks = semantic_text_chunking(raw_text,min_size=1000)
                 for chunk in text_chunks:
                     chunks.append({
                         "type": "text",
@@ -183,7 +183,7 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path,config):
                 img_pil = Image.open(BytesIO(img_bytes))
                 
                 # Call ask_gemini_with_images with the PIL image and prompt_path.
-                gemini_output = ask_gemini_with_image(img_bytes,prompt_path,key = config["model"]["key"])
+                gemini_output = ask_gemini_with_image(img_pil,prompt_path,key = config["model"]["key"])
 
                 # Save the output from Gemini into the chunk.
                 chunk["table_content"] = gemini_output
