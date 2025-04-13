@@ -118,3 +118,44 @@ def evaluate_post_processed_output(document_name, post_processed_text, gold_csv_
 
 # with open("db/NCT02799602_Hussain_ARASENS_JCO'23/eval_only_tables.txt", "w", encoding="utf-8") as f:
 #     f.write(evaluation)
+
+def calculate_accuracy_and_append(file_path: str) -> None:
+    """
+    Reads the file at file_path line-by-line.
+
+    For each line:
+      - If the line contains "Not Equivalent", it is counted as an incorrect variable.
+      - Else if the line contains "Equivalent" (and not "Not Equivalent"), it is counted as a correct variable.
+    Only lines containing one of these two markers are counted.
+
+    The accuracy is calculated as:
+        accuracy_percent = (number of correct (Equivalent) lines / total counted lines) * 100
+
+    An evaluation summary is then appended to the end of the file in the following format:
+        Total Evaluated Lines: <total>
+        Equivalent Lines: <correct>
+        Accuracy: <accuracy_percent>%
+    """
+    correct = 0
+    total = 0
+
+    with open(file_path, 'r', encoding="utf-8") as file:
+        for line in file:
+            # Check for "Not Equivalent" first (it includes the substring "Equivalent").
+            if "Not Equivalent" in line:
+                total += 1
+            elif "Equivalent" in line:
+                total += 1
+                correct += 1
+
+    # Compute the accuracy as a percentage
+    accuracy_percent = (correct / total * 100) if total > 0 else 0
+
+    evaluation_statement = (
+        f"\nTotal Evaluated Lines: {total}\n"
+        f"Equivalent Lines: {correct}\n"
+        f"Accuracy: {accuracy_percent:.2f}%"
+    )
+
+    with open(file_path, 'a', encoding="utf-8") as file:
+        file.write(evaluation_statement)

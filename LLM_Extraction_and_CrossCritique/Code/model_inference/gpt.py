@@ -34,7 +34,7 @@ class GPT4MiniBot:
 
     def load_prompt(self):
         try:
-            with open(self.prompt_path, 'r') as file:
+            with open(self.prompt_path, 'r', encoding="utf-8") as file:
                 return file.read().strip()
         except FileNotFoundError:
             print(f"Prompt file not found at {self.prompt_path}")
@@ -45,7 +45,7 @@ class GPT4MiniBot:
 
     def load_data(self):
         try:
-            with open(self.data_path, 'r') as file:
+            with open(self.data_path, 'r', encoding="utf-8") as file:
                 return [line.strip() for line in file if line.strip()]
         except FileNotFoundError:
             print(f"Data file not found at {self.data_path}")
@@ -59,7 +59,7 @@ class GPT4MiniBot:
             print(f"Error reading meta data, file not found")
             return []
         try:
-            with open(self.meta_data,"r") as json_file:
+            with open(self.meta_data,"r", encoding="utf-8") as json_file:
                 meta = json.load(json_file)
             return [x['response'] for x in meta]
         
@@ -100,7 +100,7 @@ class GPT4MiniBot:
             #print("-" * 50)
         print("saving outputs")
         try:
-            with open(self.output_path,"w") as json_file:
+            with open(self.output_path,"w", encoding="utf-8") as json_file:
                 json.dump(results,json_file,indent=2)
         except Exception as e:
             print("Error occured")
@@ -204,7 +204,7 @@ def ask_chatgpt(text:str, prompt_path=None,temperature = 0.1,model_name = "gpt-4
         return "Error: API key not found"
     client = OpenAI(api_key = api_key)
     if prompt_path and text:
-        with open(prompt_path, 'r') as file:
+        with open(prompt_path, 'r', encoding="utf-8") as file:
             prompt = file.read().strip()
     else:
         return "Error: no data given"

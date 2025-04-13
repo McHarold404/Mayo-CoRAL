@@ -5,7 +5,7 @@ import sys
 from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system prompt path
 from model_inference.gemini import ask_gemini    # Using ask_gemini with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
-from utils import evaluate_post_processed_output,get_model_function
+from utils import evaluate_post_processed_output,get_model_function,calculate_accuracy_and_append
 
 
 def generate_dynamic_query(group_label, columns_info, config):
@@ -273,6 +273,15 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
     
     ## Post Processing and saving the final output
     pp_output_path = os.path.join(output_dir, "document_pp.txt")
+
+
+#k adds
+    if not os.path.exists(running_outputs_path):
+        print(f"[WARN] Missing {running_outputs_path}. Cannot proceed with post-processing.")
+        return table_row  # Or you could raise an error if post-processing is required
+    
+#k adds
+
     # Reload running outputs from file to ensure all groups are included.
     with open(running_outputs_path, "r", encoding="utf-8") as f:
         running_outputs = json.load(f)
@@ -301,6 +310,7 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
     evaluation_path = os.path.join(output_dir, "evaluation_results.txt")
     with open(evaluation_path, "w", encoding="utf-8") as f:
         f.write(result)
+    calculate_accuracy_and_append(evaluation_path)
     print(f"Evaluation results saved to: {evaluation_path}")
     
     return table_row
