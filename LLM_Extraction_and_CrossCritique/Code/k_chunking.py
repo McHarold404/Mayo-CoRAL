@@ -324,13 +324,24 @@ def chunking(pdf_path):
 
     try:
         text_doc = fitz.open(pdf_path)
+        stop_processing = False  # Flag to stop processing after finding "References"
 
         for page_num in range(len(text_doc)):
+            if stop_processing:
+                break  # ✅ Skip all pages after references
+
             page_chunks = []
             page = text_doc[page_num]
             raw_text = page.get_text("text")
 
-            # Step 1: Process text (unconditionally)
+            # 🔍 Detect the start of "References" section
+            match = re.search(r'(?i)\b(references|bibliography)\b', raw_text)
+            if match:
+                stop_processing = True  # ✅ This is the last page we'll process
+                # ✂️ Cut off the page content from the reference section onwards
+                raw_text = raw_text[:match.start()].strip()
+
+            # Step 1: Text chunking
             if raw_text.strip():
                 for chunk in semantic_text_chunking(raw_text):
                     page_chunks.append({
@@ -340,7 +351,7 @@ def chunking(pdf_path):
                         "length": len(chunk)
                     })
 
-            # Step 2: Detect if page likely has a table (by keyword)
+            # Step 2: Detect table (only if relevant keyword appears)
             if any(keyword in raw_text for keyword in ["Table", "TABLE", "table"]):
                 pix = page.get_pixmap(matrix=fitz.Matrix(4, 4))  # High-res render
                 img_bytes = pix.tobytes("png")
@@ -352,10 +363,10 @@ def chunking(pdf_path):
                     "page": page_num + 1,
                     "length": len(image_base64),
                     "source": "image",
-                    "image_base64": image_base64  # ✅ Required for later enrichment
+                    "image_base64": image_base64
                 })
 
-            # Step 3: Extract all images from the page
+            # Step 3: Extract images from the current page
             image_chunks = extract_images_for_page(page, page_num + 1)
             page_chunks.extend(image_chunks)
 
@@ -367,6 +378,7 @@ def chunking(pdf_path):
         print(f"Chunking failed: {e}")
 
     return chunks
+
 
 def save_chunks_to_json(chunks, output_path):
     with open(output_path, "w", encoding="utf-8") as json_file:
