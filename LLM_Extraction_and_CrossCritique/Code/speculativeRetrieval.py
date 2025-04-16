@@ -57,7 +57,7 @@ def sample_chunks_from_clusters(clustered_chunks):
     return [cluster[0] for cluster in clustered_chunks.values() if cluster]
 
 
-def speculative_rag_pipeline(retreival_query, chunks,columns_info,config):
+def speculative_rag_pipeline(context, retreival_query, chunks,columns_info,config):
     """ Full Speculative RAG: retrieval → clustering → sampling → verification → final answer selection. """
     if not chunks:
         return "No relevant chunks found."
@@ -83,6 +83,7 @@ def speculative_rag_pipeline(retreival_query, chunks,columns_info,config):
         system_prompt_path = "prompts/draft_answer.txt" if chunk['type'] == 'text' else "prompts/draft_table_answer.txt"
         model_fn = get_model_function(config["model"]["type"])
         response = model_fn(
+        history = context,
         text=input_text,
         prompt_path=system_prompt_path,
         key=config["model"]["key"])

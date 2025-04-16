@@ -8,6 +8,8 @@ For each column, please evaluate whether the gold label and the predicted output
 
 1. **Non-numeric values:** Consider them equivalent if they have a similar meaning (e.g., synonyms or semantically similar phrases).  
 2. **Numeric values:** They must be exactly equal to be deemed equivalent.
+3. **Missing Data**: If gold table has nan and the predicted value says "Not Available"/"Not present", they are considered equivalent.
+4. *Handling zeros* : If the predicted value has all zeros for eg: "0 (0%)", and the gold value is nan, they are also considered equivalent.
 
 For each column, output a single line in the following format:
 

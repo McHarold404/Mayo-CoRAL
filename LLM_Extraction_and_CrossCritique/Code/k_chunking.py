@@ -334,7 +334,7 @@ def chunking(pdf_path):
             page = text_doc[page_num]
             raw_text = page.get_text("text")
 
-            # 🔍 Detect the start of "References" section
+            #  Detect the start of "References" section
             match = re.search(r'(?i)\b(references|bibliography)\b', raw_text)
             if match:
                 stop_processing = True  # ✅ This is the last page we'll process
@@ -362,8 +362,8 @@ def chunking(pdf_path):
                     "content": f"Image of size {len(image_base64)} characters (Base64)",
                     "page": page_num + 1,
                     "length": len(image_base64),
-                    "source": "image",
-                    "image_base64": image_base64
+                    "source": "image"
+                    # "image_base64": image_base64
                 })
 
             # Step 3: Extract images from the current page
@@ -410,3 +410,36 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path, config):
 
     doc.close()
     return chunks
+
+
+from PIL import Image
+from io import BytesIO
+import fitz  # PyMuPDF
+
+def generate_context(pdf_path, prompt_path, config):
+    try:
+        doc = fitz.open(pdf_path)
+    except Exception as e:
+        print(f"❌ Error opening PDF file: {e}")
+        return ""
+
+    try:
+        images = []
+        for page_num in [1, 2]:
+            page = doc[page_num - 1]
+            pix = page.get_pixmap(dpi=300)
+            img_bytes = pix.tobytes("png")
+            img_pil = Image.open(BytesIO(img_bytes)).convert("RGB")
+            images.append(img_pil)
+
+        # Send both images in one prompt
+        summary = ask_gemini_with_image(images, prompt_path, key=config["model"]["key"])
+
+    except Exception as e:
+        print(f"❌ Error processing pages 1 and 2: {e}")
+        summary = ""
+
+    doc.close()
+    return summary.strip()
+
+    

@@ -6,6 +6,7 @@ from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system pro
 from model_inference.gemini import ask_gemini    # Using ask_gemini with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
 from utils import evaluate_post_processed_output,get_model_function,calculate_accuracy_and_append
+from k_chunking import generate_context
 
 
 def generate_dynamic_query(group_label, columns_info, config):
@@ -192,7 +193,11 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
                 running_outputs = json.load(f)
             except Exception:
                 running_outputs = {}
-    
+    context = generate_context(pdf_path=os.path.join("training_studies", f"{document_name}.pdf"), prompt_path=config["prompts"]["context_prompt"], config=config)
+    print("CONTEXT GENERATED FOR DOCUMENT:")
+    print("--------------------------")
+    print(context)    
+    print("--------------------------")
     # Lock to synchronize access to shared resources (running_outputs and table_row)
     lock = Lock()
     
@@ -224,7 +229,7 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         
         # Run the speculative retrieval pipeline for the current group.
         sampled_chunks, candidate_answers, group_answer = speculative_rag_pipeline(
-            retreival_query=query, chunks=chunks, columns_info=columns_info, config=config)
+            context = context,retreival_query=query, chunks=chunks, columns_info=columns_info, config=config)
         
         # Update shared data structures in a thread-safe way.
         with lock:

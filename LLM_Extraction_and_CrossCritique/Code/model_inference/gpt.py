@@ -193,36 +193,85 @@ if __name__ == "__main__":
 #         add_tokens(response["usage"]["prompt_tokens"],response["usage"]["completion_tokens"])
 #     return response.choices[0].message.content
 
-def ask_chatgpt(text:str, prompt_path=None,temperature = 0.1,model_name = "gpt-4o",key = 1):
-    # Check if a prompt path is provided and read prompt text
+# def ask_chatgpt(text:str, prompt_path=None,temperature = 0.1,model_name = "gpt-4o",key = 1):
+#     # Check if a prompt path is provided and read prompt text
+#     load_dotenv()
+#     if key == 1:
+#         api_key =os.getenv("OPENAI_API_KEY")
+#     elif key == 2:
+#         api_key =os.getenv("OPENAI_API_KEY_2")
+#     else :
+#         return "Error: API key not found"
+#     client = OpenAI(api_key = api_key)
+#     if prompt_path and text:
+#         with open(prompt_path, 'r', encoding="utf-8") as file:
+#             prompt = file.read().strip()
+#     else:
+#         return "Error: no data given"
+
+#     response = client.chat.completions.create(
+#     model=model_name,
+#     messages=[
+#         {'role' : "system" , "content" : prompt},
+#         {'role': "user" , "content": text}
+#     ],
+#     temperature=temperature,
+#     #top_p=0.1
+#     )
+        
+#     # Return the response content
+#     usage = getattr(response, "usage", None)
+#     if usage is not None:
+#         add_tokens(usage.prompt_tokens, usage.completion_tokens)
+#     return response.choices[0].message.content
+
+
+def ask_chatgpt(text: str, 
+                prompt_path=None, 
+                temperature=0.1, 
+                model_name="gpt-4o", 
+                key=1, 
+                history: str = None):
+    from openai import OpenAI
+    import os
+    from dotenv import load_dotenv
+    
     load_dotenv()
     if key == 1:
-        api_key =os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("OPENAI_API_KEY")
     elif key == 2:
-        api_key =os.getenv("OPENAI_API_KEY_2")
-    else :
+        api_key = os.getenv("OPENAI_API_KEY_2")
+    else:
         return "Error: API key not found"
-    client = OpenAI(api_key = api_key)
+
+    client = OpenAI(api_key=api_key)
+
+    # Load the system prompt if provided
     if prompt_path and text:
         with open(prompt_path, 'r', encoding="utf-8") as file:
-            prompt = file.read().strip()
+            system_prompt = file.read().strip()
     else:
         return "Error: no data given"
 
+    # Construct base message list
+    messages = [{'role': 'system', 'content': system_prompt}]
+
+    # Add user-provided history (optional)
+    if history:
+        messages.append({'role': 'user', 'content': history})
+
+    # Add current input as the next user message
+    messages.append({'role': 'user', 'content': text})
+
+    # Query OpenAI API
     response = client.chat.completions.create(
-    model=model_name,
-    messages=[
-        {'role' : "system" , "content" : prompt},
-        {'role': "user" , "content": text}
-    ],
-    temperature=temperature,
-    #top_p=0.1
+        model=model_name,
+        messages=messages,
+        temperature=temperature
     )
-        
-    # Return the response content
+
     usage = getattr(response, "usage", None)
     if usage is not None:
         add_tokens(usage.prompt_tokens, usage.completion_tokens)
+
     return response.choices[0].message.content
-
-
