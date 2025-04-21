@@ -63,7 +63,7 @@ def speculative_rag_pipeline(context, retreival_query, chunks,columns_info,confi
         return "No relevant chunks found."
 
 
-    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(5, len(chunks)))
+    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(3, len(chunks)))
     clustered_chunks = relevant_chunks
     # clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
 

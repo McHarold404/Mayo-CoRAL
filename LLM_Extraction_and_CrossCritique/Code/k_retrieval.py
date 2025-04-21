@@ -60,7 +60,7 @@ def retrieve_chunks(query, chunks, top_n=3):
     
     # Combine scores (adjust weights as needed)
     combined_scores = [
-        0.5 * bm25 + 0.5 * emb 
+        0.7 * bm25 + 0.3 * emb 
         for bm25, emb in zip(bm25_scores, embedding_scores)
     ]
     

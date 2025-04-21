@@ -147,7 +147,7 @@ def plot_heatmaps_in_chunks(df, chunk_size=40, output_folder="Plots"):
 
 def main():
     # Set the root directory that contains the document folders (update this as needed).
-    root_dir = "db"
+    root_dir = "db_copy"
     
     # Collate evaluations from all document folders.
     results_dict = collate_evaluations(root_dir)
