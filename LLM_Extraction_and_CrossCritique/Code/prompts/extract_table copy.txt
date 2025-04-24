@@ -1,0 +1,65 @@
+**Task:** Accurately extract the primary table from the provided image (likely a page from a scientific medical study), format it as a standard Markdown table, and generate an enriched, informative caption detailing its content and structure.
+
+**Instructions:**
+
+1.  **Identify the Table:**
+    * Carefully examine the image to locate the main data table. Distinguish it from figures, text, or supplementary material.
+    * Use visual cues like gridlines, borders, consistent column/row alignment, and repeating data patterns (e.g., "n (%)", "mean ± SD").
+    * If multiple tables are present, focus on the most prominent or primary data table unless otherwise specified.*
+    * **No Table:** If the image clearly contains no structured data table (only text, figures, graphs), return the exact phrase "No table found" and stop processing.
+
+2.  **Extract Headers:**
+    * Identify all levels of headers: Column headers (potentially multi-level) and Row headers (often listing variables, characteristics, or outcomes).
+    * **Hierarchical Column Headers:** If column headers have multiple levels (e.g., a main category spanning sub-categories), create a single-level Markdown header by combining them. Use a clear separator like " - " (e.g., "Treatment Group - Mean Age", "Control Group - Mean Age"). Note the original hierarchical structure for the caption.
+    * Identify the primary row headers in the first column (e.g., "Age (years)", "Sex (female)", "Systolic Blood Pressure (mmHg)").
+
+3.  **Extract Data:**
+    * Meticulously extract all data cells, preserving the original values, text, and formatting where possible within Markdown limits.
+    * Pay close attention to:
+        * Numerical values (including decimals).
+        * Units of measurement (e.g., mg/dL, mmHg, %, years). Include units directly in headers or data cells if appropriate, or note them in the caption.
+        * Statistical notation (e.g., "mean ± SD", "median (IQR)", "n (%)", ranges like "18-65").
+        * Statistical significance indicators (e.g., p-values, often "<0.001" or specific values).
+        * Confidence Intervals (e.g., "95% CI [lower, upper]").
+        * Symbols linking to footnotes (e.g., *, †, ‡, §, letters like a, b, c). Extract the symbols as they appear in the cells.
+
+4.  **Handle Footnotes/Legends:**
+    * If footnotes or legends explaining symbols (*, †, etc.) or abbreviations within the table are visible *within the provided image snippet* and clearly associated with the table, extract their content. This information will be used in the caption.
+
+5.  **Format as Markdown:**
+    * Construct the table using standard Markdown syntax (pipes `|` for columns, hyphens `-` for the header separator).
+    * Ensure columns align reasonably for readability.
+    * Represent the extracted data accurately within the Markdown cells.
+    * Standard Markdown tables do not support cell merging or complex multi-level header visualization directly. Represent the data linearly and describe complex original structures (like merged cells spanning rows/columns) in the caption.
+
+6.  **Enrich the Caption:**
+    * Create a comprehensive caption below the Markdown table. It *must* include:
+        * **Original Title/Number:** The verbatim table number and title if present in the image (e.g., "Table 1: Baseline Characteristics of Study Participants").
+        * **Content Summary:** A brief (1-2 sentence) description of what the table shows (e.g., "This table presents baseline demographic and clinical characteristics for patients randomized to the treatment and control groups.").
+        * **Structure Overview:**
+            * Mention the main categories represented by the *columns* (e.g., "Comparison groups (Treatment vs. Control)", "Statistical Measures").
+            * Describe the nature of the *row headers* (e.g., "Demographic variables", "Laboratory values", "Clinical outcomes").
+            * Explicitly mention if column headers were originally hierarchical and how they were combined in the Markdown table.
+        * **Data Description:** Describe the types of data presented (e.g., "Data are presented as mean ± standard deviation (SD), median (interquartile range [IQR]), or number (percentage) [n (%)] as appropriate."). Mention key units if not obvious from headers.
+        * **Footnote/Symbol Explanation:** If symbols (*, †, etc.) or crucial abbreviations were used *within the table data* and their explanations were extracted from the image, list them here (e.g., "* p < 0.05 compared to control group.").
+        * **Context (if inferable):** Briefly note the study population or context if clearly evident from the table title or headers (e.g., "Participants with Type 2 Diabetes").
+        * **Complex Layouts:** If the original table had complex features not perfectly representable in Markdown (e.g., cells spanning multiple rows/columns), briefly describe them.
+
+**Output Format:**
+
+Provide *only* the following two sections, precisely in this format:
+
+##Markdown Table##
+
+[Markdown table content here]
+
+
+##Caption##
+
+[Extracted and enriched caption here]
+
+
+**Important Notes:**
+* Accuracy is paramount, especially with numerical medical data. Double-check extracted values.
+* Focus *only* on the table identified within the image snippet.
+* Adhere strictly to the requested output format without any additional commentary before or after the specified sections.

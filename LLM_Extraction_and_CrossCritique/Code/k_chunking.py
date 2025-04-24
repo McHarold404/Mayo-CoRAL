@@ -123,7 +123,7 @@ def chunking(pdf_path):
             match = re.search(r'(?i)\b(references|bibliography)\b', raw_text)
             if match:
                 stop_processing = True  # ✅ This is the last page we'll process
-                # ✂️ Cut off the page content from the reference section onwards
+                # ✂ Cut off the page content from the reference section onwards
                 raw_text = raw_text[:match.start()].strip()
 
             # Step 1: Text chunking
@@ -137,19 +137,39 @@ def chunking(pdf_path):
                     })
 
             # Step 2: Detect table (only if relevant keyword appears)
-            if any(keyword in raw_text for keyword in ["Table", "TABLE", "table"]):
-                pix = page.get_pixmap(matrix=fitz.Matrix(4, 4))  # High-res render
-                img_bytes = pix.tobytes("png")
-                image_base64 = base64.b64encode(img_bytes).decode("utf-8")
+            # if any(keyword in raw_text for keyword in ["Table", "TABLE", "table"]):
+            #     pix = page.get_pixmap(matrix=fitz.Matrix(4, 4))  # High-res render
+            #     img_bytes = pix.tobytes("png")
+            #     image_base64 = base64.b64encode(img_bytes).decode("utf-8")
 
-                page_chunks.append({
-                    "type": "table",
-                    "content": f"Image of size {len(image_base64)} characters (Base64)",
-                    "page": page_num + 1,
-                    "length": len(image_base64),
-                    "source": "image"
-                    # "image_base64": image_base64
-                })
+            #     page_chunks.append({
+            #         "type": "table",
+            #         "content": f"Image of size {len(image_base64)} characters (Base64)",
+            #         "page": page_num + 1,
+            #         "length": len(image_base64),
+            #         "source": "image"
+            #         # "image_base64": image_base64
+            #     })
+
+            keywords = {
+                "table": re.search(r"\btable[s]?[ .:-]*\d+", raw_text, re.IGNORECASE),
+                "figure": re.search(r"\bfig(?:ure)?s?[ .:-]*\d+", raw_text, re.IGNORECASE)
+            }
+
+            for visual_type, match in keywords.items():
+                if match:
+                    pix = page.get_pixmap(matrix=fitz.Matrix(4, 4))  # High-res
+                    img_bytes = pix.tobytes("png")
+                    image_base64 = base64.b64encode(img_bytes).decode("utf-8")
+
+                    page_chunks.append({
+                        "type": visual_type,
+                        "content": f"Image of size {len(image_base64)} characters (Base64)",
+                        "page": page_num + 1,
+                        "length": len(image_base64),
+                        "source": "image"
+                    })
+
 
             # Step 3: Extract images from the current page
             image_chunks = extract_images_for_page(page, page_num + 1)
@@ -170,6 +190,32 @@ def save_chunks_to_json(chunks, output_path):
         json.dump(chunks, json_file, ensure_ascii=False, indent=4)
     print(f"Chunks saved to JSON file: {output_path}")
 
+# def enrich_table_chunks(chunks, pdf_path, prompt_path, config):
+#     try:
+#         doc = fitz.open(pdf_path)
+#     except Exception as e:
+#         print(f"Error opening PDF file: {e}")
+#         return chunks
+
+#     for chunk in chunks:
+#         if chunk.get("type") == "table":
+#             page_num = chunk.get("page")
+#             if page_num is None:
+#                 continue
+#             try:
+#                 page = doc[page_num - 1]
+#                 pix = page.get_pixmap()
+#                 img_bytes = pix.tobytes("png")
+#                 img_pil = Image.open(BytesIO(img_bytes))
+#                 gemini_output = ask_gemini_with_image(img_pil, prompt_path, key=config["model"]["key"])
+#                 chunk["table_content"] = gemini_output
+#                 chunk["content"] = extract_caption(gemini_output)
+#             except Exception as e:
+#                 print(f"Error processing table chunk on page {page_num}: {e}")
+
+#     doc.close()
+#     return chunks
+
 def enrich_table_chunks(chunks, pdf_path, prompt_path, config):
     try:
         doc = fitz.open(pdf_path)
@@ -178,7 +224,7 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path, config):
         return chunks
 
     for chunk in chunks:
-        if chunk.get("type") == "table":
+        if chunk.get("type") in ["table", "figure"]:  # ✅ Now supports figures too
             page_num = chunk.get("page")
             if page_num is None:
                 continue
@@ -187,14 +233,21 @@ def enrich_table_chunks(chunks, pdf_path, prompt_path, config):
                 pix = page.get_pixmap()
                 img_bytes = pix.tobytes("png")
                 img_pil = Image.open(BytesIO(img_bytes))
+
+                # ✅ Use the prompt_path passed in — don't override it!
                 gemini_output = ask_gemini_with_image(img_pil, prompt_path, key=config["model"]["key"])
-                chunk["table_content"] = gemini_output
+
+                # Save under a common key since it may be table or figure
+                chunk["visual_content"] = gemini_output
                 chunk["content"] = extract_caption(gemini_output)
+
             except Exception as e:
-                print(f"Error processing table chunk on page {page_num}: {e}")
+                print(f"Error processing {chunk['type']} chunk on page {page_num}: {e}")
 
     doc.close()
     return chunks
+
+
 
 
 from PIL import Image
@@ -226,5 +279,3 @@ def generate_context(pdf_path, prompt_path, config):
 
     doc.close()
     return summary.strip()
-
-    
