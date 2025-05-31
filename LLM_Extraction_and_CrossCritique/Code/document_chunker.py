@@ -28,7 +28,9 @@ def process_document(document_name,config):
     
     # Process document using the existing chunking code
     chunks = chunking(pdf_path)
-    enriched_chunks = enrich_table_chunks(chunks = chunks, pdf_path= pdf_path,prompt_path= "prompts/extract_table.txt",config=config)
+    prompt_paths = {"table": "prompts/extract_table.txt",
+                    "figure": "prompts/extract_figure.txt"}  # ✅ Added prompt for figures
+    enriched_chunks = enrich_table_chunks(chunks = chunks, pdf_path= pdf_path,prompt_paths= prompt_paths,config=config)
     save_chunks_to_json(enriched_chunks, output_path)
     
     print(f"Document processed and chunks saved to: {output_path}")

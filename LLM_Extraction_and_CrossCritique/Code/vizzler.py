@@ -63,7 +63,7 @@ def collate_evaluations(root_dir):
     for folder in os.listdir(root_dir):
         subfolder_path = os.path.join(root_dir, folder)
         if os.path.isdir(subfolder_path):
-            file_path = os.path.join(subfolder_path, "evaluation_results.txt")
+            file_path = os.path.join(subfolder_path, "evaluation_results_non_null_only.txt")
             if os.path.exists(file_path):
                 eval_results = parse_evaluation_file(file_path)
                 all_results[folder] = eval_results
@@ -147,7 +147,7 @@ def plot_heatmaps_in_chunks(df, chunk_size=40, output_folder="Plots"):
 
 def main():
     # Set the root directory that contains the document folders (update this as needed).
-    root_dir = "db_copy"
+    root_dir = "db_all_modal"
     
     # Collate evaluations from all document folders.
     results_dict = collate_evaluations(root_dir)

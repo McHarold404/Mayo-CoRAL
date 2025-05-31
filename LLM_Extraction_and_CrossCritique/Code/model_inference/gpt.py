@@ -3,6 +3,9 @@ from openai import OpenAI
 import json
 from token_tracker import add_tokens
 import base64
+from PIL import Image
+from io import BytesIO
+from PIL import * # PIL is used for image processing
 
 client = OpenAI(api_key="")
 from dotenv import load_dotenv
@@ -114,8 +117,16 @@ if __name__ == "__main__":
     )
     bot.run_inference()
 
-# def ask_chatgpt_with_image(img, prompt_path=None, temperature=0.1, model_name="gpt-4o", key=1):
-#     # Load environment variables
+# def ask_chatgpt(text: str, 
+#                 prompt_path=None, 
+#                 temperature=0.1, 
+#                 model_name="gpt-4o", 
+#                 key=1, 
+#                 history: str = None):
+#     from openai import OpenAI
+#     import os
+#     from dotenv import load_dotenv
+    
 #     load_dotenv()
 #     if key == 1:
 #         api_key = os.getenv("OPENAI_API_KEY")
@@ -123,120 +134,56 @@ if __name__ == "__main__":
 #         api_key = os.getenv("OPENAI_API_KEY_2")
 #     else:
 #         return "Error: API key not found"
-    
+
 #     client = OpenAI(api_key=api_key)
-    
-#     if prompt_path and img:
-#         with open(prompt_path, 'r') as file:
-#             prompt = file.read().strip()
-#     else:
-#         return "Error: no data given"
-    
-#     # Encode the image as base64
-#     formatted_img = base64.b64encode(img).decode('utf-8')
-    
-#     response = client.chat.completions.create(
-#         model=model_name,
-#         messages=[
-#             {'role': "system", "content": prompt},
-#             {'role': "user", "content": [
-#                 formatted_img
-#          ] }
-#         ],
-#         temperature=temperature,
-#     )
-    
-#     # Access usage using attribute notation
-#     usage = getattr(response, "usage", None)
-#     if usage is not None:
-#         add_tokens(usage.prompt_tokens, usage.completion_tokens)
-    
-#     # Retrieve the first choice using iteration
-#     content = None
-#     for choice in response.choices:
-#         content = choice.message.content
-#         break  # Use the first available choice
-    
-#     return content
-# def ask_chatgpt_with_image(img, prompt_path=None,temperature = 0.1,model_name = "gpt-4o",key = 1):
-#     # Check if a prompt path is provided and read prompt text
-#     load_dotenv()
-#     if key == 1:
-#         api_key =os.getenv("OPENAI_API_KEY")
-#     elif key == 2:
-#         api_key =os.getenv("OPENAI_API_KEY_2")
-#     else :
-#         return "Error: API key not found"
-#     client = OpenAI(api_key = api_key)
-#     if prompt_path and img:
-#         with open(prompt_path, 'r') as file:
-#             prompt = file.read().strip()
-#     else:
-#         return "Error: no data given"
 
-#     # Model configuration - replace 'gpt-4' with the specific model if needed
-#     #input = text + prompt
-#     # Send the prompt to the model
-#     formatted_img = base64.b64encode(img).decode('utf-8') 
-#     response = client.chat.completions.create(
-#     model=model_name,
-#     messages=[
-#         {'role' : "system" , "content" : prompt},
-#         {'role': "user" , "content": formatted_img}
-#     ],
-#     temperature=temperature,
-#     #top_p=0.1
-#     )
-        
-#     # Return the response content
-#     if response["usage"]:
-#         add_tokens(response["usage"]["prompt_tokens"],response["usage"]["completion_tokens"])
-#     return response.choices[0].message.content
-
-# def ask_chatgpt(text:str, prompt_path=None,temperature = 0.1,model_name = "gpt-4o",key = 1):
-#     # Check if a prompt path is provided and read prompt text
-#     load_dotenv()
-#     if key == 1:
-#         api_key =os.getenv("OPENAI_API_KEY")
-#     elif key == 2:
-#         api_key =os.getenv("OPENAI_API_KEY_2")
-#     else :
-#         return "Error: API key not found"
-#     client = OpenAI(api_key = api_key)
+#     # Load the system prompt if provided
 #     if prompt_path and text:
 #         with open(prompt_path, 'r', encoding="utf-8") as file:
-#             prompt = file.read().strip()
+#             system_prompt = file.read().strip()
 #     else:
 #         return "Error: no data given"
 
+#     # Construct base message list
+#     messages = [{'role': 'system', 'content': system_prompt}]
+
+#     # Add user-provided history (optional)
+#     if history:
+#         messages.append({'role': 'user', 'content': history})
+
+#     # Add current input as the next user message
+#     messages.append({'role': 'user', 'content': text})
+
+#     # Query OpenAI API
 #     response = client.chat.completions.create(
-#     model=model_name,
-#     messages=[
-#         {'role' : "system" , "content" : prompt},
-#         {'role': "user" , "content": text}
-#     ],
-#     temperature=temperature,
-#     #top_p=0.1
+#         model=model_name,
+#         messages=messages,
+#         temperature=temperature
 #     )
-        
-#     # Return the response content
+
 #     usage = getattr(response, "usage", None)
 #     if usage is not None:
 #         add_tokens(usage.prompt_tokens, usage.completion_tokens)
+
 #     return response.choices[0].message.content
 
-
-def ask_chatgpt(text: str, 
-                prompt_path=None, 
-                temperature=0.1, 
-                model_name="gpt-4o", 
-                key=1, 
-                history: str = None):
+def ask_chatgpt(
+    text: str,
+    prompt_path=None,
+    temperature=0.1,
+    model_name="gpt-4o",
+    key=1,
+    history: str = None,
+    image = None):
+    
     from openai import OpenAI
     import os
     from dotenv import load_dotenv
-    
+    from io import BytesIO
+    import base64
+
     load_dotenv()
+    # choose API key
     if key == 1:
         api_key = os.getenv("OPENAI_API_KEY")
     elif key == 2:
@@ -246,32 +193,45 @@ def ask_chatgpt(text: str,
 
     client = OpenAI(api_key=api_key)
 
-    # Load the system prompt if provided
+    # Load system prompt
     if prompt_path and text:
         with open(prompt_path, 'r', encoding="utf-8") as file:
             system_prompt = file.read().strip()
     else:
         return "Error: no data given"
 
-    # Construct base message list
-    messages = [{'role': 'system', 'content': system_prompt}]
-
-    # Add user-provided history (optional)
+    # Build messages
+    messages = [{"role": "system", "content": system_prompt}]
     if history:
-        messages.append({'role': 'user', 'content': history})
+        messages.append({"role": "user", "content": history})
 
-    # Add current input as the next user message
-    messages.append({'role': 'user', 'content': text})
+    # If an image is provided, convert to base64 and attach
+    if image:
+        buffer = BytesIO()
+        image.save(buffer, format="PNG")
+        buffer.seek(0)
+        img_bytes = buffer.read()
+        # Some clients accept raw bytes, others want base64-encoded:
+        img_b64 = base64.b64encode(img_bytes).decode("utf-8")
+        messages.append({
+            "role": "user",
+            "content": text,
+            "image": img_bytes,       # raw bytes
+            # "image_base64": img_b64  # or, if your client expects base64
+        })
+    else:
+        messages.append({"role": "user", "content": text})
 
-    # Query OpenAI API
+    # Call the multimodal-capable model
     response = client.chat.completions.create(
         model=model_name,
         messages=messages,
         temperature=temperature
     )
 
+    # track token usage if available
     usage = getattr(response, "usage", None)
-    if usage is not None:
+    if usage:
         add_tokens(usage.prompt_tokens, usage.completion_tokens)
 
     return response.choices[0].message.content

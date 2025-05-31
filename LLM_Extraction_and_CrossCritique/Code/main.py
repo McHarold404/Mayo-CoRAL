@@ -87,12 +87,11 @@ def main(config):
     
     definitions_groups = load_definitions(config["definitions_file"])
     table_row = populate_table_row(document_name, definitions_groups, chunks, config)
-    
-    print("Final Table Row:")
-    print(table_row)
     total_cost = get_total_cost()
-    print("Total Cost in Dollars:", total_cost)
-
+    print("Total cost:", total_cost)
+    with open("db/" + document_name + "/cost.txt", "w") as f:
+        f.write(f"Total Cost: {str(total_cost)}\n")
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the extraction pipeline.")
     parser.add_argument("--document_name", type=str, required=True, help="The name of the document to process.")

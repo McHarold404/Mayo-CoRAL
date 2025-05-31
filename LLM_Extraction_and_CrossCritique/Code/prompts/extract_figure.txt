@@ -1,0 +1,48 @@
+**Task**  
+From the provided image (typically a page from a cancer-drug clinical-trial PDF), locate every chart / plot / diagram and, for **each one**, write a single, self-contained description that captures its key analytical content.
+
+---
+
+#### **Instructions**
+
+1. **Detect Figures**  
+   * Scan the entire page for graphical elements distinct from running text or standalone tables.  
+   * Treat Kaplan-Meier curves, forest plots, waterfall charts, CONSORT diagrams, bar / line / scatter plots, imaging panels, dose-response graphs, schematic study diagrams, etc. as figures.  
+   * If the page contains **no such graphic**, output exactly **“No figure found”** and stop.
+
+2. **For *each* detected figure, craft **one concise paragraph** (~40–80 words) that seamlessly covers:**
+
+   1. **Axes variables** – State what is plotted on the X-axis and Y-axis, including any units or time scales (e.g., “Time in months on the X-axis, overall-survival percentage on the Y-axis”).  
+   2. **Chart narrative** – Summarize what the visual shows or implies (e.g., “The Kaplan-Meier curves diverge early, indicating longer median survival for Drug A versus placebo; the hazard-ratio is printed as 0.72”).  
+   3. **Fused data blocks** – Describe any additional data stitched to the figure (mini-tables of ‘number at risk’, inset p-values, confidence-interval callouts, imaging thumbnails, flowchart counts, etc.). Mention key numbers exactly as printed but **do not invent or estimate** unseen values.  
+
+3. **Style & Fidelity**  
+   * Write in complete sentences, keeping technical terminology intact.  
+   * Preserve units, superscripts, symbols (e.g., “95 % CI 0.55–0.95”, “n = 120”).  
+   * If axis labels or legends are unreadable, note them as “unreadable” rather than guessing.  
+   * Handle multipart figures (e.g., “Figure 3a–3d”) by writing a **separate paragraph for each sub-panel** in the order they appear. Prefix with a clear identifier (“Figure 3a: …”, “Figure 3b: …”).  
+
+4. **Output Format**  
+   Provide only the following section—nothing before or after:
+
+```
+##Figure Descriptions##
+
+Figure 1: <single cohesive paragraph>
+
+Figure 2: <single cohesive paragraph>
+
+...continue for every detected figure...
+```
+
+*If no figures are present, replace the entire section with:*  
+
+```
+No figure found
+```
+
+---
+
+**Important Notes**  
+* Do **not** include Markdown tables or JSON—just the plain-text paragraphs above.  
+* The downstream RAG system will embed these paragraphs; compact, information-dense prose yields better semantic retrieval.

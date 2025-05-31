@@ -8,7 +8,10 @@ from model_inference.gpt import *  # Explicit import
 from model_inference.gemini import *
 from model_inference.llama import * 
 import sys
+from PIL import Image
+from io import BytesIO
 import os
+import fitz
 from dotenv import load_dotenv  # Correct import
 from utils import get_model_function
 
@@ -57,13 +60,12 @@ def sample_chunks_from_clusters(clustered_chunks):
     return [cluster[0] for cluster in clustered_chunks.values() if cluster]
 
 
-def speculative_rag_pipeline(context, retreival_query, chunks,columns_info,config):
+def speculative_rag_pipeline(pdf_path, context, retreival_query, chunks,columns_info,config):
     """ Full Speculative RAG: retrieval → clustering → sampling → verification → final answer selection. """
     if not chunks:
         return "No relevant chunks found."
 
-
-    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(3, len(chunks)))
+    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(5, len(chunks)))
     clustered_chunks = relevant_chunks
     # clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
 
@@ -79,12 +81,31 @@ def speculative_rag_pipeline(context, retreival_query, chunks,columns_info,confi
     print(f"Column values to be extracted: {columns_info}")  # Debugging line
     for chunk in sampled_chunks:  # Limit to 5 chunks
         #print(f"Processing chunk: {chunk['content']}")  # Debugging line
-        input_text = f"Find the value of: {columns_info} \n\nContext: {chunk['content'] if chunk['type'] == 'text' else chunk['table_content']}"
-        system_prompt_path = "prompts/draft_answer.txt" if chunk['type'] == 'text' else "prompts/draft_table_answer.txt"
+        #input_text = f"Find the value of: {columns_info} from the following text given the initial context \n\n{chunk['content'].strip("\n") if chunk['type'] == 'text' else chunk['table_content']}"
+        image = None
+        if chunk['type'] == 'figure':
+            page_num = chunk.get("page") # Get the page number from the chunk
+            doc = fitz.open(pdf_path)
+            page = doc[page_num - 1]
+            pix = page.get_pixmap()
+            img_bytes = pix.tobytes("png")
+            #image = Image.open(BytesIO(img_bytes))
+            system_prompt_path = "prompts/draft_figure_answer.txt" 
+            input_text = f"Find the value of: {columns_info} from the following figure given the initial context \n\n{chunk['figure_content']}"
+            
+        elif chunk['type'] == 'table':
+            system_prompt_path = "prompts/draft_table_answer.txt"
+            input_text = f"Find the value of: {columns_info} from the following table given the initial context \n\n{chunk['table_content']}"
+
+        else:
+            system_prompt_path = "prompts/draft_answer.txt"
+            input_text = f"Find the value of: {columns_info} from the following text given the initial context \n\n{chunk['content'].strip("\n")}"
+
         model_fn = get_model_function(config["model"]["type"])
         response = model_fn(
         history = context,
         text=input_text,
+        image = image,
         prompt_path=system_prompt_path,
         key=config["model"]["key"])
         if response:
