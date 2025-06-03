@@ -85,7 +85,7 @@ def main(config):
     from k_retrieval import setup_retrieval
     setup_retrieval(chunks)  # Precompute BM25 for this document
     
-    definitions_groups = load_definitions(config["definitions_file"])
+    definitions_groups = load_definitions(config["definitions_file"],config["labels_to_test_file"])
     table_row = populate_table_row(document_name, definitions_groups, chunks, config)
     total_cost = get_total_cost()
     print("Total cost:", total_cost)
