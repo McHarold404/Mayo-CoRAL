@@ -17,10 +17,8 @@ bash
 python extract_from_pdf.py \
   --pdf "training_studies/NCT00104715_Gravis_GETUG_EU'15.pdf" \
   --defs Definitions.csv \
-  --json-out answers.json \
-  --txt-out processed_answers.txt \
   --model gpt-4o \
-  --workers 40
+  --workers 60
 
 """
 
@@ -34,7 +32,7 @@ from collections import defaultdict, OrderedDict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from textwrap import indent
 from typing import Dict, List, Tuple
-
+from pathlib import Path   # alternative, see below
 from openai import OpenAI
 
 # ─── Pricing (USD per 1 K tokens) ──────────────────────────────────────────────
@@ -45,11 +43,20 @@ GPT4O_OUTPUT_PRICE = 0.015
 parser = argparse.ArgumentParser("Two‑phase PDF extraction + post‑processing pipeline.")
 parser.add_argument("--pdf", required=True, help="Path to the PDF file")
 parser.add_argument("--defs", required=True, help="Path to Definitions.csv")
-parser.add_argument("--json-out", default="answers.json", help="Raw JSON output file")
-parser.add_argument("--txt-out", default="processed_answers.txt", help="Post‑processed TXT output file")
 parser.add_argument("--model", default="gpt-4o", help="Model for both phases (default gpt-4o)")
 parser.add_argument("--workers", type=int, default=4, help="Parallel label groups (default 4)")
 args = parser.parse_args()
+
+# ─── Helper Functions ──────────────────────────────────────────────────────
+import re
+def sanitize_filename(filename):
+    return re.sub(r'[\/\\:*?"<>|]', '_', filename)
+    
+def get_stem_pathlib(path: str) -> str:
+    return sanitize_filename(Path(path).stem)
+
+dirname = "file_search/" + get_stem_pathlib(args.pdf)
+os.makedirs(dirname, exist_ok=True)
 
 # ─── OpenAI client ────────────────────────────────────────────────────────────
 from dotenv import load_dotenv  # Ensure you have python-dotenv installed
@@ -196,8 +203,8 @@ with ThreadPoolExecutor(max_workers=max_workers) as exe:
             raw_replies[lbl] = f"ERROR: {exc}"
             print(f"❌ {lbl}: {exc}")
 
-print(f"💾 Saving raw JSON → {args.json_out}")
-with open(args.json_out, "w", encoding="utf-8") as jf:
+print(f"💾 Saving raw JSON → {dirname}/raw_outputs.json")
+with open(f"{dirname}/raw_outputs.json", "w", encoding="utf-8") as jf:
     json.dump(raw_replies, jf, ensure_ascii=False, indent=2)
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -242,8 +249,8 @@ phase2_out = getattr(usage2, "completion_tokens", getattr(usage2, "output_tokens
 msgs2 = client.beta.threads.messages.list(thread_id=post_thread.id)
 post_reply = next((m.content[0].text.value for m in msgs2.data if m.role == "assistant"), "")
 
-print(f"💾 Saving processed TXT → {args.txt_out}")
-with open(args.txt_out, "w", encoding="utf-8") as tf:
+print(f"💾 Saving processed TXT → {dirname}/pp_output.txt")
+with open(f"{dirname}/pp_output.txt", "w", encoding="utf-8") as tf:
     tf.write(post_reply.strip() + "\n")
 
 # ─── Cost summary ───────────────────────────────────────────────────────────
