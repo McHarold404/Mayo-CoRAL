@@ -99,7 +99,6 @@ if __name__ == "__main__":
     parser.add_argument("--config", type=str, default="config.json", help="Path to the config file.")
     
     args = parser.parse_args()
-    
     config = load_config(args.config)
     
     # Replace the placeholders with command-line arguments

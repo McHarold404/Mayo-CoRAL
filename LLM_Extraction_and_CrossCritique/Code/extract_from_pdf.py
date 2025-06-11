@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 """extract_pipeline_v2.py
 
 Two‑phase pipeline:
@@ -45,8 +44,8 @@ parser.add_argument("--pdf", required=True, help="Path to the PDF file")
 parser.add_argument("--defs", required=True, help="Path to Definitions.csv")
 parser.add_argument("--model", default="gpt-4o", help="Model for both phases (default gpt-4o)")
 parser.add_argument("--workers", type=int, default=4, help="Parallel label groups (default 4)")
-args = parser.parse_args()
 
+args = parser.parse_args()
 # ─── Helper Functions ──────────────────────────────────────────────────────
 import re
 def sanitize_filename(filename):
