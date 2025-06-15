@@ -214,7 +214,7 @@ def save_chunks_to_json(chunks, output_path):
 #                 print(f"Error processing table chunk on page {page_num}: {e}")
 
 #     doc.close()
-#     return chunks
+#     return chunk
 
 def enrich_table_chunks(chunks, pdf_path, prompt_paths, config):
     try:
