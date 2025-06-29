@@ -6,116 +6,81 @@ import base64
 from PIL import Image
 from io import BytesIO
 from PIL import * # PIL is used for image processing
+import os
+import time
+import openai
+from typing import Optional
 
 client = OpenAI(api_key="")
 from dotenv import load_dotenv
-
-class GPT4MiniBot:
-    def __init__(self, api_key=None, model="gpt-4o-mini", 
-                 data_path=None, prompt_path=None, output_path = None, meta_data = None,limit_rows = None):
-        load_dotenv()
-        self.api_key = api_key or os.getenv("OPENAI_API_KEY")
-        if not self.api_key:
-            raise ValueError("API key is required. Set it in the constructor or as an environment variable 'OPENAI_API_KEY'")
-        self.model = model
-        self.limit_rows = limit_rows
-        self.output_path = output_path
-        self.meta_data = meta_data
-        self.data_path = data_path
-        self.prompt_path = prompt_path
-
-    def get_api_response(self, message):
-        try:
-            response = client.chat.completions.create(model=self.model,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": message}
-            ])
-            return response.choices[0].message.content
-        except Exception as e:
-            return f"An error occurred: {str(e)}"
-
-    def load_prompt(self):
-        try:
-            with open(self.prompt_path, 'r', encoding="utf-8") as file:
-                return file.read().strip()
-        except FileNotFoundError:
-            print(f"Prompt file not found at {self.prompt_path}")
-            return ""
-        except Exception as e:
-            print(f"Error reading prompt file: {str(e)}")
-            return ""
-
-    def load_data(self):
-        try:
-            with open(self.data_path, 'r', encoding="utf-8") as file:
-                return [line.strip() for line in file if line.strip()]
-        except FileNotFoundError:
-            print(f"Data file not found at {self.data_path}")
-            return []
-        except Exception as e:
-            print(f"Error reading data file: {str(e)}")
-            return []
-
-    def load_meta_data(self):
-        if self.meta_data is None:
-            print(f"Error reading meta data, file not found")
-            return []
-        try:
-            with open(self.meta_data,"r", encoding="utf-8") as json_file:
-                meta = json.load(json_file)
-            return [x['response'] for x in meta]
-        
-        except Exception as e:
-            print(f"Error reading data file: {str(e)}")
-            return []
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 
 
-    def run_inference(self):
-        print("Starting inference")
-        data = self.load_data()
-        prompt = self.load_prompt()
-        meta = self.load_meta_data()
+from typing import Optional
+import os, time
+from openai import OpenAI
 
-        if not data:
-            print("No data to process. Exiting.")
-            return
+def ask_chatgpt_with_pdf(pdf_path: str,
+                         prompt: str,
+                         *,
+                         api_key: Optional[str] = None,
+                         poll: float = 2) -> str:
+    """
+    Query the contents of *pdf_path* with *prompt* using GPT-4o + file-search tool.
 
-        if not prompt:
-            print("No prompt loaded. Exiting.")
-            return
-        results = []
-        for i, point in enumerate(data, 1):
-            if( self.limit_rows is not None and i > self.limit_rows):
-                break
-            
-            if len(meta) == 0:
-                message = f"{prompt}:\n{point}"
-            else:
-                message = f"{prompt}:\n {meta[i-1]}:\n{point}"
-            
-            final_input = message
-            response = self.get_api_response(final_input)
-            results.append({'data_point': i,'input': point,'response': response})
-            print(f"Data point {i}:")
-            #print(f"Input: {point}")
-            #print(f"AI Response: {response}")
-            #print("-" * 50)
-        print("saving outputs")
-        try:
-            with open(self.output_path,"w", encoding="utf-8") as json_file:
-                json.dump(results,json_file,indent=2)
-        except Exception as e:
-            print("Error occured")
+    Returns the assistant’s answer as plain text.
+    """
+    client = OpenAI(api_key=api_key or os.getenv("OPENAI_API_KEY"))
 
-        return results
+    # Upload PDF and create a file object
+    with open(pdf_path, "rb") as f:
+        file_obj = client.files.create(file=f, purpose="assistants")
 
-if __name__ == "__main__":
-    bot = GPT4MiniBot(
-        data_path="path/to/your/data.txt",
-        prompt_path="path/to/your/prompt.txt"
+    # Create assistant with file_search tool (no vector store needed here)
+    assistant = client.beta.assistants.create(
+        name="PDF-QA",
+        model="gpt-4o",
+        tools=[{"type": "file_search"}]
     )
-    bot.run_inference()
+
+    # Create thread with attached file
+    thread = client.beta.threads.create(
+        messages=[
+            {
+                "role": "user",
+                "content": prompt,
+                "attachments": [
+                    {"file_id": file_obj.id, "tools": [{"type": "file_search"}]}
+                ]
+            }
+        ]
+    )
+
+    # Run assistant and poll until done
+    run = client.beta.threads.runs.create(thread_id=thread.id, assistant_id=assistant.id)
+    
+    while True:
+        run = client.beta.threads.runs.retrieve(thread_id=thread.id, run_id=run.id)
+        print("Run status:", run.status)  # 👈
+        if run.status == "completed":
+            break
+        if run.status in {"failed", "cancelled", "expired"}:
+            raise RuntimeError(f"Run failed with status: {run.status}")
+        time.sleep(poll)
+
+    # Check messages
+    msgs = client.beta.threads.messages.list(thread_id=thread.id)
+    print("Messages:", msgs.data)  # 👈
+
+    assistant_msg = next((m for m in msgs.data if m.role == "assistant"), None)
+    if not assistant_msg:
+        raise RuntimeError("No assistant reply found")
+
+    print("Assistant reply:", assistant_msg.content)  # 👈
+
+    return assistant_msg.content[0].text.value.strip()
+
 
 # def ask_chatgpt(text: str, 
 #                 prompt_path=None, 

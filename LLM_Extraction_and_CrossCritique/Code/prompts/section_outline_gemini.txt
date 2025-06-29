@@ -1,0 +1,50 @@
+You are an expert in analyzing academic research papers, particularly clinical trial reports. Your task is to look at a pdf document and draw the exact structure/skeletal outline this paper follows.
+
+TASK:
+Examine this page from a clinical trial paper and identify any section heading that appears on this page. If a heading is found, also extract the first 5 words that follow it.
+
+INSTRUCTIONS:
+1. Look for section headings (like "Abstract", "Introduction", "Methods", "Results", "Discussion", etc.)
+2. For each heading found, extract the exact first 5 words of text that follow it
+3. If no heading is visible on this page, return empty values
+4. Do not include the section number (if any) in the heading
+5. Return your findings in the following exact format:
+
+ALGORITHM:
+Follow these steps to complete the task:
+Step 1: Go over the entire pdf and get an understanding of the context of the paper while looking at all the titles of the paper.
+Step 2: Look for visual cues like font size, boldness, and spacing to identify headings. 
+Step 3: Note that some headings maybe subheadings of a section. Use the context gained from step 1 to determine if a heading is a subheading or not.
+
+Output Format:
+Step 1 Output:
+    <Your understanding of the paper>
+
+Step 2 Output:
+    <All the headings found in the paper and your reasoning on the structure of the headings this paper is written at>
+    
+Return a Json file with the following structure:
+```
+{   {
+        title: <Heading here>
+        subheadings: [
+            {
+                title: <subheading here>,
+                subheadings: [],
+            },
+            ...
+        ]
+    }, 
+    {
+        title: <Heading here>,
+        subheadings: [],
+    }
+
+}
+```
+IMPORTANT:
+- If no heading is found, return an empty json. Don't use any prose, code fences.
+- The heading should be the exact text as it appears in the document
+- The first 5 words should be the exact text that follows the heading
+- Do not include any additional text, explanations, or markdown outside of this format.
+

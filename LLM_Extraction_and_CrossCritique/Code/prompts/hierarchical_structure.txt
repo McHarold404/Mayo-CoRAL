@@ -1,0 +1,48 @@
+You are an expert in analyzing academic research papers, particularly clinical trial reports.
+
+TASK:
+Examine the entire content of this clinical trial paper and extract the hierarchical structure of section headings. Your goal is to create a detailed outline that captures the organization of the paper, including main sections and any subheadings nested within them.
+
+INSTRUCTIONS:
+1. Identify all section headings in the paper (e.g., "Abstract", "Introduction", "Methods", "Results", "Discussion", etc.).
+2. Capture the hierarchy of these headings, noting which are main sections and which are subheadings under those sections.
+3. Do not include section numbers or page numbers in the heading titles.
+4. Return your findings as a JSON array of objects, where each object represents a main section and may contain a "subheadings" array for nested subheadings. Also give the page numbers of each page.
+5. Format the JSON as follows:
+
+ALGORITHM:
+Follow these steps to complete the task:
+Step 1: Go over the entire pdf and get an understanding of the context of the paper while looking at all the titles of the paper.
+Step 2: Look for visual cues like font size, boldness, and spacing to identify headings. 
+Step 3: Note that some headings maybe subheadings of a section. Use the context gained from step 1 to determine if a heading is a subheading or not.
+
+Output Format:
+
+Step 1 Output:
+    <Your understanding of the paper>
+
+Step 2 Output:
+    <All the headings found in the paper and your reasoning on the structure of the headings this paper is written at>
+    
+
+Step 3 Output: Return a Json file with the following structure:
+[
+  {
+    "title": "Main Section Title",
+    "page": "<Page Number>",
+    "subheadings": [
+      {
+        "title": "Subheading Title",
+        "subheadings": []
+        "page": "<Subheading Page Number>"
+      }
+    ]
+  }
+]
+
+IMPORTANT:
+- Return the step wise outputs as specified.
+- Return the JSON with no extra prose, markdown, or code fences.
+- Include all main sections and their subheadings, maintaining the correct hierarchy.
+- If a section has no subheadings, include an empty "subheadings" array.
+- Do not include any additional text or explanations outside of the JSON structure.

@@ -1,0 +1,21 @@
+You are given a page image from a clinical trial research paper. Your task is to identify specific headings and extract the first 5 words that follow each identified heading. Additionally, you are provided with the overall hierarchical structure of the document extracted by another model (GPT) as raw text in the user input below. Follow these steps carefully:
+
+Instructions:
+1. **Review Document Structure Context**: First, examine the raw output from the GPT model provided in the user input. This output contains a hierarchical structure of the document, including main sections and subheadings with their respective page numbers. Use this structure as a guide to understand the likely headings and their organization on the current page. Note that the raw output may include JSON data along with additional text; focus on extracting the structure from the JSON if possible, but consider the entire text as context.
+
+2. **Identify Headings**: Review the list of headings provided in the user input (if any). Examine the page image to see if any of these headings appear. To identify a heading, look for text that is typically in a larger font size, bold, or otherwise visually distinct from the body text. Headings often appear at the top of a section or paragraph and may be numbered (e.g., "1. Introduction") or standalone (e.g., "Methods"). Ensure the text matches the provided heading exactly or very closely. If no specific list is provided, use the headings from the GPT structure that are likely to appear on this page (based on page numbers in the structure) to guide your search.
+
+3. **Extract First 5 Words**: If a heading is found on the page, extract the first 5 words of the text that immediately follows it. If fewer than 5 words are available, return as many as are present. If no text follows the heading on this page, return an empty string for the first 5 words.
+
+4. **Return Results**: For each heading you find on the page, return the heading name and the first 5 words in the following format:
+
+**Output Format**:
+
+Step 1: <Reasoning Step>
+Write your analysis on which headings you identified from the page image and how they relate to the provided structure. Check if these headings match the expected structure from the GPT output. If not, look again and identify if there any headings. If not, state that no headings were found.
+
+Step 2: Return the heading in this format:
+    ### Heading: <Heading Name>
+    ### First 5 Words: <First 5 words following the heading, or empty string if none>
+
+Return the step by step output in this format:

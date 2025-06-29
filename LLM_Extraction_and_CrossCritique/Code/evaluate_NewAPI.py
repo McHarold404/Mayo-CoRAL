@@ -1,17 +1,10 @@
 #!/usr/bin/env python3
 
 
-''' 
-Running our command:
-python evaluate_NewAPI.py \   --doc "NCT02799602_Hussain_ARASENS_JCO'23.pdf" \    --pp_file "file_search/NCT02799602_Hussain_ARASENS_JCO'23/pp_output.txt" \
-    --gold_csv "GoldTable.csv" \
-    --prompt "prompts/evaluation_prompt.txt" \
-    --model gpt
-'''
-
 '''
 Change the paths of the files to store to the intended folder. 
-Right now the file "evaluation_results", which contains the evaluation results, is stored in the "Code" repo.
+Right now the file "evaluation_results" and "answers.json", which contains the evaluation results, is stored in the "Code" repo.
+
 
 '''
 

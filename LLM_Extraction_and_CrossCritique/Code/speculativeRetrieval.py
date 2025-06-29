@@ -60,26 +60,27 @@ def sample_chunks_from_clusters(clustered_chunks):
     return [cluster[0] for cluster in clustered_chunks.values() if cluster]
 
 
-def speculative_rag_pipeline(pdf_path, context, retreival_query, chunks,columns_info,config):
+def speculative_rag_pipeline(pdf_path, context, retreival_query, chunks,columns_info,config,top_n = 3):
     """ Full Speculative RAG: retrieval → clustering → sampling → verification → final answer selection. """
     if not chunks:
         return "No relevant chunks found."
 
-    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(3, len(chunks)))
-    clustered_chunks = relevant_chunks
-    # clustered_chunks = cluster_chunks(relevant_chunks, n_clusters=min(5, len(relevant_chunks)))
+    relevant_chunks = retrieve_chunks(retreival_query, chunks, top_n=min(top_n, len(chunks)))
 
-    # # Sample representative chunks
-    sampled_chunks = clustered_chunks
-    #sampled_chunks = sample_chunks_from_clusters(clustered_chunks)
-    print("Sampled chunks:", len(sampled_chunks))  # Debugging line
+    # all_text = "\n\n".join(chunk["content"] for chunk in chunks if chunk["type"] == "text")
+    # non_text_chunks = [chunk for chunk in chunks if chunk["type"] != "text"]
+    # all_text_chunk = {"type": "text", "content": all_text, "page": 1}  # Create a dummy text chunk for the full text
+    # relevant_chunks = retrieve_chunks(retreival_query, non_text_chunks, top_n=min(2, len(chunks)))
+    # relevant_chunks.extend([all_text_chunk])  # Include the full text chunk
+    sampled_chunks = relevant_chunks
+    print("Sampled chunks:", len(sampled_chunks) if sampled_chunks else 0)  # Debugging line
     if not sampled_chunks:
         return "No sufficient context to generate an answer."
 
     # Generate responses for each sampled chunk
     responses = []
     print(f"Column values to be extracted: {columns_info}")  # Debugging line
-    for chunk in sampled_chunks:  # Limit to 5 chunks
+    for chunk in sampled_chunks:  # Limit to 3/5 chunks
         #print(f"Processing chunk: {chunk['content']}")  # Debugging line
         #input_text = f"Find the value of: {columns_info} from the following text given the initial context \n\n{chunk['content'].strip("\n") if chunk['type'] == 'text' else chunk['table_content']}"
         image = None
@@ -127,4 +128,3 @@ def select_best_answer(responses, columns_info,config):
     model_fn = get_model_function(config["model"]["type"])
     best_answer = model_fn(prompt_path=prompt_path, text= candidates_text,key=config["model"]["key"])
     return best_answer.strip()
-

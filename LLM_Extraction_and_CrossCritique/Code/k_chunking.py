@@ -110,7 +110,6 @@ def chunking(pdf_path):
     try:
         text_doc = fitz.open(pdf_path)
         stop_processing = False  # Flag to stop processing after finding "References"
-
         for page_num in range(len(text_doc)):
             if stop_processing:
                 break  # ✅ Skip all pages after references
@@ -237,8 +236,7 @@ def enrich_table_chunks(chunks, pdf_path, prompt_paths, config):
                 img_pil = Image.open(BytesIO(img_bytes))
 
                 # ✅ Use the prompt_path passed in — don't override it!
-                gemini_output = ask_gemini_with_image(img_pil, prompt_paths[f'{chunk_type}'], key=config["model"]["key"])
-
+                gemini_output = ask_gemini_with_image(img_pil, prompt_path=prompt_paths[f'{chunk_type}'], key=config["model"]["key"])
                 # Save under a common key since it may be table or figure
                 chunk[f"{chunk_type}_content"] = gemini_output
                 if chunk_type == "table":

@@ -1,6 +1,6 @@
 import os, fitz, json
 from k_chunking import chunking, save_chunks_to_json, enrich_table_chunks  # Using your existing chunking functions
-from k_chunking_structure_extractor import extract_document_structure, tag_chunks_with_sections
+# from k_chunking_structure_extractor import extract_document_structure, tag_chunks_with_sections
 
 
 def process_document(document_name,config):
@@ -31,15 +31,19 @@ def process_document(document_name,config):
     chunks = chunking(pdf_path)
 
     # ---------- 2) NEW  section tagging --------------
-    try:
-        section_map = extract_document_structure(pdf_path, config)
-        full_text   = "\n".join(page.get_text() for page in fitz.open(pdf_path))
-        chunks      = tag_chunks_with_sections(chunks, section_map, full_text)
-    except Exception as e:
-        print(f"[WARN] Section tagging skipped: {e}")
+    # try:
+    #     section_map = extract_document_structure(pdf_path, config)
+    #     print("Output Path,", output_dir)
+    #     save_chunks_to_json(section_map,output_path=f"{output_dir}/section_map.json")
+    #     #with open(f"{output_dir}/section_map.txt", "w", encoding="utf-8") as f:
+    #     #    f.write(section_map)
+    #     full_text   = "\n".join(page.get_text() for page in fitz.open(pdf_path))
+    #     chunks      = tag_chunks_with_sections(chunks, section_map, full_text)
+    # except Exception as e:
+    #     print(f"[WARN] Section tagging skipped: {e}")
     # --------------------------------------------------
-    prompt_paths = {"table": "prompts/extract_table.txt",
-                    "figure": "prompts/extract_figure.txt"}  # ✅ Added prompt for figures
+    prompt_paths = {"table": config["prompts"]["extract_table"],  # ✅ Added prompt for tables
+                    "figure": config["prompts"]["extract_figure"]}  # ✅ Added prompt for figures
     enriched_chunks = enrich_table_chunks(chunks = chunks, pdf_path= pdf_path,prompt_paths= prompt_paths,config=config)
     save_chunks_to_json(enriched_chunks, output_path)
     

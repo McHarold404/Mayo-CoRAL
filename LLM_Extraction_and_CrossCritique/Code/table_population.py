@@ -2,6 +2,9 @@ import os
 import json
 import time
 import sys
+import re
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Lock
 from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system prompt path
 from model_inference.gemini import ask_gemini    # Using ask_gemini with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
@@ -15,18 +18,12 @@ def generate_dynamic_query(group_label, columns_info, config):
     It calls ask_gemini with a system prompt (from a file) and the group’s column definitions as the text.
     """
     # Create a string representation of the definitions for the group.
+    #print(columns_info)
     definitions_text = "\n".join(
-        [f"Find the value of {col['Definition']}" for col in columns_info]
+        [f"{col['Definition']}" for col in columns_info]
     )
     return definitions_text
 
-
-import os
-import json
-import time
-import re
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from threading import Lock
 
 def populate_table_row(document_name, definitions_groups, chunks, config):
     """
@@ -101,7 +98,7 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         
         # Run the speculative retrieval pipeline for the current group.
         sampled_chunks, candidate_answers, group_answer = speculative_rag_pipeline(pdf_path=os.path.join("training_studies", f"{document_name}.pdf"),
-            context = context,retreival_query=query, chunks=chunks, columns_info=columns_info, config=config)
+            context = context,retreival_query=query, chunks=chunks, columns_info=columns_info, config=config, top_n=3)
         
         # Update shared data structures in a thread-safe way.
         with lock:
@@ -158,7 +155,6 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
         return table_row  # Or you could raise an error if post-processing is required
     
 #k adds
-
     # Reload running outputs from file to ensure all groups are included.
     with open(running_outputs_path, "r", encoding="utf-8") as f:
         running_outputs = json.load(f)
