@@ -1,6 +1,6 @@
 import os, fitz, json
 from k_chunking import chunking, save_chunks_to_json, enrich_table_chunks  # Using your existing chunking functions
-# from k_chunking_structure_extractor import extract_document_structure, tag_chunks_with_sections
+from k_chunking_structure_extractor import extract_document_structure, tag_chunks_with_sections
 
 
 def process_document(document_name,config):

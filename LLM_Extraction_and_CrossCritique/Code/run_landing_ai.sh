@@ -12,8 +12,6 @@ documents=(
 )
 
 # Directory where the scripts are located
-SCRIPT_DIR="."
-
 # echo "Starting processing with main.py for all documents..."
 
 # # Run main.py for each document
@@ -27,16 +25,16 @@ SCRIPT_DIR="."
 #     fi
 # done
 
-# echo "Completed processing with main.py. Starting processing with extract_clinical_data_direct_querying.py..."
+# echo "Completed processing with main.py. Starting processing with extract_data_landing_ai_api.py..."
 
-# Run extract_clinical_data_direct_querying.py for each document
+# Run extract_data_landing_ai_api.py for each document
 for doc in "${documents[@]}"; do
-    echo "Processing $doc with extract_clinical_data_direct_querying.py..."
-    python "$SCRIPT_DIR/extract_clinical_data_direct_querying.py" --pdf_name "$doc.pdf"
+    echo "Processing $doc with extract_data_landing_ai_api.py..."
+    python "extract_data_landing_ai_api.py" --pdf_name "$doc.pdf"
     if [ $? -eq 0 ]; then
-        echo "Successfully processed $doc with extract_clinical_data_direct_querying.py"
+        echo "Successfully processed $doc with extract_data_landing_ai_api.py"
     else
-        echo "Error processing $doc with extract_clinical_data_direct_querying.py"
+        echo "Error processing $doc with extract_data_landing_ai_api.py"
     fi
 done
 

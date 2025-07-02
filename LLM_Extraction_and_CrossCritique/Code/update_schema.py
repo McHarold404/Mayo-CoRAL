@@ -3,13 +3,15 @@ import json
 
 # Step 1: Read Definitions.csv into a dictionary
 definitions = {}
-with open('LLM_Extraction_and_CrossCritique/Code/Definitions.csv', 'r', encoding='utf-8') as csvfile:
+with open('Definitions_old.csv', 'r', encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
+    # Print field names for debugging
+    print("CSV Field Names:", reader.fieldnames)
     for row in reader:
         definitions[row['Column Name']] = row['Definition']
 
 # Step 2: Load the JSON schema
-with open('LLM_Extraction_and_CrossCritique/Code/w2-schema.json', 'r', encoding='utf-8') as jsonfile:
+with open('w3-schema.json', 'r', encoding='utf-8') as jsonfile:
     schema = json.load(jsonfile)
 
 # Step 3: Update descriptions in the schema and track unused definitions
@@ -46,7 +48,7 @@ for unused in unused_definitions:
 print(f"Added {added_count} unused definitions as new fields in the schema.")
 
 # Step 6: Save the updated schema to a new file
-with open('LLM_Extraction_and_CrossCritique/Code/w3-schema.json', 'w', encoding='utf-8') as jsonfile:
+with open('old_definitions-schema.json', 'w', encoding='utf-8') as jsonfile:
     json.dump(schema, jsonfile, indent=2)
 
 print("Updated schema saved to w3-schema.json")

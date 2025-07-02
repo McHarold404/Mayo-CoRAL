@@ -10,7 +10,7 @@ url = "https://api.va.landing.ai/v1/tools/agentic-document-analysis"
 
 # Paths configuration
 base_pdf_path = "training_studies"  # Directory containing PDFs
-schema_path = "w3-schema.json"
+schema_path = "old_definitions-schema.json"
 output_base_dir = "landing_ai"
 gold_csv_file = "GoldTable.csv"
 config_file = "config.json"

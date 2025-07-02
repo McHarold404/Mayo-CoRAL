@@ -2,7 +2,7 @@ import pandas as pd
 
 import pandas as pd
 
-def load_definitions(csv_path="Definitions.csv", cols_to_test_path="Labels_to_Test.csv"):
+def load_definitions(csv_path="Definitions_old.csv", cols_to_test_path="Labels_to_Test.csv"):
     """
     Reads the Definitions.csv file and the Labels_to_Test.csv file.
     Groups columns by the 'Label' field, but only includes labels
