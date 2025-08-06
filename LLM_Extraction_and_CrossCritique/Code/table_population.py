@@ -5,7 +5,7 @@ import sys
 from model_inference.gpt import ask_chatgpt  # Using ask_chatgpt with system prompt path
 from model_inference.gemini import ask_gemini    # Using ask_gemini with system prompt path
 from speculativeRetrieval import speculative_rag_pipeline  # Import your existing speculative retrieval
-from utils import evaluate_post_processed_output,get_model_function,calculate_accuracy_and_append
+from utils import evaluate_post_processed_output,get_model_function
 from k_chunking import generate_context
 
 
@@ -27,6 +27,9 @@ import time
 import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 def populate_table_row(document_name, definitions_groups, chunks, config):
     """
@@ -187,7 +190,7 @@ def populate_table_row(document_name, definitions_groups, chunks, config):
     evaluation_path = os.path.join(output_dir, "evaluation_results.txt")
     with open(evaluation_path, "w", encoding="utf-8") as f:
         f.write(result)
-    calculate_accuracy_and_append(evaluation_path)
+    #calculate_accuracy_and_append(evaluation_path)
     print(f"Evaluation results saved to: {evaluation_path}")
     
     return table_row

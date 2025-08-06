@@ -289,7 +289,7 @@ def ask_gemini_with_image(images, prompt_path: str, key=2, model_name="gemini-2.
         return "❌ Error: No prompt path provided."
 
     try:
-        with open(prompt_path, 'r') as file:
+        with open(prompt_path, encoding="utf-8") as file:
             prompt = file.read().strip()
     except FileNotFoundError:
         return f"❌ Error: Prompt file not found: {prompt_path}"
