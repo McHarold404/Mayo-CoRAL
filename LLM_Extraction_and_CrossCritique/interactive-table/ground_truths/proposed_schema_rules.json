@@ -1,0 +1,128 @@
+[
+  {
+    "key": "complainant.name",
+    "type": "string",
+    "required": true,
+    "notes": "Full name as written; keep RAW + normalized if parsed."
+  },
+  {
+    "key": "complainant.guardian_name",
+    "type": "string",
+    "required": false,
+    "notes": "Father/Mother/Spouse as indicated (S/O, D/O, W/O)."
+  },
+  {
+    "key": "complainant.address",
+    "type": "string",
+    "required": false,
+    "notes": "Free-text address; do not over-normalize; keep RAW."
+  },
+  {
+    "key": "complainant.phones",
+    "type": "array[string]",
+    "required": false,
+    "notes": "All numbers found; E.164-normalize when possible."
+  },
+  {
+    "key": "incident.date",
+    "type": "date",
+    "required": true,
+    "notes": "Prefer ISO (YYYY-MM-DD) with timezone if known."
+  },
+  {
+    "key": "incident.time",
+    "type": "string",
+    "required": false,
+    "notes": "HH:MM (24h) where possible; keep RAW if ambiguous."
+  },
+  {
+    "key": "incident.location",
+    "type": "string",
+    "required": true,
+    "notes": "Place/landmark; free text + optional geocode later."
+  },
+  {
+    "key": "incident.brief_narrative",
+    "type": "string",
+    "required": true,
+    "notes": "One-sentence summary synthesized from text."
+  },
+  {
+    "key": "vehicle",
+    "type": "object",
+    "required": false,
+    "notes": "If present; include nested fields when detectable."
+  },
+  {
+    "key": "vehicle.make_model",
+    "type": "string",
+    "required": false,
+    "notes": "Raw + normalized (brand model)."
+  },
+  {
+    "key": "vehicle.registration",
+    "type": "string",
+    "required": false,
+    "notes": "Uppercase, strip spaces/dashes; keep RAW alongside."
+  },
+  {
+    "key": "vehicle.engine_no",
+    "type": "string",
+    "required": false,
+    "notes": "Preserve punctuation; often alphanumeric."
+  },
+  {
+    "key": "vehicle.chassis_no",
+    "type": "string",
+    "required": false,
+    "notes": "Preserve punctuation; often alphanumeric."
+  },
+  {
+    "key": "vehicle.color",
+    "type": "string",
+    "required": false,
+    "notes": "Normalized color name + RAW."
+  },
+  {
+    "key": "police_station",
+    "type": "string",
+    "required": false,
+    "notes": "PS/Outpost/Unit."
+  },
+  {
+    "key": "officer",
+    "type": "string",
+    "required": false,
+    "notes": "IO/ASI/SI/HC/SHO with rank."
+  },
+  {
+    "key": "fir_number",
+    "type": "string",
+    "required": false,
+    "notes": "If present; DD/GD number separately."
+  },
+  {
+    "key": "gd_dd_number",
+    "type": "string",
+    "required": false,
+    "notes": "Daily diary/roznamcha entry number."
+  },
+  {
+    "key": "legal_sections_raw",
+    "type": "string",
+    "required": false,
+    "notes": "Exact text: 'U/S 379 IPC' or 'Section 305 BNS'."
+  },
+  {
+    "key": "attachments_raw",
+    "type": "array[string]",
+    "required": false,
+    "notes": "Any annexures: bills, photos, copies."
+  },
+  {
+    "key": "data_quality_notes",
+    "type": "array[string]",
+    "required": false,
+    "notes": "Ambiguities/OCR issues/assumptions noted during parse."
+  }
+]

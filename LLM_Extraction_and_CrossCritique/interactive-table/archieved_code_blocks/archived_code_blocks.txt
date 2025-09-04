@@ -1,0 +1,558 @@
+"""
+This is the cell to run when we wish to get precision and recall overall.
+"""
+
+import pandas as pd, json, re
+from datetime import datetime
+
+# --- Load cleaned JSONs ---
+df = pd.read_excel('gt-vs-runs.xlsx')  # Must contain 'Ground Truth JSON', run_1..run_5
+
+RUN_COLS = [c for c in ['run_1','run_2','run_3','run_4','run_5'] if c in df.columns]
+GT_COL = 'Ground Truth JSON'
+
+# --- Helpers ---
+def norm_text(s):
+    if s is None: return ""
+    s = str(s)
+    s = s.replace("“","\"").replace("”","\"").replace("’","'")
+    s = re.sub(r'\s+', ' ', s).strip().lower()
+    return s
+
+def extract_json_block(text):
+    if not isinstance(text, str): return ""
+    t = text.replace("```json","").replace("```","").strip()
+    m = re.search(r'\{[\s\S]*\}', t)
+    return m.group(0).strip() if m else t
+
+def parse_spec(text):
+    if not isinstance(text, str) or not text.strip():
+        return set(), set()
+    blob = extract_json_block(text)
+    try:
+        obj = json.loads(blob)
+    except Exception:
+        blob2 = re.sub(r',\s*([}\]])', r'\1', blob)
+        try:
+            obj = json.loads(blob2)
+        except Exception:
+            return set(), set()
+    filt = obj.get('selected_filter', {}) or {}
+    cols = obj.get('selected_column', {}) or {}
+    filt_set = {(norm_text(k), norm_text(v)) for k,v in filt.items()}
+    col_set = {norm_text(v) for v in cols.values()}
+    filt_set = {kv for kv in filt_set if kv[0] or kv[1]}
+    col_set = {v for v in col_set if v}
+    return filt_set, col_set
+
+def prf(gt_set, pred_set):
+    tp = len(gt_set & pred_set)
+    fp = len(pred_set - gt_set)
+    fn = len(gt_set - pred_set)
+    prec = tp / (tp + fp) if (tp + fp) else (1.0 if not gt_set and not pred_set else 0.0)
+    rec  = tp / (tp + fn) if (tp + fn) else 1.0
+    return tp, fp, fn, prec, rec
+
+# --- Compute per-row, per-run precision/recall ---
+rows = []
+for idx, row in df.iterrows():
+    gt_filters, gt_cols = parse_spec(row[GT_COL])
+    for r in RUN_COLS:
+        run_filters, run_cols = parse_spec(row[r])
+        tpF, fpF, fnF, pF, rF = prf(gt_filters, run_filters)
+        tpC, fpC, fnC, pC, rC = prf(gt_cols, run_cols)
+        gt_all = gt_filters | {(('col', v)) for v in gt_cols}
+        run_all = run_filters | {(('col', v)) for v in run_cols}
+        tpA, fpA, fnA, pA, rA = prf(gt_all, run_all)
+        rows.append({
+            'row_id': idx,
+            'run': r,
+            'precision_all': pA,
+            'recall_all': rA
+        })
+
+results = pd.DataFrame(rows)
+
+# --- Compute average precision & recall per query across all runs ---
+avg_metrics = results.groupby('row_id').agg(
+    avg_precision_all=('precision_all', 'mean'),
+    avg_recall_all=('recall_all', 'mean')
+).reset_index()
+
+# Merge back to original dataframe so each query has its averages
+df_with_avgs = df.copy()
+df_with_avgs = df_with_avgs.merge(avg_metrics, left_index=True, right_on='row_id')
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+# --- Save ---
+df_with_avgs.to_excel(f'results/gt-vs-runs-with-avg-pr-recall_{timestamp}.xlsx', index=False)
+print("Saved with averages: gt-vs-runs-with-avg-pr-recall.xlsx")
+
+
+"""
+This is the cell to run when we wish to get precision and recall for individual runs
+"""
+
+import pandas as pd, json, re, math
+from datetime import datetime
+
+# --- Load cleaned JSONs ---
+df = pd.read_excel('gt-vs-runs_pipeline1.xlsx')  # must contain: Ground Truth JSON, run_1..run_5
+
+RUN_COLS = [c for c in ['run_1','run_2','run_3','run_4','run_5'] if c in df.columns]
+GT_COL = 'Ground Truth JSON'
+
+# --- Helpers ---
+def norm_text(s):
+    if s is None: return ""
+    s = str(s)
+    s = s.replace("“","\"").replace("”","\"").replace("’","'")
+    s = re.sub(r'\s+', ' ', s).strip().lower()
+    return s
+
+def extract_json_block(text):
+    if not isinstance(text, str): return ""
+    t = text.replace("```json","").replace("```","").strip()
+    m = re.search(r'\{[\s\S]*\}', t)
+    return m.group(0).strip() if m else t
+
+def parse_spec(text):
+    """
+    Returns a tuple of two sets:
+      - filters: set of (key,value) pairs normalized
+      - columns: set of column VALUE strings normalized (ignore column key names)
+    """
+    if not isinstance(text, str) or not text.strip():
+        return set(), set()
+    blob = extract_json_block(text)
+    try:
+        obj = json.loads(blob)
+    except Exception:
+        # try to fix trailing commas etc. (minimal)
+        blob2 = re.sub(r',\s*([}\]])', r'\1', blob)
+        try:
+            obj = json.loads(blob2)
+        except Exception:
+            return set(), set()
+
+    filt = obj.get('selected_filter', {}) or {}
+    cols = obj.get('selected_column', {}) or {}
+
+    filt_set = {(norm_text(k), norm_text(v)) for k,v in filt.items()}
+    # Compare column NAMES by their values (since keys may be "Column 1" vs "Column Category 1")
+    col_set = {norm_text(v) for v in cols.values()}
+    # remove empties that may sneak in
+    filt_set = {kv for kv in filt_set if kv[0] or kv[1]}
+    col_set = {v for v in col_set if v}
+    return filt_set, col_set
+
+def prf(gt_set, pred_set):
+    tp = len(gt_set & pred_set)
+    fp = len(pred_set - gt_set)
+    fn = len(gt_set - pred_set)
+    prec = tp / (tp + fp) if (tp + fp) else (1.0 if not gt_set and not pred_set else 0.0)
+    rec  = tp / (tp + fn) if (tp + fn) else 1.0
+    return tp, fp, fn, prec, rec
+
+# --- Compute precision/recall per row, per run ---
+rows = []
+for idx, row in df.iterrows():
+    gt_filters, gt_cols = parse_spec(row[GT_COL])
+    for r in RUN_COLS:
+        run_filters, run_cols = parse_spec(row[r])
+
+        # Separate metrics
+        tpF, fpF, fnF, pF, rF = prf(gt_filters, run_filters)
+        tpC, fpC, fnC, pC, rC = prf(gt_cols, run_cols)
+
+        # Combined (treat each filter pair and each column value as separate items in the same universe)
+        gt_all = gt_filters | {(('col', v)) for v in gt_cols}
+        run_all = run_filters | {(('col', v)) for v in run_cols}
+        tpA, fpA, fnA, pA, rA = prf(gt_all, run_all)
+
+        rows.append({
+            'row_id': idx,
+            'run': r,
+            # counts
+            'tp_filters': tpF, 'fp_filters': fpF, 'fn_filters': fnF,
+            'tp_columns': tpC, 'fp_columns': fpC, 'fn_columns': fnC,
+            'tp_all': tpA, 'fp_all': fpA, 'fn_all': fnA,
+            # metrics
+            'precision_filters': pF, 'recall_filters': rF,
+            'precision_columns': pC, 'recall_columns': rC,
+            'precision_all': pA, 'recall_all': rA,
+        })
+
+results = pd.DataFrame(rows)
+
+# --- Macro & micro summaries ---
+def micro(df_counts_prefix):
+    tp = results[f'tp_{df_counts_prefix}'].sum()
+    fp = results[f'fp_{df_counts_prefix}'].sum()
+    fn = results[f'fn_{df_counts_prefix}'].sum()
+    prec = tp / (tp+fp) if (tp+fp) else 1.0
+    rec  = tp / (tp+fn) if (tp+fn) else 1.0
+    return tp, fp, fn, prec, rec
+
+summary_rows = []
+for scope in ['filters','columns','all']:
+    tp,fp,fn,prec,rec = micro(scope)
+    macro_p = results.groupby('run')[f'precision_{scope}'].mean().mean()
+    macro_r = results.groupby('run')[f'recall_{scope}'].mean().mean()
+    summary_rows.append({
+        'scope': scope,
+        'micro_tp': tp, 'micro_fp': fp, 'micro_fn': fn,
+        'micro_precision': prec, 'micro_recall': rec,
+        'macro_precision_by_row_then_run': results[f'precision_{scope}'].mean(),
+        'macro_recall_by_row_then_run': results[f'recall_{scope}'].mean(),
+        'macro_precision_by_run_mean': macro_p,
+        'macro_recall_by_run_mean': macro_r
+    })
+summary = pd.DataFrame(summary_rows)
+
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+# --- Save outputs ---
+with pd.ExcelWriter(f'results/precision_recall_results_{timestamp}.xlsx', engine='xlsxwriter') as xw:
+    results.to_excel(xw, sheet_name='per_row_per_run', index=False)
+    summary.to_excel(xw, sheet_name='summary', index=False)
+
+print("Saved precision/recall to precision_recall_results.xlsx")
+
+
+"""
+This is the cell to run when we wish to get precision and recall values for filter and column selection.
+"""
+
+
+import pandas as pd, json, re
+
+# --- Load cleaned JSONs ---
+df = pd.read_excel('gt-vs-runs.xlsx')  # must contain: Ground Truth JSON, run_1..run_5
+
+RUN_COLS = [c for c in ['run_1','run_2','run_3','run_4','run_5'] if c in df.columns]
+GT_COL = 'Ground Truth JSON'
+
+# --- Helpers ---
+def norm_text(s):
+    if s is None: return ""
+    s = str(s)
+    s = s.replace("“","\"").replace("”","\"").replace("’","'")
+    s = re.sub(r'\s+', ' ', s).strip().lower()
+    return s
+
+def extract_json_block(text):
+    if not isinstance(text, str): return ""
+    t = text.replace("```json","").replace("```","").strip()
+    m = re.search(r'\{[\s\S]*\}', t)
+    return m.group(0).strip() if m else t
+
+def parse_spec(text):
+    if not isinstance(text, str) or not text.strip():
+        return set(), set()
+    blob = extract_json_block(text)
+    try:
+        obj = json.loads(blob)
+    except Exception:
+        blob2 = re.sub(r',\s*([}\]])', r'\1', blob)
+        try:
+            obj = json.loads(blob2)
+        except Exception:
+            return set(), set()
+    filt = obj.get('selected_filter', {}) or {}
+    cols = obj.get('selected_column', {}) or {}
+    filt_set = {(norm_text(k), norm_text(v)) for k,v in filt.items()}
+    col_set = {norm_text(v) for v in cols.values()}
+    filt_set = {kv for kv in filt_set if kv[0] or kv[1]}
+    col_set = {v for v in col_set if v}
+    return filt_set, col_set
+
+def prf(gt_set, pred_set):
+    tp = len(gt_set & pred_set)
+    fp = len(pred_set - gt_set)
+    fn = len(gt_set - pred_set)
+    prec = tp / (tp + fp) if (tp + fp) else (1.0 if not gt_set and not pred_set else 0.0)
+    rec  = tp / (tp + fn) if (tp + fn) else 1.0
+    return tp, fp, fn, prec, rec
+
+# --- Per-row, per-run metrics (filters & columns separately) ---
+rows = []
+for idx, row in df.iterrows():
+    gt_filters, gt_cols = parse_spec(row[GT_COL])
+    for r in RUN_COLS:
+        run_filters, run_cols = parse_spec(row[r])
+        _, _, _, pF, rF = prf(gt_filters, run_filters)
+        _, _, _, pC, rC = prf(gt_cols, run_cols)
+        rows.append({
+            'row_id': idx,
+            'run': r,
+            'precision_filters': pF, 'recall_filters': rF,
+            'precision_columns': pC, 'recall_columns': rC
+        })
+
+per_run = pd.DataFrame(rows)
+
+# --- Averages across the 5 runs, per query ---
+avg_per_query = per_run.groupby('row_id').agg(
+    avg_precision_filters=('precision_filters', 'mean'),
+    avg_recall_filters=('recall_filters', 'mean'),
+    avg_precision_columns=('precision_columns', 'mean'),
+    avg_recall_columns=('recall_columns', 'mean')
+).reset_index()
+
+# --- Merge back to original dataframe so each query has its averages ---
+df_with_avgs = df.copy()
+df_with_avgs = df_with_avgs.merge(avg_per_query, left_index=True, right_on='row_id')
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+# --- Save both detailed and summary outputs ---
+with pd.ExcelWriter(f'results/gt-vs-runs-with-filter-column-averages_{timestamp}.xlsx', engine='xlsxwriter') as xw:
+    df_with_avgs.to_excel(xw, sheet_name='queries_with_averages', index=False)
+    per_run.to_excel(xw, sheet_name='per_row_per_run', index=False)
+
+print("Saved: gt-vs-runs-with-filter-column-averages.xlsx")
+
+
+"""
+OLD PIPELINE. Do not worry
+"""
+
+import os, time, random, math, ast
+import pandas as pd
+import json
+from dotenv import load_dotenv
+
+import google.generativeai as genai
+from google.api_core.exceptions import ResourceExhausted, DeadlineExceeded, InternalServerError
+
+
+EXCEL_PATH_IN  = "runs/query-chosen-filters-columns.xlsx"
+EXCEL_PATH_OUT = "runs/query-chosen-filters-columns_with_runs_version2.xlsx"
+SHEET_NAME     = 0
+QUESTION_COLUMN = "question"
+RUNS_PER_QUESTION = 5
+DELAY_BETWEEN_CALLS_SEC = 0
+MAX_RETRIES = 0
+MODEL_NAME = "gemini-2.0-flash"
+
+# Your definition files
+filter_def  = "definitions_folder/definitions - aim2- filter.txt"
+column_def  = "definitions_folder/definitions - aim2 - column.txt"
+
+# =============== SETUP ===============
+load_dotenv()
+genai.configure(api_key=os.getenv("GEMINI_KEY"))
+
+with open(filter_def, "r", encoding="utf-8") as f:
+    filter_contents = f.read()
+
+with open(column_def, "r", encoding="utf-8") as f:
+    column_contents = f.read()
+
+
+# ======================================================================
+# Prompt builders
+# ======================================================================
+def build_filter_prompt(question: str) -> str:
+    """Ask for filters only. Force strict JSON."""
+    return (
+        "You are a medical expert researching cancer.\n"
+        "You have an interface where you may select zero or more filters. "
+        "Return ONLY a valid JSON object (no prose, no code fences) with this schema:\n"
+        '{\n'
+        '  "selected_filter": {\n'
+        '    "Filter Category 1": "Chosen Value",\n'
+        '    "Filter Category 2": "Chosen Value"\n'
+        '  }\n'
+        '}\n'
+        "Rules:\n"
+        "- Omit any filters whose value would be 'All'.\n"
+        "- Include only filters that are justified by the question.\n"
+        "- Use double quotes.\n"
+        "- Do not include any explanation.\n\n"
+        "- If the filter"
+        "Available filter categories and definitions:\n"
+        f"{filter_contents}\n\n"
+        f"Question: {question}\n"
+        "Return JSON now:"
+    )
+
+
+def build_column_prompt(question: str, selected_filter: dict) -> str:
+    """Ask for columns only; selection should consider the previously chosen filters. Force strict JSON."""
+    filters_json = json.dumps({"selected_filter": selected_filter}, ensure_ascii=False)
+    return (
+        "You are a medical expert researching cancer. "
+        "You also have a set of available columns with definitions. "
+        "You must choose up to 6 relevant columns for the question, "
+        "but NCT, PMID, Authors, and Year are ALWAYS included by default unless explicitly excluded.\n"
+        "Return ONLY a valid JSON object (no prose, no code fences) with this schema:\n"
+        '{\n'
+        '  "selected_column": {\n'
+        '    "Column 1": "Name",\n'
+        '    "Column 2": "Name",\n'
+        '    "Column 3": "Name",\n'
+        '    "Column 4": "Name",\n'
+        '    "Column 5": "Name",\n'
+        '    "Column 6": "Name"\n'
+        '  }\n'
+        '}\n'
+        "Rules:\n"
+        "- Use double quotes.\n"
+        "- Ensure NCT, PMID, Authors, and Year are present among the chosen columns, unless the question explicitly says otherwise.\n"
+        "- Do not include any explanation.\n\n"
+        "Available columns and definitions:\n"
+        f"{column_contents}\n\n"
+        "Previously selected filters (use these to guide your choice of columns):\n"
+        f"{filters_json}\n\n"
+        f"Question: {question}\n"
+        "Return JSON now:"
+    )
+
+
+# ======================================================================
+# Helpers
+# ======================================================================
+def strip_code_fences(s: str) -> str:
+    s = s.strip()
+    if s.startswith("```") and s.endswith("```"):
+        s = s.strip("`")
+        s = "\n".join(s.splitlines()[1:])  # remove language tag line if present
+    return s.strip()
+
+
+def extract_json_dict(text: str):
+    """
+    Robustly parse JSON from the model output:
+    1) Try json.loads directly after stripping code fences.
+    2) If that fails, try to locate the outermost {...} and parse that.
+    3) If that fails, try ast.literal_eval (handles single quotes) and then json-ify.
+    """
+    raw = strip_code_fences(text)
+    try:
+        return json.loads(raw)
+    except Exception:
+        pass
+    try:
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            candidate = raw[start : end + 1]
+            try:
+                return json.loads(candidate)
+            except Exception:
+                try:
+                    obj = ast.literal_eval(candidate)
+                    if isinstance(obj, dict):
+                        return obj
+                except Exception:
+                    pass
+    except Exception:
+        pass
+    raise ValueError(f"Could not parse JSON from model text: {text[:200]}...")
+
+
+def call_model_with_retries(prompt: str) -> str:
+    delay = 1.5
+    model = genai.GenerativeModel(MODEL_NAME)
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            response = model.generate_content(
+                prompt,
+                request_options={"timeout": 90},
+                safety_settings=None,
+            )
+            if hasattr(response, "text") and response.text:
+                return response.text.strip()
+            return str(response)
+        except (ResourceExhausted, DeadlineExceeded, InternalServerError) as e:
+            if attempt == MAX_RETRIES:
+                return f"[ERROR after {attempt} attempts] {e}"
+            sleep_for = delay * (2 ** (attempt - 1)) * (1 + random.uniform(0, 0.25))
+            time.sleep(sleep_for)
+        except Exception as e:
+            if attempt >= min(3, MAX_RETRIES):
+                return f"[ERROR non-retryable? attempt {attempt}] {e}"
+            time.sleep(delay * attempt)
+
+
+def run_once_for_question(question: str) -> str:
+    """
+    One full two-stage run for a single question:
+      - get selected_filter JSON
+      - get selected_column JSON (conditioned on filter)
+      - return merged JSON string
+    """
+    # Stage 1: filters
+    f_prompt = build_filter_prompt(question)
+    f_text = call_model_with_retries(f_prompt)
+    try:
+        f_obj = extract_json_dict(f_text)
+    except Exception:
+        f_obj = {}
+    selected_filter = f_obj.get("selected_filter", {}) if isinstance(f_obj, dict) else {}
+
+    # Stage 2: columns (conditioned on filters)
+    c_prompt = build_column_prompt(question, selected_filter)
+    c_text = call_model_with_retries(c_prompt)
+    try:
+        c_obj = extract_json_dict(c_text)
+    except Exception:
+        c_obj = {}
+    selected_column = c_obj.get("selected_column", {}) if isinstance(c_obj, dict) else {}
+
+    merged = {"selected_filter": selected_filter, "selected_column": selected_column}
+    return json.dumps(merged, ensure_ascii=False)
+
+
+def run_n_times_for_question(question: str, n_runs: int):
+    outputs = []
+    for _ in range(n_runs):
+        merged_json = run_once_for_question(question)
+        outputs.append(merged_json)
+        time.sleep(DELAY_BETWEEN_CALLS_SEC)
+    return outputs
+
+
+# =============== MAIN ===============
+def main():
+    df = pd.read_excel(EXCEL_PATH_IN, sheet_name=SHEET_NAME)
+
+    # Try to find a sensible question column automatically if needed
+    global QUESTION_COLUMN
+    if QUESTION_COLUMN not in df.columns:
+        candidates = [c for c in df.columns if c.strip().lower() in {"question", "query", "prompt"}]
+        if candidates:
+            QUESTION_COLUMN = candidates[0]
+        else:
+            raise ValueError(
+                f"Couldn't find a question column named '{QUESTION_COLUMN}'. "
+                f"Available columns: {list(df.columns)}"
+            )
+
+    # Prepare output columns: run_1..run_N for the merged JSON
+    run_cols = [f"run_{i+1}" for i in range(RUNS_PER_QUESTION)]
+    for c in run_cols:
+        if c not in df.columns:
+            df[c] = ""
+
+    # Iterate questions and fill results
+    for idx, row in df.iterrows():
+        q = str(row[QUESTION_COLUMN]).strip()
+        if not q or q.lower() == "nan":
+            continue
+        print(f"Processing row {idx}: {q[:80]}{'...' if len(q)>80 else ''}")
+        merged_runs = run_n_times_for_question(q, RUNS_PER_QUESTION)
+        for i, merged_json in enumerate(merged_runs):
+            df.at[idx, run_cols[i]] = merged_json
+
+    # Save
+    df.to_excel(EXCEL_PATH_OUT, index=False)
+    print(f"Saved results to: {EXCEL_PATH_OUT}")
+
+
+if __name__ == "__main__":
+    main()
+
+
