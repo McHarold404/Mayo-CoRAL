@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Treatment regimen"", h.""Additional Agents"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Treatment regimen"", ""Name of ICI"", ""Monotherapy/combination"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"")='pembrolizumab' AND LOWER(""Monotherapy/combination"")='combination') b LEFT JOIN public.hybrid_93_a465ca29 h ON b.""Treatment regimen"" = h.""Treatment regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Pembrolizumab combination therapy trials, list additional agents in the treatment regimen beyond the ICI."

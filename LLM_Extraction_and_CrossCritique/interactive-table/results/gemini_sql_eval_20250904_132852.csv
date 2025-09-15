@@ -1,0 +1,117 @@
+row_index,question,gemini_sql_original,gemini_sql_final,gemini_answer,gemini_assumptions,run1_status,run1_ms,run1_error,run2_status,run2_ms,run2_error,run3_status,run3_ms,run3_error,deterministic_across_runs,gemini_result_rows_last_run,ground_truth_sql,ground_truth_sql_final,ground_truth_exec_status,ground_truth_ms,ground_truth_error,ground_truth_result_rows,results_equal_exact,rowcount_delta_pred_minus_gt,column_overlap_ratio,nct_precision,nct_recall,nct_f1,nct_jaccard,sql_token_jaccard_vs_gt
+0,Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" 
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Bladder%'
+  AND ""ici_class"" = 'PD-1'
+  AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" 
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Bladder%'
+  AND ""ici_class"" = 'PD-1'
+  AND ""pdl1_inclusion"" = 'Yes';","This SQL query selects the nct, author, year, cancer_type, ici_class, and trial_phase for clinical trials related to Bladder cancer where the ICI class is PD-1 and PD-L1 positivity was an inclusion criterion.",,ok,33.10330000022077,,ok,4.268599997885758,,ok,3.8055000004533213,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,5.930999999691267,,2,False,-2.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.6363636363636364
+1,List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Bladder%' AND ""other_biomarker_inclusion"" = 'Yes' AND ""pdl1_inclusion"" = 'No'","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Bladder%' AND ""other_biomarker_inclusion"" = 'Yes' AND ""pdl1_inclusion"" = 'No'",This query retrieves Bladder cancer trials from the clinical_trials table that require a biomarker other than PD-L1 for inclusion.,,ok,5.285800001729513,,ok,3.7665999989258125,,ok,3.8991000001260545,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';",ok,4.501700001128484,,3,False,-3.0,0.4444444444444444,0.0,0.0,0.0,0.0,0.65
+2,Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-1' AND ""pdl1_inclusion"" = 'Yes'","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-1' AND ""pdl1_inclusion"" = 'Yes'","This SQL query selects the NCT, author, year, cancer type, ICI class, and trial phase for Gastric/GEJ clinical trials that used a PD-1 inhibitor and required PD-L1 positivity as an inclusion criterion.",,ok,4.605099999025697,,ok,4.382500002975576,,ok,4.9034000003302936,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,4.052399999636691,,3,False,-3.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.6818181818181818
+3,"Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""primary_endpoint"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%SCLC%' AND ""combination_type"" = 'ICI + ICI + Chemo';","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""primary_endpoint"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%SCLC%' AND ""combination_type"" = 'ICI + ICI + Chemo';","This query retrieves the NCT ID, author, year, cancer type, ICI class, trial phase, and primary endpoint for all clinical trials of Small Cell Lung Cancer (SCLC) using an ICI+ICI+Chemo combination.",,ok,4.851499998039799,,ok,5.1301999992574565,,ok,4.210099999909289,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';",ok,3.7922999981674366,,2,False,-2.0,0.5,0.0,0.0,0.0,0.0,0.6086956521739131
+4,Show Mesothelioma PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Mesothelioma%' AND ""ici_class"" = 'PD-1' AND ""year"" >= 2018","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Mesothelioma%' AND ""ici_class"" = 'PD-1' AND ""year"" >= 2018","This query selects the NCT ID, author, year, cancer type, ICI class, and trial phase for trials focusing on Mesothelioma, using a PD-1 inhibitor, and published in 2018 or later.",,ok,6.079399998270674,,ok,4.515799999353476,,ok,4.635099998267833,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,12.668899998971028,,1,False,-1.0,0.8571428571428571,0.0,0.0,0.0,0.0,0.5384615384615384
+5,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" IS NOT NULL;",This query retrieves trials using PD-L1 or CTLA-4 inhibitors and indicates a composite or co-primary endpoint.,,ok,20.166800000879448,,ok,3.86399999842979,,ok,3.728799998498289,,True,72.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,5.282399997668108,,2,False,70.0,0.4,0.04081632653061224,1.0,0.07843137254901959,0.04081632653061224,0.6
+6,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Head and Neck%' AND ""other_biomarker_inclusion"" = 'Yes'","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Head and Neck%' AND ""other_biomarker_inclusion"" = 'Yes'","This query retrieves the NCT, author, year, cancer type, ICI class, and trial phase for all clinical trials involving Head and Neck cancer that require a biomarker other than PD-L1 for inclusion.",,ok,4.010000000562286,,ok,4.233700001350371,,ok,3.600899999582907,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';",ok,3.8983000013104174,,1,False,0.0,0.4444444444444444,1.0,1.0,1.0,1.0,0.7368421052631579
+7,List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" 
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Head and Neck%'
+  AND ""ici_name"" = 'Nivolumab'
+  AND ""follow_up_duration_overall_months"" > 21;","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" 
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Head and Neck%'
+  AND ""ici_name"" = 'Nivolumab'
+  AND ""follow_up_duration_overall_months"" > 21;","This query returns the NCT, author, year, cancer type, ICI class, and trial phase for head and neck cancer trials that used Nivolumab and had an overall follow-up duration exceeding 21 months.",,ok,4.8969999988912605,,ok,4.699499997514067,,ok,4.017800001747673,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,5.647899997711647,,1,False,0.0,0.5555555555555556,1.0,1.0,1.0,1.0,0.6296296296296297
+8,Show Bladder PD-L1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Bladder%' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Bladder%' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018","This query returns the NCT ID, author, year, cancer type, ICI class, and trial phase for clinical trials of bladder cancer where the ICI class is PD-L1 and the trial was conducted in 2018 or later.",,ok,3.795900000113761,,ok,5.121499998494983,,ok,4.3390000028011855,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.816000000369968,,1,False,0.0,0.8571428571428571,1.0,1.0,1.0,1.0,0.64
+9,Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""lines_of_treatment"" LIKE '%2L+%' AND ""therapy_type"" = 'Combination therapy';","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""lines_of_treatment"" LIKE '%2L+%' AND ""therapy_type"" = 'Combination therapy';","This query retrieves the NCT, author, year, cancer type, ICI class, and trial phase for all clinical trials of Multiple Myeloma, where the lines of treatment include at least 2 prior lines, and combination therapy was used.",,ok,16.432000000349944,,ok,3.7814999996044207,,ok,4.215599998133257,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,5.221899999014568,,1,False,-1.0,0.5,0.0,0.0,0.0,0.0,0.4838709677419355
+10,Find Breast trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Breast%'","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Breast%'","This query retrieves Breast cancer trials and displays the NCT ID, author, year, cancer type, ICI class, trial phase, and median follow-up durations (overall, treatment arm, and control arm) in months.",,ok,4.057500002090819,,ok,4.7145000025921036,,ok,4.481299998587929,,True,11.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';",ok,5.304700000124285,,10,False,1.0,0.5454545454545454,0.9,1.0,0.9473684210526316,0.9,0.6
+11,Show Ipilimumab combination trials in Melanoma with sample sizes.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""total_sample_size"", ""combination_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Melanoma%'
+  AND ""ici_name"" = 'Ipilimumab'
+  AND ""monotherapy_combination"" = 'Combination therapy';","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""total_sample_size"", ""combination_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Melanoma%'
+  AND ""ici_name"" = 'Ipilimumab'
+  AND ""monotherapy_combination"" = 'Combination therapy';","This SQL query retrieves Ipilimumab combination trials specifically focused on Melanoma and includes sample sizes along with trial characteristics such as NCT ID, author, year, cancer type, ICI class, trial phase, total sample size, and combination type.",,error,13.843599997926503,"(psycopg2.errors.UndefinedColumn) column ""monotherapy_combination"" does not exist
+LINE 5:   AND ""monotherapy_combination"" = 'Combination therapy';
+              ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""total_sample_size"", ""combination_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%%Melanoma%%'
+  AND ""ici_name"" = 'Ipilimumab'
+  AND ""monotherapy_combination"" = 'Combination therapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,2.4518000027455855,"(psycopg2.errors.UndefinedColumn) column ""monotherapy_combination"" does not exist
+LINE 5:   AND ""monotherapy_combination"" = 'Combination therapy';
+              ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""total_sample_size"", ""combination_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%%Melanoma%%'
+  AND ""ici_name"" = 'Ipilimumab'
+  AND ""monotherapy_combination"" = 'Combination therapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,1.958500000910135,"(psycopg2.errors.UndefinedColumn) column ""monotherapy_combination"" does not exist
+LINE 5:   AND ""monotherapy_combination"" = 'Combination therapy';
+              ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"", ""total_sample_size"", ""combination_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%%Melanoma%%'
+  AND ""ici_name"" = 'Ipilimumab'
+  AND ""monotherapy_combination"" = 'Combination therapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",ok,3.543899998476263,,3,,,,,,,,0.6956521739130435
+12,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Breast%' AND ""other_biomarker_inclusion"" = 'Yes' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""ici_class"", ""trial_phase"" FROM public.""clinical_trials"" WHERE ""cancer_type"" ILIKE '%Breast%' AND ""other_biomarker_inclusion"" = 'Yes' AND ""pdl1_inclusion"" = 'No';",This query selects Breast cancer trials where other biomarker inclusion criteria were used besides PD-L1.,The question implies that we are looking for trials where 'other biomarker inclusion' is 'Yes' and 'PD-L1 inclusion' is 'No'.,ok,24.565899999288376,,ok,4.249599998729536,,ok,4.075700002431404,,True,7.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';",ok,4.680099998950027,,8,False,-1.0,0.4444444444444444,1.0,0.875,0.9333333333333333,0.875,0.65

@@ -1,0 +1,29 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 8:   FROM t1
+               ^
+
+[SQL: WITH coalesced AS (
+  SELECT
+    t1.""NCT"",
+    t1.""PMID"",
+    t1.""Author"",
+    t1.""Year"",
+    COALESCE(t2.follow_up_months_numeric, NULL) AS follow_up_months_numeric
+  FROM t1
+  LEFT JOIN t2 ON t1.""NCT"" = t2.""NCT""
+),  maturity AS (
+  SELECT
+    ""NCT"",
+    ""PMID"",
+    ""Author"",
+    ""Year"",
+    CASE
+      WHEN follow_up_months_numeric >= 24 THEN 'mature'
+      WHEN follow_up_months_numeric IS NULL THEN 'unknown'
+      ELSE 'immature'
+    END AS follow_up_maturity
+  FROM coalesced
+)
+SELECT * FROM maturity]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Urothelial trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

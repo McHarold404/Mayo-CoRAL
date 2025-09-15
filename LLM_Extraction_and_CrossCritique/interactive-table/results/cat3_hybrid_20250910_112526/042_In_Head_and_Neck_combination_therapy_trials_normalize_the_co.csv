@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Type of combination"", h.""combination_type_normalized"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Treatment regimen"", ""Monotherapy/combination"", ""Type of combination"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%' AND LOWER(""Monotherapy/combination"") = 'combination') b LEFT JOIN public.hybrid_42_38c7d660 h ON b.""Type of combination"" = h.""Type of combination""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck combination therapy trials, normalize the combination type to standardized labels (e.g., ICI+Chemo, ICI+TKI, ICI+ICI)."

@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...ials WHERE ""Trial phase"" IS NOT NULL) b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Trial phase"", h.""standardized_trial_phase"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Trial phase"" FROM compat.clinical_trials WHERE ""Trial phase"" IS NOT NULL) b LEFT JOIN {HYBRID_TABLE} h ON b.""Trial phase"" = h.""Trial phase""]
+(Background on this error at: https://sqlalche.me/e/20/f405)",32

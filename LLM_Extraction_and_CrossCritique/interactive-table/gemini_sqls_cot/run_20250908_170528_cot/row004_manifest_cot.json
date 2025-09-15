@@ -1,0 +1,52 @@
+{
+  "row_index": 4,
+  "question": "Show Mesothelioma PD1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query selects the nct, author, year, and pubmed_id for mesothelioma trials using PD-1 inhibitors that were published in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Mesothelioma' AND \\\"ici_class\\\" = 'PD-1' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"This query selects the nct, author, year, and pubmed_id for mesothelioma trials using PD-1 inhibitors that were published in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250908_170528_cot\\row004_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250908_170528_cot\\row004_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.031899996334687,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.9143000030890107,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.589100004523061,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 5.072599989944138,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5,
+    "deterministic_across_runs": true
+  }
+}

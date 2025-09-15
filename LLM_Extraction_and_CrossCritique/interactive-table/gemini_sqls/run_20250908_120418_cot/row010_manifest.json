@@ -1,0 +1,52 @@
+{
+  "row_index": 10,
+  "question": "Find Breast trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query selects Breast cancer trials and shows the median follow-up duration in months for the overall, treatment, and control arms.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%'\",\n  \"answer\": \"This query selects Breast cancer trials and shows the median follow-up duration in months for the overall, treatment, and control arms.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_120418_cot\\row010_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_120418_cot\\row010_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.542299997410737,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120418_cot\\row010_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.918200000247452,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120418_cot\\row010_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9747999981045723,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120418_cot\\row010_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.249499994330108,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.9,
+    "nct_recall": 1.0,
+    "nct_f1": 0.9473684210526316,
+    "nct_jaccard": 0.9,
+    "sql_token_jaccard_vs_gt": 0.631578947368421,
+    "deterministic_across_runs": true
+  }
+}

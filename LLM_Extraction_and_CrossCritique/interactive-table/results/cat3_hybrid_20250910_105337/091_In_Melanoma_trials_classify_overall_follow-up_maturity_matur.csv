@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""subquery.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", CASE WHEN ""follow_up"" IS NULL THEN 'unknown' WHEN CAST(""follow_up"" AS NUMERIC) >= 24 THEN 'mature' ELSE 'immature' END AS follow_up_maturity FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Follow-up duration for primary endpoint(s) in months | Overall"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%melanoma%%') AS subquery]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Melanoma trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

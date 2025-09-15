@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedFunction) operator does not exist: double precision = text
+LINE 1: ...T JOIN public.hybrid_55_acc4e775 h ON b.follow_up = h.follow...
+                                                             ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.follow_up, h.follow_up_maturity FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Follow-up duration for primary endpoint(s) in months | Overall"" AS follow_up FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%breast%%') b LEFT JOIN public.hybrid_55_acc4e775 h ON b.follow_up = h.follow_up]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Breast trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

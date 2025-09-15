@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Control regimen"", h.""Cytotoxic Drugs"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Control regimen"", ""Cancer type"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%non-small cell lung%%' AND LOWER(""Control regimen"") LIKE '%%chemotherapy%%') b LEFT JOIN public.hybrid_95_c50ec188 h ON b.""Control regimen"" = h.""Control regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Non-Small Cell Lung trials with chemotherapy control, list the specific cytotoxic drugs from the control regimen."

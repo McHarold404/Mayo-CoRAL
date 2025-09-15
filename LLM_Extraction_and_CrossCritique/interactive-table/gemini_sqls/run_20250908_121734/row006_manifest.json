@@ -1,0 +1,52 @@
+{
+  "row_index": 6,
+  "question": "List Head and Neck trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials that focused on Head and Neck cancers, included other biomarkers for inclusion, and did not include PD-L1.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No';\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials that focused on Head and Neck cancers, included other biomarkers for inclusion, and did not include PD-L1.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_121734\\row006_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_121734\\row006_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.57810000423342,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_121734\\row006_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.5127000010106713,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_121734\\row006_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.429499997058883,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_121734\\row006_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250908_121734\\row006_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.761399995710235,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250908_121734\\row006_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

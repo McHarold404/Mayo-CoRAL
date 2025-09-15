@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...R(""Cancer type"") LIKE '%pancreatic%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Primary endpoint"", h.""endpoint_type"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Primary endpoint"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%pancreatic%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Primary endpoint"" = h.""Primary endpoint""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Pancreatic trials, determine whether the listed endpoint is primary or secondary based on the endpoint text."

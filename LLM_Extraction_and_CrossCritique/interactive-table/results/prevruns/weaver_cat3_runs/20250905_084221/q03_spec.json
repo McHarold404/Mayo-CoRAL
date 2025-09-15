@@ -1,0 +1,15 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"year\" FROM public.\"clinical_trials\" WHERE \"ici_name\" = 'Atezolizumab'",
+  "udf_spec": {
+    "based_on_cols": [
+      "year"
+    ],
+    "new_col": "year_bucket",
+    "prompt_template": "Given the year {year}, classify it into one of the following buckets: '\u22642014', '2015\u20132018', '\u22652019'."
+  },
+  "final_sql": "SELECT year_bucket, COUNT(*) FROM pg_temp.\"year_buckets\" GROUP BY year_bucket",
+  "answer_hint": "The final SQL aggregates the counts by year_bucket.",
+  "assumptions": "Atezolizumab trials are uniquely identified by ici_name.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"year\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_name\\\" = 'Atezolizumab'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"year\"\n    ],\n    \"new_col\": \"year_bucket\",\n    \"prompt_template\": \"Given the year {year}, classify it into one of the following buckets: '\u22642014', '2015\u20132018', '\u22652019'.\"\n  },\n  \"final_sql\": \"SELECT year_bucket, COUNT(*) FROM pg_temp.\\\"year_buckets\\\" GROUP BY year_bucket\",\n  \"answer_hint\": \"The final SQL aggregates the counts by year_bucket.\",\n  \"assumptions\": \"Atezolizumab trials are uniquely identified by ici_name.\"\n}\n```"
+}

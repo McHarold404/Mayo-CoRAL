@@ -1,0 +1,52 @@
+{
+  "row_index": 6,
+  "question": "List Head and Neck trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT, author, year, and PubMed ID for clinical trials related to Head and Neck cancer where inclusion criteria involved biomarkers other than PD-L1.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No'\",\n  \"answer\": \"This SQL query retrieves the NCT, author, year, and PubMed ID for clinical trials related to Head and Neck cancer where inclusion criteria involved biomarkers other than PD-L1.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_120158_cot\\row006_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_120158_cot\\row006_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.7002000026404858,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120158_cot\\row006_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.59510000271257,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120158_cot\\row006_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4677000003284775,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120158_cot\\row006_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.710299999511335,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

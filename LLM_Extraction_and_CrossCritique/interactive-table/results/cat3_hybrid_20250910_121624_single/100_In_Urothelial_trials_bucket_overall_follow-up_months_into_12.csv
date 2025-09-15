@@ -1,0 +1,24 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 3:   FROM t1
+               ^
+
+[SQL: WITH base AS (
+  SELECT t1.*, CAST(t2.follow_up_months_clean AS FLOAT) AS follow_up_months_clean
+  FROM t1
+  JOIN t2 ON t1.""NCT"" = t2.""NCT""
+),
+classified AS (
+SELECT
+  ""NCT"",
+  ""PMID"",
+  CASE
+    WHEN follow_up_months_clean < 0 THEN 'missing'
+    WHEN follow_up_months_clean < 12 THEN '<12'
+    WHEN follow_up_months_clean < 24 THEN '12-23'
+    ELSE '>=24'
+  END AS follow_up_category
+FROM base
+)
+SELECT * from classified]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Urothelial trials, bucket overall follow-up months into <12, 12–23, or ≥24."

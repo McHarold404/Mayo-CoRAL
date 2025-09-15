@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Trial name"", h.""Biomarker Name"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Trial name"", ""Is any other biomarker used for inclusion"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%breast%%' AND ""Is any other biomarker used for inclusion"" = 'Yes') b LEFT JOIN public.hybrid_25_355b3616 h ON b.""Trial name"" = h.""Trial name""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Breast trials where a non–PD-L1 biomarker was required, extract the biomarker name(s) from the trial name."

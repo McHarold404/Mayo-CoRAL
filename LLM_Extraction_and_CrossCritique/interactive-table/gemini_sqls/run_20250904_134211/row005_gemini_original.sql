@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "cancer_type", "ici_class", "trial_phase" FROM public."clinical_trials" WHERE "ici_class" IN ('PD-L1', 'CTLA-4') AND "primary_endpoint_is_multiple_or_composite" IS NOT NULL

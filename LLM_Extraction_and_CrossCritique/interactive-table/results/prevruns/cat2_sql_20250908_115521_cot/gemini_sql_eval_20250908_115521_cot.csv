@@ -1,0 +1,92 @@
+row_index,question,gemini_sql_original,gemini_sql_final,gemini_answer,gemini_assumptions,run1_status,run1_ms,run1_error,run2_status,run2_ms,run2_error,run3_status,run3_ms,run3_error,deterministic_across_runs,gemini_result_rows_last_run,ground_truth_sql,ground_truth_sql_final,ground_truth_exec_status,ground_truth_ms,ground_truth_error,ground_truth_result_rows,results_equal_exact,rowcount_delta_pred_minus_gt,column_overlap_ratio,nct_precision,nct_recall,nct_f1,nct_jaccard,sql_token_jaccard_vs_gt
+0,Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"/* Gemini unavailable: placeholder SQL for: Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,27.126599998155143,,ok,3.1636999992770143,,ok,3.216899996914435,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,10.753199996543117,,2,False,-1,0.0,,,,,0.11764705882352941
+1,List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.,"/* Gemini unavailable: placeholder SQL for: List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,3.16949999978533,,ok,4.145000006246846,,ok,5.03039999603061,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';",ok,4.907499998807907,,3,False,-2,0.0,,,,,0.06451612903225806
+2,Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"/* Gemini unavailable: placeholder SQL for: Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criter... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criter... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,2.9389000046649016,,ok,3.3965999973588623,,ok,2.726200000324752,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,6.751799999619834,,3,False,-2,0.0,,,,,0.14285714285714285
+3,"Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?","/* Gemini unavailable: placeholder SQL for: Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were t... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were t... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,3.801800005021505,,ok,3.395699997781776,,ok,2.6923999976133928,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';",ok,4.204500000923872,,2,False,-1,0.0,,,,,0.21875
+4,Show Mesothelioma PD1 trials conducted in 2018 or later.,"/* Gemini unavailable: placeholder SQL for: Show Mesothelioma PD1 trials conducted in 2018 or later.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Show Mesothelioma PD1 trials conducted in 2018 or later.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,3.5908999998355284,,ok,3.5330999962752685,,ok,2.506199998606462,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,10.052400000859052,,1,False,0,0.0,,,,,0.11428571428571428
+5,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","/* Gemini unavailable: placeholder SQL for: List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,2.8931000051670708,,ok,3.5974999991594814,,ok,3.1350000062957406,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,4.09370000124909,,2,False,-1,0.0,,,,,0.14705882352941177
+6,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"/* Gemini unavailable: placeholder SQL for: List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,3.188000002410263,,ok,2.8279999969527125,,ok,4.7487000047112815,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';",ok,3.7795999960508198,,1,False,0,0.0,,,,,0.125
+7,List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.,"/* Gemini unavailable: placeholder SQL for: List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,2.7871000056620687,,ok,3.42070000624517,,ok,3.8175000008777715,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,6.59799999993993,,1,False,0,0.0,,,,,0.18421052631578946
+8,Show Bladder PD-L1 trials conducted in 2018 or later.,"/* Gemini unavailable: placeholder SQL for: Show Bladder PD-L1 trials conducted in 2018 or later.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Show Bladder PD-L1 trials conducted in 2018 or later.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,3.6101999940001406,,ok,4.020500004116911,,ok,3.11879999935627,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,4.247800003213342,,1,False,0,0.0,,,,,0.1388888888888889
+9,Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,"/* Gemini unavailable: placeholder SQL for: Show Multiple Myeloma trials with at least 2 prior lines of therapy that used co... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Show Multiple Myeloma trials with at least 2 prior lines of therapy that used co... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,3.3316999979433604,,ok,3.289500004029833,,ok,3.3851999978651293,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,5.536299999221228,,1,False,0,0.0,,,,,0.09090909090909091
+10,Find Breast trials with median follow‑up and show months by arm.,"/* Gemini unavailable: placeholder SQL for: Find Breast trials with median follow‑up and show months by arm.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Find Breast trials with median follow‑up and show months by arm.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,2.733000001171604,,ok,3.9392999970004894,,ok,3.823999999440275,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';",ok,6.386900000507012,,10,False,-9,0.0,,,,,0.12903225806451613
+11,Show Ipilimumab combination trials in Melanoma with sample sizes.,"/* Gemini unavailable: placeholder SQL for: Show Ipilimumab combination trials in Melanoma with sample sizes.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: Show Ipilimumab combination trials in Melanoma with sample sizes.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,4.2721999998320825,,ok,3.0413999993470497,,ok,3.322399999888148,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",ok,4.460399999516085,,3,False,-2,0.0,,,,,0.13333333333333333
+12,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"/* Gemini unavailable: placeholder SQL for: List Breast trials requiring a biomarker other than PD‑L1 for inclusion.... */
+SELECT 1;","/* Gemini unavailable: placeholder SQL for: List Breast trials requiring a biomarker other than PD‑L1 for inclusion.... */
+SELECT 1;",Gemini not configured; SQL synthesis skipped.,,ok,4.238699999405071,,ok,2.41719999758061,,ok,2.929299997049384,,True,1,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';",ok,4.5585999978356995,,8,False,-7,0.0,,,,,0.06451612903225806

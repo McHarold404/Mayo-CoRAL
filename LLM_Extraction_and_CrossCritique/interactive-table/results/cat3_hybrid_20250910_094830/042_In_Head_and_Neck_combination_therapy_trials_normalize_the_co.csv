@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...y/combination"") LIKE '%combination%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Type of combination"", b.""Monotherapy/combination"", h.""normalized_combination"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Type of combination"", ""Monotherapy/combination"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%' AND LOWER(""Monotherapy/combination"") LIKE '%%combination%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Type of combination"" = h.""Type of combination""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck combination therapy trials, normalize the combination type to standardized labels (e.g., ICI+Chemo, ICI+TKI, ICI+ICI)."

@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", CASE WHEN b.""Number of arms"" = '1' THEN '1-arm' WHEN b.""Number of arms"" = '2' THEN '2-arm' WHEN CAST(REPLACE(b.""Number of arms"", '+', '') AS INTEGER) >= 3 THEN '≥3-arm' ELSE NULL END AS arm_category FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Number of arms"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%renal cell%%') b]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Renal cell trials, categorize number of arms as 1-arm, 2-arm, or ≥3-arm."

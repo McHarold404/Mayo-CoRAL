@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedFunction) operator does not exist: integer = text
+LINE 1: ...public.hybrid_90_543a52a1 h ON b.""Number of arms"" = h.""Numbe...
+                                                             ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Number of arms"", h.""arm_category"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Number of arms"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%renal cell%%') b LEFT JOIN public.hybrid_90_543a52a1 h ON b.""Number of arms"" = h.""Number of arms""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Renal cell trials, categorize number of arms as 1-arm, 2-arm, or ≥3-arm."

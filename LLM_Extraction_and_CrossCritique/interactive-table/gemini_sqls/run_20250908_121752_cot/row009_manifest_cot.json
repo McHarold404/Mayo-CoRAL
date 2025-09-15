@@ -1,0 +1,52 @@
+{
+  "row_index": 9,
+  "question": "Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT ID, author, year, and PubMed ID for Multiple Myeloma clinical trials that used combination therapy and included patients with at least two prior lines of therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Multiple Myeloma' AND \\\"lines_of_treatment\\\" = '>=2' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This SQL query retrieves the NCT ID, author, year, and PubMed ID for Multiple Myeloma clinical trials that used combination therapy and included patients with at least two prior lines of therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_121752_cot\\row009_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_121752_cot\\row009_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.107499997189734,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_121752_cot\\row009_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.883799996401649,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_121752_cot\\row009_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4270000032847747,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_121752_cot\\row009_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.437199997482821,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5172413793103449,
+    "deterministic_across_runs": true
+  }
+}

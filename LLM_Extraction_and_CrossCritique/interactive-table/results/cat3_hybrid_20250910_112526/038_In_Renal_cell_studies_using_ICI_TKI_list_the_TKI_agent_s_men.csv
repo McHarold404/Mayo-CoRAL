@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column h.Treatment regimen does not exist
+LINE 1: ...c.hybrid_38_7664a736 h ON b.""Treatment regimen"" = h.""Treatme...
+                                                             ^
+HINT:  Perhaps you meant to reference the column ""b.Treatment regimen"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Treatment regimen"", h.""TKI agent"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Treatment regimen"", ""Name of ICI"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%renal cell%%' AND LOWER(""Monotherapy/combination"") LIKE '%%combination%%' AND LOWER(""Name of ICI"") IS NOT NULL AND LOWER(""Type of therapy"") LIKE '%%tki%%') b LEFT JOIN public.hybrid_38_7664a736 h ON b.""Treatment regimen"" = h.""Treatment regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Renal cell studies using ICI+TKI, list the TKI agent(s) mentioned in the treatment regimen."

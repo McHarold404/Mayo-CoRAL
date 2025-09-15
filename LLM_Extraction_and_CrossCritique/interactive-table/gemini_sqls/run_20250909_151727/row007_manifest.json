@@ -1,0 +1,52 @@
+{
+  "row_index": 7,
+  "question": "List Head and Neck Nivolumab trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Nivolumab in Head and Neck Squamous Cell Carcinoma (HNSCC) where the overall follow-up duration exceeded 21 months.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%HNSCC%' AND \\\"ici_name\\\" = 'Nivolumab' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Nivolumab in Head and Neck Squamous Cell Carcinoma (HNSCC) where the overall follow-up duration exceeded 21 months.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250909_151727\\row007_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250909_151727\\row007_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.149699991103262,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row007_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.859699994791299,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row007_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6284000088926405,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row007_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250909_151727\\row007_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.914599994663149,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250909_151727\\row007_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"number_of_arms\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Mesothelioma'",
+  "udf_spec": {
+    "based_on_cols": [
+      "number_of_arms"
+    ],
+    "new_col": "arm_category",
+    "prompt_template": "Given the number of arms in a clinical trial, categorize it as '1-arm', '2-arm', or '\u22653-arm'.\n\nnumber_of_arms: {number_of_arms}\narm_category:"
+  },
+  "final_sql": "WITH temp_table AS (SELECT * FROM pg_temp.\"arm_category_table\")\nSELECT arm_category, COUNT(*) FROM temp_table GROUP BY arm_category;",
+  "answer_hint": "The final query aggregates the arm categories and counts the number of trials in each category.",
+  "assumptions": "The LLM will accurately categorize the number of arms as '1-arm', '2-arm', or '\u22653-arm'.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"number_of_arms\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Mesothelioma'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"number_of_arms\"\n    ],\n    \"new_col\": \"arm_category\",\n    \"prompt_template\": \"Given the number of arms in a clinical trial, categorize it as '1-arm', '2-arm', or '\u22653-arm'.\\n\\nnumber_of_arms: {number_of_arms}\\narm_category:\"\n  },\n  \"final_sql\": \"WITH temp_table AS (SELECT * FROM pg_temp.\\\"arm_category_table\\\")\\nSELECT arm_category, COUNT(*) FROM temp_table GROUP BY arm_category;\",\n  \"answer_hint\": \"The final query aggregates the arm categories and counts the number of trials in each category.\",\n  \"assumptions\": \"The LLM will accurately categorize the number of arms as '1-arm', '2-arm', or '\u22653-arm'.\"\n}\n```"
+}

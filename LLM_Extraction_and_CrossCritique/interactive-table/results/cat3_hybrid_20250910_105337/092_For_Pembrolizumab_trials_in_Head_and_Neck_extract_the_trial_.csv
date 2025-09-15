@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...Cancer type"") LIKE '%head and neck%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Trial name"", h.""trial_acronym"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Trial name"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"") LIKE '%%pembrolizumab%%' AND LOWER(""Cancer type"") LIKE '%%head and neck%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Trial name"" = h.""Trial name""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Pembrolizumab trials in Head and Neck, extract the trial acronym from the trial name (e.g., KEYNOTE-xxx, CHECKMATE-xxx)."

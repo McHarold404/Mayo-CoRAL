@@ -1,0 +1,27 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 6:   FROM t1
+               ^
+
+[SQL: WITH coalesced AS (
+  SELECT
+    t1.""NCT"",
+    t1.""PubMed ID"" AS ""PMID"",
+    COALESCE(t2.follow_up_months_clean, t1.follow_up_months) AS final_follow_up_months
+  FROM t1
+  LEFT JOIN t2 ON t1.""NCT"" = t2.""NCT""
+),
+final AS (
+  SELECT
+    ""NCT"",
+    ""PMID"",
+    CASE
+      WHEN final_follow_up_months < 12 THEN '<12'
+      WHEN final_follow_up_months >= 12 AND final_follow_up_months < 24 THEN '12-23'
+      WHEN final_follow_up_months >= 24 THEN '>=24'
+      ELSE 'Unknown'
+    END AS follow_up_bucket
+  FROM coalesced
+)
+SELECT * FROM final]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24."

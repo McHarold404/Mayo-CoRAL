@@ -1,0 +1,52 @@
+{
+  "row_index": 1,
+  "question": "List Bladder trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This query lists Bladder cancer clinical trials that required other biomarkers for inclusion, but not PD-L1. The query returns the trial ID (nct), author, year, cancer type, ICI class and trial phase.",
+    "assumptions": "I assume the requirement is to find bladder cancer trials that used biomarkers OTHER than PD-L1 for inclusion. Thus, \"pdl1_inclusion\" is set to 'No' to exclude cases where PD-L1 was also a criteria.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"cancer_type\\\", \\\"ici_class\\\", \\\"trial_phase\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%bladder%' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No';\",\n  \"answer\": \"This query lists Bladder cancer clinical trials that required other biomarkers for inclusion, but not PD-L1. The query returns the trial ID (nct), author, year, cancer type, ICI class and trial phase.\",\n  \"assumptions\": \"I assume the requirement is to find bladder cancer trials that used biomarkers OTHER than PD-L1 for inclusion. Thus, \\\"pdl1_inclusion\\\" is set to 'No' to exclude cases where PD-L1 was also a criteria.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250904_134211\\row001_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250904_134211\\row001_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 49.81540000153473,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250904_134211\\row001_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.551300000865012,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250904_134211\\row001_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 12.480099998356309,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250904_134211\\row001_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250904_134211\\row001_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.562300001154654,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250904_134211\\row001_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.65,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...trol regimen"") LIKE '%chemotherapy%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Control regimen"", h.""cytotoxic_drugs"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Control regimen"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%gastric%%' AND LOWER(""Control regimen"") LIKE '%%chemotherapy%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Control regimen"" = h.""Control regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Gastric/GEJ trials with chemotherapy control, list the specific cytotoxic drugs from the control regimen."

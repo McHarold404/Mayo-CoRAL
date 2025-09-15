@@ -1,0 +1,52 @@
+{
+  "row_index": 10,
+  "question": "Find Breast trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query selects Breast cancer trials and returns \"nct\", \"author\", \"year\", \"pubmed_id\" where follow-up durations are available for overall, treatment, and control arms.",
+    "assumptions": "Assuming 'Breast' cancer type filter is case-insensitive. Also, it assumes that if all three follow-up duration columns are not null it signifies that information regarding median follow-up is available. I am returning all columns for the requested information.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"follow_up_duration_overall_months\\\" IS NOT NULL AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL;\",\n  \"answer\": \"This query selects Breast cancer trials and returns \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" where follow-up durations are available for overall, treatment, and control arms.\",\n  \"assumptions\": \"Assuming 'Breast' cancer type filter is case-insensitive. Also, it assumes that if all three follow-up duration columns are not null it signifies that information regarding median follow-up is available. I am returning all columns for the requested information.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250905_113604\\row010_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250905_113604\\row010_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.24139999995532,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250905_113604\\row010_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.322900000057416,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250905_113604\\row010_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.20579999970505,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250905_113604\\row010_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250905_113604\\row010_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.206499999781954,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250905_113604\\row010_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -9,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 0.1111111111111111,
+    "nct_f1": 0.19999999999999998,
+    "nct_jaccard": 0.1111111111111111,
+    "sql_token_jaccard_vs_gt": 0.5909090909090909,
+    "deterministic_across_runs": true
+  }
+}

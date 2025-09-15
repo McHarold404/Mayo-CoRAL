@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...ICI"") IN ('nivolumab', 'ipilimumab')) b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Total sample size"", h.sample_size_category FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Total sample size"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"") IN ('nivolumab', 'ipilimumab')) b LEFT JOIN {HYBRID_TABLE} h ON b.""Total sample size"" = h.""Total sample size""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Nivolumab, Ipilimumab trials, bucket total sample size as small(<100), medium(100–299), or large(≥300)."

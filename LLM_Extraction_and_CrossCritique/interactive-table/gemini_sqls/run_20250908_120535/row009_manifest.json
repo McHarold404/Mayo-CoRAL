@@ -1,0 +1,52 @@
+{
+  "row_index": 9,
+  "question": "Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for trials where the cancer type is Multiple Myeloma, the lines of treatment include at least 2 prior lines of therapy (2L+), and the therapy type is combination therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Multiple Myeloma%' AND \\\"lines_of_treatment\\\" ILIKE '%2L+%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for trials where the cancer type is Multiple Myeloma, the lines of treatment include at least 2 prior lines of therapy (2L+), and the therapy type is combination therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_120535\\row009_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_120535\\row009_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.143700003623962,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120535\\row009_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.833399994822685,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120535\\row009_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9417000007233582,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120535\\row009_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250908_120535\\row009_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.284999995434191,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250908_120535\\row009_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.45161290322580644,
+    "deterministic_across_runs": true
+  }
+}

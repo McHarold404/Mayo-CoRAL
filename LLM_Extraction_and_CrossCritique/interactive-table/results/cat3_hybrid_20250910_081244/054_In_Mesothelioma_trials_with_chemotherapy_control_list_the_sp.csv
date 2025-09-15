@@ -1,0 +1,14 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Authors"" does not exist
+LINE 2:   SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"", ""Year"", ""C...
+                                               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Author"".
+
+[SQL: WITH base AS (
+  SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"", ""Year"", ""Cancer type"", ""Control regimen""
+  FROM compat.clinical_trials
+  WHERE LOWER(""Cancer type"") LIKE '%%mesothelioma%%'
+  AND LOWER(""Control regimen"") LIKE '%%chemotherapy%%'
+)
+SELECT * FROM base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Mesothelioma trials with chemotherapy control, list the specific cytotoxic drugs from the control regimen."

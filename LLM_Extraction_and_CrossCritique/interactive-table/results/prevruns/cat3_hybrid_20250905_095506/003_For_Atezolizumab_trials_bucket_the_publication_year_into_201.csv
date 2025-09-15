@@ -1,0 +1,25 @@
+question,generated_sql,publication_year_bucket,trial_count
+"For Atezolizumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019.","SELECT
+    CASE
+        WHEN year <= 2014 THEN '≤2014'
+        WHEN year BETWEEN 2015 AND 2018 THEN '2015–2018'
+        WHEN year >= 2019 THEN '≥2019'
+        ELSE 'Unknown'
+    END AS publication_year_bucket,
+    COUNT(*) AS trial_count
+FROM public.""clinical_trials""
+WHERE ici_name = 'Atezolizumab'
+GROUP BY publication_year_bucket
+ORDER BY publication_year_bucket LIMIT 1000",≥2019,19
+"For Atezolizumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019.","SELECT
+    CASE
+        WHEN year <= 2014 THEN '≤2014'
+        WHEN year BETWEEN 2015 AND 2018 THEN '2015–2018'
+        WHEN year >= 2019 THEN '≥2019'
+        ELSE 'Unknown'
+    END AS publication_year_bucket,
+    COUNT(*) AS trial_count
+FROM public.""clinical_trials""
+WHERE ici_name = 'Atezolizumab'
+GROUP BY publication_year_bucket
+ORDER BY publication_year_bucket LIMIT 1000",2015–2018,11

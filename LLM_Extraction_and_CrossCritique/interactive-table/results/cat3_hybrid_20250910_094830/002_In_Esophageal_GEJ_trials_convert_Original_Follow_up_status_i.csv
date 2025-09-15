@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...OR LOWER(""Cancer type"") LIKE '%gej%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Original publication or Follow-up"", h.""is_follow_up"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Original publication or Follow-up"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%esophageal%%' OR LOWER(""Cancer type"") LIKE '%%gej%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Original publication or Follow-up"" = h.""Original publication or Follow-up""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Esophageal/GEJ trials, convert 'Original/Follow up' status into a boolean is_follow_up."

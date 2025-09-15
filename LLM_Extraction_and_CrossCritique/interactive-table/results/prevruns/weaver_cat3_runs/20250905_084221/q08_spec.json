@@ -1,0 +1,16 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"id\", \"control_regimen\", \"control_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"trial_phase\" = 'Phase 3'",
+  "udf_spec": {
+    "based_on_cols": [
+      "control_regimen",
+      "control_type"
+    ],
+    "new_col": "control_arm_classification",
+    "prompt_template": "Given the control regimen '{control_regimen}' and control type '{control_type}', classify the control arm as active, placebo, or best supportive care."
+  },
+  "final_sql": "WITH temp_table AS (SELECT *, pg_temp.classify_control_arm(\"control_regimen\", \"control_type\") AS control_arm_classification FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"trial_phase\" = 'Phase 3') SELECT control_arm_classification, COUNT(*) FROM temp_table GROUP BY control_arm_classification;",
+  "answer_hint": "The answer should categorize the control arms into active, placebo, or best supportive care.",
+  "assumptions": "A UDF can be used to classify the control arm based on the control_regimen and control_type. The UDF is named pg_temp.classify_control_arm.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"id\\\", \\\"control_regimen\\\", \\\"control_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Renal cell' AND \\\"trial_phase\\\" = 'Phase 3'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"control_regimen\",\n      \"control_type\"\n    ],\n    \"new_col\": \"control_arm_classification\",\n    \"prompt_template\": \"Given the control regimen '{control_regimen}' and control type '{control_type}', classify the control arm as active, placebo, or best supportive care.\"\n  },\n  \"final_sql\": \"WITH temp_table AS (SELECT *, pg_temp.classify_control_arm(\\\"control_regimen\\\", \\\"control_type\\\") AS control_arm_classification FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Renal cell' AND \\\"trial_phase\\\" = 'Phase 3') SELECT control_arm_classification, COUNT(*) FROM temp_table GROUP BY control_arm_classification;\",\n  \"answer_hint\": \"The answer should categorize the control arms into active, placebo, or best supportive care.\",\n  \"assumptions\": \"A UDF can be used to classify the control arm based on the control_regimen and control_type. The UDF is named pg_temp.classify_control_arm.\"\n}\n```"
+}

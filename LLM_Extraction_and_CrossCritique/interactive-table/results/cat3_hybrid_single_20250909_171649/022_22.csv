@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...WER(""Cancer type"") LIKE '%melanoma%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Treatment regimen"", h.""is_immunotherapy"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Treatment regimen"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%melanoma%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Treatment regimen"" = h.""Treatment regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)",22

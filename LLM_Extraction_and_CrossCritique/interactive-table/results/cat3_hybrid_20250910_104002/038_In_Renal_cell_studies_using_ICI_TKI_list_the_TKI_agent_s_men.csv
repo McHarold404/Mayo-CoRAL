@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...ER(""Treatment regimen"") LIKE '%tki%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Treatment regimen"", h.""tki_agent"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Treatment regimen"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%renal cell%%' AND LOWER(""Treatment regimen"") LIKE '%%ici%%' AND LOWER(""Treatment regimen"") LIKE '%%tki%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Treatment regimen"" = h.""Treatment regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Renal cell studies using ICI+TKI, list the TKI agent(s) mentioned in the treatment regimen."

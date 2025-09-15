@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "cancer_type", "ici_class", "trial_phase" FROM public."clinical_trials" WHERE "cancer_type" = 'Gastric/GEJ' AND "ici_class" = 'PD-1' AND "pdl1_inclusion" = 'Yes';

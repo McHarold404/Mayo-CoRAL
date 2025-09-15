@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...R(""Cancer type"") LIKE '%pancreatic%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Is PD-L1 positivity inclusion criteria"", h.""PD_L1_requirement"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Is PD-L1 positivity inclusion criteria"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%pancreatic%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Is PD-L1 positivity inclusion criteria"" = h.""Is PD-L1 positivity inclusion criteria""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Pancreatic trials, interpret the PD-L1 requirement flag as boolean true/false."

@@ -1,0 +1,15 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"ici_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"ici_name\" IS NOT NULL",
+  "udf_spec": {
+    "based_on_cols": [
+      "ici_name"
+    ],
+    "new_col": "ici_target",
+    "prompt_template": "Given the ICI name {ici_name}, classify the target class as one of 'PD-1', 'PD-L1', or 'CTLA-4'.\n"
+  },
+  "final_sql": "WITH enriched_data AS (\n  SELECT \n    \"ici_name\",\n    pg_temp.classify_ici(\"ici_name\") AS \"ici_target\"\n  FROM public.\"clinical_trials\"\n  WHERE \"cancer_type\" = 'Small Cell Lung'\n) \nSELECT DISTINCT \"ici_name\", \"ici_target\" \nFROM enriched_data\nWHERE \"ici_target\" IS NOT NULL;",
+  "answer_hint": "The query selects the distinct ICI names and their classified targets for Small Cell Lung cancer trials. It uses a UDF (pg_temp.classify_ici) to classify the ICI target based on the \"ici_name\".",
+  "assumptions": "A user-defined function named `classify_ici` exists in the pg_temp schema that can classify the target of an ICI from its generic name.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"ici_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Small Cell Lung' AND \\\"ici_name\\\" IS NOT NULL\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"ici_name\"\n    ],\n    \"new_col\": \"ici_target\",\n    \"prompt_template\": \"Given the ICI name {ici_name}, classify the target class as one of 'PD-1', 'PD-L1', or 'CTLA-4'.\\n\"\n  },\n  \"final_sql\": \"WITH enriched_data AS (\\n  SELECT \\n    \\\"ici_name\\\",\\n    pg_temp.classify_ici(\\\"ici_name\\\") AS \\\"ici_target\\\"\\n  FROM public.\\\"clinical_trials\\\"\\n  WHERE \\\"cancer_type\\\" = 'Small Cell Lung'\\n) \\nSELECT DISTINCT \\\"ici_name\\\", \\\"ici_target\\\" \\nFROM enriched_data\\nWHERE \\\"ici_target\\\" IS NOT NULL;\",\n  \"answer_hint\": \"The query selects the distinct ICI names and their classified targets for Small Cell Lung cancer trials. It uses a UDF (pg_temp.classify_ici) to classify the ICI target based on the \\\"ici_name\\\".\",\n  \"assumptions\": \"A user-defined function named `classify_ici` exists in the pg_temp schema that can classify the target of an ICI from its generic name.\"\n}\n```"
+}

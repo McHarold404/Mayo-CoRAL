@@ -1,0 +1,52 @@
+{
+  "row_index": 2,
+  "question": "Show Gastric/GEJ trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "gemini": {
+    "answer": "This query returns the \"nct\", \"author\", \"year\", and \"pubmed_id\" for trials focusing on Gastric/GEJ cancer, utilizing a PD-1 inhibitor, and where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Gastric/GEJ' AND \\\"ici_class\\\" = 'PD-1' AND \\\"pdl1_inclusion\\\" = 'Yes';\",\n  \"answer\": \"This query returns the \\\"nct\\\", \\\"author\\\", \\\"year\\\", and \\\"pubmed_id\\\" for trials focusing on Gastric/GEJ cancer, utilizing a PD-1 inhibitor, and where PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_170115\\row002_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_170115\\row002_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.630799998063594,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_170115\\row002_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6880999978166074,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_170115\\row002_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.947899997001514,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_170115\\row002_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250908_170115\\row002_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.269400000339374,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250908_170115\\row002_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6086956521739131,
+    "deterministic_across_runs": true
+  }
+}

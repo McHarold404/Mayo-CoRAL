@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Primary endpoint"", h.""primary_endpoint_standardized"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Primary endpoint"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%melanoma%%' AND ""Trial phase""='Phase 2') b LEFT JOIN public.hybrid_22_a028efe9 h ON b.""Primary endpoint"" = h.""Primary endpoint""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Melanoma Phase 2 trials, standardize the primary endpoint into one of OS, PFS, ORR, DFS, DOR, AE-rate, or Other."

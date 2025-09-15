@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", CASE WHEN CAST(""Total sample size"" AS INTEGER) < 100 THEN 'small(<100)' WHEN CAST(""Total sample size"" AS INTEGER) BETWEEN 100 AND 299 THEN 'medium(100–299)' WHEN CAST(""Total sample size"" AS INTEGER) >= 300 THEN 'large(≥300)' ELSE NULL END AS sample_size_bucket FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Total sample size"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"")='ipilimumab') b]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Ipilimumab trials, bucket total sample size as small(<100), medium(100–299), or large(≥300)."

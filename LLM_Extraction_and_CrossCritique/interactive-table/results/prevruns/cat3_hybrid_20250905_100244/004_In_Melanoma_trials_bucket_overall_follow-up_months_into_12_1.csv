@@ -1,0 +1,45 @@
+question,generated_sql,Follow-up Duration Bucket,count
+"In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.","SELECT
+    CASE
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" < 12 THEN '<12'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 12 AND ""Follow-up duration for primary endpoint(s) in months | Overall"" < 24 THEN '12–23'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 24 THEN '>=24'
+        ELSE 'Unknown'
+    END AS ""Follow-up Duration Bucket"",
+    COUNT(*)
+FROM compat.clinical_trials
+WHERE ""Cancer type"" = 'Melanoma'
+GROUP BY ""Follow-up Duration Bucket""",<12,5
+"In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.","SELECT
+    CASE
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" < 12 THEN '<12'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 12 AND ""Follow-up duration for primary endpoint(s) in months | Overall"" < 24 THEN '12–23'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 24 THEN '>=24'
+        ELSE 'Unknown'
+    END AS ""Follow-up Duration Bucket"",
+    COUNT(*)
+FROM compat.clinical_trials
+WHERE ""Cancer type"" = 'Melanoma'
+GROUP BY ""Follow-up Duration Bucket""",Unknown,8
+"In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.","SELECT
+    CASE
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" < 12 THEN '<12'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 12 AND ""Follow-up duration for primary endpoint(s) in months | Overall"" < 24 THEN '12–23'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 24 THEN '>=24'
+        ELSE 'Unknown'
+    END AS ""Follow-up Duration Bucket"",
+    COUNT(*)
+FROM compat.clinical_trials
+WHERE ""Cancer type"" = 'Melanoma'
+GROUP BY ""Follow-up Duration Bucket""",>=24,10
+"In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.","SELECT
+    CASE
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" < 12 THEN '<12'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 12 AND ""Follow-up duration for primary endpoint(s) in months | Overall"" < 24 THEN '12–23'
+        WHEN ""Follow-up duration for primary endpoint(s) in months | Overall"" >= 24 THEN '>=24'
+        ELSE 'Unknown'
+    END AS ""Follow-up Duration Bucket"",
+    COUNT(*)
+FROM compat.clinical_trials
+WHERE ""Cancer type"" = 'Melanoma'
+GROUP BY ""Follow-up Duration Bucket""",12–23,3

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "cancer_type", "ici_class", "trial_phase" FROM public."clinical_trials" WHERE "cancer_type" = 'Multiple Myeloma' AND "lines_of_treatment" LIKE '%2L+%' AND "therapy_type" = 'Combination therapy';

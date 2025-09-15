@@ -1,0 +1,11 @@
+question,generated_sql,status,error
+"In Breast trials, normalize the type of follow-up into imaging, clinical, or mixed.","SELECT
+    CASE
+        WHEN follow_up_type LIKE '%imaging%' AND follow_up_type LIKE '%clinical%' THEN 'mixed'
+        WHEN follow_up_type LIKE '%imaging%' THEN 'imaging'
+        WHEN follow_up_type LIKE '%clinical%' THEN 'clinical'
+        ELSE follow_up_type
+    END AS normalized_follow_up_type
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Breast'
+LIMIT 1000 LIMIT 1000",error,sqlalchemy.cyextension.immutabledict.immutabledict is not a sequence

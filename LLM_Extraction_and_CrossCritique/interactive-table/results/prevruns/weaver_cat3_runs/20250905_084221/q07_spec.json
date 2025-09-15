@@ -1,0 +1,16 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"id\", \"control_regimen\", \"control_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3'",
+  "udf_spec": {
+    "based_on_cols": [
+      "control_regimen",
+      "control_type"
+    ],
+    "new_col": "control_arm_category",
+    "prompt_template": "Given the control regimen '{control_regimen}' and control type '{control_type}', classify the control arm as 'active', 'placebo', or 'best supportive care'.\n"
+  },
+  "final_sql": "WITH temp_table AS (SELECT *, pg_temp.control_arm_categorizer(\"control_regimen\", \"control_type\") AS control_arm_category FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3') SELECT control_arm_category, COUNT(*) FROM temp_table GROUP BY control_arm_category;",
+  "answer_hint": "The final query groups by the control arm category and counts the occurrences of each category.",
+  "assumptions": "A UDF named pg_temp.control_arm_categorizer exists that takes 'control_regimen' and 'control_type' and returns a string 'active', 'placebo', or 'best supportive care'.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"id\\\", \\\"control_regimen\\\", \\\"control_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Small Cell Lung' AND \\\"trial_phase\\\" = 'Phase 3'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"control_regimen\",\n      \"control_type\"\n    ],\n    \"new_col\": \"control_arm_category\",\n    \"prompt_template\": \"Given the control regimen '{control_regimen}' and control type '{control_type}', classify the control arm as 'active', 'placebo', or 'best supportive care'.\\n\"\n  },\n  \"final_sql\": \"WITH temp_table AS (SELECT *, pg_temp.control_arm_categorizer(\\\"control_regimen\\\", \\\"control_type\\\") AS control_arm_category FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Small Cell Lung' AND \\\"trial_phase\\\" = 'Phase 3') SELECT control_arm_category, COUNT(*) FROM temp_table GROUP BY control_arm_category;\",\n  \"answer_hint\": \"The final query groups by the control arm category and counts the occurrences of each category.\",\n  \"assumptions\": \"A UDF named pg_temp.control_arm_categorizer exists that takes 'control_regimen' and 'control_type' and returns a string 'active', 'placebo', or 'best supportive care'.\"\n}\n```"
+}

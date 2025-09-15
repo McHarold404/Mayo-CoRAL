@@ -1,0 +1,52 @@
+{
+  "row_index": 7,
+  "question": "List Head and Neck Nivolumab trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Nivolumab in Head and Neck cancer where the overall follow-up duration exceeded 21 months.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"ici_name\\\" = 'Nivolumab' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Nivolumab in Head and Neck cancer where the overall follow-up duration exceeded 21 months.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250908_170528_cot\\row007_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250908_170528_cot\\row007_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.592300010495819,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6638000019593164,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.119899997022003,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.7489999958779663,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5925925925925926,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,13 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Authors"" does not exist
+LINE 2:   SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"", ""Year"", ""C...
+                                               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Author"".
+
+[SQL: WITH base AS (
+  SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"", ""Year"", ""Cancer type"", ""Original publication or Follow-up"" AS original_publication_status
+  FROM compat.clinical_trials
+  WHERE LOWER(""Cancer type"") LIKE '%%multiple myeloma%%'
+)
+SELECT * FROM base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Multiple Myeloma trials, convert 'Original/Follow up' status into a boolean is_follow_up."

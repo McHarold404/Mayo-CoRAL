@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...LOWER(""Class of ICI"") LIKE '%pd-l1%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Name of ICI"", b.""Cancer type"", h.""ici_brand_name"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Name of ICI"", ""Cancer type"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%small cell lung%%' AND LOWER(""Class of ICI"") LIKE '%%pd-l1%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Name of ICI"" = h.""Name of ICI""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Small Cell Lung trials with PD-L1 agents included in the meta-analysis, map the generic ICI name to its brand name."

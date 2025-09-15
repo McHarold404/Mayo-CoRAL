@@ -1,0 +1,215 @@
+row_index,question,gemini_sql,gemini_answer,gemini_assumptions,gemini_raw,gemini_exec_status,gemini_exec_error,gemini_result_rows,ground_truth_sql,ground_truth_exec_status,ground_truth_exec_error,ground_truth_result_rows,results_match_exact
+0,Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.,SELECT COUNT(DISTINCT id) AS trial_count FROM clinical_trials WHERE cancer_type ILIKE 'Bladder/Urothelial' AND ici_class ILIKE 'PD-1' AND pdl1_inclusion ILIKE 'Yes',This query counts the number of bladder cancer trials that used a PD-1 inhibitor and required PD-L1 positivity for inclusion.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT id) AS trial_count FROM clinical_trials WHERE cancer_type ILIKE 'Bladder/Urothelial' AND ici_class ILIKE 'PD-1' AND pdl1_inclusion ILIKE 'Yes'"",
+  ""answer"": ""This query counts the number of bladder cancer trials that used a PD-1 inhibitor and required PD-L1 positivity for inclusion."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""id"" does not exist
+LINE 1: SELECT COUNT(DISTINCT id) AS trial_count FROM clinical_trial...
+                              ^
+
+[SQL: SELECT COUNT(DISTINCT id) AS trial_count FROM clinical_trials WHERE cancer_type ILIKE 'Bladder/Urothelial' AND ici_class ILIKE 'PD-1' AND pdl1_inclusion ILIKE 'Yes']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,,2,
+1,List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.,SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'Bladder%' AND other_biomarker_inclusion ILIKE 'Yes' AND pdl1_inclusion ILIKE 'No',This query returns the names of clinical trials focused on Bladder cancer that require a biomarker OTHER than PD-L1 for patient inclusion.,,"```json
+{
+  ""sql"": ""SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'Bladder%' AND other_biomarker_inclusion ILIKE 'Yes' AND pdl1_inclusion ILIKE 'No'"",
+  ""answer"": ""This query returns the names of clinical trials focused on Bladder cancer that require a biomarker OTHER than PD-L1 for patient inclusion."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT trial_name FROM clinical_trials WHERE cancer_type ILI...
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'Bladder%%' AND other_biomarker_inclusion ILIKE 'Yes' AND pdl1_inclusion ILIKE 'No']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';",ok,,3,
+2,Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criterion.,SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Gastric/GEJ' AND ici_class ILIKE 'PD-1' AND pdl1_inclusion ILIKE 'Yes',This query counts the number of Gastric/GEJ cancer trials that used a PD-1 inhibitor and required PD-L1 positivity for inclusion.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Gastric/GEJ' AND ici_class ILIKE 'PD-1' AND pdl1_inclusion ILIKE 'Yes'"",
+  ""answer"": ""This query counts the number of Gastric/GEJ cancer trials that used a PD-1 inhibitor and required PD-L1 positivity for inclusion."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""id"" does not exist
+LINE 1: SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_...
+                              ^
+
+[SQL: SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Gastric/GEJ' AND ici_class ILIKE 'PD-1' AND pdl1_inclusion ILIKE 'Yes']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,,3,
+3,"Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?","SELECT trial_name, primary_endpoint FROM clinical_trials WHERE cancer_type ILIKE '%SCLC%' AND combination_type ILIKE '%ICI + ICI + Chemo%'","This query identifies SCLC studies that tested ICI+ICI+Chemo combinations, and lists each trial's name alongside the primary endpoint tested.",,"```json
+{
+  ""sql"": ""SELECT trial_name, primary_endpoint FROM clinical_trials WHERE cancer_type ILIKE '%SCLC%' AND combination_type ILIKE '%ICI + ICI + Chemo%'"",
+  ""answer"": ""This query identifies SCLC studies that tested ICI+ICI+Chemo combinations, and lists each trial's name alongside the primary endpoint tested."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT trial_name, primary_endpoint FROM clinical_trials WHE...
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT trial_name, primary_endpoint FROM clinical_trials WHERE cancer_type ILIKE '%%SCLC%%' AND combination_type ILIKE '%%ICI + ICI + Chemo%%']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';",ok,,2,
+4,Show Mesothelioma PD1 trials conducted in 2018 or later.,SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Mesothelioma' AND ici_class ILIKE 'PD-1' AND year >= 2018,This query counts the number of mesothelioma trials using PD-1 inhibitors that were published in 2018 or later.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Mesothelioma' AND ici_class ILIKE 'PD-1' AND year >= 2018"",
+  ""answer"": ""This query counts the number of mesothelioma trials using PD-1 inhibitors that were published in 2018 or later."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""id"" does not exist
+LINE 1: SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_...
+                              ^
+
+[SQL: SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Mesothelioma' AND ici_class ILIKE 'PD-1' AND year >= 2018]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,,1,
+5,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.",SELECT DISTINCT trial_name FROM clinical_trials WHERE (ici_class ILIKE 'PD-L1' OR ici_class ILIKE 'CTLA-4') AND primary_endpoint_is_multiple_or_composite ILIKE 'yes';,This SQL query returns the distinct trial names from the clinical_trials table where the ici_class is either PD-L1 or CTLA-4 and the primary_endpoint_is_multiple_or_composite column is 'yes'.,,"```json
+{
+  ""sql"": ""SELECT DISTINCT trial_name FROM clinical_trials WHERE (ici_class ILIKE 'PD-L1' OR ici_class ILIKE 'CTLA-4') AND primary_endpoint_is_multiple_or_composite ILIKE 'yes';"",
+  ""answer"": ""This SQL query returns the distinct trial names from the clinical_trials table where the ici_class is either PD-L1 or CTLA-4 and the primary_endpoint_is_multiple_or_composite column is 'yes'."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT DISTINCT trial_name FROM clinical_trials WHERE (ici_c...
+                        ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT DISTINCT trial_name FROM clinical_trials WHERE (ici_class ILIKE 'PD-L1' OR ici_class ILIKE 'CTLA-4') AND primary_endpoint_is_multiple_or_composite ILIKE 'yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,,2,
+6,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT trial_name
+FROM clinical_trials
+WHERE cancer_type ILIKE '%HNSCC%'
+  AND other_biomarker_inclusion ILIKE '%yes%'
+  AND pdl1_inclusion ILIKE '%no%'",The query returns the names of head and neck cancer trials that require a biomarker other than PD-L1 for inclusion.,,"```json
+{
+  ""sql"": ""SELECT trial_name\nFROM clinical_trials\nWHERE cancer_type ILIKE '%HNSCC%'\n  AND other_biomarker_inclusion ILIKE '%yes%'\n  AND pdl1_inclusion ILIKE '%no%'"",
+  ""answer"": ""The query returns the names of head and neck cancer trials that require a biomarker other than PD-L1 for inclusion."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT trial_name
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT trial_name
+FROM clinical_trials
+WHERE cancer_type ILIKE '%%HNSCC%%'
+  AND other_biomarker_inclusion ILIKE '%%yes%%'
+  AND pdl1_inclusion ILIKE '%%no%%']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';",ok,,1,
+7,List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.,SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'HNSCC' AND ici_name ILIKE 'Nivolumab' AND follow_up_duration_overall_months > 21;,"This SQL query selects the trial names for head and neck cancer (HNSCC) trials using Nivolumab, with an overall follow-up duration greater than 21 months.",,"```json
+{
+  ""sql"": ""SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'HNSCC' AND ici_name ILIKE 'Nivolumab' AND follow_up_duration_overall_months > 21;"",
+  ""answer"": ""This SQL query selects the trial names for head and neck cancer (HNSCC) trials using Nivolumab, with an overall follow-up duration greater than 21 months."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT trial_name FROM clinical_trials WHERE cancer_type ILI...
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'HNSCC' AND ici_name ILIKE 'Nivolumab' AND follow_up_duration_overall_months > 21;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,,1,
+8,Show Bladder PD-L1 trials conducted in 2018 or later.,SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Bladder/Urothelial' AND ici_class = 'PD-L1' AND year >= 2018,"This SQL query counts the number of distinct clinical trials for Bladder/Urothelial cancer where the ICI class is PD-L1, and the publication year is 2018 or later.",,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Bladder/Urothelial' AND ici_class = 'PD-L1' AND year >= 2018"",
+  ""answer"": ""This SQL query counts the number of distinct clinical trials for Bladder/Urothelial cancer where the ICI class is PD-L1, and the publication year is 2018 or later."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""id"" does not exist
+LINE 1: SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_...
+                              ^
+
+[SQL: SELECT COUNT(DISTINCT id) FROM clinical_trials WHERE cancer_type ILIKE 'Bladder/Urothelial' AND ici_class = 'PD-L1' AND year >= 2018]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,,1,
+9,Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT COUNT(DISTINCT id)
+FROM clinical_trials
+WHERE cancer_type ILIKE 'Multiple Myeloma'
+  AND lines_of_treatment ILIKE '%2L+%' 
+  AND therapy_type ILIKE 'Combination therapy';",This query counts the number of clinical trials for Multiple Myeloma that used combination therapy and enrolled patients who had at least two prior lines of therapy.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT id)\nFROM clinical_trials\nWHERE cancer_type ILIKE 'Multiple Myeloma'\n  AND lines_of_treatment ILIKE '%2L+%' \n  AND therapy_type ILIKE 'Combination therapy';"",
+  ""answer"": ""This query counts the number of clinical trials for Multiple Myeloma that used combination therapy and enrolled patients who had at least two prior lines of therapy."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""id"" does not exist
+LINE 1: SELECT COUNT(DISTINCT id)
+                              ^
+
+[SQL: SELECT COUNT(DISTINCT id)
+FROM clinical_trials
+WHERE cancer_type ILIKE 'Multiple Myeloma'
+  AND lines_of_treatment ILIKE '%%2L+%%' 
+  AND therapy_type ILIKE 'Combination therapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,,1,
+10,Find Breast trials with median follow‑up and show months by arm.,"SELECT cancer_type, follow_up_duration_overall_months, follow_up_duration_rx_months, follow_up_duration_control_months FROM clinical_trials WHERE cancer_type ILIKE 'Breast%'","This query returns the cancer type, overall follow-up duration, treatment arm follow-up duration, and control arm follow-up duration in months for breast cancer trials.",,"```json
+{
+  ""sql"": ""SELECT cancer_type, follow_up_duration_overall_months, follow_up_duration_rx_months, follow_up_duration_control_months FROM clinical_trials WHERE cancer_type ILIKE 'Breast%'"",
+  ""answer"": ""This query returns the cancer type, overall follow-up duration, treatment arm follow-up duration, and control arm follow-up duration in months for breast cancer trials."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""cancer_type"" does not exist
+LINE 1: SELECT cancer_type, follow_up_duration_overall_months, follo...
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Cancer type"".
+
+[SQL: SELECT cancer_type, follow_up_duration_overall_months, follow_up_duration_rx_months, follow_up_duration_control_months FROM clinical_trials WHERE cancer_type ILIKE 'Breast%%']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';",ok,,10,
+11,Show Ipilimumab combination trials in Melanoma with sample sizes.,"SELECT trial_name, total_sample_size
+FROM clinical_trials
+WHERE cancer_type ILIKE 'Melanoma'
+AND ici_name ILIKE 'Ipilimumab'
+AND therapy_type ILIKE 'Combination therapy';",This query returns the trial name and total sample size of Ipilimumab combination therapy trials for Melanoma.,,"```json
+{
+  ""sql"": ""SELECT trial_name, total_sample_size\nFROM clinical_trials\nWHERE cancer_type ILIKE 'Melanoma'\nAND ici_name ILIKE 'Ipilimumab'\nAND therapy_type ILIKE 'Combination therapy';"",
+  ""answer"": ""This query returns the trial name and total sample size of Ipilimumab combination therapy trials for Melanoma."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT trial_name, total_sample_size
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT trial_name, total_sample_size
+FROM clinical_trials
+WHERE cancer_type ILIKE 'Melanoma'
+AND ici_name ILIKE 'Ipilimumab'
+AND therapy_type ILIKE 'Combination therapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",ok,,3,
+12,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'Breast%' AND other_biomarker_inclusion = 'Yes' AND pdl1_inclusion = 'No';,This query lists the names of clinical trials focused on breast cancer that require a biomarker other than PD-L1 for patient inclusion.,,"```json
+{
+  ""sql"": ""SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'Breast%' AND other_biomarker_inclusion = 'Yes' AND pdl1_inclusion = 'No';"",
+  ""answer"": ""This query lists the names of clinical trials focused on breast cancer that require a biomarker other than PD-L1 for patient inclusion."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""trial_name"" does not exist
+LINE 1: SELECT trial_name FROM clinical_trials WHERE cancer_type ILI...
+               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Trial name"".
+
+[SQL: SELECT trial_name FROM clinical_trials WHERE cancer_type ILIKE 'Breast%%' AND other_biomarker_inclusion = 'Yes' AND pdl1_inclusion = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';",ok,,8,

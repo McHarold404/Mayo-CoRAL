@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...Cancer type"") LIKE '%head and neck%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.follow_up, h.follow_up_maturity FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Follow-up duration for primary endpoint(s) in months | Overall"" AS follow_up FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%') b LEFT JOIN {HYBRID_TABLE} h ON b.follow_up = h.follow_up]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

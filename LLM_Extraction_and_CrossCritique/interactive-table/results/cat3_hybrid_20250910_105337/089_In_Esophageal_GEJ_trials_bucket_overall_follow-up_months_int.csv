@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", CASE WHEN b.follow_up_months < 12 THEN '<12' WHEN b.follow_up_months BETWEEN 12 AND 23 THEN '12-23' WHEN b.follow_up_months >= 24 THEN '>=24' ELSE NULL END AS follow_up_bucket FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Follow-up duration for primary endpoint(s) in months | Overall"" AS follow_up_months FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%esophageal%%' OR LOWER(""Cancer type"") LIKE '%%gej%%') b]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Esophageal/GEJ trials, bucket overall follow-up months into <12, 12–23, or ≥24."

@@ -1,0 +1,9 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 3: ...E '%small cell%') SELECT * FROM base) b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.endpoint, h.endpoint_type FROM (WITH base AS (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Primary endpoint"" AS endpoint FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%small cell%%'
+UNION ALL
+SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Secondary endpoint"" AS endpoint FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%small cell%%') SELECT * FROM base) b LEFT JOIN {HYBRID_TABLE} h ON b.endpoint = h.endpoint]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Small Cell Lung trials, determine whether the listed endpoint is primary or secondary based on the endpoint text."

@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Treatment regimen"", b.""Control regimen"", h.""treatment_drugs"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Treatment regimen"", ""Control regimen"" FROM compat.clinical_trials WHERE LOWER(""Treatment regimen"") LIKE '%%chemo%%' AND LOWER(""Control regimen"") LIKE '%%chemo%%') b LEFT JOIN public.hybrid_34_d3070d52 h ON b.""Treatment regimen"" = h.""Treatment regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)",34

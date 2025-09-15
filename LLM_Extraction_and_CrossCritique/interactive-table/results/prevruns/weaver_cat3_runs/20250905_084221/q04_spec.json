@@ -1,0 +1,15 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"follow_up_duration_overall_months\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma'",
+  "udf_spec": {
+    "based_on_cols": [
+      "follow_up_duration_overall_months"
+    ],
+    "new_col": "follow_up_bucket",
+    "prompt_template": "Given the follow-up duration in months: {follow_up_duration_overall_months}, categorize it into one of the following buckets: '<12', '12\u201323', or '\u226524'.  If the input is null, return null."
+  },
+  "final_sql": "SELECT follow_up_bucket, count(*) FROM pg_temp.\"bucketed_followup\" GROUP BY follow_up_bucket;",
+  "answer_hint": "The query counts occurrences of each follow-up bucket",
+  "assumptions": "UDF categorizes follow_up_duration_overall_months into <12, 12-23, or >=24.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"follow_up_duration_overall_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Melanoma'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"follow_up_duration_overall_months\"\n    ],\n    \"new_col\": \"follow_up_bucket\",\n    \"prompt_template\": \"Given the follow-up duration in months: {follow_up_duration_overall_months}, categorize it into one of the following buckets: '<12', '12\u201323', or '\u226524'.  If the input is null, return null.\"\n  },\n  \"final_sql\": \"SELECT follow_up_bucket, count(*) FROM pg_temp.\\\"bucketed_followup\\\" GROUP BY follow_up_bucket;\",\n  \"answer_hint\": \"The query counts occurrences of each follow-up bucket\",\n  \"assumptions\": \"UDF categorizes follow_up_duration_overall_months into <12, 12-23, or >=24.\"\n}\n```"
+}

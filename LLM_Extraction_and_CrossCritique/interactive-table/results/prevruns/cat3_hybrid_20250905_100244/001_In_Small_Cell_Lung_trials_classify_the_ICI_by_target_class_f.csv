@@ -1,0 +1,12 @@
+question,generated_sql,status,error
+"In Small Cell Lung trials, classify the ICI by target class from its generic name as PD-1, PD-L1, or CTLA-4.","SELECT
+    ""Name of ICI"",
+    CASE
+        WHEN ""Name of ICI"" LIKE '%nivolumab%' OR ""Name of ICI"" LIKE '%pembrolizumab%' OR ""Name of ICI"" LIKE '%cemiplimab%' OR ""Name of ICI"" LIKE '%dostarlimab%' THEN 'PD-1'
+        WHEN ""Name of ICI"" LIKE '%atezolizumab%' OR ""Name of ICI"" LIKE '%durvalumab%' OR ""Name of ICI"" LIKE '%avelumab%' THEN 'PD-L1'
+        WHEN ""Name of ICI"" LIKE '%ipilimumab%' THEN 'CTLA-4'
+        ELSE 'Unknown'
+    END AS ""ICI Target Class""
+FROM compat.clinical_trials
+WHERE ""Cancer type"" = 'Small Cell Lung'
+GROUP BY ""Name of ICI""",error,sqlalchemy.cyextension.immutabledict.immutabledict is not a sequence

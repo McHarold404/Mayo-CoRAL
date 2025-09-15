@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t3"" does not exist
+LINE 1: ...mmature' ELSE 'unknown' END AS follow_up_maturity FROM t3 t2
+                                                                  ^
+
+[SQL: SELECT t2.*, CASE WHEN t2.follow_up_months >= 24 THEN 'mature' WHEN t2.follow_up_months < 24 THEN 'immature' ELSE 'unknown' END AS follow_up_maturity FROM t3 t2]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Urothelial trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

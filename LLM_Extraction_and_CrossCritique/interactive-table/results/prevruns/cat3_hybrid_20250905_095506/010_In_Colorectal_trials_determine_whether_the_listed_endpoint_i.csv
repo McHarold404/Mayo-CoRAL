@@ -1,0 +1,13 @@
+question,generated_sql,status,error
+"In Colorectal trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.","SELECT primary_endpoint, secondary_endpoint
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Colorectal Cancer'
+LIMIT 1000 LIMIT 1000",error,"(psycopg2.errors.SyntaxError) syntax error at or near ""LIMIT""
+LINE 4: LIMIT 1000 LIMIT 1000
+                   ^
+
+[SQL: SELECT primary_endpoint, secondary_endpoint
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Colorectal Cancer'
+LIMIT 1000 LIMIT 1000]
+(Background on this error at: https://sqlalche.me/e/20/f405)"

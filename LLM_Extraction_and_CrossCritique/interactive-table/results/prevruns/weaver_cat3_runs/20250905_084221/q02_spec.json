@@ -1,0 +1,15 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"nct\", \"follow_up_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"follow_up_type\" IS NOT NULL",
+  "udf_spec": {
+    "based_on_cols": [
+      "follow_up_type"
+    ],
+    "new_col": "normalized_follow_up",
+    "prompt_template": "Given the follow-up type \"{follow_up_type}\", classify it as 'imaging', 'clinical', or 'mixed'.\n"
+  },
+  "final_sql": "WITH temp_table AS (SELECT \"nct\", pg_temp.follow_up_type_normalizer(\"follow_up_type\") AS normalized_follow_up FROM pg_temp.\"prefiltered_data\")\nSELECT normalized_follow_up, COUNT(DISTINCT \"nct\") FROM temp_table GROUP BY normalized_follow_up;",
+  "answer_hint": "The query should return the counts of trials categorized by the normalized follow-up types (imaging, clinical, mixed).",
+  "assumptions": "A UDF named `follow_up_type_normalizer` has been created to classify follow-up types into 'imaging', 'clinical', or 'mixed'.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"nct\\\", \\\"follow_up_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Breast' AND \\\"follow_up_type\\\" IS NOT NULL\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"follow_up_type\"\n    ],\n    \"new_col\": \"normalized_follow_up\",\n    \"prompt_template\": \"Given the follow-up type \\\"{follow_up_type}\\\", classify it as 'imaging', 'clinical', or 'mixed'.\\n\"\n  },\n  \"final_sql\": \"WITH temp_table AS (SELECT \\\"nct\\\", pg_temp.follow_up_type_normalizer(\\\"follow_up_type\\\") AS normalized_follow_up FROM pg_temp.\\\"prefiltered_data\\\")\\nSELECT normalized_follow_up, COUNT(DISTINCT \\\"nct\\\") FROM temp_table GROUP BY normalized_follow_up;\",\n  \"answer_hint\": \"The query should return the counts of trials categorized by the normalized follow-up types (imaging, clinical, mixed).\",\n  \"assumptions\": \"A UDF named `follow_up_type_normalizer` has been created to classify follow-up types into 'imaging', 'clinical', or 'mixed'.\"\n}\n```"
+}

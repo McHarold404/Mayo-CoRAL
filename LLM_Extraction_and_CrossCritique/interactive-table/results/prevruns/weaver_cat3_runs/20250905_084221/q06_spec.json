@@ -1,0 +1,17 @@
+{
+  "mode": "hybrid",
+  "pure_sql": null,
+  "prefilter_sql": "SELECT id, nct, primary_endpoint, secondary_endpoint FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma'",
+  "udf_spec": {
+    "based_on_cols": [
+      "primary_endpoint",
+      "secondary_endpoint"
+    ],
+    "new_col": "endpoint_type",
+    "prompt_template": "Given the primary endpoint is \"{{primary_endpoint}}\" and the secondary endpoint is \"{{secondary_endpoint}}\", determine if a listed endpoint is primary or secondary. Return only 'primary' or 'secondary'."
+  },
+  "final_sql": "SELECT endpoint_type, COUNT(*) FROM pg_temp.\"endpoint_types\" GROUP BY endpoint_type;",
+  "answer_hint": "The query should return the count of primary and secondary endpoints in Melanoma trials.",
+  "assumptions": "The LLM can correctly classify the endpoint as primary or secondary based on the provided context.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"pure_sql\": null,\n  \"prefilter_sql\": \"SELECT id, nct, primary_endpoint, secondary_endpoint FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Melanoma'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"primary_endpoint\",\n      \"secondary_endpoint\"\n    ],\n    \"new_col\": \"endpoint_type\",\n    \"prompt_template\": \"Given the primary endpoint is \\\"{{primary_endpoint}}\\\" and the secondary endpoint is \\\"{{secondary_endpoint}}\\\", determine if a listed endpoint is primary or secondary. Return only 'primary' or 'secondary'.\"\n  },\n  \"final_sql\": \"SELECT endpoint_type, COUNT(*) FROM pg_temp.\\\"endpoint_types\\\" GROUP BY endpoint_type;\",\n  \"answer_hint\": \"The query should return the count of primary and secondary endpoints in Melanoma trials.\",\n  \"assumptions\": \"The LLM can correctly classify the endpoint as primary or secondary based on the provided context.\"\n}\n```"
+}

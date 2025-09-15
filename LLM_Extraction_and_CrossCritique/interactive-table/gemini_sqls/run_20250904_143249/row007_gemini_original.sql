@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "cancer_type", "ici_class", "trial_phase" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%HNSCC%' AND "ici_name" = 'Nivolumab' AND "follow_up_duration_overall_months" > 21

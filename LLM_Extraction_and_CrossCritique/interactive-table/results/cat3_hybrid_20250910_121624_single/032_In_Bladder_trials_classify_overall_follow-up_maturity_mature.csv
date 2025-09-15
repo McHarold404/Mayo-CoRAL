@@ -1,0 +1,23 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 14:       t1
+               ^
+
+[SQL: WITH
+  base AS (
+    SELECT
+      t1.""NCT"",
+      t1.""PMID"",
+      t1.""Author"",
+      t1.""Year"",
+      CASE
+        WHEN t1.follow_up_months >= 24 THEN 'mature'
+        WHEN t1.follow_up_months < 24 THEN 'immature'
+        ELSE 'unknown'
+      END AS follow_up_maturity
+    FROM
+      t1
+  )
+SELECT
+  * from base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Bladder trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

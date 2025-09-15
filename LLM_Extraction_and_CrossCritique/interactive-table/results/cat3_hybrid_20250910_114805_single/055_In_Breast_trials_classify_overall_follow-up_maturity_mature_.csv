@@ -1,0 +1,27 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 12:   FROM t1
+                ^
+
+[SQL: WITH classified_maturity AS (
+  SELECT
+    t1.""NCT"",
+    t1.""PMID"",
+    t1.""Author"" AS ""Author"",
+    t1.""Year"",
+    CASE
+      WHEN t2.follow_up_duration_months >= 24 THEN 'mature'
+      WHEN t2.follow_up_duration_months IS NULL THEN 'unknown'
+      ELSE 'immature'
+    END AS follow_up_maturity
+  FROM t1
+  LEFT JOIN t2 ON t1.""NCT"" = t2.""NCT"" AND t1.""PMID"" = t2.""PMID""
+)
+SELECT
+  ""NCT"",
+  ""Author"",
+  ""Year"",
+  ""PMID"",
+  follow_up_maturity
+FROM classified_maturity]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Breast trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

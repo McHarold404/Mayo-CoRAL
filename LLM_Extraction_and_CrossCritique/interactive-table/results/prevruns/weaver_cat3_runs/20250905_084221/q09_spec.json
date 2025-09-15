@@ -1,0 +1,17 @@
+{
+  "mode": "hybrid",
+  "pure_sql": null,
+  "prefilter_sql": "SELECT \"trial_name\", \"cancer_type\", \"primary_endpoint\", \"secondary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast'",
+  "udf_spec": {
+    "based_on_cols": [
+      "primary_endpoint",
+      "secondary_endpoint"
+    ],
+    "new_col": "endpoint_type",
+    "prompt_template": "Given the primary endpoint: {primary_endpoint} and the secondary endpoint: {secondary_endpoint}, classify the endpoint listed as 'primary' or 'secondary' or 'both' if it can be either, or 'neither' if not listed in either endpoint."
+  },
+  "final_sql": "SELECT \"trial_name\", \"cancer_type\", endpoint_type FROM pg_temp.\"endpoint_classifications\"",
+  "answer_hint": "The final SQL should select the relevant columns from the UDF output.",
+  "assumptions": "The LLM can accurately classify the endpoint as primary or secondary based on the provided text.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"pure_sql\": null,\n  \"prefilter_sql\": \"SELECT \\\"trial_name\\\", \\\"cancer_type\\\", \\\"primary_endpoint\\\", \\\"secondary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Breast'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"primary_endpoint\",\n      \"secondary_endpoint\"\n    ],\n    \"new_col\": \"endpoint_type\",\n    \"prompt_template\": \"Given the primary endpoint: {primary_endpoint} and the secondary endpoint: {secondary_endpoint}, classify the endpoint listed as 'primary' or 'secondary' or 'both' if it can be either, or 'neither' if not listed in either endpoint.\"\n  },\n  \"final_sql\": \"SELECT \\\"trial_name\\\", \\\"cancer_type\\\", endpoint_type FROM pg_temp.\\\"endpoint_classifications\\\"\",\n  \"answer_hint\": \"The final SQL should select the relevant columns from the UDF output.\",\n  \"assumptions\": \"The LLM can accurately classify the endpoint as primary or secondary based on the provided text.\"\n}\n```"
+}

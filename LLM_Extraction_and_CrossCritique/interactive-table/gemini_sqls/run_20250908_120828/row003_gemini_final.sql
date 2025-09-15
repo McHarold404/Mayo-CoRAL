@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "primary_endpoint" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%SCLC%' AND "combination_type" = 'ICI + ICI + Chemo'

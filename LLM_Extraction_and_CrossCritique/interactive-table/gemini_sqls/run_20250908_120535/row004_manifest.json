@@ -1,0 +1,52 @@
+{
+  "row_index": 4,
+  "question": "Show Mesothelioma PD1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for all clinical trials in the table public.\"clinical_trials\" that are focused on Mesothelioma, use a PD1 inhibitor, and were published in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Mesothelioma' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for all clinical trials in the table public.\\\"clinical_trials\\\" that are focused on Mesothelioma, use a PD1 inhibitor, and were published in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250908_120535\\row004_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250908_120535\\row004_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.330100004153792,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120535\\row004_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.3541999946464784,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120535\\row004_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.2781999980215915,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250908_120535\\row004_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250908_120535\\row004_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.094999993161764,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250908_120535\\row004_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5833333333333334,
+    "deterministic_across_runs": true
+  }
+}

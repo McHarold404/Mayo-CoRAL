@@ -1,0 +1,9 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 2: FROM t1
+             ^
+
+[SQL: SELECT t1.""NCT"", t1.""Authors"", t1.""Year"", t1.""PMID"", t2.is_follow_up
+FROM t1
+JOIN t2 ON t1.""NCT"" = t2.""NCT"" AND t1.""PMID"" = t2.""PMID""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Esophageal/GEJ trials, convert 'Original/Follow up' status into a boolean is_follow_up."

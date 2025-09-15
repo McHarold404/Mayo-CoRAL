@@ -1,0 +1,52 @@
+{
+  "row_index": 11,
+  "question": "Show Ipilimumab combination trials in Melanoma with sample sizes.",
+  "gemini": {
+    "answer": "This query returns the NCT ID, author, year, pubmed ID, total sample size, and type of combination for trials in melanoma where the ICI is Ipilimumab and it's used in combination therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\", \\\"combination_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"ici_name\\\" = 'Ipilimumab' AND \\\"monotherapy_combination\\\" = 'Combination therapy'\",\n  \"answer\": \"This query returns the NCT ID, author, year, pubmed ID, total sample size, and type of combination for trials in melanoma where the ICI is Ipilimumab and it's used in combination therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250905_113604\\row011_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250905_113604\\row011_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 31.858000000283937,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 1: ...KE '%Melanoma%' AND \"ici_name\" = 'Ipilimumab' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\", \"combination_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Melanoma%%' AND \"ici_name\" = 'Ipilimumab' AND \"monotherapy_combination\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.7776000006269896,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 1: ...KE '%Melanoma%' AND \"ici_name\" = 'Ipilimumab' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\", \"combination_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Melanoma%%' AND \"ici_name\" = 'Ipilimumab' AND \"monotherapy_combination\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.556500001446693,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 1: ...KE '%Melanoma%' AND \"ici_name\" = 'Ipilimumab' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\", \"combination_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Melanoma%%' AND \"ici_name\" = 'Ipilimumab' AND \"monotherapy_combination\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250905_113604\\row011_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.723300000274321,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250905_113604\\row011_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6521739130434783,
+    "deterministic_across_runs": false
+  }
+}

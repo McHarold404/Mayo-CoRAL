@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...Cancer type"") LIKE '%head and neck%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Secondary endpoint"", h.""irAEs_assessed"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Secondary endpoint"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Secondary endpoint"" = h.""Secondary endpoint""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck trials, from the secondary endpoint text flag if immune-related adverse events (irAEs) were explicitly assessed."

@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...""Cancer type"") LIKE '%mesothelioma%') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Number of arms"", h.""arm_category"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Number of arms"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%mesothelioma%%') b LEFT JOIN {HYBRID_TABLE} h ON b.""Number of arms"" = h.""Number of arms""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Mesothelioma trials, categorize number of arms as 1-arm, 2-arm, or ≥3-arm."

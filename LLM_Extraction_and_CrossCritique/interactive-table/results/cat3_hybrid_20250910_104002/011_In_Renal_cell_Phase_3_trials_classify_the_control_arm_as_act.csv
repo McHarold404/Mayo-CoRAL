@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.SyntaxError) syntax error at or near ""{""
+LINE 1: ...cell%' AND ""Trial phase"" = 'Phase 3') b LEFT JOIN {HYBRID_TA...
+                                                             ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Trial phase"", b.""Control arm"", h.""control_arm_type"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Trial phase"", ""Control arm"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%renal cell%%' AND ""Trial phase"" = 'Phase 3') b LEFT JOIN {HYBRID_TABLE} h ON b.""Control arm"" = h.""Control arm""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Renal cell Phase 3 trials, classify the control arm as active, placebo, or best supportive care."

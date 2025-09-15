@@ -1,0 +1,3 @@
+SELECT "nct", "author", "year", "cancer_type", "ici_class", "trial_phase", "total_sample_size", "combination_type"
+FROM public."clinical_trials"
+WHERE "cancer_type" ILIKE '%Melanoma%' AND "ici_name" = 'Ipilimumab' AND "monotherapy_combination" = 'Combination therapy';

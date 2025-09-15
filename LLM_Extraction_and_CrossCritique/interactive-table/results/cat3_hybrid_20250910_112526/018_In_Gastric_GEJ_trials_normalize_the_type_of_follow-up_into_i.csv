@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Type of follow-up given"", h.""Normalized Follow-up Type"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Type of follow-up given"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%gastric%%' OR LOWER(""Cancer type"") LIKE '%%gej%%') b LEFT JOIN public.hybrid_18_2e068b43 h ON b.""Type of follow-up given"" = h.""Type of follow-up given""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Gastric/GEJ trials, normalize the type of follow-up into imaging, clinical, or mixed."

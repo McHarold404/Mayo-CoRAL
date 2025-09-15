@@ -1,0 +1,52 @@
+{
+  "row_index": 8,
+  "question": "Show Bladder PD-L1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query selects the nct, author, year, and pubmed_id for bladder cancer trials with a PD-L1 inhibitor and published in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Bladder%' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"This query selects the nct, author, year, and pubmed_id for bladder cancer trials with a PD-L1 inhibitor and published in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250909_151727\\row008_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250909_151727\\row008_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.579699987312779,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row008_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.5352999984752387,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row008_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6511000071186572,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row008_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250909_151727\\row008_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.6327999841887504,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250909_151727\\row008_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5769230769230769,
+    "deterministic_across_runs": true
+  }
+}

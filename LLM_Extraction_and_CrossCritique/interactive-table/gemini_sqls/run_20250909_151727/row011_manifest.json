@@ -1,0 +1,52 @@
+{
+  "row_index": 11,
+  "question": "Show Ipilimumab combination trials in Melanoma with sample sizes.",
+  "gemini": {
+    "answer": "This query returns clinical trials studying Ipilimumab combination therapies for Melanoma, including NCT ID, author, year, PubMed ID, and sample size.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Melanoma' AND \\\"ici_name\\\" = 'Ipilimumab' AND \\\"combination_type\\\" != 'All'\",\n  \"answer\": \"This query returns clinical trials studying Ipilimumab combination therapies for Melanoma, including NCT ID, author, year, PubMed ID, and sample size.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250909_151727\\row011_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250909_151727\\row011_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.6791999882552773,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row011_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.458499995758757,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row011_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.869100008159876,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250909_151727\\row011_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250909_151727\\row011_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.953299979912117,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250909_151727\\row011_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 6,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.5,
+    "nct_recall": 1.0,
+    "nct_f1": 0.6666666666666666,
+    "nct_jaccard": 0.5,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,15 @@
+question,generated_sql,status,error
+"In Renal cell Phase 3 trials, classify the control arm as active, placebo, or best supportive care.","SELECT control_type, COUNT(*)
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Renal cell' AND trial_phase = 'Phase 3'
+GROUP BY control_type
+LIMIT 1000 LIMIT 1000",error,"(psycopg2.errors.SyntaxError) syntax error at or near ""LIMIT""
+LINE 5: LIMIT 1000 LIMIT 1000
+                   ^
+
+[SQL: SELECT control_type, COUNT(*)
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Renal cell' AND trial_phase = 'Phase 3'
+GROUP BY control_type
+LIMIT 1000 LIMIT 1000]
+(Background on this error at: https://sqlalche.me/e/20/f405)"

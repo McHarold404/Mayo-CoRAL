@@ -556,3 +556,655 @@ if __name__ == "__main__":
     main()
 
 
+
+
+
+
+
+# import os
+# import re
+# import json
+# import time
+# import hashlib
+# from pathlib import Path
+# from typing import Optional, Dict, Any, Tuple, List
+#
+# import pandas as pd
+#
+# # Optional: SQLAlchemy/DB
+# try:
+#     from sqlalchemy import create_engine, text
+#     HAVE_SQLALCHEMY = True
+# except Exception as e:
+#     HAVE_SQLALCHEMY = False
+#
+# # Optional: Gemini
+# HAVE_GEMINI = False
+# try:
+#     import google.generativeai as genai  # pip install google-generativeai
+#     if os.getenv("GEMINI_KEY"):
+#         genai.configure(api_key=os.environ["GEMINI_KEY"])
+#         HAVE_GEMINI = True
+# except Exception:
+#     HAVE_GEMINI = False
+#
+# DB_NAME = "trialsdb"
+# ENGINE_URI = f"postgresql://postgres:5555@localhost:5432/{DB_NAME}"
+# TABLE_NAME = "clinical_trials"
+# TABLE_FQN = 'public."clinical_trials"'
+#
+# # ----------------------------------------------------------------------------
+# # Connect & reflect columns
+# # ----------------------------------------------------------------------------
+# engine = None
+# actual_columns: List[str] = []
+# normalized_to_actual: Dict[str, str] = {}
+#
+# def norm(s: str) -> str:
+#     return re.sub(r"[^a-z0-9]", "", str(s).lower())
+#
+# def build_column_maps(cols: List[str]) -> Dict[str, str]:
+#     m = {}
+#     for c in cols:
+#         m[norm(c)] = c  # normalized -> actual
+#         m[norm(c.replace("_", " ").replace(" ", ""))] = c
+#         m[norm(c.replace(" ", "_"))] = c
+#     if "nct" in cols and "id" not in cols:
+#         m["id"] = "nct"  # fallback mapping for COUNTs
+#     return m
+#
+# if HAVE_SQLALCHEMY:
+#     try:
+#         engine = create_engine(ENGINE_URI, pool_pre_ping=True)
+#         with engine.connect() as conn:
+#             q = text("""
+#                 SELECT column_name
+#                 FROM information_schema.columns
+#                 WHERE table_schema='public' AND table_name='clinical_trials'
+#                 ORDER BY ordinal_position
+#             """)
+#             actual_columns = [r[0] for r in conn.execute(q).fetchall()]
+#         normalized_to_actual = build_column_maps(actual_columns)
+#     except Exception as e:
+#         print(f"[WARN] DB reflection failed: {e}")
+#
+# # Fallback to provided schema if reflection fails
+# fallback_cols = [
+#     "id","nct","pubmed_id","trial_name","author","year","trial_phase","number_of_arms",
+#     "total_sample_size","publication_type","cancer_type","treatment_regimen","ici_name",
+#     "ici_class","therapy_modality","combination_type","control_regimen","control_type",
+#     "lines_of_treatment","clinical_setting_in_relation_to_surgery","primary_endpoint",
+#     "primary_endpoint_is_multiple_or_composite","secondary_endpoint","pdl1_inclusion",
+#     "other_biomarker_inclusion","follow_up_type","follow_up_duration_overall_months",
+#     "follow_up_duration_rx_months","follow_up_duration_control_months","included_in_ma",
+#     "therapy_type","clinical_setting"
+# ]
+# if not actual_columns:
+#     actual_columns = fallback_cols[:]
+#     normalized_to_actual = build_column_maps(actual_columns)
+#
+# # ----------------------------------------------------------------------------
+# # Optional definitions (best-effort)
+# # ----------------------------------------------------------------------------
+# def_roots = [
+#     Path("/mnt/data/definitions_folder"),
+#     Path("runs/definitions_folder"),
+#     Path("./definitions_folder"),
+#     Path("/mnt/data"),
+#     Path("runs"),
+#     Path("."),
+#     Path("/mnt/data/runs/definitions_folder"),
+# ]
+# def_names = [
+#     "definitions - aim2 - filter concise.txt",
+#     "definitions - aim2 - column concise.txt",
+# ]
+# def_paths = {}
+# for name in def_names:
+#     found = None
+#     for root in def_roots:
+#         candidate = root / name
+#         if candidate.exists():
+#             found = candidate
+#             break
+#     def_paths[name] = found
+#
+# def read_text_or_empty(p: Optional[Path]) -> str:
+#     if p is None:
+#         return ""
+#     try:
+#         return p.read_text(encoding="utf-8", errors="ignore")
+#     except Exception:
+#         return ""
+#
+# definitions_filter = read_text_or_empty(def_paths["definitions - aim2 - filter concise.txt"])
+# definitions_column = read_text_or_empty(def_paths["definitions - aim2 - column concise.txt"])
+#
+# # ----------------------------------------------------------------------------
+# # Prompt construction
+# # ----------------------------------------------------------------------------
+# def make_system_context() -> str:
+#     schema_block = (
+#         f"# DATABASE\n"
+#         f"- Engine: PostgreSQL\n"
+#         f'- Table: {TABLE_FQN}\n'
+#         f"- Columns (use EXACT spelling below and always double-quote):\n  - " + "\n  - ".join(actual_columns)
+#     )
+#     definitions_block = ""
+#     if definitions_filter.strip() or definitions_column.strip():
+#         definitions_block = (
+#             "\n\n# DEFINITIONS (concise)\n"
+#             "## Filters\n" + (definitions_filter.strip() or "[missing]") + "\n\n"
+#             "## Columns\n" + (definitions_column.strip() or "[missing]")
+#         )
+#     guardrails = """
+# # REQUIREMENTS
+# - Use ONLY the columns listed above and reference them with double quotes, e.g., "cancer_type".
+# - Qualify the table as public."clinical_trials".
+# - When counting trials, use COUNT(DISTINCT "nct"). Do NOT use id.
+# - If PD-1 is mentioned, map to "PD1" for "ici_class" (no dash).
+# - Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+# - SELECT queries only; no DDL/DML.
+# - Briefly state any assumptions.
+
+# # OUTPUT FORMAT (strict JSON)
+# Return ONLY a JSON object with keys:
+# - "sql": string (runnable PostgreSQL SELECT)
+# - "answer": string (<= 1–2 sentences)
+# - "assumptions": string (empty if none)
+# """
+#     return f"{schema_block}{definitions_block}{guardrails}"
+#
+# def call_gemini_for_sql(question: str, model_name: str = "models/gemini-2.0-flash") -> Dict[str, Any]:
+#     sys_context = make_system_context()
+#     user_prompt = f"""You are an expert clinical-trials data analyst. Write a PostgreSQL query on table {TABLE_FQN} to answer the question.
+#
+# QUESTION:
+# {question}
+# """
+#     default = {
+#         "sql": f"/* Gemini unavailable: placeholder SQL for: {question[:80]}... */\nSELECT 1;",
+#         "answer": "Gemini not configured; SQL synthesis skipped.",
+#         "assumptions": "",
+#         "raw_text": ""
+#     }
+#     if not HAVE_GEMINI:
+#         return default
+#
+#     try:
+#         model = genai.GenerativeModel(model_name)
+#         resp = model.generate_content(sys_context + "\n\n" + user_prompt)
+#         raw_text = resp.text or ""
+#         m = re.search(r"\{.*\}", raw_text, flags=re.S)
+#         candidate = m.group(0) if m else raw_text
+#         data = json.loads(candidate)
+#         sql = str(data.get("sql", "")).strip() or default["sql"]
+#         answer = str(data.get("answer", "")).strip() or default["answer"]
+#         assumptions = str(data.get("assumptions", "")).strip()
+#         return {"sql": sql, "answer": answer, "assumptions": assumptions, "raw_text": raw_text}
+#     except Exception as e:
+#         return {**default, "raw_text": f"[ERROR calling Gemini] {e}"}
+#
+# # ----------------------------------------------------------------------------
+# # SQL fix-ups and execution (with retries)
+# # ----------------------------------------------------------------------------
+# def qualify_table(sql: str) -> str:
+#     def repl(m):
+#         return m.group(0).replace("clinical_trials", 'public."clinical_trials"')
+#     return re.sub(r'(?i)(from|join)\s+clinical_trials\b', repl, sql)
+#
+# def try_map_column(name: str) -> Optional[str]:
+#     key = norm(name)
+#     target = normalized_to_actual.get(key)
+#     if target:
+#         return f'"{target}"'
+#     if key == "id" and "nct" in actual_columns:
+#         return '"nct"'
+#     return None
+#
+# def repair_sql_columns(sql: str, err_msg: str) -> Optional[str]:
+#     m = re.search(r'column\s+"?([A-Za-z0-9_ ]+)"?\s+does not exist', err_msg, flags=re.I)
+#     if not m:
+#         m2 = re.search(r'Perhaps you meant to reference the column\s+"?clinical_trials\.([A-Za-z0-9_ ]+)"?', err_msg, flags=re.I)
+#         if not m2:
+#             return None
+#         missing = m2.group(1)
+#     else:
+#         missing = m.group(1)
+#     mapped = try_map_column(missing)
+#     if not mapped:
+#         return None
+#     pattern = r'\b' + re.escape(missing) + r'\b'
+#     fixed = re.sub(pattern, mapped, sql)
+#     return fixed
+#
+# def execute_with_retries(engine, sql: str, max_retries: int = 3) -> Tuple[str, Optional[pd.DataFrame], Optional[str], str, float]:
+#     if engine is None:
+#         return "skipped", None, "No DB engine available", sql, 0.0
+#     attempt_sql = qualify_table(sql)
+#     last_err = None
+#     t0 = time.perf_counter()
+#     for _ in range(max_retries):
+#         try:
+#             with engine.connect() as conn:
+#                 df = pd.read_sql(text(attempt_sql), conn)
+#             latency = (time.perf_counter() - t0) * 1000.0
+#             return "ok", df, None, attempt_sql, latency
+#         except Exception as e:
+#             last_err = str(e)
+#             if "does not exist" in last_err and "column" in last_err.lower():
+#                 fixed = repair_sql_columns(attempt_sql, last_err)
+#                 if fixed and fixed != attempt_sql:
+#                     attempt_sql = fixed
+#                     continue
+#             break
+#     latency = (time.perf_counter() - t0) * 1000.0
+#     return "error", None, last_err, attempt_sql, latency
+#
+# # ----------------------------------------------------------------------------
+# # Helpers for metrics
+# # ----------------------------------------------------------------------------
+# def stable_hash_df(df: pd.DataFrame) -> str:
+#     if df is None:
+#         return ""
+#     try:
+#         df2 = df.copy()
+#         # Normalize column order & types for stable hashing
+#         df2.columns = [str(c) for c in df2.columns]
+#         df2 = df2.reindex(sorted(df2.columns), axis=1)
+#         # Sort rows across all columns (as strings) to avoid order noise
+#         for c in df2.columns:
+#             df2[c] = df2[c].astype(str)
+#         df2 = df2.sort_values(list(df2.columns)).reset_index(drop=True)
+#         csv_bytes = df2.to_csv(index=False).encode("utf-8")
+#         return hashlib.md5(csv_bytes).hexdigest()
+#     except Exception:
+#         # Fallback: shape and columns only
+#         return f"shape:{getattr(df, 'shape', None)}|cols:{list(getattr(df, 'columns', []))}"
+#
+# def token_jaccard(a: str, b: str) -> float:
+#     A = set(re.findall(r"[a-z0-9_]+", a.lower()))
+#     B = set(re.findall(r"[a-z0-9_]+", b.lower()))
+#     if not A and not B:
+#         return 1.0
+#     return len(A & B) / max(1, len(A | B))
+#
+# def column_overlap_ratio(df_pred: Optional[pd.DataFrame], df_gt: Optional[pd.DataFrame]) -> float:
+#     if df_pred is None or df_gt is None:
+#         return None
+#     A = {str(c).lower() for c in df_pred.columns}
+#     B = {str(c).lower() for c in df_gt.columns}
+#     if not A and not B: return 1.0
+#     return len(A & B) / max(1, len(A | B))
+#
+# # ----------------------------------------------------------------------------
+# # Load Excel & run
+# # ----------------------------------------------------------------------------
+# CANDIDATE_XLSX = [
+#     Path("/mnt/data/query-cat2.xlsx"),
+#     Path("runs/query-cat2.xlsx"),
+#     Path("/mnt/data/runs/query-cat2.xlsx"),
+# ]
+# xlsx_path = next((p for p in CANDIDATE_XLSX if p.exists()), None)
+# if not xlsx_path:
+#     raise FileNotFoundError("Could not find query-cat2.xlsx in /mnt/data or runs/.")
+#
+# df_in = pd.read_excel(xlsx_path)
+#
+# def autodetect_columns(df: pd.DataFrame) -> Tuple[str, Optional[str]]:
+#     qcol = next((c for c in df.columns if "query" in c.lower() or "question" in c.lower()), df.columns[0])
+#     gcol = next((c for c in df.columns if "sql" in c.lower() or "ground" in c.lower() or "postgres" in c.lower()), None)
+#     if gcol is None and len(df.columns) > 1:
+#         for c in df.columns[1:]:
+#             if df[c].astype(str).str.contains(r"\bselect\b", flags=re.I, na=False).any():
+#                 gcol = c
+#                 break
+#     return qcol, gcol
+#
+# qcol, gcol = autodetect_columns(df_in)
+#
+# # Timestamped outputs
+# ts = time.strftime("%Y%m%d_%H%M%S")
+# out_csv = Path(f"results/gemini_sql_eval_{ts}.csv")
+# out_xlsx = Path(f"results/gemini_sql_eval_{ts}.xlsx")
+#
+# # Run
+# records: List[Dict[str, Any]] = []
+# previews: Dict[str, pd.DataFrame] = {}
+# start = time.time()
+#
+# for idx, row in df_in.iterrows():
+#     question = str(row[qcol]).strip()
+#     gt_sql = str(row[gcol]).strip() if gcol and gcol in df_in.columns else None
+#
+#     # 1) LLM to get SQL
+#     gem = call_gemini_for_sql(question)
+#     gem_sql_original = gem["sql"]
+#
+#     # 2) Run Gemini SQL three times
+#     run_statuses, run_errors, run_lat_ms, run_hashes = [], [], [], []
+#     exec_df_last = None
+#     final_sql_last = gem_sql_original
+#     previews_local = {}
+#     for r in range(3):
+#         status, df_exec, err, final_sql, lat_ms = execute_with_retries(engine, gem_sql_original)
+#         run_statuses.append(status)
+#         run_errors.append(err)
+#         run_lat_ms.append(lat_ms)
+#         run_hashes.append(stable_hash_df(df_exec) if status == "ok" else "")
+#         exec_df_last = df_exec if status == "ok" else exec_df_last
+#         final_sql_last = final_sql
+#         # store a small preview per run
+#         if df_exec is not None:
+#             previews_local[f"gem_preview_run{r+1}"] = df_exec.head(20).copy()
+#
+#     # Determinism across runs
+#     ok_runs = [h for (s,h) in zip(run_statuses, run_hashes) if s == "ok" and h]
+#     deterministic = (len(ok_runs) >= 2 and len(set(ok_runs)) == 1) or (len(ok_runs) == 3 and len(set(ok_runs)) == 1)
+#
+#     # 3) Ground-truth SQL (once)
+#     gt_status, gt_df, gt_err, gt_sql_final, gt_lat_ms = execute_with_retries(engine, gt_sql, max_retries=1) if gt_sql else ("skipped", None, None, None, 0.0)
+#     if gt_df is not None:
+#         previews_local["gt_preview"] = gt_df.head(20).copy()
+#
+#     # 4) Validation metrics
+#     # Equality test only if both executed
+#     results_equal = None
+#     rowcount_delta = None
+#     if exec_df_last is not None and gt_df is not None:
+#         try:
+#             results_equal = exec_df_last.equals(gt_df)
+#         except Exception:
+#             results_equal = False
+#         rowcount_delta = (len(exec_df_last) - len(gt_df))
+#
+#     # nct-based set metrics (if available)
+#     nct_scores = set_metrics_on_nct(exec_df_last, gt_df)
+#     col_overlap = column_overlap_ratio(exec_df_last, gt_df)
+#     sql_sim = token_jaccard(gem_sql_original or "", gt_sql or "") if gt_sql else None
+#
+#     # Collect record
+#     records.append({
+#         "row_index": idx,
+#         "question": question,
+#         "gemini_sql_original": gem_sql_original,
+#         "gemini_sql_final": final_sql_last,
+#         "gemini_answer": gem.get("answer"),
+#         "gemini_assumptions": gem.get("assumptions"),
+#         "run1_status": run_statuses[0], "run1_ms": run_lat_ms[0], "run1_error": run_errors[0],
+#         "run2_status": run_statuses[1], "run2_ms": run_lat_ms[1], "run2_error": run_errors[1],
+#         "run3_status": run_statuses[2], "run3_ms": run_lat_ms[2], "run3_error": run_errors[2],
+#         "deterministic_across_runs": deterministic,
+#         "gemini_result_rows_last_run": (None if exec_df_last is None else len(exec_df_last)),
+#         "ground_truth_sql": gt_sql,
+#         "ground_truth_sql_final": gt_sql_final,
+#         "ground_truth_exec_status": gt_status,
+#         "ground_truth_ms": gt_lat_ms,
+#         "ground_truth_error": gt_err,
+#         "ground_truth_result_rows": (None if gt_df is None else len(gt_df)),
+#         "results_equal_exact": results_equal,
+#         "rowcount_delta_pred_minus_gt": rowcount_delta,
+#         "column_overlap_ratio": col_overlap,
+#         "nct_precision": nct_scores["nct_precision"],
+#         "nct_recall": nct_scores["nct_recall"],
+#         "nct_f1": nct_scores["nct_f1"],
+#         "nct_jaccard": nct_scores["nct_jaccard"],
+#         "sql_token_jaccard_vs_gt": sql_sim,
+#     })
+#
+#     # Save previews to write later
+#     previews[f"gem_preview_r1_row{idx}"] = previews_local.get("gem_preview_run1")
+#     previews[f"gem_preview_r2_row{idx}"] = previews_local.get("gem_preview_run2")
+#     previews[f"gem_preview_r3_row{idx}"] = previews_local.get("gem_preview_run3")
+#     previews[f"gt_preview_row{idx}"] = previews_local.get("gt_preview")
+#
+# elapsed = time.time() - start
+# df_out = pd.DataFrame.from_records(records)
+#
+# # Save reports (timestamped)
+# with pd.ExcelWriter(out_xlsx, engine="xlsxwriter") as writer:
+#     df_out.to_excel(writer, index=False, sheet_name="evaluation")
+#     # Previews (limited to keep workbook manageable)
+#     for name, dfp in previews.items():
+#         if dfp is not None:
+#             # Excel sheet names max length 31
+#             safe_name = name[:31]
+#             try:
+#                 dfp.to_excel(writer, index=False, sheet_name=safe_name)
+#             except Exception:
+#                 pass
+#     # Meta
+#     meta = pd.DataFrame({
+#         "key": [
+#             "xlsx_path", "have_gemini", "have_sqlalchemy", "db_uri", "table_name",
+#             "reflected_columns", "runtime_seconds", "timestamp"
+#         ],
+#         "value": [
+#             str(xlsx_path),
+#             str(HAVE_GEMINI),
+#             str(HAVE_SQLALCHEMY),
+#             ENGINE_URI,
+#             TABLE_NAME,
+#             ", ".join(actual_columns),
+#             f"{elapsed:.2f}",
+#             ts
+#         ]
+#     })
+#     meta.to_excel(writer, index=False, sheet_name="meta")
+#
+# df_out.to_csv(out_csv, index=False)
+#
+# print("\n--- Detailed Summary (v3) ---")
+# print(f"Input file: {xlsx_path}")
+# print(f"Detected query column: {qcol}")
+# print(f"Detected ground-truth column: {gcol}")
+# print(f"Reflected columns ({len(actual_columns)}): {actual_columns}")
+# print(f"Gemini enabled: {HAVE_GEMINI} (set GEMINI_KEY to enable)")
+# print(f"DB engine available: {engine is not None}")
+# print(f"Processed {len(df_out)} rows in {elapsed:.2f}s")
+# print(f"Saved CSV: {out_csv}")
+# print(f"Saved XLSX: {out_xlsx}")
+
+
+
+
+
+# If needed:
+# %pip install -q google-generativeai pandas python-dotenv SQLAlchemy psycopg2-binary openpyxl
+
+import os, re, json, uuid, pathlib
+from datetime import datetime
+from pathlib import Path
+
+import pandas as pd
+import google.generativeai as genai
+from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+
+# ---------- ENV & MODEL ----------
+load_dotenv()
+genai.configure(api_key=os.getenv("GEMINI_KEY"))
+MODEL_NAME = "gemini-2.0-flash"
+model = genai.GenerativeModel(MODEL_NAME)
+
+# ---------- DB ----------
+DB_NAME = "trialsdb"
+ENGINE_URI = f"postgresql://postgres:5555@localhost:5432/{DB_NAME}"
+engine = create_engine(ENGINE_URI, future=True)
+
+# ---------- INPUT QUESTIONS ----------
+xlsx_path = "runs/query-cat3.xlsx"  # adjust if needed
+dfq = pd.read_excel(xlsx_path)
+possible_cols = [c for c in dfq.columns if c.lower() in {"question", "questions", "prompt", "query"}]
+question_col = possible_cols[0] if possible_cols else dfq.columns[0]
+questions = dfq[question_col].dropna().astype(str).tolist()
+
+# ---------- OUTPUT FOLDER ----------
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+outdir = pathlib.Path("results") / f"cat3_hybrid_{timestamp}"
+outdir.mkdir(parents=True, exist_ok=True)
+
+def safe_slug(s: str, default: str = "question") -> str:
+    slug = re.sub(r"[^A-Za-z0-9._-]+", "_", s).strip("_")
+    return slug[:60] or default
+
+# ---------- VIEW (query this) ----------
+VIEW_FQN = "compat.clinical_trials"
+DEFAULT_HEADERS_SQL = '"NCT", "Author" AS "Authors", "Year", "PubMed ID" AS "PMID"'
+
+VIEW_COLUMNS = [
+    'NCT','PubMed ID','Trial name','Author','Year','Trial phase','Number of arms','Total sample size',
+    'Original publication or Follow-up','Cancer type','Treatment regimen','Name of ICI','Class of ICI',
+    'Monotherapy/combination','Type of combination','Control regimen','Control arm','Lines of treatment',
+    'Clinical setting in relation to surgery','Primary endpoint',
+    'Primary Multiple, composite, or co-primary endpoints?','Secondary endpoint',
+    'Is PD-L1 positivity inclusion criteria','Is any other biomarker used for inclusion','Type of follow-up given',
+    'Follow-up duration for primary endpoint(s) in months | Overall',
+    'Follow-up duration for primary endpoint(s) in months | Rx',
+    'Follow-up duration for primary endpoint(s) in months | Control',
+    'Type of therapy','Clinical setting',
+]
+
+SCHEMA_NOTE = "Columns (quote identifiers exactly):\n- " + "\n- ".join(f'"{c}"' for c in VIEW_COLUMNS)
+
+# ---------- LLM PLANNING PROMPT ----------
+PLAN_PROMPT_TEMPLATE = f"""
+You are helping run hybrid analytics on PostgreSQL and Gemini.
+
+1) Create a "base" SELECT that queries **{VIEW_FQN}** (NOT the base table).
+2) If data needed to answer the question is not present in the view, specify a HYBRID augmentation:
+   - "key_column": the column name (from the view) whose distinct values will be sent to the LLM (UNQUOTED in JSON).
+   - "prompt_template": an instruction containing the literal placeholder {{VALUE}} where each distinct value is injected.
+   - "new_column": the name of the enriched column to create (UNQUOTED in JSON).
+   - Example hybrid: key_column: Name of ICI, prompt_template: "Identify the country for each ICI: {{VALUE}}", new_column: country.
+3) Provide a "final" SELECT that:
+   - **Always begins its SELECT list with:** {DEFAULT_HEADERS_SQL}
+   - Includes any other columns or expressions needed to answer the question,
+   - Joins a staging table placeholder **{{{{HYBRID_TABLE}}}}** as alias **h** on a meaningful join with the base/result set,
+   - Uses quoted identifiers for any column with spaces (e.g., "Cancer type"),
+   - Is a single SELECT (no CTEs), ASCII literals only.
+
+Return STRICT JSON with keys: "sql_base", "hybrid", and "final_sql".
+- If no augmentation is needed: "hybrid": {{"required": false}} and "final_sql" can equal "sql_base".
+- DO NOT quote column names in JSON values; only quote them in the SQL itself.
+
+Schema for {VIEW_FQN}:
+{SCHEMA_NOTE}
+"""
+
+# ---------- Helpers ----------
+def extract_json(text_out: str) -> str:
+    raw = (text_out or "").strip()
+    m = re.search(r"```json\s*(.*?)```", raw, flags=re.S|re.I)
+    return (m.group(1).strip() if m else raw).strip()
+
+_FROM_OR_JOIN_RE = re.compile(r'(?i)\b(from|join)\s+(?:"?public"?\.)?\s*"?clinical_trials"?')
+def normalize_table_refs(sql: str) -> str:
+    s = (sql or "").strip().rstrip(";")
+    return _FROM_OR_JOIN_RE.sub(lambda m: f'{m.group(1).upper()} {VIEW_FQN}', s)
+
+def run_sql_to_df(sql: str) -> pd.DataFrame:
+    with engine.connect() as conn:
+        return pd.read_sql_query(sql=text(sql), con=conn)
+
+def canon_ident(name: str) -> str:
+    """Strip wrapping quotes/spaces from a column name for DataFrame usage."""
+    return (name or "").strip().strip('"').strip()
+
+def sql_ident(name: str) -> str:
+    """Return a properly quoted SQL identifier for a column."""
+    return f'"{canon_ident(name)}"'
+
+def make_staging_table_name(i: int) -> str:
+    return f"hybrid_{i}_{uuid.uuid4().hex[:8]}".lower()
+
+def call_llm_for_value(template: str, value: str) -> str:
+    prompt = template.replace("{VALUE}", str(value)) if "{VALUE}" in template else f"{template}\nValue: {value}"
+    r = model.generate_content(prompt)
+    return (getattr(r, "text", "") or "").strip()
+
+def get_plan(question: str) -> dict:
+    cfg = {"response_mime_type": "application/json"}
+    resp = model.generate_content(PLAN_PROMPT_TEMPLATE + "\n\nQuestion:\n" + question, generation_config=cfg)
+    raw_json = extract_json(getattr(resp, "text", ""))
+    plan = json.loads(raw_json)
+    if "sql_base" not in plan or "final_sql" not in plan or "hybrid" not in plan:
+        raise RuntimeError(f"Plan missing keys. Got: {list(plan.keys())}")
+    return plan
+
+# ---------- MAIN ----------
+saved, errors = 0, 0
+
+for i, q in enumerate(questions, start=1):
+    csv_path = outdir / f"{i:03}_{safe_slug(q)}.csv"
+    try:
+        # PLAN
+        plan = get_plan(q)
+        base_sql = normalize_table_refs(plan["sql_base"])
+        final_sql = plan.get("final_sql", base_sql)
+
+        # RUN BASE
+        base_df = run_sql_to_df(base_sql)
+
+        # HYBRID?
+        hspec = plan.get("hybrid", {}) or {}
+        if hspec.get("required", False):
+            key_col_raw = hspec["key_column"]
+            prompt_tmpl = hspec["prompt_template"]
+            new_col_raw = hspec["new_column"]
+
+            key_col = canon_ident(key_col_raw)   # e.g., Name of ICI  (no quotes)
+            new_col = canon_ident(new_col_raw)   # e.g., country
+
+            # Ensure we have the key column values; if not, fetch using NCT filter
+            if key_col not in base_df.columns:
+                if "NCT" not in base_df.columns:
+                    raise RuntimeError(f'Base result lacks both the key column "{key_col}" and "NCT" to derive it.')
+                ncts = base_df["NCT"].dropna().astype(str).unique().tolist()
+                if not ncts:
+                    raise RuntimeError("No NCTs in base result to derive hybrid keys.")
+                # Build a restricted pull from the view for the key column
+                # (We intentionally inline values; safety is out-of-scope per your instruction.)
+                nct_list_sql = ", ".join("'" + v.replace("'", "''") + "'" for v in ncts)
+                pull_sql = f'SELECT DISTINCT "NCT", {sql_ident(key_col)} AS key_val FROM {VIEW_FQN} WHERE "NCT" IN ({nct_list_sql})'
+                key_df = run_sql_to_df(pull_sql)
+                # Merge into base_df so we "create" the column if it didn't exist
+                base_df = base_df.merge(key_df, on="NCT", how="left")
+                base_df.rename(columns={"key_val": key_col}, inplace=True)
+
+            # Build mapping via LLM
+            uniq_vals = pd.Series(base_df[key_col].dropna().astype(str).unique())
+            mapping_rows = []
+            for v in uniq_vals:
+                enriched = call_llm_for_value(prompt_tmpl, v)
+                mapping_rows.append({key_col: v, new_col: enriched})
+            mapping_df = pd.DataFrame(mapping_rows)
+
+            # Write staging table with exact (unquoted) column names
+            staging = make_staging_table_name(i)
+            with engine.begin() as conn:
+                mapping_df.to_sql(staging, con=conn, schema="public", index=False, if_exists="replace", method="multi")
+
+            # Substitute and run final SQL
+            final_sql = normalize_table_refs(final_sql).replace("{{HYBRID_TABLE}}", f"public.{staging}")
+            final_df = run_sql_to_df(final_sql)
+
+            # Cleanup staging
+            with engine.begin() as conn:
+                conn.exec_driver_sql(f"DROP TABLE IF EXISTS public.{staging}")
+
+        else:
+            final_df = base_df  # no augmentation
+
+        # SAVE exactly what the SQL returned
+        final_df.to_csv(csv_path, index=False, encoding="utf-8")
+        saved += 1
+
+    except Exception as e:
+        errors += 1
+        pd.DataFrame([{"error": str(e)}]).to_csv(csv_path, index=False, encoding="utf-8")
+
+print(f"Saved {saved} CSV file(s) to: {outdir}")
+if errors:
+    print(f"Completed with {errors} error(s).")
+

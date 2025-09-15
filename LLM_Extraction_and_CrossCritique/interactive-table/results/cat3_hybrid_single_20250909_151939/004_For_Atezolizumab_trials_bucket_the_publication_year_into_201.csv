@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Cancer type"", b.""Treatment regimen"", h.""lung_vs_nonlung"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Treatment regimen"" FROM compat.clinical_trials WHERE LOWER(""Treatment regimen"") LIKE '%%atezolizumab%%') b LEFT JOIN public.hybrid_4_30f8115d h ON b.""Cancer type"" = h.""Cancer type""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Atezolizumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019."

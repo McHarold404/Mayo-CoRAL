@@ -1,0 +1,52 @@
+{
+  "row_index": 3,
+  "question": "Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "This SQL query identifies Small Cell Lung Cancer (SCLC) studies that employed an ICI+ICI+Chemo combination and retrieves the NCT ID, authors, year, PubMed ID, and primary endpoint for each study.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"combination_type\\\" = 'ICI + ICI + Chemo';\",\n  \"answer\": \"This SQL query identifies Small Cell Lung Cancer (SCLC) studies that employed an ICI+ICI+Chemo combination and retrieves the NCT ID, authors, year, PubMed ID, and primary endpoint for each study.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250908_122119_cot\\row003_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250908_122119_cot\\row003_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.720299999462441,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8359999962267466,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.731999997398816,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.096099997696001,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6363636363636364,
+    "deterministic_across_runs": true
+  }
+}

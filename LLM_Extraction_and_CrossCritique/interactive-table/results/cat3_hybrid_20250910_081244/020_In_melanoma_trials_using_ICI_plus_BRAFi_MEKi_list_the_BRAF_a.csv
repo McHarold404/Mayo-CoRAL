@@ -1,0 +1,14 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Authors"" does not exist
+LINE 2:   SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"", ""Year"", ""C...
+                                               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Author"".
+
+[SQL: WITH base AS (
+  SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"", ""Year"", ""Cancer type"", ""Treatment regimen""
+  FROM compat.clinical_trials
+  WHERE LOWER(""Cancer type"") LIKE '%%melanoma%%'
+  AND LOWER(""Treatment regimen"") LIKE '%%ici%%' AND LOWER(""Treatment regimen"") LIKE '%%braf%%' AND LOWER(""Treatment regimen"") LIKE '%%mek%%'
+)
+SELECT * FROM base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In melanoma trials using ICI plus BRAFi+MEKi, list the BRAF and MEK inhibitors used in the regimen."

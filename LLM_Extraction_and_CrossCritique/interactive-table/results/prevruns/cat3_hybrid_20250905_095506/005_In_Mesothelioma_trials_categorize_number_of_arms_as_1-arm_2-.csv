@@ -1,0 +1,29 @@
+question,generated_sql,status,error
+"In Mesothelioma trials, categorize number of arms as 1-arm, 2-arm, or ≥3-arm.","SELECT
+    CASE
+        WHEN number_of_arms = 1 THEN '1-arm'
+        WHEN number_of_arms = 2 THEN '2-arm'
+        WHEN number_of_arms >= 3 THEN '≥3-arm'
+        ELSE 'Unknown'
+    END AS arm_category,
+    COUNT(*)
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Mesothelioma'
+GROUP BY arm_category
+LIMIT 1000 LIMIT 1000",error,"(psycopg2.errors.SyntaxError) syntax error at or near ""LIMIT""
+LINE 12: LIMIT 1000 LIMIT 1000
+                    ^
+
+[SQL: SELECT
+    CASE
+        WHEN number_of_arms = 1 THEN '1-arm'
+        WHEN number_of_arms = 2 THEN '2-arm'
+        WHEN number_of_arms >= 3 THEN '≥3-arm'
+        ELSE 'Unknown'
+    END AS arm_category,
+    COUNT(*)
+FROM public.""clinical_trials""
+WHERE cancer_type = 'Mesothelioma'
+GROUP BY arm_category
+LIMIT 1000 LIMIT 1000]
+(Background on this error at: https://sqlalche.me/e/20/f405)"

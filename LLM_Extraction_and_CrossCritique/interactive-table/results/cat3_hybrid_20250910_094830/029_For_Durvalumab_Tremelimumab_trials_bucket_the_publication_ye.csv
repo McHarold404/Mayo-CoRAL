@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Author"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ...
+                      ^
+HINT:  Perhaps you meant to reference the column ""b.Authors"".
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", CASE WHEN b.yr <= 2014 THEN '≤2014' WHEN b.yr BETWEEN 2015 AND 2018 THEN '2015–2018' WHEN b.yr >= 2019 THEN '≥2019' ELSE NULL END AS year_bucket, b.""Name of ICI"" FROM (SELECT ""NCT"", ""Author"" AS ""Authors"", ""Year"", ""PubMed ID"" AS ""PMID"", CAST(""Year"" AS INTEGER) AS yr, ""Name of ICI"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"") IN ('durvalumab', 'tremelimumab')) b]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Durvalumab, Tremelimumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019."

@@ -1,0 +1,52 @@
+{
+  "row_index": 7,
+  "question": "List Head and Neck Nivolumab trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This query lists Head and Neck cancer trials using Nivolumab with an overall follow-up duration exceeding 21 months.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"cancer_type\\\", \\\"ici_class\\\", \\\"trial_phase\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"ici_name\\\" = 'Nivolumab' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"This query lists Head and Neck cancer trials using Nivolumab with an overall follow-up duration exceeding 21 months.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250904_134211\\row007_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250904_134211\\row007_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.977100001677172,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250904_134211\\row007_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.867399999056943,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250904_134211\\row007_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.0742000019236,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250904_134211\\row007_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250904_134211\\row007_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.647499998507556,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250904_134211\\row007_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.6296296296296297,
+    "deterministic_across_runs": true
+  }
+}

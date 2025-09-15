@@ -1,0 +1,129 @@
+row_index,question,gemini_sql_original,gemini_sql_final,gemini_answer,gemini_assumptions,gemini_raw,gemini_exec_status,gemini_exec_error,gemini_result_rows,ground_truth_sql,ground_truth_exec_status,ground_truth_exec_error,ground_truth_result_rows,results_match_exact
+0,Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = TRUE","SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = TRUE",This query counts the number of bladder cancer trials using PD1 inhibitors where PD-L1 positivity was an inclusion criterion.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT \""nct\"") FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Bladder' AND \""ici_class\"" = 'PD1' AND \""pdl1_inclusion\"" = TRUE"",
+  ""answer"": ""This query counts the number of bladder cancer trials using PD1 inhibitors where PD-L1 positivity was an inclusion criterion."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,,2,False
+1,List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = True AND ""pdl1_inclusion"" = False;","SELECT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = True AND ""pdl1_inclusion"" = False;",This query lists the NCT identifiers and trial names of bladder cancer trials that require a biomarker other than PD-L1 for inclusion.,Trials requiring other biomarkers but not explicitly excluding PD-L1 are omitted.,"```json
+{
+  ""sql"": ""SELECT \""nct\"", \""trial_name\"" FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Bladder' AND \""other_biomarker_inclusion\"" = True AND \""pdl1_inclusion\"" = False;"",
+  ""answer"": ""This query lists the NCT identifiers and trial names of bladder cancer trials that require a biomarker other than PD-L1 for inclusion."",
+  ""assumptions"": ""Trials requiring other biomarkers but not explicitly excluding PD-L1 are omitted.""
+}
+```",ok,,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';",ok,,3,False
+2,Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = TRUE","SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = TRUE",This query counts the number of Gastric/GEJ clinical trials using a PD1 inhibitor where PD-L1 positivity was an inclusion criterion.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT \""nct\"") FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Gastric/GEJ' AND \""ici_class\"" = 'PD1' AND \""pdl1_inclusion\"" = TRUE"",
+  ""answer"": ""This query counts the number of Gastric/GEJ clinical trials using a PD1 inhibitor where PD-L1 positivity was an inclusion criterion."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,,3,False
+3,"Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""trial_name"", ""primary_endpoint"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI + ICI + Chemo';","SELECT ""trial_name"", ""primary_endpoint"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI + ICI + Chemo';",This query returns the trial name and primary endpoint for all trials in the database studying Small Cell Lung cancer that used an ICI+ICI+Chemo combination therapy.,,"```json
+{
+  ""sql"": ""SELECT \""trial_name\"", \""primary_endpoint\"" FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Small Cell Lung' AND \""combination_type\"" = 'ICI + ICI + Chemo';"",
+  ""answer"": ""This query returns the trial name and primary endpoint for all trials in the database studying Small Cell Lung cancer that used an ICI+ICI+Chemo combination therapy."",
+  ""assumptions"": """"
+}
+```",ok,,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';",ok,,2,False
+4,Show Mesothelioma PD1 trials conducted in 2018 or later.,"SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018","SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018",This query counts the number of mesothelioma trials using PD1 inhibitors published in 2018 or later.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT \""nct\"") FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Mesothelioma' AND \""ici_class\"" = 'PD1' AND \""year\"" >= 2018"",
+  ""answer"": ""This query counts the number of mesothelioma trials using PD1 inhibitors published in 2018 or later."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,,1,False
+5,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT DISTINCT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;","SELECT DISTINCT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;",This query lists the unique NCT IDs and trial names of clinical trials using PD-L1 or CTLA-4 inhibitors that reported a composite or co-primary endpoint.,,"```json
+{
+  ""sql"": ""SELECT DISTINCT \""nct\"", \""trial_name\"" FROM public.\""clinical_trials\"" WHERE \""ici_class\"" IN ('PD-L1', 'CTLA-4') AND \""primary_endpoint_is_multiple_or_composite\"" = TRUE;"",
+  ""answer"": ""This query lists the unique NCT IDs and trial names of clinical trials using PD-L1 or CTLA-4 inhibitors that reported a composite or co-primary endpoint."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 1: ...-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT DISTINCT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,,2,
+6,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = True AND ""pdl1_inclusion"" = False;","SELECT ""nct"", ""trial_name"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = True AND ""pdl1_inclusion"" = False;",This query lists the NCT identifiers and trial names of all Head and Neck cancer trials that include patients based on the presence of a biomarker other than PD-L1.,,"```json
+{
+  ""sql"": ""SELECT \""nct\"", \""trial_name\"" FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Head and Neck' AND \""other_biomarker_inclusion\"" = True AND \""pdl1_inclusion\"" = False;"",
+  ""answer"": ""This query lists the NCT identifiers and trial names of all Head and Neck cancer trials that include patients based on the presence of a biomarker other than PD-L1."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';",ok,,1,False
+7,List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.,"SELECT ""trial_name"", ""follow_up_duration_overall_months"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND ""follow_up_duration_overall_months"" > 21","SELECT ""trial_name"", ""follow_up_duration_overall_months"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND ""follow_up_duration_overall_months"" > 21","This SQL query returns the names and overall follow-up duration in months for all trials in the database that studied Nivolumab in Head and Neck cancer, with an overall follow-up duration exceeding 21 months.",,"```json
+{
+  ""sql"": ""SELECT \""trial_name\"", \""follow_up_duration_overall_months\"" FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Head and Neck' AND \""ici_name\"" = 'Nivolumab' AND \""follow_up_duration_overall_months\"" > 21"",
+  ""answer"": ""This SQL query returns the names and overall follow-up duration in months for all trials in the database that studied Nivolumab in Head and Neck cancer, with an overall follow-up duration exceeding 21 months."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,,1,False
+8,Show Bladder PD-L1 trials conducted in 2018 or later.,"SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018","SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018",This query counts the number of Bladder cancer clinical trials with a PD-L1 ICI class published in 2018 or later.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT \""nct\"") FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Bladder' AND \""ici_class\"" = 'PD-L1' AND \""year\"" >= 2018"",
+  ""answer"": ""This query counts the number of Bladder cancer clinical trials with a PD-L1 ICI class published in 2018 or later."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,,1,False
+9,Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""lines_of_treatment"" LIKE '%2L+%' AND ""therapy_type"" = 'Combination therapy';","SELECT COUNT(DISTINCT ""nct"") FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""lines_of_treatment"" LIKE '%2L+%' AND ""therapy_type"" = 'Combination therapy';",This query counts Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,,"```json
+{
+  ""sql"": ""SELECT COUNT(DISTINCT \""nct\"") FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Multiple Myeloma' AND \""lines_of_treatment\"" LIKE '%2L+%' AND \""therapy_type\"" = 'Combination therapy';"",
+  ""answer"": ""This query counts Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment."",
+  ""assumptions"": """"
+}
+```",ok,,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,,1,False
+10,Find Breast trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Breast'","SELECT ""nct"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Breast'","This query returns the NCT identifiers and follow-up durations (overall, treatment arm, control arm) in months for all breast cancer trials.",,"```json
+{
+  ""sql"": ""SELECT \""nct\"", \""follow_up_duration_overall_months\"", \""follow_up_duration_rx_months\"", \""follow_up_duration_control_months\"" FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Breast'"",
+  ""answer"": ""This query returns the NCT identifiers and follow-up durations (overall, treatment arm, control arm) in months for all breast cancer trials."",
+  ""assumptions"": """"
+}
+```",ok,,11.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';",ok,,10,False
+11,Show Ipilimumab combination trials in Melanoma with sample sizes.,"SELECT ""nct"", ""trial_name"", ""total_sample_size"", ""combination_type"" FROM public.""clinical_trials"" WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""monotherapy/combination"" = 'Combination'","SELECT ""nct"", ""trial_name"", ""total_sample_size"", ""combination_type"" FROM public.""clinical_trials"" WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""monotherapy/combination"" = 'Combination'","This query retrieves the NCT identifier, trial name, total sample size, and combination type for all clinical trials where Ipilimumab is used in combination for Melanoma.",,"```json
+{
+  ""sql"": ""SELECT \""nct\"", \""trial_name\"", \""total_sample_size\"", \""combination_type\"" FROM public.\""clinical_trials\"" WHERE \""ici_name\"" = 'Ipilimumab' AND \""cancer_type\"" = 'Melanoma' AND \""monotherapy/combination\"" = 'Combination'"",
+  ""answer"": ""This query retrieves the NCT identifier, trial name, total sample size, and combination type for all clinical trials where Ipilimumab is used in combination for Melanoma."",
+  ""assumptions"": """"
+}
+```",error,"(psycopg2.errors.UndefinedColumn) column ""monotherapy/combination"" does not exist
+LINE 1: ...= 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""monothera...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""trial_name"", ""total_sample_size"", ""combination_type"" FROM public.""clinical_trials"" WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""monotherapy/combination"" = 'Combination']
+(Background on this error at: https://sqlalche.me/e/20/f405)",,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",ok,,3,
+12,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""trial_name"", ""nct"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = True AND ""pdl1_inclusion"" = False;","SELECT ""trial_name"", ""nct"" FROM public.""clinical_trials"" WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = True AND ""pdl1_inclusion"" = False;",This query retrieves the trial names and NCT IDs for Breast cancer trials that use a biomarker other than PD-L1 as an inclusion criterion.,,"```json
+{
+  ""sql"": ""SELECT \""trial_name\"", \""nct\"" FROM public.\""clinical_trials\"" WHERE \""cancer_type\"" = 'Breast' AND \""other_biomarker_inclusion\"" = True AND \""pdl1_inclusion\"" = False;"",
+  ""answer"": ""This query retrieves the trial names and NCT IDs for Breast cancer trials that use a biomarker other than PD-L1 as an inclusion criterion."",
+  ""assumptions"": """"
+}
+```",ok,,7.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';",ok,,8,False

@@ -1,0 +1,52 @@
+{
+  "row_index": 3,
+  "question": "Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "This query retrieves the NCT, author, year, pubmed_id, and primary endpoint for SCLC clinical trials using ICI+ICI+Chemo combination therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"combination_type\\\" = 'ICI + ICI + Chemo';\",\n  \"answer\": \"This query retrieves the NCT, author, year, pubmed_id, and primary endpoint for SCLC clinical trials using ICI+ICI+Chemo combination therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250908_170528_cot\\row003_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250908_170528_cot\\row003_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.580099987331778,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.003199989208952,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.123300001490861,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.247300006682053,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6363636363636364,
+    "deterministic_across_runs": true
+  }
+}

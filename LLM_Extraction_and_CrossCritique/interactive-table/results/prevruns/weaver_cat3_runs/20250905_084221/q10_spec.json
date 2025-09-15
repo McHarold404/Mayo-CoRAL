@@ -1,0 +1,16 @@
+{
+  "mode": "hybrid",
+  "prefilter_sql": "SELECT \"primary_endpoint\", \"secondary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Colorectal'",
+  "udf_spec": {
+    "based_on_cols": [
+      "primary_endpoint",
+      "secondary_endpoint"
+    ],
+    "new_col": "endpoint_type",
+    "prompt_template": "Given the following primary and secondary endpoint texts for a clinical trial, classify the endpoint type (Primary or Secondary).\n\nPrimary Endpoint: {primary_endpoint}\nSecondary Endpoint: {secondary_endpoint}\n\nEndpoint Type:"
+  },
+  "final_sql": "SELECT endpoint_type, COUNT(*) FROM pg_temp.\"llm_results\" GROUP BY endpoint_type;",
+  "answer_hint": "Count the number of rows with each endpoint_type, summing either the primary or secondary endpoint counts.",
+  "assumptions": "The LLM can accurately classify endpoint types based on primary and secondary endpoint text descriptions.",
+  "raw": "```json\n{\n  \"mode\": \"hybrid\",\n  \"prefilter_sql\": \"SELECT \\\"primary_endpoint\\\", \\\"secondary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Colorectal'\",\n  \"udf_spec\": {\n    \"based_on_cols\": [\n      \"primary_endpoint\",\n      \"secondary_endpoint\"\n    ],\n    \"new_col\": \"endpoint_type\",\n    \"prompt_template\": \"Given the following primary and secondary endpoint texts for a clinical trial, classify the endpoint type (Primary or Secondary).\\n\\nPrimary Endpoint: {primary_endpoint}\\nSecondary Endpoint: {secondary_endpoint}\\n\\nEndpoint Type:\"\n  },\n  \"final_sql\": \"SELECT endpoint_type, COUNT(*) FROM pg_temp.\\\"llm_results\\\" GROUP BY endpoint_type;\",\n  \"answer_hint\": \"Count the number of rows with each endpoint_type, summing either the primary or secondary endpoint counts.\",\n  \"assumptions\": \"The LLM can accurately classify endpoint types based on primary and secondary endpoint text descriptions.\"\n}\n```"
+}
