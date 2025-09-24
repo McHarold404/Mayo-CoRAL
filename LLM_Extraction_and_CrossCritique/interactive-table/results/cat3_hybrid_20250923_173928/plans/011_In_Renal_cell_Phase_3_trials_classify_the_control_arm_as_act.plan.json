@@ -1,0 +1,36 @@
+{
+  "question": "In Renal cell Phase 3 trials, classify the control arm as active, placebo, or best supportive care.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Renal Cell phase 3 trials and select the control arm.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Trial phase\", \"Control arm\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%renal cell%' AND \"Trial phase\" = 'Phase 3'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Classify the control arm into active, placebo, or best supportive care.",
+      "in": "t1",
+      "prompt": "For each row, read the Control arm and classify it into one of the following categories: [\"active\", \"placebo\", \"best supportive care\", \"OTHER/UNKNOWN\"]. Output a JSON object with the following keys: NCT, PMID, control_arm_type. If the control arm involves another treatment, classify as active. If the control arm is a sugar pill or dummy treatment, classify as placebo. If the control arm is focused on alleviating symptoms and maximizing comfort, classify as best supportive care. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "control_arm_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate the labels and deduplicate.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

@@ -1,0 +1,25 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t2"" does not exist
+LINE 2: ...ECT t2.""NCT"", t2.""PMID"", t2.follow_up_months_clean FROM t2),
+                                                                   ^
+
+[SQL: WITH
+  clean_durations AS (SELECT t2.""NCT"", t2.""PMID"", t2.follow_up_months_clean FROM t2),
+  bucketed AS (
+    SELECT
+      cd.""NCT"",
+      cd.""PMID"",
+      CASE
+        WHEN cd.follow_up_months_clean < 12 THEN '<12'
+        WHEN cd.follow_up_months_clean >= 12 AND cd.follow_up_months_clean < 24 THEN '12–23'
+        WHEN cd.follow_up_months_clean >= 24 THEN '≥24'
+        ELSE NULL
+      END AS follow_up_bucket
+    FROM
+      clean_durations cd
+  )
+SELECT
+  *
+FROM
+  bucketed]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Esophageal/GEJ trials, bucket overall follow-up months into <12, 12–23, or ≥24."

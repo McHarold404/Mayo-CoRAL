@@ -1,0 +1,36 @@
+{
+  "question": "In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Melanoma trials and select the follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "If missing follow-up months impute from \"Type of follow-up given\", \"Treatment regimen\", \"Trial name\", and \"Primary endpoint\"",
+      "in": "t1",
+      "prompt": "For each row, read follow_up_months from the table. If follow_up_months is missing or null, then impute it from \"Type of follow-up given\", \"Treatment regimen\", \"Trial name\", and \"Primary endpoint\" using heuristics. If follow_up_months is less than 12, assign the label \"<12\". If follow_up_months is between 12 and 23, assign the label \"12-23\". If follow_up_months is greater than or equal to 24, assign the label \">=24\". If follow_up_months is negative or unparseable or there are no values to derive the follow up months, then return unknown. Output JSON with {NCT, PMID, follow_up_bucket}.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_bucket"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate the bucket labels and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

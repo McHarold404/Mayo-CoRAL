@@ -1,0 +1,13 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Authors"" does not exist
+LINE 2:   SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"" AS ""Author""...
+                                               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Author"".
+
+[SQL: WITH base AS (
+  SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"" AS ""Author"", ""Year"", ""Cancer type"", ""Primary endpoint"", ""Secondary endpoint""
+  FROM compat.clinical_trials
+  WHERE LOWER(""Cancer type"") LIKE '%%prostate%%'
+)
+SELECT * FROM base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Prostate trials, determine whether the listed endpoint is primary or secondary based on the endpoint text."

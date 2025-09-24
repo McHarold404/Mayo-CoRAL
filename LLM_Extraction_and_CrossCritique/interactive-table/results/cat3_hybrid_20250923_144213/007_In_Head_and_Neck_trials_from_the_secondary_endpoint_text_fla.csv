@@ -1,0 +1,13 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Authors"" does not exist
+LINE 2:   SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"" AS ""Author""...
+                                               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Author"".
+
+[SQL: WITH base AS (
+  SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"" AS ""Author"", ""Year"", ""Cancer type"", ""Secondary endpoint""
+  FROM compat.clinical_trials
+  WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%'
+)
+SELECT * FROM base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck trials, from the secondary endpoint text flag if immune-related adverse events (irAEs) were explicitly assessed."

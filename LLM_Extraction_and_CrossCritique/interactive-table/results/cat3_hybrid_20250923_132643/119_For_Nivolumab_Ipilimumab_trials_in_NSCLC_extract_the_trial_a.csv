@@ -1,0 +1,17 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""Authors"" does not exist
+LINE 2:   SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"" AS ""Author""...
+                                               ^
+HINT:  Perhaps you meant to reference the column ""clinical_trials.Author"".
+
+[SQL: WITH base AS (
+  SELECT ""NCT"", ""PubMed ID"" AS ""PMID"", ""Authors"" AS ""Author"", ""Year"", ""Trial name"", ""Name of ICI"", ""Cancer type""
+  FROM compat.clinical_trials
+  WHERE LOWER(""Cancer type"") LIKE '%%non small cell lung%%' 
+  AND (
+    LOWER(""Name of ICI"") LIKE '%%nivolumab%%'
+    OR LOWER(""Name of ICI"") LIKE '%%ipilimumab%%'
+  )
+)
+SELECT * FROM base]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Nivolumab, Ipilimumab trials in NSCLC, extract the trial acronym from the trial name (e.g., KEYNOTE-xxx, CHECKMATE-xxx)."

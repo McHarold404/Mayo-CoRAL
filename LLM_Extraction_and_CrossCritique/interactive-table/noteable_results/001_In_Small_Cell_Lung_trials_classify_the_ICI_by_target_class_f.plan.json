@@ -1,0 +1,37 @@
+{
+  "question": "In Small Cell Lung trials, classify the ICI by target class from its generic name as PD-1, PD-L1, or CTLA-4.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter SCLC trials and select the ICI name.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Authors\", \"Year\", \"Cancer type\", \"Name of ICI\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%small cell%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Classify the ICI name into target classes PD-1, PD-L1, or CTLA-4.",
+      "in": "t1",
+      "prompt": "For each row, read Name of ICI and output JSON with keys NCT, PMID, ici_class, name_of_ici. Allowed ici_class: [\"PD-1\",\"PD-L1\",\"CTLA-4\",\"OTHER/UNKNOWN\"]. Hints: pembrolizumab/nivolumab/cemiplimab→PD-1; atezolizumab/avelumab/durvalumab→PD-L1; ipilimumab→CTLA-4. If the Name of ICI is null or an empty string, the ici_class should be OTHER/UNKNOWN. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "ici_class",
+          "name_of_ici"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate labels, coerce unknowns, and deduplicate.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}
