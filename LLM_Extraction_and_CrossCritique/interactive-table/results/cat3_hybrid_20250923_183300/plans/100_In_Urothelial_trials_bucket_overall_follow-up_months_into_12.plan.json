@@ -1,0 +1,36 @@
+{
+  "question": "In Urothelial trials, bucket overall follow-up months into <12, 12–23, or ≥24.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Urothelial trials and select follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%urothelial%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Handle missing follow-up values and extract follow-up duration if needed.",
+      "in": "t1",
+      "prompt": "For each row, read follow_up_months and output JSON {NCT, PMID, follow_up_category} with follow-up in [\"<12\",\"12-23\",\">=24\",\"unknown\"]. If follow_up_months is null or cannot be parsed as a number, set follow_up_category to \"unknown\". Otherwise, if the follow_up_months is less than 12 set follow_up_category to \"<12\", if follow_up_months is between 12 and 23 (inclusive) set follow_up_category to \"12-23\", and if the follow_up_months is greater than or equal to 24 set follow_up_category to \">=24\". Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_category"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

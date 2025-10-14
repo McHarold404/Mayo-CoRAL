@@ -1,0 +1,52 @@
+{
+  "row_index": 64,
+  "question": "Show Urothelial PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "llama": {
+    "answer": "This query returns Urothelial trials with PD-L1 or CTLA-4 ICI conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"cancer_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Urothelial%' AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4') AND \\\"year\\\" >= 2018;\",\n  \"answer\": \"This query returns Urothelial trials with PD-L1 or CTLA-4 ICI conducted in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row064_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row064_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.028999992646277,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row064_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.675300002214499,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row064_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6478000110946596,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row064_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row064_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.5608999896794558,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row064_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 4,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.25,
+    "nct_recall": 1.0,
+    "nct_f1": 0.4,
+    "nct_jaccard": 0.25,
+    "sql_token_jaccard_vs_gt": 0.5862068965517241,
+    "deterministic_across_runs": true
+  }
+}

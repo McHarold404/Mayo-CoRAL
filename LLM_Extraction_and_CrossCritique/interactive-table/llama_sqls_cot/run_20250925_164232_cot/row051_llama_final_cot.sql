@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Head and Neck%' AND "ici_name" ILIKE '%PD-L1%' AND "pdl1_inclusion" = 'Yes'

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "cancer_type", "treatment_regimen", "ici_name", "ici_class", "therapy_type", "clinical_setting" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Colorectal%' AND "therapy_type" = 'Combination therapy' AND "lines_of_treatment" >= 2

@@ -1,0 +1,52 @@
+{
+  "row_index": 63,
+  "question": "Find Urothelial trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query retrieves Urothelial cancer trials, including the trial identifier, authors, publication year, PubMed ID, and the median follow-up duration in months for the overall study population, the treatment arm, and the control arm.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Urothelial%'\",\n  \"answer\": \"This query retrieves Urothelial cancer trials, including the trial identifier, authors, publication year, PubMed ID, and the median follow-up duration in months for the overall study population, the treatment arm, and the control arm.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row063_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row063_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.2246000084560364,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row063_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.250400001183152,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row063_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.256200001691468,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row063_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row063_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.124400002183393,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row063_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.631578947368421,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 51,
+  "question": "Show Head and Neck trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "gemini": {
+    "answer": "This SQL query retrieves the clinical trials related to Head and Neck cancer, where the ICI class is PD-L1, and PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"pdl1_inclusion\\\" = 'Yes'\",\n  \"answer\": \"This SQL query retrieves the clinical trials related to Head and Neck cancer, where the ICI class is PD-L1, and PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row051_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row051_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.195199999026954,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8548000011360273,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.44700001005549,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.7428999930853024,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7727272727272727,
+    "deterministic_across_runs": true
+  }
+}

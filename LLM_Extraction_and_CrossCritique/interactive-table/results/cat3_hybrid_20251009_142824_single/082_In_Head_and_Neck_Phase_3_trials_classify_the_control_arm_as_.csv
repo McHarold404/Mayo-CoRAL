@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""PubMed ID"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""...
+                                                    ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Control arm"", h.""control_arm_class"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Control arm"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%' AND ""Trial phase"" = 'Phase 3') b LEFT JOIN public.hybrid_82_b7c82121 h ON b.""Control arm"" = h.""Control arm""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck Phase 3 trials, classify the control arm as active, placebo, or best supportive care."

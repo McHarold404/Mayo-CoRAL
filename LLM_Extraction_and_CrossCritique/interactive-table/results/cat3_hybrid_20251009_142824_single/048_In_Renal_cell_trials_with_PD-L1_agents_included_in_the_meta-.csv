@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""PubMed ID"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""...
+                                                    ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Name of ICI"", h.""ICI Brand Name"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Name of ICI"", ""Class of ICI"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%renal cell%%' AND LOWER(""Class of ICI"") LIKE '%%pd-l1%%') b LEFT JOIN public.hybrid_48_c3894dde h ON b.""Name of ICI"" = h.""Name of ICI""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Renal cell trials with PD-L1 agents included in the meta-analysis, map the generic ICI name to its brand name."

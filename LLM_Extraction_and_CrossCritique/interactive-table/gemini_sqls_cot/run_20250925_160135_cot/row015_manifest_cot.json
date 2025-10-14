@@ -1,0 +1,52 @@
+{
+  "row_index": 15,
+  "question": "List CTLA-4 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year, and pubmed_id of clinical trials where the ICI class is CTLA-4 and the primary endpoint is either multiple or composite.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'CTLA-4' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL;\",\n  \"answer\": \"This query retrieves the nct, author, year, and pubmed_id of clinical trials where the ICI class is CTLA-4 and the primary endpoint is either multiple or composite.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row015_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row015_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4687000006670132,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.854099995805882,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4847000060835853,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.8339000020641834,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 21,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.07142857142857142,
+    "nct_recall": 1.0,
+    "nct_f1": 0.13333333333333333,
+    "nct_jaccard": 0.07142857142857142,
+    "sql_token_jaccard_vs_gt": 0.5909090909090909,
+    "deterministic_across_runs": true
+  }
+}

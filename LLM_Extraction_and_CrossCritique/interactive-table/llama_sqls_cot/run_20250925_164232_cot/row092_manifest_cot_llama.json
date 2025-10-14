@@ -1,0 +1,52 @@
+{
+  "row_index": 92,
+  "question": "Show Pembrolizumab combination trials in Renal cell with sample sizes.",
+  "llama": {
+    "answer": "This query returns Pembrolizumab combination trials in Renal cell carcinoma with their respective sample sizes.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"treatment_regimen\\\" ILIKE '%Pembrolizumab%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query returns Pembrolizumab combination trials in Renal cell carcinoma with their respective sample sizes.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row092_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row092_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.026900005759671,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row092_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.275300001609139,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row092_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.24550000752788,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row092_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row092_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.505600008997135,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row092_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.625,
+    "deterministic_across_runs": true
+  }
+}

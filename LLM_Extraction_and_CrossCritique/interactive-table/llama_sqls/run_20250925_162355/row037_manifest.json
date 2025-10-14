@@ -1,0 +1,52 @@
+{
+  "row_index": 37,
+  "question": "Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?",
+  "llm": {
+    "answer": "The query returns Phase 2 PD-L1 monotherapy trials in Breast, including their regimens.",
+    "assumptions": "Assuming 'Breast' is an exact match for 'cancer_type' and 'Monotherapy' is an exact match for 'therapy_type'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"therapy_type\\\" = 'Monotherapy' AND \\\"cancer_type\\\" = 'Breast'\",\n  \"answer\": \"The query returns Phase 2 PD-L1 monotherapy trials in Breast, including their regimens.\",\n  \"assumptions\": \"Assuming 'Breast' is an exact match for 'cancer_type' and 'Monotherapy' is an exact match for 'therapy_type'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row037_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row037_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.073200005223043,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row037_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.2572999955154955,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row037_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.646500001195818,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row037_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row037_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.7383000017143786,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row037_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": true
+  }
+}

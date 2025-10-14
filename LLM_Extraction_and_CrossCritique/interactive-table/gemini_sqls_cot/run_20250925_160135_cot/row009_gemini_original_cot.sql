@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "follow_up_duration_overall_months", "follow_up_duration_rx_months", "follow_up_duration_control_months" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%SCLC%' ORDER BY "follow_up_duration_overall_months" ASC

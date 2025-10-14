@@ -1,0 +1,37 @@
+{
+  "question": "In Small Cell Lung trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Small Cell Lung trials and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Primary endpoint\", \"Secondary endpoint\", \"Cancer type\", \"Author\" AS \"Author\", \"Year\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%small cell%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Classify endpoints as primary or secondary.",
+      "in": "t1",
+      "prompt": "For each row, read Primary endpoint and Secondary endpoint, and output JSON objects {NCT, PMID, primary_endpoint_flag, secondary_endpoint_flag}. If the endpoint text is present in the Primary endpoint column, set primary_endpoint_flag to \"primary\"; otherwise, set it to \"\". If the endpoint text is present in the Secondary endpoint column, set secondary_endpoint_flag to \"secondary\"; otherwise, set it to \"\". If both Primary endpoint and Secondary endpoint are null or empty, set both flags to \"unknown\". Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "primary_endpoint_flag",
+          "secondary_endpoint_flag"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate labels, and deduplicate rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

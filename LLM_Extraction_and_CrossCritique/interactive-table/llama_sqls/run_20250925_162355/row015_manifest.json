@@ -1,0 +1,52 @@
+{
+  "row_index": 15,
+  "question": "List CTLA-4 trials that reported composite or co-primary endpoints.",
+  "llm": {
+    "answer": "Trials with CTLA-4 inhibitors that reported composite or co-primary endpoints.",
+    "assumptions": "Assuming 'CTLA4' is the exact value for CTLA-4 class in the \"ici_class\" column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'CTLA4' AND \\\"primary_endpoint_is_multiple_or_composite\\\" = TRUE\",\n  \"answer\": \"Trials with CTLA-4 inhibitors that reported composite or co-primary endpoints.\",\n  \"assumptions\": \"Assuming 'CTLA4' is the exact value for CTLA-4 class in the \\\"ici_class\\\" column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row015_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row015_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 20.43740000226535,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 1: ...TLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE\n                                                                 ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\" FROM public.\"clinical_trials\" WHERE \"ici_class\" = 'CTLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 5.00260000990238,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 1: ...TLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE\n                                                                 ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\" FROM public.\"clinical_trials\" WHERE \"ici_class\" = 'CTLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 5.121299996972084,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 1: ...TLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE\n                                                                 ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\" FROM public.\"clinical_trials\" WHERE \"ici_class\" = 'CTLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row015_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 14.980299994931556,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row015_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.5454545454545454,
+    "deterministic_across_runs": false
+  }
+}

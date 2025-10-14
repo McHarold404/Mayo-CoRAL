@@ -1,0 +1,52 @@
+{
+  "row_index": 7,
+  "question": "Which Phase 2 CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, PubMed ID, treatment regimen, and combination type for Phase 2 clinical trials involving CTLA-4 inhibitors in combination therapy for Non-Small Cell Lung Cancer (NSCLC).",
+    "assumptions": "NSCLC is represented using a case-insensitive contains search. `monotherapy_combination` will contain 'Combination therapy' to indicate combination trials.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 2'\\n  AND \\\"cancer_type\\\" ILIKE '%NSCLC%'\\n  AND \\\"ici_class\\\" = 'CTLA-4'\\n  AND \\\"monotherapy_combination\\\" = 'Combination therapy';\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, PubMed ID, treatment regimen, and combination type for Phase 2 clinical trials involving CTLA-4 inhibitors in combination therapy for Non-Small Cell Lung Cancer (NSCLC).\",\n  \"assumptions\": \"NSCLC is represented using a case-insensitive contains search. `monotherapy_combination` will contain 'Combination therapy' to indicate combination trials.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row007_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row007_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.3215999972308055,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 6:   AND \"monotherapy_combination\" = 'Combination therapy';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 2'\n  AND \"cancer_type\" ILIKE '%%NSCLC%%'\n  AND \"ici_class\" = 'CTLA-4'\n  AND \"monotherapy_combination\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 3.0857999954605475,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 6:   AND \"monotherapy_combination\" = 'Combination therapy';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 2'\n  AND \"cancer_type\" ILIKE '%%NSCLC%%'\n  AND \"ici_class\" = 'CTLA-4'\n  AND \"monotherapy_combination\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.099699995596893,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 6:   AND \"monotherapy_combination\" = 'Combination therapy';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 2'\n  AND \"cancer_type\" ILIKE '%%NSCLC%%'\n  AND \"ici_class\" = 'CTLA-4'\n  AND \"monotherapy_combination\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row007_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.285400005755946,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row007_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.5806451612903226,
+    "deterministic_across_runs": false
+  }
+}

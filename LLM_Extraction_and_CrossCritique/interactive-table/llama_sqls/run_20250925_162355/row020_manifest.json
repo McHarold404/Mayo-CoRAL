@@ -1,0 +1,52 @@
+{
+  "row_index": 20,
+  "question": "Find Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.",
+  "llm": {
+    "answer": "List of Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.",
+    "assumptions": "Assuming 'Original publication' is an exact match for 'publication_type' and 'Melanoma' is a substring of 'cancer_type'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"publication_type\\\" = 'Original publication'\",\n  \"answer\": \"List of Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.\",\n  \"assumptions\": \"Assuming 'Original publication' is an exact match for 'publication_type' and 'Melanoma' is a substring of 'cancer_type'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row020_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row020_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8786000077379867,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row020_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.492199994274415,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row020_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.065499994088896,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row020_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row020_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.78329999896232,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row020_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.9047619047619048,
+    "deterministic_across_runs": true
+  }
+}

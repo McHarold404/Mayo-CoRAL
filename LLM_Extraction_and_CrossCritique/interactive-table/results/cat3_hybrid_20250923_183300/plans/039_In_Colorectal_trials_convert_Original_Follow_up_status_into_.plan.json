@@ -1,0 +1,36 @@
+{
+  "question": "In Colorectal trials, convert 'Original/Follow up' status into a boolean is_follow_up.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for colorectal cancer trials and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"Author\" AS \"Author\", \"Year\", \"PubMed ID\" AS \"PMID\", \"Cancer type\", \"Original publication or Follow-up\" AS \"original_follow_up\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%colorectal%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Convert the 'Original publication or Follow-up' column to a boolean 'is_follow_up' column.",
+      "in": "t1",
+      "prompt": "For each row, examine the 'original_follow_up' field. Output a JSON object with the fields NCT, PMID, and is_follow_up. If 'original_follow_up' contains the word 'Follow-up' (case-insensitive), then is_follow_up should be true. Otherwise, is_follow_up should be false. Output JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "is_follow_up"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

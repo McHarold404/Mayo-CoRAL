@@ -1,0 +1,37 @@
+{
+  "question": "In melanoma trials using ICI plus BRAFi+MEKi, list the BRAF and MEK inhibitors used in the regimen.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter melanoma trials with ICI plus BRAFi+MEKi.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Treatment regimen\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n  AND LOWER(\"Treatment regimen\") LIKE '%ici%'\n  AND LOWER(\"Treatment regimen\") LIKE '%braf%'\n  AND LOWER(\"Treatment regimen\") LIKE '%mek%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Extract BRAF and MEK inhibitors from the treatment regimen.",
+      "in": "t1",
+      "prompt": "For each row, read \"Treatment regimen\" and output a JSON object with fields: NCT, PMID, braf_inhibitors, mek_inhibitors. The values should be strings. If no BRAF/MEK inhibitors are present in the text, then the braf_inhibitors and mek_inhibitors values can be set to \"unknown\". Examples of BRAF inhibitors: vemurafenib, dabrafenib, encorafenib. Examples of MEK inhibitors: trametinib, cobimetinib, binimetinib.  Return a JSON object only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "braf_inhibitors",
+          "mek_inhibitors"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate, coerce, and deduplicate the extracted BRAF and MEK inhibitors.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

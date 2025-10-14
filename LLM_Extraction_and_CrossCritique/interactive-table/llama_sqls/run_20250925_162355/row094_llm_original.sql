@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "follow_up_duration_overall_months" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Mesothelioma%' AND "treatment_regimen" ILIKE '%Nivolumab%' AND "treatment_regimen" ILIKE '%Ipilimumab%' AND "follow_up_duration_overall_months" > 21

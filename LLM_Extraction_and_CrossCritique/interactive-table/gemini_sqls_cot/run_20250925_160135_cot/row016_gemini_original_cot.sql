@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Melanoma' AND "included_in_ma" = 'Yes' AND "ici_class" = 'CTLA-4'

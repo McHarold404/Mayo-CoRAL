@@ -1,0 +1,36 @@
+{
+  "question": "In Melanoma trials, convert 'Original/Follow up' status into a boolean is_follow_up.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Melanoma trials and select the 'Original publication or Follow-up' column.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"Author\" AS \"Author\", \"Year\", \"PubMed ID\" AS \"PMID\", \"Original publication or Follow-up\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Convert free text to boolean indicating if the publication is a follow-up.",
+      "in": "t1",
+      "prompt": "For each row, read 'Original publication or Follow-up' and emit JSON {NCT, PMID, is_follow_up} with is_follow_up being a boolean (true/false). If the text contains 'follow-up' or 'follow up', is_follow_up should be true; otherwise, it should be false. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "is_follow_up"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate boolean values and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

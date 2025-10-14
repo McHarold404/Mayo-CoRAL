@@ -1,0 +1,52 @@
+{
+  "row_index": 81,
+  "question": "Find Hodgkin Lymphoma trials with median follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "Trials with median follow-up and months by arm for Hodgkin Lymphoma are listed.",
+    "assumptions": "Trials with missing follow-up information are excluded.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_type\\\", \\\"follow_up_duration_overall_months\\\" AS \\\"median_follow_up_months\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"rx_arm_months\\\", \\\"follow_up_duration_control_months\\\" AS \\\"control_arm_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Hodgkin Lymphoma%' AND \\\"follow_up_type\\\" IS NOT NULL AND \\\"follow_up_duration_overall_months\\\" IS NOT NULL AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL\",\n  \"answer\": \"Trials with median follow-up and months by arm for Hodgkin Lymphoma are listed.\",\n  \"assumptions\": \"Trials with missing follow-up information are excluded.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row081_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row081_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.515900000114925,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row081_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.959000008762814,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row081_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8727000064682215,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row081_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row081_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.8920999941183254,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row081_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5555555555555556,
+    "deterministic_across_runs": true
+  }
+}

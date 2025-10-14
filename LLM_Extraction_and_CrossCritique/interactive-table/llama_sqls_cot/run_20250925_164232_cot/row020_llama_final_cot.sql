@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 2' AND "ici_name" = 'Pembrolizumab' AND "cancer_type" ILIKE '%Melanoma%' AND "original_publication" = 'Yes'

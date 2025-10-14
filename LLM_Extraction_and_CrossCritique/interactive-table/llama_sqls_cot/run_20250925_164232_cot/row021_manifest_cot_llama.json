@@ -1,0 +1,52 @@
+{
+  "row_index": 21,
+  "question": "Find Melanoma trials with minimum follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "The trial with the minimum follow-up for Melanoma is shown with follow-up months by arm.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' ORDER BY \\\"follow_up_duration_rx_months\\\" ASC LIMIT 1\",\n  \"answer\": \"The trial with the minimum follow-up for Melanoma is shown with follow-up months by arm.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row021_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row021_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.2501999996602535,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row021_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6628000088967383,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row021_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8695999974152073,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row021_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row021_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.5445000103209168,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row021_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4444444444444444,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "question": "In Esophageal/GEJ trials, convert 'Original/Follow up' status into a boolean is_follow_up.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Esophageal/GEJ trials and select the Original publication or Follow-up column.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Original publication or Follow-up\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%esophageal%' OR LOWER(\"Cancer type\") LIKE '%gej%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Convert 'Original publication or Follow-up' to boolean is_follow_up.",
+      "in": "t1",
+      "prompt": "For each row, read the 'Original publication or Follow-up' column and output JSON with fields NCT, PMID, is_follow_up. If the value contains 'follow-up' (case-insensitive), then is_follow_up should be true, otherwise it should be false. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "is_follow_up"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Coerce to boolean and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

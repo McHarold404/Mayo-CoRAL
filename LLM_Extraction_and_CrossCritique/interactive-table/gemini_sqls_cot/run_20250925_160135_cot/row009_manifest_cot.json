@@ -1,0 +1,52 @@
+{
+  "row_index": 9,
+  "question": "Find Small Cell Lung trials with minimum follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query retrieves Small Cell Lung Cancer (SCLC) trials and displays the NCT ID, author, year, PubMed ID, and follow-up durations (overall, treatment arm, and control arm) in ascending order of overall follow-up duration, which enables one to see minimum follow-up easily.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' ORDER BY \\\"follow_up_duration_overall_months\\\" ASC\",\n  \"answer\": \"This query retrieves Small Cell Lung Cancer (SCLC) trials and displays the NCT ID, author, year, PubMed ID, and follow-up durations (overall, treatment arm, and control arm) in ascending order of overall follow-up duration, which enables one to see minimum follow-up easily.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row009_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row009_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.004200003691949,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8619999977527186,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.12329999380745,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.840800010948442,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.44,
+    "deterministic_across_runs": true
+  }
+}

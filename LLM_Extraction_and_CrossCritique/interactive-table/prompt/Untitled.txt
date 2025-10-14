@@ -1,0 +1,546 @@
+"""
+CATEGORY 2 QUESTIONS.
+
+SIMPLE SQL RESPONSES ON QUESTIONS THAT REQUIRE AN SQL RESPONSE
+"""
+
+import os
+import re
+import json
+import time
+import hashlib
+from pathlib import Path
+from typing import Optional, Dict, Any, Tuple, List
+
+import pandas as pd
+
+# Optional: SQLAlchemy/DB
+try:
+    from sqlalchemy import create_engine, text
+    HAVE_SQLALCHEMY = True
+except Exception as e:
+    HAVE_SQLALCHEMY = False
+
+# Optional: Gemini
+HAVE_GEMINI = False
+try:
+    import google.generativeai as genai  # pip install google-generativeai
+    if os.getenv("GEMINI_KEY"):
+        genai.configure(api_key=os.environ["GEMINI_KEY"])
+        HAVE_GEMINI = True
+except Exception:
+    HAVE_GEMINI = False
+
+DB_NAME = "trialsdb"
+ENGINE_URI = f"postgresql://postgres:5555@localhost:5432/{DB_NAME}"
+TABLE_NAME = "clinical_trials"
+TABLE_FQN = 'public."clinical_trials"'
+
+# ----------------------------------------------------------------------------
+# Connect & reflect columns
+# ----------------------------------------------------------------------------
+engine = None
+actual_columns: List[str] = []
+normalized_to_actual: Dict[str, str] = {}
+
+def norm(s: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(s).lower())
+
+def build_column_maps(cols: List[str]) -> Dict[str, str]:
+    m = {}
+    for c in cols:
+        m[norm(c)] = c  # normalized -> actual
+        m[norm(c.replace("_", " ").replace(" ", ""))] = c
+        m[norm(c.replace(" ", "_"))] = c
+    if "nct" in cols and "id" not in cols:
+        m["id"] = "nct"  # fallback mapping for COUNTs
+    return m
+
+if HAVE_SQLALCHEMY:
+    try:
+        engine = create_engine(ENGINE_URI, pool_pre_ping=True)
+        with engine.connect() as conn:
+            q = text("""
+                SELECT column_name
+                FROM information_schema.columns
+                WHERE table_schema='public' AND table_name='clinical_trials'
+                ORDER BY ordinal_position
+            """)
+            actual_columns = [r[0] for r in conn.execute(q).fetchall()]
+        normalized_to_actual = build_column_maps(actual_columns)
+    except Exception as e:
+        print(f"[WARN] DB reflection failed: {e}")
+
+# Fallback to provided schema if reflection fails
+fallback_cols = [
+    "id","nct","pubmed_id","trial_name","author","year","trial_phase","number_of_arms",
+    "total_sample_size","publication_type","cancer_type","treatment_regimen","ici_name",
+    "ici_class","therapy_modality","combination_type","control_regimen","control_type",
+    "lines_of_treatment","clinical_setting_in_relation_to_surgery","primary_endpoint",
+    "primary_endpoint_is_multiple_or_composite","secondary_endpoint","pdl1_inclusion",
+    "other_biomarker_inclusion","follow_up_type","follow_up_duration_overall_months",
+    "follow_up_duration_rx_months","follow_up_duration_control_months","included_in_ma",
+    "therapy_type","clinical_setting"
+]
+if not actual_columns:
+    actual_columns = fallback_cols[:]
+    normalized_to_actual = build_column_maps(actual_columns)
+
+# ----------------------------------------------------------------------------
+# Optional definitions (best-effort)
+# ----------------------------------------------------------------------------
+def_roots = [
+    Path("/mnt/data/definitions_folder"),
+    Path("runs/definitions_folder"),
+    Path("./definitions_folder"),
+    Path("/mnt/data"),
+    Path("runs"),
+    Path("."),
+    Path("/mnt/data/runs/definitions_folder"),
+]
+def_names = [
+    "definitions - aim2 - filter concise.txt",
+    "definitions - aim2 - column concise.txt",
+]
+def_paths = {}
+for name in def_names:
+    found = None
+    for root in def_roots:
+        candidate = root / name
+        if candidate.exists():
+            found = candidate
+            break
+    def_paths[name] = found
+
+def read_text_or_empty(p: Optional[Path]) -> str:
+    if p is None:
+        return ""
+    try:
+        return p.read_text(encoding="utf-8", errors="ignore")
+    except Exception:
+        return ""
+
+definitions_filter = read_text_or_empty(def_paths["definitions - aim2 - filter concise.txt"])
+definitions_column = read_text_or_empty(def_paths["definitions - aim2 - column concise.txt"])
+
+# ----------------------------------------------------------------------------
+# Prompt construction
+# ----------------------------------------------------------------------------
+def make_system_context() -> str:
+    schema_block = (
+        f"# DATABASE\n"
+        f"- Engine: PostgreSQL\n"
+        f'- Table: {TABLE_FQN}\n'
+        f"- Columns (use EXACT spelling below and always double-quote):\n  - " + "\n  - ".join(actual_columns)
+    )
+    definitions_block = ""
+    if definitions_filter.strip() or definitions_column.strip():
+        definitions_block = (
+            "\n\n# DEFINITIONS (concise)\n"
+            "## Filters\n" + (definitions_filter.strip() or "[missing]") + "\n\n"
+            "## Columns\n" + (definitions_column.strip() or "[missing]")
+        )
+    guardrails = """
+# REQUIREMENTS
+- Use ONLY the columns listed above and reference them with double quotes, e.g., "cancer_type".
+- Qualify the table as public."clinical_trials".
+- When counting trials, use COUNT(DISTINCT "nct"). Do NOT use id.
+- If PD-1 is mentioned, map to "PD1" for "ici_class" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Briefly state any assumptions.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include the following columns: "nct", "author", "year", "pubmed_id".
+
+# OUTPUT FORMAT (strict JSON)
+Return ONLY a JSON object with keys:
+- "sql": string (runnable PostgreSQL SELECT)
+- "answer": string (<= 1–2 sentences)
+- "assumptions": string (empty if none)
+"""
+    return f"{schema_block}{definitions_block}{guardrails}"
+
+def call_gemini_for_sql(question: str, model_name: str = "models/gemini-2.0-flash") -> Dict[str, Any]:
+    sys_context = make_system_context()
+    user_prompt = f"""You are an expert clinical-trials data analyst. Write a PostgreSQL query on table {TABLE_FQN} to answer the question.
+
+QUESTION:
+{question}
+"""
+    default = {
+        "sql": f"/* Gemini unavailable: placeholder SQL for: {question[:80]}... */\nSELECT 1;",
+        "answer": "Gemini not configured; SQL synthesis skipped.",
+        "assumptions": "",
+        "raw_text": ""
+    }
+    if not HAVE_GEMINI:
+        return default
+
+    try:
+        model = genai.GenerativeModel(model_name)
+        resp = model.generate_content(sys_context + "\n\n" + user_prompt)
+        raw_text = resp.text or ""
+        m = re.search(r"\{.*\}", raw_text, flags=re.S)
+        candidate = m.group(0) if m else raw_text
+        data = json.loads(candidate)
+        sql = str(data.get("sql", "")).strip() or default["sql"]
+        answer = str(data.get("answer", "")).strip() or default["answer"]
+        assumptions = str(data.get("assumptions", "")).strip()
+        return {"sql": sql, "answer": answer, "assumptions": assumptions, "raw_text": raw_text}
+    except Exception as e:
+        return {**default, "raw_text": f"[ERROR calling Gemini] {e}"}
+
+# ----------------------------------------------------------------------------
+# SQL fix-ups and execution (with retries)
+# ----------------------------------------------------------------------------
+def qualify_table(sql: str) -> str:
+    def repl(m):
+        return m.group(0).replace("clinical_trials", 'public."clinical_trials"')
+    return re.sub(r'(?i)(from|join)\s+clinical_trials\b', repl, sql)
+
+def try_map_column(name: str) -> Optional[str]:
+    key = norm(name)
+    target = normalized_to_actual.get(key)
+    if target:
+        return f'"{target}"'
+    if key == "id" and "nct" in actual_columns:
+        return '"nct"'
+    return None
+
+def repair_sql_columns(sql: str, err_msg: str) -> Optional[str]:
+    m = re.search(r'column\s+"?([A-Za-z0-9_ ]+)"?\s+does not exist', err_msg, flags=re.I)
+    if not m:
+        m2 = re.search(r'Perhaps you meant to reference the column\s+"?clinical_trials\.([A-Za-z0-9_ ]+)"?', err_msg, flags=re.I)
+        if not m2:
+            return None
+        missing = m2.group(1)
+    else:
+        missing = m.group(1)
+    mapped = try_map_column(missing)
+    if not mapped:
+        return None
+    pattern = r'\b' + re.escape(missing) + r'\b'
+    fixed = re.sub(pattern, mapped, sql)
+    return fixed
+
+def execute_with_retries(engine, sql: str, max_retries: int = 3) -> Tuple[str, Optional[pd.DataFrame], Optional[str], str, float]:
+    if engine is None:
+        return "skipped", None, "No DB engine available", sql, 0.0
+    attempt_sql = qualify_table(sql)
+    last_err = None
+    t0 = time.perf_counter()
+    for _ in range(max_retries):
+        try:
+            with engine.connect() as conn:
+                df = pd.read_sql(text(attempt_sql), conn)
+            latency = (time.perf_counter() - t0) * 1000.0
+            return "ok", df, None, attempt_sql, latency
+        except Exception as e:
+            last_err = str(e)
+            if "does not exist" in last_err and "column" in last_err.lower():
+                fixed = repair_sql_columns(attempt_sql, last_err)
+                if fixed and fixed != attempt_sql:
+                    attempt_sql = fixed
+                    continue
+            break
+    latency = (time.perf_counter() - t0) * 1000.0
+    return "error", None, last_err, attempt_sql, latency
+
+# ----------------------------------------------------------------------------
+# Helpers for metrics
+# ----------------------------------------------------------------------------
+def stable_hash_df(df: pd.DataFrame) -> str:
+    if df is None:
+        return ""
+    try:
+        df2 = df.copy()
+        df2.columns = [str(c) for c in df2.columns]
+        df2 = df2.reindex(sorted(df2.columns), axis=1)
+        for c in df2.columns:
+            df2[c] = df2[c].astype(str)
+        df2 = df2.sort_values(list(df2.columns)).reset_index(drop=True)
+        csv_bytes = df2.to_csv(index=False).encode("utf-8")
+        return hashlib.md5(csv_bytes).hexdigest()
+    except Exception:
+        return f"shape:{getattr(df, 'shape', None)}|cols:{list(getattr(df, 'columns', []))}"
+
+def token_jaccard(a: str, b: str) -> float:
+    A = set(re.findall(r"[a-z0-9_]+", a.lower()))
+    B = set(re.findall(r"[a-z0-9_]+", b.lower()))
+    if not A and not B:
+        return 1.0
+    return len(A & B) / max(1, len(A | B))
+
+def column_overlap_ratio(df_pred: Optional[pd.DataFrame], df_gt: Optional[pd.DataFrame]) -> float:
+    if df_pred is None or df_gt is None:
+        return None
+    A = {str(c).lower() for c in df_pred.columns}
+    B = {str(c).lower() for c in df_gt.columns}
+    if not A and not B: return 1.0
+    return len(A & B) / max(1, len(A | B))
+
+def set_metrics_on_nct(df_pred: Optional[pd.DataFrame], df_gt: Optional[pd.DataFrame]) -> Dict[str, Any]:
+    def find_nct_col(cols: List[str]) -> Optional[str]:
+        for c in cols:
+            if norm(c) == "nct":
+                return c
+        return None
+    out = {"nct_precision": None, "nct_recall": None, "nct_f1": None, "nct_jaccard": None}
+    if df_pred is None or df_gt is None:
+        return out
+    pred_cols = [str(c) for c in df_pred.columns]
+    gt_cols = [str(c) for c in df_gt.columns]
+    c_pred = find_nct_col(pred_cols)
+    c_gt = find_nct_col(gt_cols)
+    if not c_pred or not c_gt:
+        return out
+    S = set(df_pred[c_pred].astype(str).dropna().tolist())
+    T = set(df_gt[c_gt].astype(str).dropna().tolist())
+    if not S and not T:
+        return {"nct_precision": 1.0, "nct_recall": 1.0, "nct_f1": 1.0, "nct_jaccard": 1.0}
+    tp = len(S & T)
+    precision = tp / max(1, len(S))
+    recall = tp / max(1, len(T))
+    f1 = (2*precision*recall)/max(1e-12, (precision+recall)) if (precision+recall) > 0 else 0.0
+    jacc = len(S & T) / max(1, len(S | T))
+    return {"nct_precision": precision, "nct_recall": recall, "nct_f1": f1, "nct_jaccard": jacc}
+
+# ----------------------------------------------------------------------------
+# Load Excel & run
+# ----------------------------------------------------------------------------
+CANDIDATE_XLSX = [
+    Path("/mnt/data/query-cat2.xlsx"),
+    Path("runs/query-cat2.xlsx"),
+    Path("/mnt/data/runs/query-cat2.xlsx"),
+]
+xlsx_path = next((p for p in CANDIDATE_XLSX if p.exists()), None)
+if not xlsx_path:
+    raise FileNotFoundError("Could not find query-cat2.xlsx in /mnt/data or runs/.")
+
+df_in = pd.read_excel(xlsx_path)
+
+def autodetect_columns(df: pd.DataFrame) -> Tuple[str, Optional[str]]:
+    qcol = next((c for c in df.columns if "query" in c.lower() or "question" in c.lower()), df.columns[0])
+    gcol = next((c for c in df.columns if "sql" in c.lower() or "ground" in c.lower() or "postgres" in c.lower()), None)
+    if gcol is None and len(df.columns) > 1:
+        for c in df.columns[1:]:
+            if df[c].astype(str).str.contains(r"\bselect\b", flags=re.I, na=False).any():
+                gcol = c
+                break
+    return qcol, gcol
+
+qcol, gcol = autodetect_columns(df_in)
+
+# Timestamped outputs
+ts = time.strftime("%Y%m%d_%H%M%S")
+results_dir = Path(f"results")
+results_dir.mkdir(parents=True, exist_ok=True)
+out_csv = results_dir / f"gemini_sql_eval_{ts}.csv"
+out_xlsx = results_dir / f"gemini_sql_eval_{ts}.xlsx"
+
+# New: per-run folder for Gemini SQLs + results
+sqls_root = Path("gemini_sqls")
+run_dir = sqls_root / f"run_{ts}"
+run_dir.mkdir(parents=True, exist_ok=True)
+
+# Run
+records: List[Dict[str, Any]] = []
+previews: Dict[str, pd.DataFrame] = {}
+run_manifest: List[Dict[str, Any]] = []
+start = time.time()
+
+for idx, row in df_in.iterrows():
+    question = str(row[qcol]).strip()
+    gt_sql = str(row[gcol]).strip() if gcol and gcol in df_in.columns else None
+
+    # 1) LLM to get SQL
+    gem = call_gemini_for_sql(question)
+    gem_sql_original = gem["sql"]
+
+    # 2) Run Gemini SQL three times
+    run_statuses, run_errors, run_lat_ms, run_hashes = [], [], [], []
+    exec_df_last = None
+    final_sql_last = gem_sql_original
+    previews_local = {}
+    per_row_files = {}
+
+    for r in range(3):
+        status, df_exec, err, final_sql, lat_ms = execute_with_retries(engine, gem_sql_original)
+        run_statuses.append(status)
+        run_errors.append(err)
+        run_lat_ms.append(lat_ms)
+        run_hashes.append(stable_hash_df(df_exec) if status == "ok" else "")
+        exec_df_last = df_exec if status == "ok" else exec_df_last
+        final_sql_last = final_sql
+        # Save full results per run (if any)
+        if df_exec is not None:
+            csv_path = run_dir / f"row{idx:03d}_run{r+1}_results.csv"
+            df_exec.to_csv(csv_path, index=False)
+            per_row_files[f"run{r+1}_results_csv"] = str(csv_path)
+            previews_local[f"gem_preview_run{r+1}"] = df_exec.head(20).copy()
+
+    # Save SQL files (original & final)
+    sql_path_orig = run_dir / f"row{idx:03d}_gemini_original.sql"
+    sql_path_final = run_dir / f"row{idx:03d}_gemini_final.sql"
+    sql_path_orig.write_text(gem_sql_original or "", encoding="utf-8")
+    sql_path_final.write_text(final_sql_last or "", encoding="utf-8")
+
+    # Determinism across runs
+    ok_runs = [h for (s,h) in zip(run_statuses, run_hashes) if s == "ok" and h]
+    deterministic = (len(ok_runs) >= 2 and len(set(ok_runs)) == 1) or (len(ok_runs) == 3 and len(set(ok_runs)) == 1)
+
+    # 3) Ground-truth SQL (once)
+    gt_status, gt_df, gt_err, gt_sql_final, gt_lat_ms = execute_with_retries(engine, gt_sql, max_retries=1) if gt_sql else ("skipped", None, None, None, 0.0)
+    if gt_df is not None:
+        gt_csv = run_dir / f"row{idx:03d}_gt_results.csv"
+        gt_df.to_csv(gt_csv, index=False)
+        per_row_files["gt_results_csv"] = str(gt_csv)
+        previews_local["gt_preview"] = gt_df.head(20).copy()
+    if gt_sql:
+        gt_sql_path = run_dir / f"row{idx:03d}_ground_truth.sql"
+        gt_sql_path.write_text(gt_sql, encoding="utf-8")
+        per_row_files["gt_sql"] = str(gt_sql_path)
+
+    # 4) Validation metrics
+    results_equal = None
+    rowcount_delta = None
+    if exec_df_last is not None and gt_df is not None:
+        try:
+            results_equal = exec_df_last.equals(gt_df)
+        except Exception:
+            results_equal = False
+        rowcount_delta = (len(exec_df_last) - len(gt_df))
+
+    nct_scores = set_metrics_on_nct(exec_df_last, gt_df)
+    col_overlap = column_overlap_ratio(exec_df_last, gt_df)
+    sql_sim = token_jaccard(gem_sql_original or "", gt_sql or "") if gt_sql else None
+
+    # Collect record (for evaluation sheet)
+    rec = {
+        "row_index": idx,
+        "question": question,
+        "gemini_sql_original": gem_sql_original,
+        "gemini_sql_final": final_sql_last,
+        "gemini_answer": gem.get("answer"),
+        "gemini_assumptions": gem.get("assumptions"),
+        "run1_status": run_statuses[0] if len(run_statuses)>0 else None, "run1_ms": run_lat_ms[0] if len(run_lat_ms)>0 else None, "run1_error": run_errors[0] if len(run_errors)>0 else None,
+        "run2_status": run_statuses[1] if len(run_statuses)>1 else None, "run2_ms": run_lat_ms[1] if len(run_lat_ms)>1 else None, "run2_error": run_errors[1] if len(run_errors)>1 else None,
+        "run3_status": run_statuses[2] if len(run_statuses)>2 else None, "run3_ms": run_lat_ms[2] if len(run_lat_ms)>2 else None, "run3_error": run_errors[2] if len(run_errors)>2 else None,
+        "deterministic_across_runs": deterministic,
+        "gemini_result_rows_last_run": (None if exec_df_last is None else len(exec_df_last)),
+        "ground_truth_sql": gt_sql,
+        "ground_truth_sql_final": gt_sql_final,
+        "ground_truth_exec_status": gt_status,
+        "ground_truth_ms": gt_lat_ms,
+        "ground_truth_error": gt_err,
+        "ground_truth_result_rows": (None if gt_df is None else len(gt_df)),
+        "results_equal_exact": results_equal,
+        "rowcount_delta_pred_minus_gt": rowcount_delta,
+        "column_overlap_ratio": col_overlap,
+        "nct_precision": nct_scores.get("nct_precision"),
+        "nct_recall": nct_scores.get("nct_recall"),
+        "nct_f1": nct_scores.get("nct_f1"),
+        "nct_jaccard": nct_scores.get("nct_jaccard"),
+        "sql_token_jaccard_vs_gt": sql_sim,
+    }
+    records.append(rec)
+
+    # Per-row manifest JSON
+    row_manifest = {
+        "row_index": idx,
+        "question": question,
+        "gemini": {
+            "answer": gem.get("answer"),
+            "assumptions": gem.get("assumptions"),
+            "raw": gem.get("raw_text"),
+            "sql_original_file": str(sql_path_orig),
+            "sql_final_file": str(sql_path_final),
+        },
+        "runs": [
+            {"run": i+1, "status": run_statuses[i] if i<len(run_statuses) else None,
+             "latency_ms": run_lat_ms[i] if i<len(run_lat_ms) else None,
+             "error": run_errors[i] if i<len(run_errors) else None,
+             "results_csv": per_row_files.get(f"run{i+1}_results_csv")}
+            for i in range(3)
+        ],
+        "ground_truth": {
+            "sql_file": per_row_files.get("gt_sql"),
+            "status": gt_status, "latency_ms": gt_lat_ms,
+            "error": gt_err, "results_csv": per_row_files.get("gt_results_csv"),
+        },
+        "metrics": {
+            "results_equal_exact": results_equal,
+            "rowcount_delta_pred_minus_gt": rowcount_delta,
+            "column_overlap_ratio": col_overlap,
+            "nct_precision": nct_scores.get("nct_precision"),
+            "nct_recall": nct_scores.get("nct_recall"),
+            "nct_f1": nct_scores.get("nct_f1"),
+            "nct_jaccard": nct_scores.get("nct_jaccard"),
+            "sql_token_jaccard_vs_gt": sql_sim,
+            "deterministic_across_runs": deterministic
+        }
+    }
+    row_manifest_path = run_dir / f"row{idx:03d}_manifest.json"
+    row_manifest_path.write_text(json.dumps(row_manifest, indent=2), encoding="utf-8")
+    run_manifest.append(row_manifest)
+
+    # Save previews to add to workbook
+    previews[f"gem_preview_r1_row{idx}"] = previews_local.get("gem_preview_run1")
+    previews[f"gem_preview_r2_row{idx}"] = previews_local.get("gem_preview_run2")
+    previews[f"gem_preview_r3_row{idx}"] = previews_local.get("gem_preview_run3")
+    previews[f"gt_preview_row{idx}"] = previews_local.get("gt_preview")
+
+elapsed = time.time() - start
+df_out = pd.DataFrame.from_records(records)
+
+# Save run-level manifest
+(run_dir / "_summary.json").write_text(json.dumps({
+    "timestamp": ts,
+    "xlsx_path": str(xlsx_path),
+    "engine_uri": ENGINE_URI,
+    "table": TABLE_FQN,
+    "have_gemini": HAVE_GEMINI,
+    "have_sqlalchemy": HAVE_SQLALCHEMY,
+    "rows_processed": len(df_out),
+    "runtime_seconds": elapsed,
+    "evaluation_csv": str(out_csv),
+    "evaluation_xlsx": str(out_xlsx)
+}, indent=2), encoding="utf-8")
+
+# Save reports (timestamped)
+with pd.ExcelWriter(out_xlsx, engine="xlsxwriter") as writer:
+    df_out.to_excel(writer, index=False, sheet_name="evaluation")
+    # Previews (limited to keep workbook manageable)
+    for name, dfp in previews.items():
+        if dfp is not None:
+            safe_name = name[:31]
+            try:
+                dfp.to_excel(writer, index=False, sheet_name=safe_name)
+            except Exception:
+                pass
+    # Meta
+    meta = pd.DataFrame({
+        "key": [
+            "xlsx_path", "have_gemini", "have_sqlalchemy", "db_uri", "table_name",
+            "reflected_columns", "runtime_seconds", "timestamp", "sqls_dir"
+        ],
+        "value": [
+            str(xlsx_path),
+            str(HAVE_GEMINI),
+            str(HAVE_SQLALCHEMY),
+            ENGINE_URI,
+            TABLE_NAME,
+            ", ".join(actual_columns),
+            f"{elapsed:.2f}",
+            ts,
+            str(run_dir)
+        ]
+    })
+    meta.to_excel(writer, index=False, sheet_name="meta")
+
+df_out.to_csv(out_csv, index=False)
+
+print("\n--- Run Summary (save SQLs & results) ---")
+print(f"Gemini SQLs & per-run results folder: {run_dir}")
+print(f"Saved CSV: {out_csv}")
+print(f"Saved XLSX: {out_xlsx}")
+print(f"Processed {len(df_out)} rows in {elapsed:.2f}s")

@@ -1,0 +1,52 @@
+{
+  "row_index": 57,
+  "question": "Show Non-Small Cell Lung trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This query retrieves Non-Small Cell Lung Cancer (NSCLC) trials utilizing combination therapies with at least two prior lines of treatment.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"lines_of_treatment\\\" ILIKE '%2L+%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query retrieves Non-Small Cell Lung Cancer (NSCLC) trials utilizing combination therapies with at least two prior lines of treatment.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row057_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row057_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.0391000075032935,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.387599998153746,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9493999938713387,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.568000003928319,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.35294117647058826,
+    "deterministic_across_runs": true
+  }
+}

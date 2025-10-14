@@ -1,0 +1,40 @@
+{
+  "question": "In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Melanoma trials and select the follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS overall_followup_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Handle missing follow-up data by extracting it from the trial name.",
+      "in": "t1",
+      "prompt": "For each row, read overall_followup_months. If the value is null, read \"Trial name\" and attempt to extract a numeric value for follow-up duration in months. If found, include it in the follow_up_duration field; otherwise, set follow_up_duration to null. Output JSON {NCT, PMID, follow_up_duration}. Example: Trial name: A Study of Nivolumab in Metastatic Melanoma with 24 months follow up -> {NCT: <NCT>, PMID: <PMID>, follow_up_duration: \"24\"}. Trial name: A Study of Nivolumab in Metastatic Melanoma -> {NCT: <NCT>, PMID: <PMID>, follow_up_duration: null}. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_duration"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "SQL",
+      "desc": "Coalesce extracted follow-up with existing follow-up and bucket into categories.",
+      "in": [
+        "t1",
+        "t2"
+      ],
+      "sql": "WITH coalesced_followup AS (\n  SELECT\n    t1.\"NCT\",\n    t1.\"PMID\",\n    t1.\"Author\",\n    t1.\"Year\",\n    t1.\"Cancer type\",\n    COALESCE(t1.overall_followup_months, t2.follow_up_duration::NUMERIC) AS final_followup_months\n  FROM t1\n  LEFT JOIN t2 ON t1.\"NCT\" = t2.\"NCT\"\n), final_bucketed AS (\n  SELECT\n    \"NCT\",\n    \"PMID\",\n    \"Author\",\n    \"Year\",\n    \"Cancer type\",\n    CASE\n      WHEN final_followup_months < 12 THEN '<12'\n      WHEN final_followup_months >= 12 AND final_followup_months < 24 THEN '12–23'\n      WHEN final_followup_months >= 24 THEN '≥24'\n      ELSE 'Unknown'\n    END AS followup_bucket\n  FROM coalesced_followup\n)\nSELECT * FROM final_bucketed",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

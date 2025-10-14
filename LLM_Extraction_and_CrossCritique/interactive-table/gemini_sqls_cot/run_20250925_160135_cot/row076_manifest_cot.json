@@ -1,0 +1,52 @@
+{
+  "row_index": 76,
+  "question": "Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This query returns trials focused on Multiple Myeloma with at least two prior lines of therapy, where the treatment type is combination therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Multiple Myeloma' AND \\\"lines_of_treatment\\\" LIKE '%2L+%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query returns trials focused on Multiple Myeloma with at least two prior lines of therapy, where the treatment type is combination therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row076_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row076_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4982999932253733,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.748600007384084,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.5002000076929107,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.977100001065992,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.45161290322580644,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 48,
+  "question": "Which Non-Small Cell Lung trials used Chemo+Anti-VEGF as the control arm?",
+  "gemini": {
+    "answer": "This query selects the NCT, author, year, and PubMed ID for clinical trials that studied Non-Small Cell Lung Cancer and used Chemo/Anti-VEGF as the control regimen.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"control_regimen\\\" = 'Chemo/Anti-VEGF';\",\n  \"answer\": \"This query selects the NCT, author, year, and PubMed ID for clinical trials that studied Non-Small Cell Lung Cancer and used Chemo/Anti-VEGF as the control regimen.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row048_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row048_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.130099987378344,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6133999965386465,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.478500002529472,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.077800011145882,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6086956521739131,
+    "deterministic_across_runs": true
+  }
+}

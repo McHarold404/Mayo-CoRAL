@@ -1,0 +1,36 @@
+{
+  "question": "For Atezolizumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Atezolizumab trials and select year.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%atezolizumab%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Bucket publication year.",
+      "in": "t1",
+      "prompt": "For each row, read Year and output JSON {NCT, PMID, year_bucket}. Allowed year_bucket: [\"<=2014\",\"2015-2018\",\">=2019\",\"OTHER/UNKNOWN\"]. If Year is missing or invalid, then OTHER/UNKNOWN. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "year_bucket"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Ensure allowed labels; drop blanks.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

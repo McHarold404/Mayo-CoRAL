@@ -1,0 +1,52 @@
+{
+  "row_index": 66,
+  "question": "Which Melanoma studies tested ICI+ICI combinations, and what were the primary endpoints?",
+  "llm": {
+    "answer": "The query returns Melanoma studies that tested ICI+ICI combinations, along with their primary endpoints and treatment regimens.",
+    "assumptions": "Assuming 'ICI+ICI' is an exact match for 'combination_type' and 'Melanoma' is a substring of 'cancer_type'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT DISTINCT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"combination_type\\\" = 'ICI + ICI'\",\n  \"answer\": \"The query returns Melanoma studies that tested ICI+ICI combinations, along with their primary endpoints and treatment regimens.\",\n  \"assumptions\": \"Assuming 'ICI+ICI' is an exact match for 'combination_type' and 'Melanoma' is a substring of 'cancer_type'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row066_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row066_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 15.427100006490946,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row066_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.132499994942918,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row066_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9969000063138083,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row066_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row066_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.008400006568991,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row066_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7894736842105263,
+    "deterministic_across_runs": true
+  }
+}

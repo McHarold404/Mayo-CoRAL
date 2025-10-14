@@ -1,0 +1,52 @@
+{
+  "row_index": 65,
+  "question": "List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This query retrieves trials using PD-L1 or CTLA-4 inhibitors that reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4') AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL\",\n  \"answer\": \"This query retrieves trials using PD-L1 or CTLA-4 inhibitors that reported composite or co-primary endpoints.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row065_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row065_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.7927999946987256,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8075000047683716,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.151300003286451,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.634499997133389,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 71,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.02040816326530612,
+    "nct_recall": 1.0,
+    "nct_f1": 0.039999999999999994,
+    "nct_jaccard": 0.02040816326530612,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

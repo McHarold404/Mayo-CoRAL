@@ -1,0 +1,52 @@
+{
+  "row_index": 3,
+  "question": "Show Ipilimumab combination trials in Melanoma with sample sizes.",
+  "gemini": {
+    "answer": "This query returns the NCT ID, author, year, pubmed ID, and total sample size for all combination therapy clinical trials that used Ipilimumab in Melanoma.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_name\\\" = 'Ipilimumab' AND \\\"cancer_type\\\" = 'Melanoma' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query returns the NCT ID, author, year, pubmed ID, and total sample size for all combination therapy clinical trials that used Ipilimumab in Melanoma.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row003_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row003_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.72480000462383,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.787400001077913,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.257600012351759,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.031099990243092,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7142857142857143,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 96,
+  "question": "List Head and Neck trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llm": {
+    "answer": "List of Head and Neck trials requiring a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "Assuming 'Head and Neck' is a substring of the cancer type and 'other_biomarker_inclusion' is not null indicates a biomarker other than PD-L1 is required.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"pdl1_inclusion\\\" IS NULL\",\n  \"answer\": \"List of Head and Neck trials requiring a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"Assuming 'Head and Neck' is a substring of the cancer type and 'other_biomarker_inclusion' is not null indicates a biomarker other than PD-L1 is required.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row096_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row096_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.580199998803437,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row096_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.378199999337085,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row096_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.869799992069602,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row096_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row096_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.682000013417564,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row096_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5909090909090909,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 89,
+  "question": "Which Urothelial studies tested ICI+Chemo combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "The query returns the NCT ID, authors, year, pubmed ID, and primary endpoint for urothelial cancer studies that used ICI+Chemo combinations.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Bladder/Urothelial' AND \\\"combination_type\\\" = 'ICI + Chemo'\",\n  \"answer\": \"The query returns the NCT ID, authors, year, pubmed ID, and primary endpoint for urothelial cancer studies that used ICI+Chemo combinations.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row089_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row089_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.375700009404682,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.5439000057522207,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9980000001378357,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.132300004130229,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7894736842105263,
+    "deterministic_across_runs": true
+  }
+}

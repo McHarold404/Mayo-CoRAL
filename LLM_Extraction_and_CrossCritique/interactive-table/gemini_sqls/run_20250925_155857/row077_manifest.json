@@ -1,0 +1,52 @@
+{
+  "row_index": 77,
+  "question": "Which Phase 3 PD1 combination trials in Multiple Myeloma should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query returns the NCT ID, author, year, PubMed ID, treatment regimen, and combination type for Phase 3 clinical trials studying PD-1 inhibitor combinations in Multiple Myeloma.  These are the trials you should review.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 3'\\n  AND \\\"ici_class\\\" = 'PD1'\\n  AND \\\"cancer_type\\\" = 'Multiple Myeloma'\\n  AND \\\"monotherapy_combination\\\" = 'Combination';\",\n  \"answer\": \"This query returns the NCT ID, author, year, PubMed ID, treatment regimen, and combination type for Phase 3 clinical trials studying PD-1 inhibitor combinations in Multiple Myeloma.  These are the trials you should review.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row077_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row077_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.685100000235252,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 6:   AND \"monotherapy_combination\" = 'Combination';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 3'\n  AND \"ici_class\" = 'PD1'\n  AND \"cancer_type\" = 'Multiple Myeloma'\n  AND \"monotherapy_combination\" = 'Combination';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.7303999959258363,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 6:   AND \"monotherapy_combination\" = 'Combination';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 3'\n  AND \"ici_class\" = 'PD1'\n  AND \"cancer_type\" = 'Multiple Myeloma'\n  AND \"monotherapy_combination\" = 'Combination';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 1.89200000022538,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 6:   AND \"monotherapy_combination\" = 'Combination';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 3'\n  AND \"ici_class\" = 'PD1'\n  AND \"cancer_type\" = 'Multiple Myeloma'\n  AND \"monotherapy_combination\" = 'Combination';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row077_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.9724000089336187,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row077_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": false
+  }
+}

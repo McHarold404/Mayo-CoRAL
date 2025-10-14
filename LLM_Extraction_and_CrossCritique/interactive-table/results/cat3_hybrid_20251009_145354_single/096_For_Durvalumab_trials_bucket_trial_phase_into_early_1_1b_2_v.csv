@@ -1,0 +1,1301 @@
+NCT,Author,Year_x,PMID_x,Trial phase,trial_phase_bucket,Authors,Year_y,PMID_y
+NCT02299999,Bachelot T et al,2021,33462450,Phase 2,early,Bachelot T et al,2021,33462450
+NCT02685059,Loibl S et al,2019,31095287,Phase 2,early,Loibl S et al,2019,31095287
+NCT03043872,Goldman JW et al (1),2020,33285097,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Paz-Ares L et al,2019,31590988
+NCT03043872,Goldman JW et al (1),2020,33285097,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Paz-Ares L et al (1),2019,31590988
+NCT03043872,Goldman JW et al (1),2020,33285097,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Goldman JW et al,2020,33285097
+NCT03043872,Goldman JW et al (1),2020,33285097,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Goldman JW et al (1),2020,33285097
+NCT02516241,Powles T et al,2020,32971005,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Powles T et al,2020,32971005
+NCT02516241,Powles T et al,2020,32971005,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Powles T et al (1),2020,32971005
+NCT02369874,Ferris RL et al,2020,32294530,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Ferris RL et al,2020,32294530
+NCT02369874,Ferris RL et al,2020,32294530,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Ferris RL et al (1),2020,32294530
+NCT02453282,Rizvi NA et al,2020,32271377,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Rizvi NA et al,2020,32271377
+NCT02453282,Rizvi NA et al,2020,32271377,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Rizvi NA et al (1),2020,32271377
+NCT02352948,Planchard D et al,2020,32201234,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Planchard D et al,2020,32201234
+NCT02352948,Planchard D et al,2020,32201234,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Planchard D et al (1),2020,32201234
+NCT02352948,Planchard D et al,2020,32201234,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Planchard D et al (2),2020,32201234
+NCT03043872,Paz-Ares L et al,2019,31590988,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Paz-Ares L et al,2019,31590988
+NCT03043872,Paz-Ares L et al,2019,31590988,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Paz-Ares L et al (1),2019,31590988
+NCT03043872,Paz-Ares L et al,2019,31590988,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Goldman JW et al,2020,33285097
+NCT03043872,Paz-Ares L et al,2019,31590988,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Goldman JW et al (1),2020,33285097
+NCT02454933,Yang JCH et al,2019,30763730,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Yang JCH et al,2019,30763730
+NCT02125461,Antonia SJ et al,2018,30280658,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Antonia SJ et al,2017,28885881
+NCT02125461,Antonia SJ et al,2018,30280658,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Antonia SJ et al,2018,30280658
+NCT02125461,Antonia SJ et al,2017,28885881,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Antonia SJ et al,2017,28885881
+NCT02125461,Antonia SJ et al,2017,28885881,Phase 3,"```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+
+```
+
+Key improvements and explanations:
+
+* **Clear and concise:** The code directly addresses the prompt requirements without unnecessary complexity.
+* **Case-insensitive:** The `.lower()` method makes the comparison case-insensitive (e.g., 'phase 1' and 'Phase 1' will both be recognized).
+* **Handles 1b properly:** Includes 'phase 1b' in the check.
+* **Error Handling (Important):**  Instead of implicitly returning `None` if the phase isn't recognized (which can lead to subtle bugs), the `else` clause now *explicitly* returns `None`.  This makes the behavior clearer.  More robust versions might raise an exception (`ValueError`) to signal an invalid input.  Choosing the right approach depends on how this function is used within a larger system.
+* **Directly Returns Label:** The function directly returns the 'early' or 'late' label as requested, instead of returning a dictionary or other data structure.
+* **Complete, runnable example:** The code includes an example of how to use the function and print the result, making it immediately testable.
+* **Docstring:** Added a docstring to explain the function's purpose, arguments, and return value.  This is critical for maintainability.
+
+This revised solution is more robust, easier to understand, and directly answers the prompt's requirements.
+```python
+def convert_phase(phase):
+  """"""Converts a phase to 'early' or 'late' based on the phase number.
+
+  Args:
+    phase: The phase number (e.g., 'Phase 1', 'Phase 3').
+
+  Returns:
+    'early' if phase is 1, 1b, or 2; 'late' if phase is 3 or 4.
+  """"""
+  phase = phase.lower()  # Convert to lowercase for case-insensitivity
+  if phase in ('phase 1', 'phase 1b', 'phase 2'):
+    return 'early'
+  elif phase in ('phase 3', 'phase 4'):
+    return 'late'
+  else:
+    return None  # Or raise an exception, depending on desired behavior for invalid input
+
+# Example usage (as requested)
+phase = 'Phase 3'
+label = convert_phase(phase)
+print(label)
+```",Antonia SJ et al,2018,30280658

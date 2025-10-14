@@ -1,0 +1,36 @@
+{
+  "question": "In Melanoma trials where a non–PD-L1 biomarker was required, extract the biomarker name(s) from the trial name.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for melanoma trials requiring a non-PD-L1 biomarker for inclusion.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Trial name\", \"Is any other biomarker used for inclusion\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n  AND \"Is any other biomarker used for inclusion\" = 'Yes'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Extract biomarker names from the trial name.",
+      "in": "t1",
+      "prompt": "For each row, read the Trial name and extract the biomarker name(s). Output a JSON object with fields NCT, PMID, and biomarker_name. If no biomarker name can be extracted, set biomarker_name to \"unspecified\". Do not include surrounding context or additional text. Output JSON only, one object per row.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "biomarker_name"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate and deduplicate the results.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 10,
+  "question": "List Small Cell Lung trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "This query returns Small Cell Lung trials that require a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "The 'other_biomarker_inclusion' column is assumed to contain information about biomarkers other than PD-L1, and 'None' or 'PD-L1' indicates that no other biomarker is required.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"other_biomarker_inclusion\\\" != 'None' AND \\\"other_biomarker_inclusion\\\" != 'PD-L1'\",\n  \"answer\": \"This query returns Small Cell Lung trials that require a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"The 'other_biomarker_inclusion' column is assumed to contain information about biomarkers other than PD-L1, and 'None' or 'PD-L1' indicates that no other biomarker is required.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row010_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row010_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 4.993499998818152,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"None\"\nLINE 1: ...n\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None' AND...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None' AND \"other_biomarker_inclusion\" != 'PD-L1']\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.725700003793463,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"None\"\nLINE 1: ...n\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None' AND...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None' AND \"other_biomarker_inclusion\" != 'PD-L1']\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.7725999971153215,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"None\"\nLINE 1: ...n\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None' AND...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None' AND \"other_biomarker_inclusion\" != 'PD-L1']\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row010_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.653700001654215,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row010_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.56,
+    "deterministic_across_runs": false
+  }
+}

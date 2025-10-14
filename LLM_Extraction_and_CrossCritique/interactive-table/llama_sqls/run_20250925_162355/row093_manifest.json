@@ -1,0 +1,52 @@
+{
+  "row_index": 93,
+  "question": "Which Colorectal trials evaluated Durvalumab, Tremelimumab in phase 2?",
+  "llm": {
+    "answer": "List of Colorectal trials that evaluated Durvalumab or Tremelimumab in phase 2.",
+    "assumptions": "Assuming 'Colorectal' is a substring of the cancer type and exact ICI names are used.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Colorectal%' AND \\\"ici_name\\\" IN ('Durvalumab', 'Tremelimumab') AND \\\"trial_phase\\\" = 'Phase 2'\",\n  \"answer\": \"List of Colorectal trials that evaluated Durvalumab or Tremelimumab in phase 2.\",\n  \"assumptions\": \"Assuming 'Colorectal' is a substring of the cancer type and exact ICI names are used.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row093_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row093_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 12.05060000938829,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row093_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 9.59119999606628,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row093_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.733400008874014,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row093_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row093_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 8.562900009565055,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row093_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.782608695652174,
+    "deterministic_across_runs": true
+  }
+}

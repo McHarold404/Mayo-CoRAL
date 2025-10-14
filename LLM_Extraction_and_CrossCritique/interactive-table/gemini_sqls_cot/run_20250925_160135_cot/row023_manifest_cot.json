@@ -1,0 +1,52 @@
+{
+  "row_index": 23,
+  "question": "Which Phase 2 CTLA-4 combination trials in Pancreatic should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query retrieves phase 2 clinical trials involving CTLA-4 combinations in pancreatic cancer, including the NCT ID, author, year, pubmed_id, treatment regimen and the combination type to help identify relevant trials and their characteristics.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"cancer_type\\\" = 'Pancreatic' AND \\\"ici_class\\\" = 'CTLA-4' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query retrieves phase 2 clinical trials involving CTLA-4 combinations in pancreatic cancer, including the NCT ID, author, year, pubmed_id, treatment regimen and the combination type to help identify relevant trials and their characteristics.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row023_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row023_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.750100008095615,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.095999989658594,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.311900003813207,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 5.107999997562729,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7307692307692307,
+    "deterministic_across_runs": true
+  }
+}

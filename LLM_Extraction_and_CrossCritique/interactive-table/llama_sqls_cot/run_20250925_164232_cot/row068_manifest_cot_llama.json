@@ -1,0 +1,52 @@
+{
+  "row_index": 68,
+  "question": "List Breast Chemotherapy trials where overall follow\u2011up exceeded 21 months.",
+  "llama": {
+    "answer": "Breast chemotherapy trials with overall follow-up exceeding 21 months are listed.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"follow_up_duration_overall_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"treatment_regimen\\\" ILIKE '%Chemo%' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"Breast chemotherapy trials with overall follow-up exceeding 21 months are listed.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row068_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row068_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.88719999359455,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row068_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 16.375999999581836,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row068_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.247399992891587,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row068_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row068_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.8337000005412847,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row068_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4642857142857143,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedFunction) operator does not exist: boolean = text
+LINE 1: ...a h ON b.""Is PD-L1 positivity inclusion criteria"" = h.""Is PD...
+                                                             ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT b.""NCT"", b.""Author"" AS ""Author"", b.""Year"", b.""PMID"", b.""Is PD-L1 positivity inclusion criteria"", h.""pd_l1_requirement"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Is PD-L1 positivity inclusion criteria"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%colorectal%%') b LEFT JOIN public.hybrid_44_ac22d5ea h ON b.""Is PD-L1 positivity inclusion criteria"" = h.""Is PD-L1 positivity inclusion criteria""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Colorectal trials, interpret the PD-L1 requirement flag as boolean true/false."

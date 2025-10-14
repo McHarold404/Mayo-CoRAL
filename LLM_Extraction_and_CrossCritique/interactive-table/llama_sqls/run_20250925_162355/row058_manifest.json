@@ -1,0 +1,52 @@
+{
+  "row_index": 58,
+  "question": "List PD1 trials that reported composite or co-primary endpoints.",
+  "llm": {
+    "answer": "List of PD1 trials with composite or co-primary endpoints.",
+    "assumptions": "Assuming 'PD1' is the exact value for PD-1 class in the \"ici_class\" column and 'TRUE' indicates composite or co-primary endpoints in the \"primary_endpoint_is_multiple_or_composite\" column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'PD1' AND \\\"primary_endpoint_is_multiple_or_composite\\\" = TRUE\",\n  \"answer\": \"List of PD1 trials with composite or co-primary endpoints.\",\n  \"assumptions\": \"Assuming 'PD1' is the exact value for PD-1 class in the \\\"ici_class\\\" column and 'TRUE' indicates composite or co-primary endpoints in the \\\"primary_endpoint_is_multiple_or_composite\\\" column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row058_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row058_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.738999988650903,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 1: ...'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE\n                                                                 ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\" FROM public.\"clinical_trials\" WHERE \"ici_class\" = 'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.2507999965455383,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 1: ...'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE\n                                                                 ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\" FROM public.\"clinical_trials\" WHERE \"ici_class\" = 'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 1.9627000001491979,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 1: ...'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE\n                                                                 ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\" FROM public.\"clinical_trials\" WHERE \"ici_class\" = 'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row058_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.7709000025643036,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row058_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6842105263157895,
+    "deterministic_across_runs": false
+  }
+}

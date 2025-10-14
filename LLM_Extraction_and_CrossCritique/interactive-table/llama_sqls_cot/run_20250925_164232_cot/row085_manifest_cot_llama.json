@@ -1,0 +1,52 @@
+{
+  "row_index": 85,
+  "question": "List Hepatocellular trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "This query will return a list of Hepatocellular trials that require a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "The 'other_biomarker_inclusion' column is assumed to be 'Yes' if any biomarker other than PD-L1 is required for inclusion, and the 'cancer_type' column contains the term 'Hepatocellular' for relevant trials.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Hepatocellular%' AND \\\"other_biomarker_inclusion\\\" = 'Yes'\",\n  \"answer\": \"This query will return a list of Hepatocellular trials that require a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"The 'other_biomarker_inclusion' column is assumed to be 'Yes' if any biomarker other than PD-L1 is required for inclusion, and the 'cancer_type' column contains the term 'Hepatocellular' for relevant trials.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row085_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row085_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 16.572699998505414,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row085_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.7963999930070713,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row085_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.691000005346723,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row085_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row085_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.851600005873479,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row085_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

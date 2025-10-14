@@ -1,0 +1,22 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 1: ...uration AS (SELECT t1.*, t2.follow_up_months from t1 LEFT JO...
+                                                             ^
+
+[SQL: WITH duration AS (SELECT t1.*, t2.follow_up_months from t1 LEFT JOIN t2 ON t1.""NCT"" = t2.""NCT""),
+maturity AS (
+  SELECT
+    ""NCT"",
+    ""PMID"",
+    ""Author"",
+    ""Year"",
+    ""Cancer type"",
+    CASE
+      WHEN follow_up_months >= 24 THEN 'mature'
+      WHEN follow_up_months IS NULL THEN 'unknown'
+      ELSE 'immature'
+    END AS follow_up_maturity
+  FROM duration
+)
+SELECT * FROM maturity]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

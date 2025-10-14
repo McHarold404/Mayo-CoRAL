@@ -1,0 +1,52 @@
+{
+  "row_index": 49,
+  "question": "Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID of clinical trials related to Head and Neck Squamous Cell Carcinoma (HNSCC) that investigate PD-L1 or CTLA-4 inhibitors and were published in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%HNSCC%' AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4') AND \\\"year\\\" >= 2018\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID of clinical trials related to Head and Neck Squamous Cell Carcinoma (HNSCC) that investigate PD-L1 or CTLA-4 inhibitors and were published in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row049_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row049_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.380500002298504,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row049_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.258199987816624,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row049_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.417199990712106,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row049_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row049_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.02270000288263,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row049_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5161290322580645,
+    "deterministic_across_runs": true
+  }
+}

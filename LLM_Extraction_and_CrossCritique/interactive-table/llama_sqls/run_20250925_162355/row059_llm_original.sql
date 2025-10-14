@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "treatment_regimen" ILIKE '%Nivolumab%' AND "treatment_regimen" ILIKE '%Ipilimumab%' AND "cancer_type" ILIKE '%Non-Small Cell Lung%' AND "original_publication" = 'Yes'

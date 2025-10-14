@@ -1,0 +1,36 @@
+{
+  "question": "For Atezolizumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter trials using Atezolizumab and select year.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%atezolizumab%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Bucket year into <=2014, 2015-2018, >=2019.",
+      "in": "t1",
+      "prompt": "For each row, read the Year and output a JSON object with fields NCT, PMID, year_bucket.  The year_bucket values must be one of: ['<=2014', '2015-2018', '>=2019']. If Year <= 2014, then year_bucket is '<=2014'. If Year is between 2015 and 2018 (inclusive), then year_bucket is '2015-2018'. If Year >= 2019, then year_bucket is '>=2019'. Output only valid JSON.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "year_bucket"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

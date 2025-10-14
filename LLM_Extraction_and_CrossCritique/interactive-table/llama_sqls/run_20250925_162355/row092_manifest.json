@@ -1,0 +1,52 @@
+{
+  "row_index": 92,
+  "question": "Show Pembrolizumab combination trials in Renal cell with sample sizes.",
+  "llm": {
+    "answer": "Pembrolizumab combination trials in Renal cell with sample sizes.",
+    "assumptions": "Assuming 'Renal cell' is a substring of the cancer type and combination therapy is specified as 'Combination therapy' in the therapy_type column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"total_sample_size\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"Pembrolizumab combination trials in Renal cell with sample sizes.\",\n  \"assumptions\": \"Assuming 'Renal cell' is a substring of the cancer type and combination therapy is specified as 'Combination therapy' in the therapy_type column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row092_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row092_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.378600002382882,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row092_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.9991999947233126,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row092_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.088800007593818,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row092_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row092_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.029000003356487,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row092_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

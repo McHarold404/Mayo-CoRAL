@@ -1,0 +1,36 @@
+{
+  "question": "In Breast trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Breast trials and select the endpoints.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Primary endpoint\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%breast%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Determine if the endpoint is primary or secondary based on text.",
+      "in": "t1",
+      "prompt": "For each row, read Primary endpoint and Secondary endpoint. Determine whether the listed endpoint is primary or secondary. Output JSON with keys NCT, PMID and endpoint_type, with values in ['primary', 'secondary', 'both', 'unclear']. Consider \"Primary endpoint\" as primary and \"Secondary endpoint\" as secondary. If both are available, mark it as 'both'. Mark unclear if no information.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "endpoint_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

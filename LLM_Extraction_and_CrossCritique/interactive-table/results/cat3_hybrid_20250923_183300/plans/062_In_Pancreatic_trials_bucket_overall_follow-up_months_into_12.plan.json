@@ -1,0 +1,36 @@
+{
+  "question": "In Pancreatic trials, bucket overall follow-up months into <12, 12–23, or ≥24.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Pancreatic trials and select the follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%pancreatic%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Bucket follow-up months into categories.",
+      "in": "t1",
+      "prompt": "For each row, read follow_up_months and output JSON {NCT, PMID, follow_up_category}. If the follow_up_months value is missing or invalid, the follow_up_category should be 'unknown'. Otherwise, if follow_up_months is less than 12, follow_up_category is '<12'. If follow_up_months is between 12 and 23 (inclusive), follow_up_category is '12-23'. If follow_up_months is 24 or greater, follow_up_category is '>=24'. Allowed follow_up_category values: ['<12', '12-23', '>=24', 'unknown']. Ensure output is valid JSON.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_category"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate the follow_up_category and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

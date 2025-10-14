@@ -1,0 +1,52 @@
+{
+  "row_index": 22,
+  "question": "Show Pancreatic trials that used ICI+Vaccine combinations.",
+  "llama": {
+    "answer": "This query will return all pancreatic trials that used ICI+Vaccine combinations.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"combination_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Pancreatic%' AND \\\"combination_type\\\" ILIKE '%ICI + Vaccine%'\",\n  \"answer\": \"This query will return all pancreatic trials that used ICI+Vaccine combinations.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row022_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row022_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.469699997571297,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row022_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.640299990773201,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row022_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.486400008318014,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row022_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row022_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.608300001360476,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row022_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5454545454545454,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7142857142857143,
+    "deterministic_across_runs": true
+  }
+}

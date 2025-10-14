@@ -1,0 +1,36 @@
+{
+  "question": "In Small Cell Lung trials with PD-L1 agents included in the meta-analysis, map the generic ICI name to its brand name.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Small Cell Lung cancer trials.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Name of ICI\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%small cell%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map generic ICI name to brand name, focusing on PD-L1 agents.",
+      "in": "t1",
+      "prompt": "For each row, read Name of ICI and output JSON {NCT, PMID, brand_name}. Focus on PD-L1 inhibitors. Allowed brand_name: [\"Atezolizumab\", \"Avelumab\", \"Durvalumab\", \"OTHER/UNKNOWN\"]. Hints: atezolizumab -> Atezolizumab, avelumab -> Avelumab, durvalumab -> Durvalumab. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "brand_name"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set for brand name and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

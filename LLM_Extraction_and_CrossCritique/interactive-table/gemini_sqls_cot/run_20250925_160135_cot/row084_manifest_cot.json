@@ -1,0 +1,52 @@
+{
+  "row_index": 84,
+  "question": "Which Hepatocellular trials evaluated Pembrolizumab in phase 3?",
+  "gemini": {
+    "answer": "This query retrieves Hepatocellular Carcinoma (HCC) clinical trials that evaluated Pembrolizumab in phase 3.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%HCC%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3';\",\n  \"answer\": \"This query retrieves Hepatocellular Carcinoma (HCC) clinical trials that evaluated Pembrolizumab in phase 3.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row084_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row084_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9982000016607344,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.393099996377714,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.720200009411201,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.6003999994136393,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6818181818181818,
+    "deterministic_across_runs": true
+  }
+}

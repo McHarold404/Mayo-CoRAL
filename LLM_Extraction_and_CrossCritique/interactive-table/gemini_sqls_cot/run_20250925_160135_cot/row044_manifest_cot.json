@@ -1,0 +1,52 @@
+{
+  "row_index": 44,
+  "question": "Which Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, authors, year, PubMed ID, treatment regimen, and control regimen for all Phase 3 clinical trials in NSCLC that used a combination of PD-L1 and CTLA-4 inhibitors.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"control_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4') AND \\\"combination_type\\\" = 'ICI + ICI'\",\n  \"answer\": \"This query retrieves the NCT ID, authors, year, PubMed ID, treatment regimen, and control regimen for all Phase 3 clinical trials in NSCLC that used a combination of PD-L1 and CTLA-4 inhibitors.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row044_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row044_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.793199997744523,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.7237999931676313,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.750199990463443,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.8850000128149986,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5757575757575758,
+    "deterministic_across_runs": true
+  }
+}

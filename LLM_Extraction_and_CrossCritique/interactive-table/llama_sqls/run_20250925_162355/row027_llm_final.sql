@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "cancer_type", "treatment_regimen", "ici_name", "other_biomarker_inclusion" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Non-Small Cell Lung%' AND "other_biomarker_inclusion" ILIKE '%Yes%' AND "pdl1_inclusion" ILIKE '%No%'

@@ -1,0 +1,36 @@
+{
+  "question": "In Hepatocellular trials, interpret the PD-L1 requirement flag as boolean true/false.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Hepatocellular trials and select PD-L1 positivity inclusion criteria.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Cancer type\", \"Is PD-L1 positivity inclusion criteria\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%hepatocellular%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text to boolean true/false.",
+      "in": "t1",
+      "prompt": "For each row, read \"Is PD-L1 positivity inclusion criteria\" and emit JSON {NCT, PMID, pdl1_required} with boolean value. If the text indicates PD-L1 positivity is an inclusion criteria, output true. If the text indicates PD-L1 positivity is not an inclusion criteria, output false. If the text is unclear or missing, output null. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "pdl1_required"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Coerce to booleans; drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 18,
+  "question": "List Renal cell trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This SQL query lists Renal cell clinical trials where inclusion criteria required biomarkers other than PD-L1.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No';\",\n  \"answer\": \"This SQL query lists Renal cell clinical trials where inclusion criteria required biomarkers other than PD-L1.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row018_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row018_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.214699991280213,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row018_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.127199998241849,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row018_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.151200002525002,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row018_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row018_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.9010999898891896,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row018_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -14,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "total_sample_size" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Renal cell%' AND "treatment_regimen" ILIKE '%Pembrolizumab%' AND "therapy_type" = 'Combination therapy'

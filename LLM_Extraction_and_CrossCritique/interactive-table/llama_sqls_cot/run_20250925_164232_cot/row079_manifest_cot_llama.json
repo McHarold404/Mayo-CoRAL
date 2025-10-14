@@ -1,0 +1,52 @@
+{
+  "row_index": 79,
+  "question": "Show Gastric/GEJ PD-L1 trials conducted in 2018 or later.",
+  "llama": {
+    "answer": "The query returns Gastric/GEJ clinical trials that target PD-L1 and were conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Gastric/GEJ%' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"year\\\" >= 2018;\",\n  \"answer\": \"The query returns Gastric/GEJ clinical trials that target PD-L1 and were conducted in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row079_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row079_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8650999922538176,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row079_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.541300000506453,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row079_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6345999978948385,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row079_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row079_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.9874999929452315,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row079_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}

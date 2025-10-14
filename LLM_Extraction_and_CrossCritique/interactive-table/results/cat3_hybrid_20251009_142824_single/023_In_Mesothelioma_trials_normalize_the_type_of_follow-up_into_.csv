@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""PubMed ID"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""...
+                                                    ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Type of follow-up given"", h.""Normalized Follow-up Type"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Type of follow-up given"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%mesothelioma%%') b LEFT JOIN public.hybrid_23_608b4a23 h ON b.""Type of follow-up given"" = h.""Type of follow-up given""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Mesothelioma trials, normalize the type of follow-up into imaging, clinical, or mixed."

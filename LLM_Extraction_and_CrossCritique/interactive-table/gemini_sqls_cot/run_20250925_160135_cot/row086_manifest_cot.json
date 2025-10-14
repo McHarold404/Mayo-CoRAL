@@ -1,0 +1,52 @@
+{
+  "row_index": 86,
+  "question": "Which Phase 3 PD-L1 monotherapy trials in Colorectal should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, authors, year, PubMed ID, and treatment regimen of Phase 3 trials studying PD-L1 monotherapy in Colorectal cancer.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Colorectal' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"therapy_type\\\" = 'Monotherapy'\",\n  \"answer\": \"This query retrieves the NCT ID, authors, year, PubMed ID, and treatment regimen of Phase 3 trials studying PD-L1 monotherapy in Colorectal cancer.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row086_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row086_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.0945000073406845,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.9677999884588644,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4018000005744398,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.320199994253926,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7916666666666666,
+    "deterministic_across_runs": true
+  }
+}

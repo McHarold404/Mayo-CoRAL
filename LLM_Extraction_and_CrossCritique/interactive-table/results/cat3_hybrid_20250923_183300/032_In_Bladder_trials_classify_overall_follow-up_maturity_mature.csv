@@ -1,0 +1,9 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 2: FROM t1
+             ^
+
+[SQL: SELECT t1.*, COALESCE(t2.follow_up_maturity, NULL) AS follow_up_maturity
+FROM t1
+LEFT JOIN t2 ON t1.""NCT"" = t2.""NCT"" AND t1.""PMID"" = t2.""PMID""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Bladder trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing)."

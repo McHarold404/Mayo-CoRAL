@@ -1,0 +1,52 @@
+{
+  "row_index": 61,
+  "question": "List Non-Small Cell Lung Nivolumab, Ipilimumab trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This query retrieves the NCT, author, year, and PubMed ID for clinical trials involving Nivolumab and Ipilimumab in Non-Small Cell Lung Cancer (NSCLC) with an overall follow-up duration exceeding 21 months.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"ici_name\\\" ILIKE '%Nivolumab%' AND \\\"ici_name\\\" ILIKE '%Ipilimumab%' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"This query retrieves the NCT, author, year, and PubMed ID for clinical trials involving Nivolumab and Ipilimumab in Non-Small Cell Lung Cancer (NSCLC) with an overall follow-up duration exceeding 21 months.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row061_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row061_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.0092999988701195,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.133700000238605,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.821500009507872,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.167999999481253,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4838709677419355,
+    "deterministic_across_runs": true
+  }
+}

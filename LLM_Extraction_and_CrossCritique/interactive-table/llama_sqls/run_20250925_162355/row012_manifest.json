@@ -1,0 +1,52 @@
+{
+  "row_index": 12,
+  "question": "Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llm": {
+    "answer": "Trials for Prostate cancer with at least 2 prior lines of therapy that used combination treatment.",
+    "assumptions": "Assuming '2L' in 'lines_of_treatment' indicates at least 2 prior lines of therapy.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Prostate%' AND \\\"lines_of_treatment\\\" ILIKE '%2L%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"Trials for Prostate cancer with at least 2 prior lines of therapy that used combination treatment.\",\n  \"assumptions\": \"Assuming '2L' in 'lines_of_treatment' indicates at least 2 prior lines of therapy.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row012_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row012_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.754800000227988,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row012_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.583100002491847,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row012_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.263000013655983,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row012_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row012_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.153500009328127,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row012_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.25,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.37142857142857144,
+    "deterministic_across_runs": true
+  }
+}

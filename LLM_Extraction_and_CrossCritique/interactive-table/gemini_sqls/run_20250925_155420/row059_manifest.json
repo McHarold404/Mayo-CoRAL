@@ -1,0 +1,52 @@
+{
+  "row_index": 59,
+  "question": "Find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for Phase 3 trials studying Nivolumab or Ipilimumab in NSCLC that are original publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND (\\\"ici_name\\\" = 'Nivolumab' OR \\\"ici_name\\\" = 'Ipilimumab') AND \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"publication_type\\\" = 'Original publication'\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for Phase 3 trials studying Nivolumab or Ipilimumab in NSCLC that are original publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row059_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row059_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 7.905899998149835,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row059_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.284600011189468,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row059_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.759800006169826,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row059_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row059_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.8289999946719036,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row059_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7037037037037037,
+    "deterministic_across_runs": true
+  }
+}

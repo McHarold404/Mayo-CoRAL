@@ -1,0 +1,52 @@
+{
+  "row_index": 86,
+  "question": "Which Phase 3 PD-L1 monotherapy trials in Colorectal should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query returns the NCT ID, author, year, PubMed ID, and treatment regimen for Phase 3 clinical trials of PD-L1 monotherapy in Colorectal cancer.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" ILIKE '%Colorectal%' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"therapy_type\\\" = 'Monotherapy';\",\n  \"answer\": \"This query returns the NCT ID, author, year, PubMed ID, and treatment regimen for Phase 3 clinical trials of PD-L1 monotherapy in Colorectal cancer.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row086_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row086_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.7921000039204955,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row086_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.864900005282834,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row086_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.973099989001639,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row086_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row086_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.389599998830818,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row086_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": true
+  }
+}

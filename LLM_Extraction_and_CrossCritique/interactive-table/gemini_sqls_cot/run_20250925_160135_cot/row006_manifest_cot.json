@@ -1,0 +1,52 @@
+{
+  "row_index": 6,
+  "question": "Which Non-Small Cell Lung phase 2 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query retrieves the NCT, author, year, and PubMed ID of phase 2 clinical trials for Non-Small Cell Lung Cancer (NSCLC) that compared an ICI treatment regimen to a chemotherapy control regimen.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"trial_phase\\\" = 'Phase 2' AND \\\"treatment_regimen\\\" ILIKE '%ICI%' AND \\\"control_regimen\\\" ILIKE '%Chemo%'\",\n  \"answer\": \"This query retrieves the NCT, author, year, and PubMed ID of phase 2 clinical trials for Non-Small Cell Lung Cancer (NSCLC) that compared an ICI treatment regimen to a chemotherapy control regimen.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row006_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row006_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.358299993327819,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.450399996130727,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.8390000010840595,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.294800004572608,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -9,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5555555555555556,
+    "deterministic_across_runs": true
+  }
+}

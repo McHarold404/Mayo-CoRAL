@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""PubMed ID"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""...
+                                                    ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Primary endpoint"", h.""primary_endpoint_standardized"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Primary endpoint"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%head and neck%%' AND ""Trial phase"" = 'Phase 3') b LEFT JOIN public.hybrid_86_532291bf h ON b.""Primary endpoint"" = h.""Primary endpoint""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Head and Neck Phase 3 trials, standardize the primary endpoint into one of OS, PFS, ORR, DFS, DOR, AE-rate, or Other."

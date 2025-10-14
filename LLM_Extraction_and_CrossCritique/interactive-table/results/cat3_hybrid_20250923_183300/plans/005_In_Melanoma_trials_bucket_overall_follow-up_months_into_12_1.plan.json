@@ -1,0 +1,47 @@
+{
+  "question": "In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Melanoma trials and select follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Handle missing follow-up duration values.",
+      "in": "t1",
+      "prompt": "For each row, read follow_up_months and output JSON {NCT, PMID, follow_up_months_clean}. If follow_up_months is null or blank, set follow_up_months_clean to -1. Otherwise, set follow_up_months_clean equal to follow_up_months. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_months_clean"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "SQL",
+      "desc": "Bucket the follow-up duration into <12, 12–23, or ≥24.",
+      "in": [
+        "t1",
+        "t2"
+      ],
+      "sql": "WITH duration_buckets AS (\n  SELECT\n    t1.*,\n    CASE\n      WHEN CAST(t2.follow_up_months_clean AS DOUBLE PRECISION) < 0 THEN 'missing'\n      WHEN CAST(t2.follow_up_months_clean AS DOUBLE PRECISION) < 12 THEN '<12'\n      WHEN CAST(t2.follow_up_months_clean AS DOUBLE PRECISION) BETWEEN 12 AND 23 THEN '12-23'\n      WHEN CAST(t2.follow_up_months_clean AS DOUBLE PRECISION) >= 24 THEN '>=24'\n      ELSE 'unknown'\n    END AS follow_up_bucket\n  FROM t1 JOIN t2 ON t1.\"NCT\" = t2.\"NCT\"\n)\nSELECT \"NCT\", \"PMID\", \"Author\", \"Year\", follow_up_bucket FROM duration_buckets",
+      "out": "t3"
+    },
+    {
+      "id": "S4",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t3",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

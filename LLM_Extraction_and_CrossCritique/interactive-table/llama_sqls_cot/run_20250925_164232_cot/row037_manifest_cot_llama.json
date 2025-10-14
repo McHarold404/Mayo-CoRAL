@@ -1,0 +1,52 @@
+{
+  "row_index": 37,
+  "question": "Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?",
+  "llama": {
+    "answer": "Review Phase 2 PD-L1 monotherapy trials in Breast to identify effective regimens.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"therapy_type\\\" = 'Monotherapy' AND \\\"cancer_type\\\" = 'Breast'\",\n  \"answer\": \"Review Phase 2 PD-L1 monotherapy trials in Breast to identify effective regimens.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row037_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row037_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.024100009701215,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row037_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.249599991249852,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row037_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.561499994248152,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row037_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row037_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.779600010602735,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row037_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7916666666666666,
+    "deterministic_across_runs": true
+  }
+}

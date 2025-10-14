@@ -1,0 +1,36 @@
+{
+  "question": "In Melanoma trials, bucket overall follow-up months into <12, 12–23, or ≥24.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Melanoma trials and select the follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Extract overall follow-up months from text if missing or malformed.",
+      "in": "t1",
+      "prompt": "Given the follow_up_months, classify the follow-up duration into one of the following categories: '<12', '12-23', or '>=24'. Output JSON with the fields NCT, PMID, follow_up_category. If the follow_up_months field contains ranges, use the average of the min and max. If the field is empty or contains non-numeric data, return 'unknown'. Return JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_category"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate the follow-up category labels and ensure correct values.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

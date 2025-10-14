@@ -1,0 +1,37 @@
+{
+  "question": "In Mesothelioma trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Mesothelioma trials and retrieve the relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Primary endpoint\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%mesothelioma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Classify each endpoint as primary or secondary based on the endpoint text.",
+      "in": "t1",
+      "prompt": "For each row, examine \"Primary endpoint\" and \"Secondary endpoint\". Output a JSON object with fields NCT, PMID, primary_endpoint_type, secondary_endpoint_type. If the endpoint is mentioned in \"Primary endpoint\", label it as \"primary\". If it is mentioned in \"Secondary endpoint\", label it as \"secondary\". If it is in both, label it as \"both\". If it is in neither, label it as \"unclear\". Allowed values are [\"primary\", \"secondary\", \"both\", \"unclear\"]. Output JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "primary_endpoint_type",
+          "secondary_endpoint_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate labels and ensure only allowed labels.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

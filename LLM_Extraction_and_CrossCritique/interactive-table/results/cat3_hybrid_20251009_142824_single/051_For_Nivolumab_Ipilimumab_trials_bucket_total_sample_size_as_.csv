@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedFunction) operator does not exist: integer = text
+LINE 1: ...lic.hybrid_51_8b581bdf h ON b.""Total sample size"" = h.""Total...
+                                                             ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Total sample size"", h.""sample_size_bucket"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Name of ICI"", ""Total sample size"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"")='nivolumab' OR LOWER(""Name of ICI"")='ipilimumab') b LEFT JOIN public.hybrid_51_8b581bdf h ON b.""Total sample size"" = h.""Total sample size""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Nivolumab, Ipilimumab trials, bucket total sample size as small(<100), medium(100–299), or large(≥300)."

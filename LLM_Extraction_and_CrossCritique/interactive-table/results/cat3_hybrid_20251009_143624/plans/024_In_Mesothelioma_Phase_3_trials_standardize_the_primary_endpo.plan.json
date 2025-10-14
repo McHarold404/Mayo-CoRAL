@@ -1,0 +1,36 @@
+{
+  "question": "In Mesothelioma Phase 3 trials, standardize the primary endpoint into one of OS, PFS, ORR, DFS, DOR, AE-rate, or Other.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Mesothelioma Phase 3 trials and select primary endpoint text.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Author\" AS \"Author\", \"Year\", \"Trial phase\", \"Primary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%mesothelioma%' AND \"Trial phase\" = 'Phase 3'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text to controlled primary endpoint categories.",
+      "in": "t1",
+      "prompt": "For each row, read Primary endpoint and emit JSON {NCT, PMID, primary_endpoint_type} with label in [\"OS\", \"PFS\", \"ORR\", \"DFS\", \"DOR\", \"AE-rate\", \"Other\"]. Heuristics: OS if overall survival is mentioned; PFS if progression-free survival is mentioned; ORR if objective response rate is mentioned; DFS if disease-free survival is mentioned; DOR if duration of response is mentioned; AE-rate if adverse event rate is the primary focus; Other otherwise. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "primary_endpoint_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

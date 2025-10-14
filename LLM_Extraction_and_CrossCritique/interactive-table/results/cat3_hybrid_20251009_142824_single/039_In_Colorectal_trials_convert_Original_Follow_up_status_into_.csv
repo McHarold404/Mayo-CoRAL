@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""PubMed ID"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""...
+                                                    ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Original publication or Follow-up"", h.""is_follow_up"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Original publication or Follow-up"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%colorectal%%') b LEFT JOIN public.hybrid_39_3bb09bf6 h ON b.""Original publication or Follow-up"" = h.""Original publication or Follow-up""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Colorectal trials, convert 'Original/Follow up' status into a boolean is_follow_up."

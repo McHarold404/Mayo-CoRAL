@@ -1,0 +1,36 @@
+{
+  "question": "In Mesothelioma trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Mesothelioma trials and select the relevant follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_duration\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%mesothelioma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Classify follow-up maturity based on duration.",
+      "in": "t1",
+      "prompt": "For each row, read the follow_up_duration (in months) and output JSON {NCT, PMID, follow_up_maturity}. Classify follow_up_maturity as 'mature' if follow_up_duration is greater than or equal to 24, 'immature' if less than 24, and 'unknown' if follow_up_duration is missing or null. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_maturity"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

@@ -1,0 +1,36 @@
+{
+  "question": "In Colorectal trials, interpret the PD-L1 requirement flag as boolean true/false.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Colorectal trials and select PD-L1 flag.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Is PD-L1 positivity inclusion criteria\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%colorectal%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Convert free text to boolean.",
+      "in": "t1",
+      "prompt": "For each row, read `Is PD-L1 positivity inclusion criteria` and output JSON with fields `NCT`, `PMID`, and `pdl1_requirement` as a boolean (true or false). If the value contains any affirmation (e.g. 'yes', 'required'), set to true; else if it contains any negation (e.g. 'no', 'not required'), set to false; else set to null. Output one JSON object per row, nothing else.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "pdl1_requirement"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

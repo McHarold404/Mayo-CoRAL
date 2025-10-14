@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "ici_name" = 'Atezolizumab' AND "cancer_type" ILIKE '%Non-Small Cell Lung%' AND "trial_phase" = 'Phase 2' AND "original_publication" = 'Yes'

@@ -1,0 +1,18 @@
+error,question
+"(psycopg2.errors.UndefinedTable) relation ""t1"" does not exist
+LINE 12: FROM t1
+              ^
+
+[SQL: SELECT 
+    ""NCT"",
+    ""PMID"",
+    ""Author"",
+    ""Year"",
+    CASE
+        WHEN ""Year"" <= 2014 THEN '≤2014'
+        WHEN ""Year"" >= 2015 AND ""Year"" <= 2018 THEN '2015–2018'
+        WHEN ""Year"" >= 2019 THEN '≥2019'
+        ELSE 'Unknown'
+    END AS publication_year_bucket
+FROM t1]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Durvalumab, Tremelimumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019."

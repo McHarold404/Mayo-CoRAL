@@ -1,0 +1,52 @@
+{
+  "row_index": 24,
+  "question": "Find Phase 2 Atezolizumab trials in Non-Small Cell Lung that were original publication publications.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for phase 2 clinical trials using Atezolizumab in Non-Small Cell Lung Cancer that are original publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_name\\\" = 'Atezolizumab' AND \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"publication_type\\\" = 'Original publication'\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for phase 2 clinical trials using Atezolizumab in Non-Small Cell Lung Cancer that are original publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row024_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row024_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.167199993389659,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row024_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.922999996575527,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row024_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.0249000050826,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row024_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row024_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.086900007678196,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row024_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.72,
+    "deterministic_across_runs": true
+  }
+}

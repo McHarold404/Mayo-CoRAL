@@ -1,0 +1,52 @@
+{
+  "row_index": 59,
+  "question": "Find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.",
+  "gemini": {
+    "answer": "This query retrieves the NCT, author, year, and pubmed_id for clinical trials that are in Phase 3, use Nivolumab and Ipilimumab, are focused on Non-Small Cell Lung Cancer, and are original publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_name\\\" = 'Nivolumab' AND \\\"ici_name\\\" = 'Ipilimumab' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"publication_type\\\" = 'Original publication'\",\n  \"answer\": \"This query retrieves the NCT, author, year, and pubmed_id for clinical trials that are in Phase 3, use Nivolumab and Ipilimumab, are focused on Non-Small Cell Lung Cancer, and are original publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row059_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row059_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.034900004626252,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6931000067852437,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.519999998388812,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.258400003891438,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": true
+  }
+}

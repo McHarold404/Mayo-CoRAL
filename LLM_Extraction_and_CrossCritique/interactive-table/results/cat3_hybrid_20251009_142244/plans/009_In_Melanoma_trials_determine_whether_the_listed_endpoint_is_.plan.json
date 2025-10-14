@@ -1,0 +1,37 @@
+{
+  "question": "In Melanoma trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Melanoma trials and select endpoint texts.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Cancer type\", \"Primary endpoint\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Determine whether the endpoint is primary or secondary based on the endpoint text.",
+      "in": "t1",
+      "prompt": "For each row, determine whether the text in \"Primary endpoint\" and \"Secondary endpoint\" refers to a primary or secondary endpoint. Output JSON with keys NCT, PMID, primary_endpoint_flag, secondary_endpoint_flag. primary_endpoint_flag should be 'yes' if the text in \"Primary endpoint\" is not null or empty, otherwise 'no'. secondary_endpoint_flag should be 'yes' if the text in \"Secondary endpoint\" is not null or empty, otherwise 'no'. Output JSON objects only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "primary_endpoint_flag",
+          "secondary_endpoint_flag"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

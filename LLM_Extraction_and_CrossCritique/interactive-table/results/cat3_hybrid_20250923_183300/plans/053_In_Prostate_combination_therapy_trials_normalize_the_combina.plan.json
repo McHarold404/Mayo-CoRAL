@@ -1,0 +1,36 @@
+{
+  "question": "In Prostate combination therapy trials, normalize the combination type to standardized labels (e.g., ICI+Chemo, ICI+TKI, ICI+ICI).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Prostate cancer trials with combination therapy and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Type of combination\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%prostate%'\n  AND LOWER(\"Monotherapy/combination\") LIKE '%combination%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text combination types to standardized labels.",
+      "in": "t1",
+      "prompt": "For each row, read Type of combination and output JSON {NCT, PMID, combination_type} with a normalized combination type from the following allowed values: [\"ICI+Chemo\", \"ICI+TKI\", \"ICI+ICI\", \"ICI+Other\", \"Other\", \"UNKNOWN\"]. Heuristics: If the combination includes an ICI and chemotherapy, label it as ICI+Chemo. If the combination includes an ICI and a TKI, label it as ICI+TKI. If the combination consists of multiple ICIs, label it as ICI+ICI. If an ICI is combined with something not chemo/TKI/ICI, label it ICI+Other. If no ICI is present, label it as Other. If the combination type cannot be determined, label it UNKNOWN. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "combination_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

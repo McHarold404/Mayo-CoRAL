@@ -1,0 +1,36 @@
+{
+  "question": "In Melanoma Phase 2 trials, standardize the primary endpoint into one of OS, PFS, ORR, DFS, DOR, AE-rate, or Other.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Melanoma Phase 2 trials and select primary endpoint.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Trial phase\", \"Primary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%' AND \"Trial phase\" = 'Phase 2'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text to controlled primary endpoint categories.",
+      "in": "t1",
+      "prompt": "For each row, read Primary endpoint and output JSON {NCT, PMID, primary_endpoint_category}. Allowed primary_endpoint_category: [\"OS\", \"PFS\", \"ORR\", \"DFS\", \"DOR\", \"AE-rate\", \"Other\"]. Heuristics: OS if overall survival; PFS if progression-free survival; ORR if objective response rate; DFS if disease-free survival; DOR if duration of response; AE-rate if adverse event rate. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "primary_endpoint_category"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Ensure allowed labels; drop blanks.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

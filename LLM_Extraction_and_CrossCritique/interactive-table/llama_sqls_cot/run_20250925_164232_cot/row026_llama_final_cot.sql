@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Renal cell%' AND "ici_name" IN ('Atezolizumab', 'Avelumab', 'Durvalumab') AND "pdl1_inclusion" = 'Yes'

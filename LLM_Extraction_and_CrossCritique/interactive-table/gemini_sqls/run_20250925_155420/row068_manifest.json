@@ -1,0 +1,52 @@
+{
+  "row_index": 68,
+  "question": "List Breast Chemotherapy trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT ID, author, year, and PubMed ID for clinical trials related to breast cancer and involving chemotherapy regimens, where the overall follow-up duration exceeded 21 months.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" \\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%Breast%'\\n  AND \\\"treatment_regimen\\\" ILIKE '%Chemotherapy%'\\n  AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"This SQL query retrieves the NCT ID, author, year, and PubMed ID for clinical trials related to breast cancer and involving chemotherapy regimens, where the overall follow-up duration exceeded 21 months.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row068_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row068_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 10.741599995526485,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row068_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 8.08820000384003,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row068_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.469799995305948,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row068_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row068_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 8.43689999601338,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row068_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5185185185185185,
+    "deterministic_across_runs": true
+  }
+}

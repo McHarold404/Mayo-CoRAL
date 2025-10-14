@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Mesothelioma%' AND "ici_class" = 'PD-1' AND "year" >= 2018

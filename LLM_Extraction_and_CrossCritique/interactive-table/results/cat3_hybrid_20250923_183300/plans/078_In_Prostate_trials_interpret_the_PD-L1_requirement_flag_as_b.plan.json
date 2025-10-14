@@ -1,0 +1,36 @@
+{
+  "question": "In Prostate trials, interpret the PD-L1 requirement flag as boolean true/false.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Prostate trials and select the PD-L1 requirement flag.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Is PD-L1 positivity inclusion criteria\" AS \"pd_l1_inclusion\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%prostate%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map the flag to boolean true/false.",
+      "in": "t1",
+      "prompt": "For each row, read pd_l1_inclusion and output JSON {NCT, PMID, pd_l1_required}.  If pd_l1_inclusion contains 'yes', 'true', or a similar affirmative, pd_l1_required should be true; if it contains 'no', 'false', or a similar negative, pd_l1_required should be false; otherwise if the value is missing or unknown use 'unknown'. JSON only, boolean values only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "pd_l1_required"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Ensure allowed boolean values and deduplicate.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

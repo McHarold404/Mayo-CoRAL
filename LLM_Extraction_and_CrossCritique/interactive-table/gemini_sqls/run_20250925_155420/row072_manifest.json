@@ -1,0 +1,52 @@
+{
+  "row_index": 72,
+  "question": "Find Esophageal/GEJ trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query selects trials for 'Esophageal/GEJ' cancer type along with their follow-up duration information in months, including overall, treatment arm, and control arm. I assume that 'median follow-up' implies that the follow_up_duration_overall_months is not null.",
+    "assumptions": "I assume that 'median follow-up' implies that the follow_up_duration_overall_months is not null.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Esophageal/GEJ'\\nAND \\\"follow_up_duration_overall_months\\\" IS NOT NULL\",\n  \"answer\": \"This query selects trials for 'Esophageal/GEJ' cancer type along with their follow-up duration information in months, including overall, treatment arm, and control arm. I assume that 'median follow-up' implies that the follow_up_duration_overall_months is not null.\",\n  \"assumptions\": \"I assume that 'median follow-up' implies that the follow_up_duration_overall_months is not null.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row072_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row072_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 18.421100001432933,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row072_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 15.885699991486035,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row072_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 12.487200001487508,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row072_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row072_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 12.768400003551506,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row072_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6363636363636364,
+    "deterministic_across_runs": true
+  }
+}

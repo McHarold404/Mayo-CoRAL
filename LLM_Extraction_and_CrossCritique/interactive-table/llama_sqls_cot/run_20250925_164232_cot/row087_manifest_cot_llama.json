@@ -1,0 +1,52 @@
+{
+  "row_index": 87,
+  "question": "Find Colorectal trials with median follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "The query returns Colorectal trials with median follow-up and shows months by arm.",
+    "assumptions": "Assuming that 'median follow-up' refers to the availability of follow-up duration data for both experimental and control arms.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Colorectal%' AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL\",\n  \"answer\": \"The query returns Colorectal trials with median follow-up and shows months by arm.\",\n  \"assumptions\": \"Assuming that 'median follow-up' refers to the availability of follow-up duration data for both experimental and control arms.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row087_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row087_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.579300013370812,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row087_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.488599992124364,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row087_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.669199999421835,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row087_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row087_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.194699999061413,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row087_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 1.0,
+    "nct_recall": 0.3333333333333333,
+    "nct_f1": 0.5,
+    "nct_jaccard": 0.3333333333333333,
+    "sql_token_jaccard_vs_gt": 0.52,
+    "deterministic_across_runs": true
+  }
+}

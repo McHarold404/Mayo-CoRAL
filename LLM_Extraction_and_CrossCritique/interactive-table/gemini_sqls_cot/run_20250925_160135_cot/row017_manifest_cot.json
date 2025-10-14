@@ -1,0 +1,52 @@
+{
+  "row_index": 17,
+  "question": "Which Small Cell Lung phase 3 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for Phase 3 clinical trials that include SCLC (Small Cell Lung Cancer) and compare an ICI to a chemotherapy regimen.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"control_type\\\" ILIKE '%Chemo%' AND \\\"ici_name\\\" IS NOT NULL;\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for Phase 3 clinical trials that include SCLC (Small Cell Lung Cancer) and compare an ICI to a chemotherapy regimen.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row017_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row017_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.6354999901959673,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.687900010845624,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.5724000044865534,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 5.504500004462898,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -7,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5925925925925926,
+    "deterministic_across_runs": true
+  }
+}

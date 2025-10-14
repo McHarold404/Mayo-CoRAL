@@ -1,0 +1,52 @@
+{
+  "row_index": 9,
+  "question": "Find Small Cell Lung trials with minimum follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "The trial with the minimum follow-up for Small Cell Lung cancer is shown with months by arm.",
+    "assumptions": "Assuming 'Small Cell Lung' is a substring of the cancer type and follow-up duration is available for both experimental and control arms.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' ORDER BY \\\"follow_up_duration_rx_months\\\" ASC LIMIT 1\",\n  \"answer\": \"The trial with the minimum follow-up for Small Cell Lung cancer is shown with months by arm.\",\n  \"assumptions\": \"Assuming 'Small Cell Lung' is a substring of the cancer type and follow-up duration is available for both experimental and control arms.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row009_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row009_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 12.78469999670051,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row009_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.7915000139037147,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row009_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.204299999400973,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row009_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row009_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.8151999906403944,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row009_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4827586206896552,
+    "deterministic_across_runs": true
+  }
+}

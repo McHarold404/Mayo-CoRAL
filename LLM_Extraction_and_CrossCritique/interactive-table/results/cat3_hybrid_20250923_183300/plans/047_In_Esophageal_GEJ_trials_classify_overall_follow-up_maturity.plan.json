@@ -1,0 +1,40 @@
+{
+  "question": "In Esophageal/GEJ trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Esophageal/GEJ trials and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"Author\" AS \"Author\", \"Year\", \"PubMed ID\" AS \"PMID\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%esophageal%' OR LOWER(\"Cancer type\") LIKE '%gej%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "If follow up months column is null, try to extract from original publication.",
+      "in": "t1",
+      "prompt": "For each row, read the original publication for follow-up data and output JSON {NCT, PMID, follow_up_months} with an integer value representing months. If the follow up months cannot be extracted output null for follow_up_months. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_months"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "SQL",
+      "desc": "Coalesce the follow up months, calculate follow up maturity.",
+      "in": [
+        "t1",
+        "t2"
+      ],
+      "sql": "WITH coalesced_follow_up AS (\n  SELECT\n    t1.\"NCT\",\n    t1.\"Author\",\n    t1.\"Year\",\n    t1.\"PMID\",\n    COALESCE(t1.follow_up_months, CAST(t2.follow_up_months AS TEXT)) AS follow_up_months_coalesced\n  FROM\n    t1\n  LEFT JOIN\n    t2 ON t1.\"NCT\" = t2.\"NCT\"\n), final_follow_up AS (\n  SELECT \n  \"NCT\",\n  \"Author\",\n  \"Year\",\n  \"PMID\",\n  CASE\n    WHEN follow_up_months_coalesced IS NULL THEN 'unknown'\n    WHEN CAST(follow_up_months_coalesced AS NUMERIC) >= 24 THEN 'mature'\n    ELSE 'immature'\n  END AS follow_up_maturity\n  FROM coalesced_follow_up\n)\nSELECT * FROM final_follow_up",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

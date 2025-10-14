@@ -1,0 +1,52 @@
+{
+  "row_index": 9,
+  "question": "Find Small Cell Lung trials with minimum follow\u2011up and show months by arm.",
+  "llm": {
+    "answer": "The trial with the minimum follow-up for Small Cell Lung cancer is shown with follow-up months by arm.",
+    "assumptions": "Assuming 'Small Cell Lung' is a substring of the cancer type and follow-up duration is the same across all arms in a trial.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' ORDER BY \\\"follow_up_duration_overall_months\\\" ASC LIMIT 1\",\n  \"answer\": \"The trial with the minimum follow-up for Small Cell Lung cancer is shown with follow-up months by arm.\",\n  \"assumptions\": \"Assuming 'Small Cell Lung' is a substring of the cancer type and follow-up duration is the same across all arms in a trial.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row009_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row009_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 10.187699997914024,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row009_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 8.511399995768443,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row009_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 8.692099989275448,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row009_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row009_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 9.17420000769198,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row009_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4666666666666667,
+    "deterministic_across_runs": true
+  }
+}

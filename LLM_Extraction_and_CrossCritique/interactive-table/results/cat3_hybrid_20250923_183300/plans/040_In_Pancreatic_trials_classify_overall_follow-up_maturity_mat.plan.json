@@ -1,0 +1,47 @@
+{
+  "question": "In Pancreatic trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter pancreatic cancer trials and select the relevant follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"Author\" AS \"Author\", \"Year\", \"PubMed ID\" AS \"PMID\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%pancreatic%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Handle missing follow-up data, and convert text to numeric follow-up duration.",
+      "in": "t1",
+      "prompt": "For each row, extract the numeric value of 'follow_up_months'. If the value is missing or cannot be extracted, return null. Output JSON with the following columns: NCT, PMID, follow_up_duration.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_duration"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "SQL",
+      "desc": "Classify follow-up maturity based on the follow-up duration.",
+      "in": [
+        "t1",
+        "t2"
+      ],
+      "sql": "WITH base AS (\n  SELECT\n    t1.\"NCT\",\n    t1.\"Author\" AS \"Author\",\n    t1.\"Year\",\n    t1.\"PMID\",\n    CASE\n      WHEN t2.follow_up_duration >= 24 THEN 'mature'\n      WHEN t2.follow_up_duration < 24 THEN 'immature'\n      ELSE 'unknown'\n    END AS follow_up_maturity\n  FROM\n    t1\n  LEFT JOIN t2 ON t1.\"NCT\" = t2.\"NCT\" AND t1.\"PMID\" = t2.\"PMID\"\n)\nSELECT\n  * from base",
+      "out": "t3"
+    },
+    {
+      "id": "S4",
+      "op": "POST",
+      "desc": "Validate allowed label set and deduplicate.",
+      "in": "t3",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

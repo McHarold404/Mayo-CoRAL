@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 2' AND "cancer_type" ILIKE '%Non-Small Cell Lung%' AND "combination_type" = 'ICI + Chemo'

@@ -1,0 +1,52 @@
+{
+  "row_index": 79,
+  "question": "Show Gastric/GEJ PD-L1 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of Gastric/GEJ PD-L1 trials conducted in 2018 or later.",
+    "assumptions": "Assuming 'Gastric/GEJ' is a substring of the 'cancer_type' column and 'PD-L1' is an exact match for the 'ici_class' column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Gastric/GEJ%' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"List of Gastric/GEJ PD-L1 trials conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming 'Gastric/GEJ' is a substring of the 'cancer_type' column and 'PD-L1' is an exact match for the 'ici_class' column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row079_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row079_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 7.999499997822568,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row079_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.763799995998852,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row079_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.236499986494891,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row079_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row079_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.1440999921178445,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row079_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.4166666666666667,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5161290322580645,
+    "deterministic_across_runs": true
+  }
+}

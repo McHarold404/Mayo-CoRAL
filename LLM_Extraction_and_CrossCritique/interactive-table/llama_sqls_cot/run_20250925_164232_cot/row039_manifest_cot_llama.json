@@ -1,0 +1,52 @@
+{
+  "row_index": 39,
+  "question": "List Bladder trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "This query returns Bladder trials that require a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "Assuming 'other_biomarker_inclusion' is 'Yes' when a biomarker other than PD-L1 is required, and 'pdl1_inclusion' is 'No' when PD-L1 is not required.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Bladder%' AND \\\"other_biomarker_inclusion\\\" ILIKE '%Yes%' AND \\\"pdl1_inclusion\\\" ILIKE '%No%'\",\n  \"answer\": \"This query returns Bladder trials that require a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"Assuming 'other_biomarker_inclusion' is 'Yes' when a biomarker other than PD-L1 is required, and 'pdl1_inclusion' is 'No' when PD-L1 is not required.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row039_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row039_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.4880999990273267,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ...ILIKE '%Bladder%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Bladder%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 1.8121000030077994,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ...ILIKE '%Bladder%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Bladder%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 5.957599991234019,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ...ILIKE '%Bladder%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Bladder%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row039_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 23.21650000521913,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row039_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6842105263157895,
+    "deterministic_across_runs": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 1,
+  "question": "Show Melanoma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llama": {
+    "answer": "This query returns Melanoma trials with at least 2 prior lines of therapy that used combination treatment.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query returns Melanoma trials with at least 2 prior lines of therapy that used combination treatment.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row001_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row001_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 17.865500005427748,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...type\" ILIKE '%Melanoma%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Melanoma%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 3.2026999979279935,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...type\" ILIKE '%Melanoma%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Melanoma%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 3.758399994694628,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...type\" ILIKE '%Melanoma%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Melanoma%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row001_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 10.102500003995374,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row001_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.4666666666666667,
+    "deterministic_across_runs": false
+  }
+}

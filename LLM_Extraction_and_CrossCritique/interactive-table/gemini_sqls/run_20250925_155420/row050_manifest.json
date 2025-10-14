@@ -1,0 +1,52 @@
+{
+  "row_index": 50,
+  "question": "Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Head and Neck cancer patients with at least 2 prior lines of therapy that used combination treatment.",
+    "assumptions": "I am assuming that '%2L%' in \"lines_of_treatment\" represents at least 2 lines of therapy and that the column \"monotherapy_combination\" has the value 'Combination therapy' to indicate combination treatment.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%'\\n  AND \\\"lines_of_treatment\\\" LIKE '%2L%'  \\n  AND \\\"monotherapy_combination\\\" = 'Combination therapy';\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Head and Neck cancer patients with at least 2 prior lines of therapy that used combination treatment.\",\n  \"assumptions\": \"I am assuming that '%2L%' in \\\"lines_of_treatment\\\" represents at least 2 lines of therapy and that the column \\\"monotherapy_combination\\\" has the value 'Combination therapy' to indicate combination treatment.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row050_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row050_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 6.060100000468083,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 5:   AND \"monotherapy_combination\" = 'Combination therapy';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%%Head and Neck%%'\n  AND \"lines_of_treatment\" LIKE '%%2L%%'  \n  AND \"monotherapy_combination\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 5.274099996313453,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 5:   AND \"monotherapy_combination\" = 'Combination therapy';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%%Head and Neck%%'\n  AND \"lines_of_treatment\" LIKE '%%2L%%'  \n  AND \"monotherapy_combination\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 4.254800005583093,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 5:   AND \"monotherapy_combination\" = 'Combination therapy';\n              ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%%Head and Neck%%'\n  AND \"lines_of_treatment\" LIKE '%%2L%%'  \n  AND \"monotherapy_combination\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row050_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 11.37570000719279,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row050_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.4375,
+    "deterministic_across_runs": false
+  }
+}

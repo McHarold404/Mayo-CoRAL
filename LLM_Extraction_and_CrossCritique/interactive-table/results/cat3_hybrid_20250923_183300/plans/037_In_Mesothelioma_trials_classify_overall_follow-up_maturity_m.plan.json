@@ -1,0 +1,62 @@
+{
+  "question": "In Mesothelioma trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Mesothelioma trials and select follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%mesothelioma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Handle missing follow-up duration by attempting to extract it from the trial name.",
+      "in": "t1",
+      "prompt": "For each row, read follow_up_months. If the value is null or blank, examine the Trial name field for a number followed by 'months' or 'yrs'/'years'.  Output JSON with keys NCT, PMID, extracted_follow_up_months. If no value is found, set extracted_follow_up_months to null.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "extracted_follow_up_months"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "SQL",
+      "desc": "Coalesce extracted and original follow-up months.",
+      "in": [
+        "t1",
+        "t2"
+      ],
+      "sql": "SELECT t1.*,\n       COALESCE(t1.follow_up_months, t2.extracted_follow_up_months::text) AS coalesced_follow_up_months\nFROM t1 LEFT JOIN t2 ON t1.\"NCT\" = t2.\"NCT\"",
+      "out": "t3"
+    },
+    {
+      "id": "S4",
+      "op": "LLM",
+      "desc": "Classify follow-up maturity based on duration.",
+      "in": "t3",
+      "prompt": "For each row, read coalesced_follow_up_months. If the value is null or blank, classify as 'unknown'. If the value is a number >= 24, classify as 'mature'. Otherwise, classify as 'immature'. Output JSON with keys NCT, PMID, follow_up_maturity.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_maturity"
+        ]
+      },
+      "out": "t4"
+    },
+    {
+      "id": "S5",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t4",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

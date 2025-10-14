@@ -1,0 +1,52 @@
+{
+  "row_index": 69,
+  "question": "Which Colorectal phase 3 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, and PubMed ID of phase 3 clinical trials for colorectal cancer that compared an immune checkpoint inhibitor (ICI) to chemotherapy.",
+    "assumptions": "I am assuming that if the cancer type is similar to colorectal it should be included. I am assuming if a trial's control type is 'Chemo' it is the same as asking if the trial compared the ICI to 'Chemo'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" \\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%Colorectal%'\\n  AND \\\"trial_phase\\\" = 'Phase 3'\\n  AND \\\"ici_class\\\" IN ('PD-1', 'PD-L1', 'CTLA-4')\\n  AND \\\"control_type\\\" = 'Chemo';\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, and PubMed ID of phase 3 clinical trials for colorectal cancer that compared an immune checkpoint inhibitor (ICI) to chemotherapy.\",\n  \"assumptions\": \"I am assuming that if the cancer type is similar to colorectal it should be included. I am assuming if a trial's control type is 'Chemo' it is the same as asking if the trial compared the ICI to 'Chemo'.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row069_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row069_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.291999997803941,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row069_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.570300006889738,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row069_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8231999933486804,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row069_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row069_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.9327999984379858,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row069_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}

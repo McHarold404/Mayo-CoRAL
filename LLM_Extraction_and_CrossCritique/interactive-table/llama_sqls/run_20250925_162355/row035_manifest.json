@@ -1,0 +1,52 @@
+{
+  "row_index": 35,
+  "question": "Which Gastric/GEJ trials used Placebo as the control arm?",
+  "llm": {
+    "answer": "Trials with NCT identifiers and their corresponding authors, years, PubMed IDs, trial names, and control types are listed below.",
+    "assumptions": "Assuming Gastric/GEJ trials are identified by the presence of 'Gastric/GEJ' in the \"cancer_type\" column, and Placebo control arm is exactly matched.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"control_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Gastric/GEJ%' AND \\\"control_type\\\" = 'Placebo'\",\n  \"answer\": \"Trials with NCT identifiers and their corresponding authors, years, PubMed IDs, trial names, and control types are listed below.\",\n  \"assumptions\": \"Assuming Gastric/GEJ trials are identified by the presence of 'Gastric/GEJ' in the \\\"cancer_type\\\" column, and Placebo control arm is exactly matched.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row035_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row035_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.401099999086,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row035_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.83220000367146,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row035_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.449600004591048,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row035_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row035_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.711700002895668,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row035_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "ici_name" ILIKE '%Durvalumab%' AND "ici_name" ILIKE '%Tremelimumab%' AND "cancer_type" ILIKE '%SCLC%' AND "publication_type" = 'Follow-up'

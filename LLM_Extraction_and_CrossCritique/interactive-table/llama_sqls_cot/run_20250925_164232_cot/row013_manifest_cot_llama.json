@@ -1,0 +1,52 @@
+{
+  "row_index": 13,
+  "question": "List Prostate trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "The query returns Prostate trials that require a biomarker other than PD-L1 for inclusion, as indicated by 'Yes' in the 'other_biomarker_inclusion' column and 'No' in the 'pdl1_inclusion' column.",
+    "assumptions": "Assuming 'other_biomarker_inclusion' and 'pdl1_inclusion' columns contain 'Yes' or 'No' values, and 'cancer_type' contains 'Prostate' for relevant trials.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Prostate%' AND \\\"other_biomarker_inclusion\\\" ILIKE '%Yes%' AND \\\"pdl1_inclusion\\\" ILIKE '%No%'\",\n  \"answer\": \"The query returns Prostate trials that require a biomarker other than PD-L1 for inclusion, as indicated by 'Yes' in the 'other_biomarker_inclusion' column and 'No' in the 'pdl1_inclusion' column.\",\n  \"assumptions\": \"Assuming 'other_biomarker_inclusion' and 'pdl1_inclusion' columns contain 'Yes' or 'No' values, and 'cancer_type' contains 'Prostate' for relevant trials.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row013_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row013_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.431600005365908,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ...LIKE '%Prostate%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Prostate%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 1.8644000083440915,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ...LIKE '%Prostate%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Prostate%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 1.7695999995339662,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ...LIKE '%Prostate%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Prostate%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row013_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 14.655799997854047,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row013_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6842105263157895,
+    "deterministic_across_runs": false
+  }
+}

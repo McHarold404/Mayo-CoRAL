@@ -1,0 +1,36 @@
+{
+  "question": "In Pancreatic trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Pancreatic trials and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Primary endpoint\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%pancreatic%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Determine if endpoint is primary or secondary based on text.",
+      "in": "t1",
+      "prompt": "For each row, read \"Primary endpoint\" and \"Secondary endpoint\" and output JSON {NCT, PMID, endpoint_type} with value in [\"primary\", \"secondary\", \"both\", \"unknown\"]. If only the primary endpoint column contains a value, classify the endpoint as \"primary\". If only the secondary endpoint column contains a value classify as \"secondary\". If values are present in both \"Primary endpoint\" and \"Secondary endpoint\" then classify as \"both\". If the values are missing from both columns then classify as \"unknown\". JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "endpoint_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

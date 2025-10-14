@@ -1,0 +1,52 @@
+{
+  "row_index": 48,
+  "question": "Which Non-Small Cell Lung trials used Chemo+Anti-VEGF as the control arm?",
+  "llm": {
+    "answer": "Trials with the specified characteristics are listed below.",
+    "assumptions": "Assuming NSCLC is mentioned in the cancer type and Chemo+Anti-VEGF is mentioned in the control regimen.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"control_regimen\\\" ILIKE '%Chemo/Anti-VEGF%'\",\n  \"answer\": \"Trials with the specified characteristics are listed below.\",\n  \"assumptions\": \"Assuming NSCLC is mentioned in the cancer type and Chemo+Anti-VEGF is mentioned in the control regimen.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row048_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row048_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.862300007720478,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row048_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.673300005379133,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row048_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.930099992430769,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row048_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row048_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.761600008350797,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row048_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.56,
+    "deterministic_across_runs": true
+  }
+}

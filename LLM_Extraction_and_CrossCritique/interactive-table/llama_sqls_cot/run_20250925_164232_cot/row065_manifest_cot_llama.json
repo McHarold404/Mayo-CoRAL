@@ -1,0 +1,52 @@
+{
+  "row_index": 65,
+  "question": "List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.",
+  "llama": {
+    "answer": "This query lists trials that investigated PD-L1 or CTLA-4 and reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4') AND \\\"primary_endpoint_is_multiple_or_composite\\\" = 'Yes'\",\n  \"answer\": \"This query lists trials that investigated PD-L1 or CTLA-4 and reported composite or co-primary endpoints.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row065_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row065_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.70340000174474,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row065_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.399600002216175,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row065_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8751000101910904,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row065_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row065_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.286600000341423,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row065_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

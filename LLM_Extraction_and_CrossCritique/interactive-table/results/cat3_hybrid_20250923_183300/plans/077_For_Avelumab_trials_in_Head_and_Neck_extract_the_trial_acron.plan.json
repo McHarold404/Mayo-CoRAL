@@ -1,0 +1,36 @@
+{
+  "question": "For Avelumab trials in Head and Neck, extract the trial acronym from the trial name (e.g., KEYNOTE-xxx, CHECKMATE-xxx).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Avelumab and Head and Neck trials, selecting relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Author\" AS \"Author\", \"Year\", \"Name of ICI\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%avelumab%' AND LOWER(\"Cancer type\") LIKE '%head and neck%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Extract the trial acronym from the trial name.",
+      "in": "t1",
+      "prompt": "For each row, read the \"Trial name\" and extract the trial acronym (e.g., KEYNOTE, CHECKMATE, etc.) if present at the beginning of the trial name, followed by a hyphen. If no acronym is found, return 'NONE'. Output a JSON object with keys NCT, PMID, and trial_acronym. Examples: {\"NCT\": \"NCT123\", \"PMID\": \"PMID456\", \"trial_acronym\": \"KEYNOTE\"}, {\"NCT\": \"NCT789\", \"PMID\": \"PMID101\", \"trial_acronym\": \"NONE\"}. Return JSON only, one object per row.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "trial_acronym"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate and clean the acronyms; remove invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

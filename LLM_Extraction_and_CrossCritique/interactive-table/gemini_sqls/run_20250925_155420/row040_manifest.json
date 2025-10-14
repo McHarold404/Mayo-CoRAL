@@ -1,0 +1,52 @@
+{
+  "row_index": 40,
+  "question": "List CTLA-4 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This query retrieves the NCT, author, year, and PubMed ID for clinical trials where the ICI class is CTLA-4 and the primary endpoint is multiple or composite.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'CTLA-4' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL;\",\n  \"answer\": \"This query retrieves the NCT, author, year, and PubMed ID for clinical trials where the ICI class is CTLA-4 and the primary endpoint is multiple or composite.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row040_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row040_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.044500004965812,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row040_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.657499997643754,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row040_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.682100003468804,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row040_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row040_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.107600002200343,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row040_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 22,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.07142857142857142,
+    "nct_recall": 1.0,
+    "nct_f1": 0.13333333333333333,
+    "nct_jaccard": 0.07142857142857142,
+    "sql_token_jaccard_vs_gt": 0.6190476190476191,
+    "deterministic_across_runs": true
+  }
+}

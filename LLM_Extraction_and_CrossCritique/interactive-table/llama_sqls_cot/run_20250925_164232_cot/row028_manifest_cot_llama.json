@@ -1,0 +1,52 @@
+{
+  "row_index": 28,
+  "question": "Find Head and Neck trials with median follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "This query will return Head and Neck trials with median follow-up and show months by arm.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL\",\n  \"answer\": \"This query will return Head and Neck trials with median follow-up and show months by arm.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row028_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row028_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8409999979194254,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row028_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.1345000063301995,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row028_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.940199996577576,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row028_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row028_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.5534000053303316,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row028_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 0.8,
+    "nct_recall": 0.8,
+    "nct_f1": 0.8000000000000002,
+    "nct_jaccard": 0.6666666666666666,
+    "sql_token_jaccard_vs_gt": 0.5384615384615384,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 4,
+  "question": "Which Phase 3 CTLA-4 combination trials in Melanoma should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query returns the NCT ID, authors, year, pubmed ID, treatment regimen, combination type, and control regimen for Phase 3 clinical trials in Melanoma that studied CTLA-4 inhibitors in combination therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\", \\\"control_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"ici_class\\\" = 'CTLA-4' AND \\\"monotherapy_combination\\\" = 'Combination'\",\n  \"answer\": \"This query returns the NCT ID, authors, year, pubmed ID, treatment regimen, combination type, and control regimen for Phase 3 clinical trials in Melanoma that studied CTLA-4 inhibitors in combination therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row004_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row004_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.8082999924663454,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 1: ...ILIKE '%Melanoma%' AND \"ici_class\" = 'CTLA-4' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" ILIKE '%%Melanoma%%' AND \"ici_class\" = 'CTLA-4' AND \"monotherapy_combination\" = 'Combination']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.4619999894639477,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 1: ...ILIKE '%Melanoma%' AND \"ici_class\" = 'CTLA-4' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" ILIKE '%%Melanoma%%' AND \"ici_class\" = 'CTLA-4' AND \"monotherapy_combination\" = 'Combination']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.1385000000009313,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy_combination\" does not exist\nLINE 1: ...ILIKE '%Melanoma%' AND \"ici_class\" = 'CTLA-4' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"combination_type\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" ILIKE '%%Melanoma%%' AND \"ici_class\" = 'CTLA-4' AND \"monotherapy_combination\" = 'Combination']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row004_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.640300001483411,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row004_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.7037037037037037,
+    "deterministic_across_runs": false
+  }
+}

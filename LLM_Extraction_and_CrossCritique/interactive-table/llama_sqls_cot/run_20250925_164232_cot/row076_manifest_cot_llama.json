@@ -1,0 +1,52 @@
+{
+  "row_index": 76,
+  "question": "Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llama": {
+    "answer": "This query will return Multiple Myeloma trials that used combination treatment and had at least 2 prior lines of therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Multiple Myeloma%' AND \\\"lines_of_treatment\\\" ILIKE '%2L%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query will return Multiple Myeloma trials that used combination treatment and had at least 2 prior lines of therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row076_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row076_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9429000025847927,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row076_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.851999994367361,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row076_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6957999982405454,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row076_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row076_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.020299995318055,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row076_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.45161290322580644,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 72,
+  "question": "Find Esophageal/GEJ trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, PubMed ID, and follow-up duration for Esophageal/GEJ trials from the clinical_trials table. It returns the follow-up duration in months for overall, treatment (Rx), and control arms.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Esophageal/GEJ'\",\n  \"answer\": \"This query selects the NCT ID, author, year, PubMed ID, and follow-up duration for Esophageal/GEJ trials from the clinical_trials table. It returns the follow-up duration in months for overall, treatment (Rx), and control arms.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row072_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row072_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.019400006858632,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row072_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.09590000344906,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row072_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.280100009054877,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row072_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row072_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.191100000753067,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row072_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.6842105263157895,
+    "deterministic_across_runs": true
+  }
+}

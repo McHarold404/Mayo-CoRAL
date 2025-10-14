@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column h.Control regimen does not exist
+LINE 1: ...lic.hybrid_66_bfd08ba6 h ON b.""Control regimen"" = h.""Control...
+                                                             ^
+HINT:  Perhaps you meant to reference the column ""b.Control regimen"".
+
+[SQL: SELECT b.""NCT"", b.""Author"" AS ""Author"", b.""Year"", b.""PMID"", b.""Control regimen"", h.""cytotoxic_drugs"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Control regimen"", ""Cancer type"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%gastric%%' AND LOWER(""Cancer type"") LIKE '%%gej%%' AND LOWER(""Control regimen"") LIKE '%%chemotherapy%%') b LEFT JOIN public.hybrid_66_bfd08ba6 h ON b.""Control regimen"" = h.""Control regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Gastric/GEJ trials with chemotherapy control, list the specific cytotoxic drugs from the control regimen."

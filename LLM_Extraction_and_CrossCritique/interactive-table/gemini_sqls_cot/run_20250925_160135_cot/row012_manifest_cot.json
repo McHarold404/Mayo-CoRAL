@@ -1,0 +1,52 @@
+{
+  "row_index": 12,
+  "question": "Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT ID, author, year, and PubMed ID for all prostate cancer trials using combination therapy with at least two prior lines of therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Prostate%' AND \\\"lines_of_treatment\\\" ILIKE '%2L+%' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This SQL query retrieves the NCT ID, author, year, and PubMed ID for all prostate cancer trials using combination therapy with at least two prior lines of therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row012_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row012_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.969700006768107,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.9455999940400943,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.304999994928949,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.428500003996305,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.43333333333333335,
+    "deterministic_across_runs": true
+  }
+}

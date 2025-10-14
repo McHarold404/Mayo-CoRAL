@@ -1,0 +1,52 @@
+{
+  "row_index": 45,
+  "question": "Which Pancreatic trials evaluated Pembrolizumab in phase 2?",
+  "llama": {
+    "answer": "This query returns Pancreatic trials that evaluated Pembrolizumab in phase 2.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Pancreatic%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 2'\",\n  \"answer\": \"This query returns Pancreatic trials that evaluated Pembrolizumab in phase 2.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row045_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row045_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.587400002288632,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row045_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.555300005245954,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row045_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.8172999997623265,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row045_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row045_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.6954999959561974,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row045_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7619047619047619,
+    "deterministic_across_runs": true
+  }
+}

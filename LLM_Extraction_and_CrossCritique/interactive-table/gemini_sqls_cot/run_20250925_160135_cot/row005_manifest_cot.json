@@ -1,0 +1,52 @@
+{
+  "row_index": 5,
+  "question": "Which Non-Small Cell Lung studies tested ICI+Chemo combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, authors, year, PubMed ID, and primary endpoint of clinical trials focusing on Non-Small Cell Lung Cancer (NSCLC) that used a combination of immune checkpoint inhibitors (ICI) and chemotherapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"combination_type\\\" = 'ICI + Chemo'\",\n  \"answer\": \"This query retrieves the NCT ID, authors, year, PubMed ID, and primary endpoint of clinical trials focusing on Non-Small Cell Lung Cancer (NSCLC) that used a combination of immune checkpoint inhibitors (ICI) and chemotherapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row005_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row005_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9304999954765663,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.757100003189407,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.7674000050174072,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.3904999911319464,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -13,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6363636363636364,
+    "deterministic_across_runs": true
+  }
+}

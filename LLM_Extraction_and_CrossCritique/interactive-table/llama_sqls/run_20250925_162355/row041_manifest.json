@@ -1,0 +1,52 @@
+{
+  "row_index": 41,
+  "question": "Show Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.",
+    "assumptions": "Assuming NSCLC is mentioned in the cancer type as 'NSCLC' and that PD-L1 and CTLA-4 are the only classes of interest.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"ici_class\\\", \\\"cancer_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"year\\\" >= 2018 AND \\\"cancer_type\\\" ILIKE '%NSCLC%' AND (\\\"ici_class\\\" ILIKE 'PD-L1' OR \\\"ici_class\\\" ILIKE 'CTLA-4')\",\n  \"answer\": \"List of Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming NSCLC is mentioned in the cancer type as 'NSCLC' and that PD-L1 and CTLA-4 are the only classes of interest.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row041_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row041_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.7939000030746683,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row041_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8545999996131286,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row041_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.7328999935416505,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row041_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row041_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.6521000001812354,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row041_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.47058823529411764,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 60,
+  "question": "Show Non-Small Cell Lung studies included in the meta\u2011analysis that used PD1, CTLA-4 agents.",
+  "gemini": {
+    "answer": "This query retrieves NSCLC trials included in a meta-analysis that used either PD-1 or CTLA-4 inhibitors.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"included_in_ma\\\" = 'Yes' AND (\\\"ici_class\\\" = 'PD-1' OR \\\"ici_class\\\" = 'CTLA-4')\",\n  \"answer\": \"This query retrieves NSCLC trials included in a meta-analysis that used either PD-1 or CTLA-4 inhibitors.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row060_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row060_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.814399999100715,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.791600000113249,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.963000010116957,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.770199997234158,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5357142857142857,
+    "deterministic_across_runs": true
+  }
+}

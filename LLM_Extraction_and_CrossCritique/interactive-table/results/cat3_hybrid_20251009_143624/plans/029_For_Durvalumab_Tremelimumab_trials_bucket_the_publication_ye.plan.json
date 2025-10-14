@@ -1,0 +1,22 @@
+{
+  "question": "For Durvalumab, Tremelimumab trials, bucket the publication year into: ≤2014, 2015–2018, ≥2019.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter trials containing Durvalumab or Tremelimumab and select the publication year.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%durvalumab%' OR LOWER(\"Name of ICI\") LIKE '%tremelimumab%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "SQL",
+      "desc": "Bucket the publication year into the specified categories.",
+      "in": "t1",
+      "sql": "SELECT \n    \"NCT\",\n    \"PMID\",\n    \"Author\",\n    \"Year\",\n    CASE\n        WHEN \"Year\" <= 2014 THEN '≤2014'\n        WHEN \"Year\" >= 2015 AND \"Year\" <= 2018 THEN '2015–2018'\n        WHEN \"Year\" >= 2019 THEN '≥2019'\n        ELSE 'Unknown'\n    END AS publication_year_bucket\nFROM t1",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

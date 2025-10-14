@@ -1,0 +1,52 @@
+{
+  "row_index": 53,
+  "question": "List PD-L1 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This query returns the NCT, author, year, and pubmed_id of all trials where the ICI class is PD-L1 and the primary endpoint is composite or co-primary.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'PD-L1' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL\",\n  \"answer\": \"This query returns the NCT, author, year, and pubmed_id of all trials where the ICI class is PD-L1 and the primary endpoint is composite or co-primary.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row053_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row053_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.758800001582131,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.554499999154359,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.471799995168112,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.70400000247173,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 36,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.2777777777777778,
+    "nct_recall": 1.0,
+    "nct_f1": 0.4347826086956522,
+    "nct_jaccard": 0.2777777777777778,
+    "sql_token_jaccard_vs_gt": 0.5909090909090909,
+    "deterministic_across_runs": true
+  }
+}

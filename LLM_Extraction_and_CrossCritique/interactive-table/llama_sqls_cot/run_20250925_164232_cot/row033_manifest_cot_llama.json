@@ -1,0 +1,52 @@
+{
+  "row_index": 33,
+  "question": "List PD1 trials that reported composite or co-primary endpoints.",
+  "llama": {
+    "answer": "This query returns PD1 trials that reported composite or co-primary endpoints by filtering on the 'ici_class' and 'primary_endpoint_is_multiple_or_composite' columns.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'PD1' AND \\\"primary_endpoint_is_multiple_or_composite\\\" = 'Yes'\",\n  \"answer\": \"This query returns PD1 trials that reported composite or co-primary endpoints by filtering on the 'ici_class' and 'primary_endpoint_is_multiple_or_composite' columns.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row033_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row033_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.78919999639038,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row033_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.026500013424084,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row033_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4808999917004257,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row033_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row033_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.870499993558042,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row033_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -19,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7222222222222222,
+    "deterministic_across_runs": true
+  }
+}

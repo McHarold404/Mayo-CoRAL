@@ -1,0 +1,36 @@
+{
+  "question": "In Head and Neck trials, from the secondary endpoint text flag if immune-related adverse events (irAEs) were explicitly assessed.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Head and Neck trials and select secondary endpoint text.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%head and neck%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text to boolean flag for irAE assessment.",
+      "in": "t1",
+      "prompt": "For each row, read Secondary endpoint and output JSON {NCT, PMID, irae_assessment}. Set irae_assessment to true if the text explicitly mentions immune-related adverse events (irAEs) or immune-related toxicity; otherwise, set it to false. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "irae_assessment"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set (boolean); drop blanks.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

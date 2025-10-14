@@ -1,0 +1,36 @@
+{
+  "question": "For Ipilimumab trials, bucket total sample size as small(<100), medium(100–299), or large(≥300).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Ipilimumab trials and select total sample size.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"Author\" AS \"Author\", \"Year\", \"PubMed ID\" AS \"PMID\", \"Name of ICI\", \"Total sample size\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%ipilimumab%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Bucket total sample size into small, medium, or large.",
+      "in": "t1",
+      "prompt": "For each row, read Total sample size and output JSON {NCT, PMID, sample_size_bucket}. Allowed sample_size_bucket: [\"small\",\"medium\",\"large\",\"unknown\"]. Define small if Total sample size < 100, medium if 100 <= Total sample size < 300, and large if Total sample size >= 300. If Total sample size is missing or invalid, set to unknown. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "sample_size_bucket"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

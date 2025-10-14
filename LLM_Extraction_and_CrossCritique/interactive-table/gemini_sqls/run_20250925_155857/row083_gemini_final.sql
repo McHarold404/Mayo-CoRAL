@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Breast%' AND "clinical_setting" = 'Neoadjuvant' AND "ici_name" IS NOT NULL

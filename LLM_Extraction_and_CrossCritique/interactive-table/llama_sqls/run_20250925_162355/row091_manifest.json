@@ -1,0 +1,52 @@
+{
+  "row_index": 91,
+  "question": "Show Renal cell PD1 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of Renal cell PD1 trials conducted in 2018 or later.",
+    "assumptions": "Assuming 'Renal cell' in 'cancer_type' refers to Renal cell carcinoma and 'PD1' is the exact 'ici_class' value.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"year\\\" >= 2018 AND \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"ici_class\\\" = 'PD1'\",\n  \"answer\": \"List of Renal cell PD1 trials conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming 'Renal cell' in 'cancer_type' refers to Renal cell carcinoma and 'PD1' is the exact 'ici_class' value.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row091_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row091_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.759100003866479,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row091_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.5053000105544925,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row091_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.904500001226552,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row091_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row091_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.026900005759671,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row091_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5555555555555556,
+    "deterministic_across_runs": true
+  }
+}

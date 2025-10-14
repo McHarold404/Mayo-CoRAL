@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "total_sample_size" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Melanoma%' AND "treatment_regimen" ILIKE '%Ipilimumab%' AND "therapy_type" = 'Combination therapy'

@@ -1,0 +1,36 @@
+{
+  "question": "In Bladder trials, classify overall follow-up maturity: 'mature' if ≥24 months, else 'immature' (or 'unknown' if missing).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Bladder trials and select follow-up duration.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Follow-up duration for primary endpoint(s) in months | Overall\" AS follow_up_months\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%bladder%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Handle missing follow-up durations using Trial name and Treatment regimen to classify follow-up maturity.",
+      "in": "t1",
+      "prompt": "Given the trial data, especially focusing on follow_up_months, classify the follow-up maturity as 'mature', 'immature', or 'unknown'. If follow_up_months is present and greater than or equal to 24, classify as 'mature'. If follow_up_months is present and less than 24, classify as 'immature'. If follow_up_months is missing, classify as 'unknown'. Output JSON with keys NCT, PMID, follow_up_maturity.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "follow_up_maturity"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Coerce to allowed label set [mature, immature, unknown].",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

@@ -1,0 +1,36 @@
+{
+  "question": "For Pembrolizumab trials in Head and Neck, extract the trial acronym from the trial name (e.g., KEYNOTE-xxx, CHECKMATE-xxx).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter trials for Pembrolizumab in Head and Neck cancer.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Name of ICI\", \"Cancer type\", \"Author\" AS \"Author\", \"Year\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%pembrolizumab%'\n  AND LOWER(\"Cancer type\") LIKE '%head and neck%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Extract trial acronym from the trial name.",
+      "in": "t1",
+      "prompt": "For each row, read the Trial name and output JSON {NCT, PMID, trial_acronym}. Extract the acronym prefix such as KEYNOTE, CHECKMATE, etc. If no acronym is found, set trial_acronym to \"NONE\". Output JSON objects only; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "trial_acronym"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate acronym extraction and handle missing values.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

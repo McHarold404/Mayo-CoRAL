@@ -1,0 +1,52 @@
+{
+  "row_index": 92,
+  "question": "Show Pembrolizumab combination trials in Renal cell with sample sizes.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, pubmed ID, total sample size and combination type for clinical trials where the ICI name is Pembrolizumab, the cancer type includes Renal cell, and the therapy is a combination.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\", \\\"combination_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_name\\\" = 'Pembrolizumab'\\nAND \\\"cancer_type\\\" ILIKE '%Renal cell%' \\nAND \\\"monotherapy\\\" = 'Combination therapy';\",\n  \"answer\": \"This query selects the NCT ID, author, year, pubmed ID, total sample size and combination type for clinical trials where the ICI name is Pembrolizumab, the cancer type includes Renal cell, and the therapy is a combination.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row092_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row092_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.930900009232573,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy\" does not exist\nLINE 5: AND \"monotherapy\" = 'Combination therapy';\n            ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Pembrolizumab'\nAND \"cancer_type\" ILIKE '%%Renal cell%%' \nAND \"monotherapy\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.115399998729117,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy\" does not exist\nLINE 5: AND \"monotherapy\" = 'Combination therapy';\n            ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Pembrolizumab'\nAND \"cancer_type\" ILIKE '%%Renal cell%%' \nAND \"monotherapy\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.0189999922877178,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy\" does not exist\nLINE 5: AND \"monotherapy\" = 'Combination therapy';\n            ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\", \"combination_type\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Pembrolizumab'\nAND \"cancer_type\" ILIKE '%%Renal cell%%' \nAND \"monotherapy\" = 'Combination therapy';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.93070001155138,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": false
+  }
+}

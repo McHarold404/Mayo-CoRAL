@@ -1,0 +1,52 @@
+{
+  "row_index": 46,
+  "question": "Which Melanoma trials evaluated Pembrolizumab in phase 3?",
+  "llama": {
+    "answer": "The query returns Melanoma trials that evaluated Pembrolizumab in phase 3.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3'\",\n  \"answer\": \"The query returns Melanoma trials that evaluated Pembrolizumab in phase 3.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row046_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row046_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.5261999912327155,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row046_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.3586000063223764,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row046_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.3448000031057745,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row046_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row046_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.8380000041797757,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row046_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7619047619047619,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "question": "In Gastric/GEJ Phase 3 trials, classify the control arm as active, placebo, or best supportive care.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Gastric/GEJ Phase 3 trials and select the control arm.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Trial phase\", \"Control arm\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%gastric%' AND LOWER(\"Cancer type\") LIKE '%gej%' AND \"Trial phase\" = 'Phase 3'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text to controlled control arm categories.",
+      "in": "t1",
+      "prompt": "For each row, read Control arm and output JSON {NCT, PMID, control_arm_type} with label in [\"active\",\"placebo\",\"best supportive care\",\"unknown\"]. Heuristics: active if chemotherapy, targeted therapy, or other standard treatment; placebo if placebo is mentioned; best supportive care if BSC or best supportive care is mentioned; unknown if none of the above. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "control_arm_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

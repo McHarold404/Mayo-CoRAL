@@ -1,0 +1,52 @@
+{
+  "row_index": 20,
+  "question": "Find Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, and PubMed ID for Phase 2 clinical trials using Pembrolizumab for Melanoma that are original publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"cancer_type\\\" = 'Melanoma' AND \\\"publication_type\\\" = 'Original publication'\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, and PubMed ID for Phase 2 clinical trials using Pembrolizumab for Melanoma that are original publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row020_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row020_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.773200005525723,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row020_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8920999941183254,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row020_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.411400000914,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row020_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row020_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.8437000039266422,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row020_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.95,
+    "deterministic_across_runs": true
+  }
+}

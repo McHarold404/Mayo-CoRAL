@@ -1,0 +1,52 @@
+{
+  "row_index": 71,
+  "question": "List Esophageal/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "Trials for Esophageal/GEJ cancer that require a biomarker other than PD-L1 for inclusion are listed.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Esophageal/GEJ%' AND \\\"other_biomarker_inclusion\\\" = 'Yes'\",\n  \"answer\": \"Trials for Esophageal/GEJ cancer that require a biomarker other than PD-L1 for inclusion are listed.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row071_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row071_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.584199996315874,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row071_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.382299986900762,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row071_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.541300000506453,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row071_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row071_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.536300009931438,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row071_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7777777777777778,
+    "deterministic_across_runs": true
+  }
+}

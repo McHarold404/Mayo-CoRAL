@@ -1,0 +1,52 @@
+{
+  "row_index": 45,
+  "question": "Which Pancreatic trials evaluated Pembrolizumab in phase 2?",
+  "llm": {
+    "answer": "List of Pancreatic trials that evaluated Pembrolizumab in phase 2.",
+    "assumptions": "Assuming 'Pancreatic' is a substring of the cancer type and 'Pembrolizumab' is the exact ICI name.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Pancreatic%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 2'\",\n  \"answer\": \"List of Pancreatic trials that evaluated Pembrolizumab in phase 2.\",\n  \"assumptions\": \"Assuming 'Pancreatic' is a substring of the cancer type and 'Pembrolizumab' is the exact ICI name.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row045_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row045_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8361000042641535,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row045_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.507100002025254,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row045_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.069099992397241,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row045_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row045_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.4426000056555495,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row045_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8095238095238095,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "question": "In Melanoma trials, determine whether the listed endpoint is primary or secondary based on the endpoint text.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Melanoma trials and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Primary endpoint\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%melanoma%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Determine if the endpoint is primary or secondary based on endpoint text.",
+      "in": "t1",
+      "prompt": "For each row, examine the Primary endpoint and Secondary endpoint columns and determine whether the listed endpoint is primary, secondary, or both. Output JSON with the following format: {NCT, PMID, endpoint_type}. The value of endpoint_type must be one of the following: [\"primary\", \"secondary\", \"both\", \"unknown\"]. If the primary endpoint is not null and the secondary endpoint is null, endpoint_type is primary. If the secondary endpoint is not null and the primary endpoint is null, endpoint_type is secondary. If both primary endpoint and secondary endpoint are not null, endpoint_type is both. If both primary endpoint and secondary endpoint are null, endpoint_type is unknown. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "endpoint_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

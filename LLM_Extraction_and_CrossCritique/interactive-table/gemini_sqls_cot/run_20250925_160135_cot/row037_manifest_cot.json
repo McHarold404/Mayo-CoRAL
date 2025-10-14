@@ -1,0 +1,52 @@
+{
+  "row_index": 37,
+  "question": "Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, authors, publication year, PubMed ID, and treatment regimen for Phase 2 trials studying PD-L1 monotherapy in breast cancer.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"monotherapy/combination\\\" = 'Monotherapy' AND \\\"cancer_type\\\" = 'Breast (TNBC)'\",\n  \"answer\": \"This query retrieves the NCT ID, authors, publication year, PubMed ID, and treatment regimen for Phase 2 trials studying PD-L1 monotherapy in breast cancer.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row037_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row037_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 3.1750999914947897,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy/combination\" does not exist\nLINE 1: ..._phase\" = 'Phase 2' AND \"ici_class\" = 'PD-L1' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"ici_class\" = 'PD-L1' AND \"monotherapy/combination\" = 'Monotherapy' AND \"cancer_type\" = 'Breast (TNBC)']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.108800006681122,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy/combination\" does not exist\nLINE 1: ..._phase\" = 'Phase 2' AND \"ici_class\" = 'PD-L1' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"ici_class\" = 'PD-L1' AND \"monotherapy/combination\" = 'Monotherapy' AND \"cancer_type\" = 'Breast (TNBC)']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.0003000099677593,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy/combination\" does not exist\nLINE 1: ..._phase\" = 'Phase 2' AND \"ici_class\" = 'PD-L1' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"ici_class\" = 'PD-L1' AND \"monotherapy/combination\" = 'Monotherapy' AND \"cancer_type\" = 'Breast (TNBC)']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.820800004177727,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": false
+  }
+}

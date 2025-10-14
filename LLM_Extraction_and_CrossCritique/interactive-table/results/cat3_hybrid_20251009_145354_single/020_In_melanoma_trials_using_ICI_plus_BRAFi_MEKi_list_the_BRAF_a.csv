@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column h.Treatment regimen does not exist
+LINE 1: ...c.hybrid_20_85e598e2 h ON b.""Treatment regimen"" = h.""Treatme...
+                                                             ^
+HINT:  Perhaps you meant to reference the column ""b.Treatment regimen"".
+
+[SQL: SELECT b.""NCT"", b.""Author"" AS ""Author"", b.""Year"", b.""PMID"", b.""Treatment regimen"", h.""braf_mek_inhibitors"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Treatment regimen"", ""Name of ICI"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%melanoma%%' AND LOWER(""Treatment regimen"") LIKE '%%ici%%' AND LOWER(""Treatment regimen"") LIKE '%%braf%%' AND LOWER(""Treatment regimen"") LIKE '%%mek%%') b LEFT JOIN public.hybrid_20_85e598e2 h ON b.""Treatment regimen"" = h.""Treatment regimen""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In melanoma trials using ICI plus BRAFi+MEKi, list the BRAF and MEK inhibitors used in the regimen."

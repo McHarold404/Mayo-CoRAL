@@ -1,0 +1,52 @@
+{
+  "row_index": 54,
+  "question": "Find Breast trials with median follow\u2011up and show months by arm.",
+  "llm": {
+    "answer": "Breast trials with median follow-up and months by arm.",
+    "assumptions": "Assuming 'median follow-up' refers to the presence of follow-up duration data, and 'months by arm' refers to the experimental and control arm follow-up durations.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"follow_up_duration_overall_months\\\" IS NOT NULL AND (\\\"follow_up_duration_rx_months\\\" IS NOT NULL OR \\\"follow_up_duration_control_months\\\" IS NOT NULL)\",\n  \"answer\": \"Breast trials with median follow-up and months by arm.\",\n  \"assumptions\": \"Assuming 'median follow-up' refers to the presence of follow-up duration data, and 'months by arm' refers to the experimental and control arm follow-up durations.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row054_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row054_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.431800000020303,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row054_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.860900003928691,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row054_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.5287000064272434,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row054_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row054_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.236199998762459,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row054_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 1.0,
+    "nct_recall": 0.2222222222222222,
+    "nct_f1": 0.3636363636363636,
+    "nct_jaccard": 0.2222222222222222,
+    "sql_token_jaccard_vs_gt": 0.48148148148148145,
+    "deterministic_across_runs": true
+  }
+}

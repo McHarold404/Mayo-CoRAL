@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "treatment_regimen" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "ici_class" = 'PD1' AND "combination_type" = 'ICI + Chemo' AND "cancer_type" = 'NSCLC'

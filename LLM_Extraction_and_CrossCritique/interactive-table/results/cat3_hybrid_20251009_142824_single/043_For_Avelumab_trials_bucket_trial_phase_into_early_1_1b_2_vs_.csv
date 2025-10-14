@@ -1,0 +1,7 @@
+error,question
+"(psycopg2.errors.UndefinedColumn) column ""PubMed ID"" does not exist
+LINE 1: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""...
+                                                    ^
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Trial phase"", h.""trial_phase_bucket"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Trial phase"" FROM compat.clinical_trials WHERE LOWER(""Name of ICI"")='avelumab') b LEFT JOIN public.hybrid_43_91fe2b1e h ON b.""Trial phase"" = h.""Trial phase""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","For Avelumab trials, bucket trial phase into early (1/1b/2) vs late (3/4)."

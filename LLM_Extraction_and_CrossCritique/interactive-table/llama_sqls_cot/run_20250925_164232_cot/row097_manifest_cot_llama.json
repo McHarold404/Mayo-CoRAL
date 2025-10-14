@@ -1,0 +1,52 @@
+{
+  "row_index": 97,
+  "question": "Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "llama": {
+    "answer": "This query will return Phase 3 trials for Durvalumab and Tremelimumab in Small Cell Lung cancer that were follow-up publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_name\\\" IN ('Durvalumab', 'Tremelimumab') AND \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' AND \\\"original_publication_or_follow_up\\\" = 'Follow-up'\",\n  \"answer\": \"This query will return Phase 3 trials for Durvalumab and Tremelimumab in Small Cell Lung cancer that were follow-up publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row097_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row097_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 3.992300000390969,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication_or_follow_up\" does not exist\nLINE 1: ...) AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"ici_name\" IN ('Durvalumab', 'Tremelimumab') AND \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"original_publication_or_follow_up\" = 'Follow-up']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.546399991842918,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication_or_follow_up\" does not exist\nLINE 1: ...) AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"ici_name\" IN ('Durvalumab', 'Tremelimumab') AND \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"original_publication_or_follow_up\" = 'Follow-up']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.217200002633035,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication_or_follow_up\" does not exist\nLINE 1: ...) AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"ici_name\" IN ('Durvalumab', 'Tremelimumab') AND \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"original_publication_or_follow_up\" = 'Follow-up']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row097_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.102199993212707,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row097_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.8076923076923077,
+    "deterministic_across_runs": false
+  }
+}

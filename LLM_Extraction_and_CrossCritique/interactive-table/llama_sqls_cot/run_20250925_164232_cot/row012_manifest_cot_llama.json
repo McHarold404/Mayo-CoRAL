@@ -1,0 +1,52 @@
+{
+  "row_index": 12,
+  "question": "Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llama": {
+    "answer": "This query returns Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+    "assumptions": "Assuming 'lines_of_treatment' is numeric and represents the number of prior lines of therapy, and 'combination_type' is not null for combination treatments.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Prostate%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"combination_type\\\" IS NOT NULL\",\n  \"answer\": \"This query returns Prostate trials with at least 2 prior lines of therapy that used combination treatment.\",\n  \"assumptions\": \"Assuming 'lines_of_treatment' is numeric and represents the number of prior lines of therapy, and 'combination_type' is not null for combination treatments.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row012_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row012_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.2766999900341034,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...type\" ILIKE '%Prostate%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Prostate%%' AND \"lines_of_treatment\" >= 2 AND \"combination_type\" IS NOT NULL]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.024000001256354,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...type\" ILIKE '%Prostate%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Prostate%%' AND \"lines_of_treatment\" >= 2 AND \"combination_type\" IS NOT NULL]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.260799999930896,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...type\" ILIKE '%Prostate%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Prostate%%' AND \"lines_of_treatment\" >= 2 AND \"combination_type\" IS NOT NULL]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row012_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 6.024199989042245,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row012_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.45161290322580644,
+    "deterministic_across_runs": false
+  }
+}

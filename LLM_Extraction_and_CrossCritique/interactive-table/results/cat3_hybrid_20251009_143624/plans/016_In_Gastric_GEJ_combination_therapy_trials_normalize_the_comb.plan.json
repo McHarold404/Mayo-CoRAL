@@ -1,0 +1,36 @@
+{
+  "question": "In Gastric/GEJ combination therapy trials, normalize the combination type to standardized labels (e.g., ICI+Chemo, ICI+TKI, ICI+ICI).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Gastric/GEJ combination therapy trials and select relevant columns.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Cancer type\", \"Treatment regimen\", \"Type of combination\", \"Monotherapy/combination\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%gastric%' OR LOWER(\"Cancer type\") LIKE '%gej%'\n  AND LOWER(\"Monotherapy/combination\") LIKE '%combination%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text to controlled combination type categories.",
+      "in": "t1",
+      "prompt": "For each row, read Type of combination, Treatment regimen, and Trial name and emit JSON {NCT, PMID, combination_type} with label in [\"ICI+Chemo\", \"ICI+TKI\", \"ICI+ICI\", \"ICI+Other\", \"Chemo+TKI\", \"Chemo+Other\", \"Other\", \"unknown\"]. Heuristics: If ICI and Chemo are present, then ICI+Chemo; If ICI and TKI are present, then ICI+TKI; If multiple ICIs are present, then ICI+ICI; If ICI and something else, then ICI+Other; If Chemo and TKI are present, then Chemo+TKI; If Chemo and something else, then Chemo+Other; If none of the above, then Other. Default to unknown. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "combination_type"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "cancer_type", "ici_name", "ici_class", "therapy_type" FROM public."clinical_trials" WHERE "year" >= 2018 AND "cancer_type" ILIKE '%Prostate%' AND "ici_class" = 'CTLA4'

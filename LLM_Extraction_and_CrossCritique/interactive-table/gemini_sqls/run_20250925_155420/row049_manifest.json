@@ -1,0 +1,52 @@
+{
+  "row_index": 49,
+  "question": "Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year, and pubmed_id for clinical trials related to Head and Neck Squamous Cell Carcinoma (HNSCC) published in 2018 or later, where the ICI class is either PD-L1 or CTLA-4.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%HNSCC%' AND \\\"year\\\" >= 2018 AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4')\",\n  \"answer\": \"This query retrieves the nct, author, year, and pubmed_id for clinical trials related to Head and Neck Squamous Cell Carcinoma (HNSCC) published in 2018 or later, where the ICI class is either PD-L1 or CTLA-4.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row049_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row049_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 10.700699989683926,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row049_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 9.061100005055778,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row049_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 8.746999999857508,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row049_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row049_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 9.725099997012876,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row049_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5161290322580645,
+    "deterministic_across_runs": true
+  }
+}

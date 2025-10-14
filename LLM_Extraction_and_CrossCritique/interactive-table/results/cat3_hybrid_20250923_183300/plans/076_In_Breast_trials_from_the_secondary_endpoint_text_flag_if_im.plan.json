@@ -1,0 +1,36 @@
+{
+  "question": "In Breast trials, from the secondary endpoint text flag if immune-related adverse events (irAEs) were explicitly assessed.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter for Breast trials and select secondary endpoint text.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%breast%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Determine if secondary endpoint text mentions irAEs.",
+      "in": "t1",
+      "prompt": "For each row, read Secondary endpoint and output JSON {NCT, PMID, irae_assessment}. If the text explicitly mentions immune-related adverse events (irAEs) or a similar term, set irae_assessment to \"yes\"; otherwise, set it to \"no\". Allowed values for irae_assessment are [\"yes\", \"no\", \"unknown\"]. Output JSON objects only; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "irae_assessment"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate the label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

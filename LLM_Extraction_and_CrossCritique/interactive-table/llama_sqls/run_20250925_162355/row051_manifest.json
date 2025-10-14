@@ -1,0 +1,52 @@
+{
+  "row_index": 51,
+  "question": "Show Head and Neck trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "llm": {
+    "answer": "Trials for Head and Neck cancer using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "Assuming 'Head and Neck' is a substring of the cancer type and PD-L1 positivity is explicitly stated as 'Yes' in the pdl1_inclusion column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"pdl1_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"ici_class\\\" = 'PDL1' AND \\\"pdl1_inclusion\\\" = 'Yes'\",\n  \"answer\": \"Trials for Head and Neck cancer using PD-L1 where PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"Assuming 'Head and Neck' is a substring of the cancer type and PD-L1 positivity is explicitly stated as 'Yes' in the pdl1_inclusion column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row051_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row051_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.482000003918074,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row051_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.924299999605864,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row051_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.675400006817654,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row051_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row051_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.2678000027081,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row051_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5833333333333334,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.64,
+    "deterministic_across_runs": true
+  }
+}

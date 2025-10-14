@@ -1,0 +1,52 @@
+{
+  "row_index": 56,
+  "question": "List Breast trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "Breast trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"control_type\\\", \\\"lines_of_treatment\\\", \\\"clinical_setting_in_relation_to_surgery\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\", \\\"secondary_endpoint\\\", \\\"pdl1_inclusion\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"other_biomarker_inclusion\\\" = 'Yes'\",\n  \"answer\": \"Breast trials requiring a biomarker other than PD-L1 for inclusion are listed.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row056_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row056_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 18.969100012327544,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row056_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.076600005850196,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row056_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.5877999984659255,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row056_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row056_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.7791999930050224,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row056_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 5,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.43333333333333335,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 96,
+  "question": "List Head and Neck trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This query lists Head and Neck trials that require a biomarker other than PD-L1 for inclusion based on the values in the \"cancer_type\", \"other_biomarker_inclusion\", and \"pdl1_inclusion\" columns.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No';\",\n  \"answer\": \"This query lists Head and Neck trials that require a biomarker other than PD-L1 for inclusion based on the values in the \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\", and \\\"pdl1_inclusion\\\" columns.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155420\\row096_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155420\\row096_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 7.848299996112473,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row096_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 10.139699996216223,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row096_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 8.087700000032783,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155420\\row096_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155420\\row096_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 11.808099996414967,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155420\\row096_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

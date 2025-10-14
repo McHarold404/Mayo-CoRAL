@@ -1,0 +1,52 @@
+{
+  "row_index": 91,
+  "question": "Show Renal cell PD1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year and pubmed_id of Renal Cell trials from 2018 or later where the ICI class is PD-1.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"ici_class\\\" = 'PD-1' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"This query retrieves the nct, author, year and pubmed_id of Renal Cell trials from 2018 or later where the ICI class is PD-1.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row091_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row091_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9219000027514994,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row091_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.164199999650009,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row091_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.59670000418555,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row091_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row091_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.9336999907391146,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row091_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -5,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5,
+    "deterministic_across_runs": true
+  }
+}

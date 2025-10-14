@@ -1,0 +1,52 @@
+{
+  "row_index": 24,
+  "question": "Find Phase 2 Atezolizumab trials in Non-Small Cell Lung that were original publication publications.",
+  "llama": {
+    "answer": "This query identifies Phase 2 trials of Atezolizumab in Non-Small Cell Lung Cancer that were original publication publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_name\\\" = 'Atezolizumab' AND \\\"cancer_type\\\" ILIKE '%Non-Small Cell Lung%' AND \\\"original_publication\\\" = 'Yes'\",\n  \"answer\": \"This query identifies Phase 2 trials of Atezolizumab in Non-Small Cell Lung Cancer that were original publication publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row024_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row024_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 4.018099993118085,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication\" does not exist\nLINE 1: ...D \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"ici_name\" = 'Atezolizumab' AND \"cancer_type\" ILIKE '%%Non-Small Cell Lung%%' AND \"original_publication\" = 'Yes']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 3.715099999681115,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication\" does not exist\nLINE 1: ...D \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"ici_name\" = 'Atezolizumab' AND \"cancer_type\" ILIKE '%%Non-Small Cell Lung%%' AND \"original_publication\" = 'Yes']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.9975999932503328,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication\" does not exist\nLINE 1: ...D \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"ici_name\" = 'Atezolizumab' AND \"cancer_type\" ILIKE '%%Non-Small Cell Lung%%' AND \"original_publication\" = 'Yes']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row024_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 6.8718999973498285,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row024_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.7307692307692307,
+    "deterministic_across_runs": false
+  }
+}

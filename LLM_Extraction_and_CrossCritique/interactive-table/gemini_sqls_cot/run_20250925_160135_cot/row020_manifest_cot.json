@@ -1,0 +1,52 @@
+{
+  "row_index": 20,
+  "question": "Find Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year, and pubmed_id for phase 2 trials of Pembrolizumab in Melanoma that are original publications.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"cancer_type\\\" = 'Melanoma' AND \\\"publication_type\\\" = 'Original publication'\",\n  \"answer\": \"This query retrieves the nct, author, year, and pubmed_id for phase 2 trials of Pembrolizumab in Melanoma that are original publications.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row020_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row020_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4476000000722706,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.5937000066041946,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.716200008057058,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.5982999979751185,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.95,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 47,
+  "question": "Show Melanoma trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "llm": {
+    "answer": "Melanoma trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "Assuming PD-L1 positivity inclusion criteria is consistently recorded as 'Yes' in the 'pdl1_inclusion' column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"ici_class\\\" = 'PD1' AND \\\"pdl1_inclusion\\\" = 'Yes'\",\n  \"answer\": \"Melanoma trials using PD1 where PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"Assuming PD-L1 positivity inclusion criteria is consistently recorded as 'Yes' in the 'pdl1_inclusion' column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row047_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row047_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.6488000041572377,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row047_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.105700005311519,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row047_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.805599990300834,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row047_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row047_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.1655999957583845,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row047_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -14,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6363636363636364,
+    "deterministic_across_runs": true
+  }
+}

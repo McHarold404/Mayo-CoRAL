@@ -1,0 +1,36 @@
+{
+  "question": "In Pancreatic trials, from the secondary endpoint text flag if immune-related adverse events (irAEs) were explicitly assessed.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Pancreatic trials and select the secondary endpoint text.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Secondary endpoint\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%pancreatic%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Identify if irAEs were explicitly assessed in the secondary endpoint text.",
+      "in": "t1",
+      "prompt": "For each row, read the Secondary endpoint text and output JSON {NCT, PMID, irAE_assessed} with irAE_assessed being either 'yes' or 'no'. Answer 'yes' only if immune-related adverse events (irAEs) or immune-related toxicity is explicitly mentioned. Otherwise, answer 'no'. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "irAE_assessed"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate label set and drop invalid rows.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

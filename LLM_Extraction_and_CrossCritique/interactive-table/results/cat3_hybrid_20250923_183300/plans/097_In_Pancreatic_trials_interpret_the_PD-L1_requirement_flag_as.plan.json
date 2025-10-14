@@ -1,0 +1,36 @@
+{
+  "question": "In Pancreatic trials, interpret the PD-L1 requirement flag as boolean true/false.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Pancreatic cancer trials and select PD-L1 inclusion criteria.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Is PD-L1 positivity inclusion criteria\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%pancreatic%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Interpret the PD-L1 requirement flag as boolean.",
+      "in": "t1",
+      "prompt": "For each row, read \"Is PD-L1 positivity inclusion criteria\" and output JSON with fields NCT, PMID, pdl1_required. If the value indicates PD-L1 positivity is required for inclusion, pdl1_required should be true, otherwise false. If the value is missing or unclear, pdl1_required should be false. Output JSON objects only—one per input row; no prose.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "pdl1_required"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate and coerce labels.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

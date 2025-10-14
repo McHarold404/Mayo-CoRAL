@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "treatment_regimen" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 2' AND "ici_class" = 'CTLA4' AND "combination_type" = 'ICI + ICI' AND "cancer_type" = 'Pancreatic'

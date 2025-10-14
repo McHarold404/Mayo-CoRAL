@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Renal cell%' AND ("ici_class" = 'PD-1' OR "ici_class" = 'CTLA-4') AND "year" >= 2018

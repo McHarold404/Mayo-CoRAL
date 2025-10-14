@@ -1,0 +1,8 @@
+error,question
+"(psycopg2.errors.UndefinedFunction) operator does not exist: double precision = text
+LINE 1: ...tion for primary endpoint(s) in months | Overall"" = h.""Follo...
+                                                             ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", b.""Follow-up duration for primary endpoint(s) in months | Overall"", h.""followup_bucket"" FROM (SELECT ""NCT"", ""Author"" AS ""Author"", ""Year"", ""PubMed ID"" AS ""PMID"", ""Cancer type"", ""Follow-up duration for primary endpoint(s) in months | Overall"" FROM compat.clinical_trials WHERE LOWER(""Cancer type"") LIKE '%%esophageal%%' OR LOWER(""Cancer type"") LIKE '%%gej%%') b LEFT JOIN public.hybrid_89_dbc833b1 h ON b.""Follow-up duration for primary endpoint(s) in months | Overall"" = h.""Follow-up duration for primary endpoint(s) in months | Overall""]
+(Background on this error at: https://sqlalche.me/e/20/f405)","In Esophageal/GEJ trials, bucket overall follow-up months into <12, 12–23, or ≥24."

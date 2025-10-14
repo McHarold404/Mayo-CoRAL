@@ -1,0 +1,52 @@
+{
+  "row_index": 17,
+  "question": "Which Small Cell Lung phase 3 trials compared ICI to Chemo?",
+  "llama": {
+    "answer": "The query returns Small Cell Lung phase 3 trials comparing ICI to Chemo.",
+    "assumptions": "Small Cell Lung trials are identified by the presence of 'Small Cell Lung' in the cancer_type column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' AND \\\"combination_type\\\" = 'ICI + Chemo' AND \\\"control_type\\\" = 'Chemo'\",\n  \"answer\": \"The query returns Small Cell Lung phase 3 trials comparing ICI to Chemo.\",\n  \"assumptions\": \"Small Cell Lung trials are identified by the presence of 'Small Cell Lung' in the cancer_type column.\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row017_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row017_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.2314000020269305,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row017_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.708300006110221,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row017_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.150799999479204,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row017_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row017_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.6576999991666526,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row017_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.72,
+    "deterministic_across_runs": true
+  }
+}

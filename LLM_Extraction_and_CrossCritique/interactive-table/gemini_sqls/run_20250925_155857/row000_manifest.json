@@ -1,0 +1,52 @@
+{
+  "row_index": 0,
+  "question": "Show Melanoma trials that used ICI+Vaccine combinations.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials related to melanoma that used an ICI + Vaccine combination therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"combination_type\\\" = 'ICI + Vaccine'\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials related to melanoma that used an ICI + Vaccine combination therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20250925_155857\\row000_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20250925_155857\\row000_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 74.02720001118723,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row000_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.885100002866238,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row000_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.456099999719299,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20250925_155857\\row000_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20250925_155857\\row000_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.994499999564141,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20250925_155857\\row000_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7368421052631579,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "question": "For Avelumab trials, bucket trial phase into early (1/1b/2) vs late (3/4).",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Avelumab trials and select trial phase.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Trial name\", \"Trial phase\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Name of ICI\") LIKE '%avelumab%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Map free text trial phase to early or late.",
+      "in": "t1",
+      "prompt": "For each row, read Trial phase and output JSON {NCT, PMID, trial_phase_bucket}. Allowed trial_phase_bucket: [\"early\",\"late\",\"unknown\"]. Hints: early if Trial phase contains 1, 1b, or 2; late if Trial phase contains 3 or 4. JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "trial_phase_bucket"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Ensure allowed labels; drop blanks.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}

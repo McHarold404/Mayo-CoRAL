@@ -1,0 +1,52 @@
+{
+  "row_index": 54,
+  "question": "Find Breast trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, PubMed ID, and follow-up durations for clinical trials related to breast cancer, including overall, treatment arm, and control arm follow-up times.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%'\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, PubMed ID, and follow-up durations for clinical trials related to breast cancer, including overall, treatment arm, and control arm follow-up times.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row054_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row054_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.245300009846687,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.550500001641922,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.659099999116734,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 4.152699999394827,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.9,
+    "nct_recall": 1.0,
+    "nct_f1": 0.9473684210526316,
+    "nct_jaccard": 0.9,
+    "sql_token_jaccard_vs_gt": 0.631578947368421,
+    "deterministic_across_runs": true
+  }
+}

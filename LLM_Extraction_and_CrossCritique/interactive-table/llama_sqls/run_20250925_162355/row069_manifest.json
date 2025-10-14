@@ -1,0 +1,52 @@
+{
+  "row_index": 69,
+  "question": "Which Colorectal phase 3 trials compared ICI to Chemo?",
+  "llm": {
+    "answer": "List of Colorectal phase 3 trials comparing ICI to Chemo.",
+    "assumptions": "Assuming 'ICI + Chemo' is the exact combination type and 'Chemo' is the exact control type.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\", \\\"trial_phase\\\", \\\"control_regimen\\\", \\\"control_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Colorectal%' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"therapy_type\\\" = 'Combination therapy' AND \\\"combination_type\\\" = 'ICI + Chemo' AND \\\"control_type\\\" = 'Chemo'\",\n  \"answer\": \"List of Colorectal phase 3 trials comparing ICI to Chemo.\",\n  \"assumptions\": \"Assuming 'ICI + Chemo' is the exact combination type and 'Chemo' is the exact control type.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20250925_162355\\row069_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20250925_162355\\row069_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 8.600599991041236,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row069_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.304800001089461,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row069_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.073300002957694,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20250925_162355\\row069_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20250925_162355\\row069_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.427899992559105,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20250925_162355\\row069_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

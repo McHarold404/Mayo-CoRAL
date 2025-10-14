@@ -1,0 +1,52 @@
+{
+  "row_index": 48,
+  "question": "Which Non-Small Cell Lung trials used Chemo+Anti-VEGF as the control arm?",
+  "llama": {
+    "answer": "Trials with NSCLC and Chemo+Anti-VEGF as control arm.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"control_regimen\\\" ILIKE '%Chemo/Anti-VEGF%'\",\n  \"answer\": \"Trials with NSCLC and Chemo+Anti-VEGF as control arm.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "llama_sqls_cot\\run_20250925_164232_cot\\row048_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20250925_164232_cot\\row048_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.469099993002601,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row048_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.737499995622784,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row048_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8460000068880618,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row048_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20250925_164232_cot\\row048_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 5.561800004215911,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20250925_164232_cot\\row048_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5833333333333334,
+    "deterministic_across_runs": true
+  }
+}

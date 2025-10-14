@@ -1,0 +1,52 @@
+{
+  "row_index": 16,
+  "question": "Show Melanoma studies included in the meta\u2011analysis that used CTLA-4 agents.",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, and PubMed ID of melanoma studies that were included in the meta-analysis and used CTLA-4 agents.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Melanoma' AND \\\"included_in_ma\\\" = 'Yes' AND \\\"ici_class\\\" = 'CTLA-4'\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, and PubMed ID of melanoma studies that were included in the meta-analysis and used CTLA-4 agents.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row016_gemini_original_cot.sql",
+    "sql_final_file": "gemini_sqls_cot\\run_20250925_160135_cot\\row016_gemini_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.5496000054990873,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.3576999994693324,
+      "error": null,
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.5245000035502017,
+      "error": null,
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": null,
+    "status": "ok",
+    "latency_ms": 3.903699995134957,
+    "error": null,
+    "results_csv": null
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.25,
+    "nct_recall": 0.5,
+    "nct_f1": 0.3333333333333333,
+    "nct_jaccard": 0.2,
+    "sql_token_jaccard_vs_gt": 0.75,
+    "deterministic_across_runs": true
+  }
+}

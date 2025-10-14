@@ -1,0 +1,36 @@
+{
+  "question": "In Renal cell studies using ICI+TKI, list the TKI agent(s) mentioned in the treatment regimen.",
+  "steps": [
+    {
+      "id": "S1",
+      "op": "SQL",
+      "desc": "Filter Renal cell carcinoma trials with ICI+TKI combination therapy.",
+      "in": [],
+      "sql": "WITH base AS (\n  SELECT \"NCT\", \"PubMed ID\" AS \"PMID\", \"Author\" AS \"Author\", \"Year\", \"Cancer type\", \"Treatment regimen\", \"Type of combination\"\n  FROM compat.clinical_trials\n  WHERE LOWER(\"Cancer type\") LIKE '%renal cell%' AND LOWER(\"Type of combination\") LIKE '%ici+tki%'\n)\nSELECT * FROM base;",
+      "out": "t1"
+    },
+    {
+      "id": "S2",
+      "op": "LLM",
+      "desc": "Extract TKI agents from the treatment regimen.",
+      "in": "t1",
+      "prompt": "For each row, examine the 'Treatment regimen' column and extract any TKI (tyrosine kinase inhibitor) agents mentioned. Output a JSON object with the fields NCT, PMID, and tki_agent. If multiple TKI agents are mentioned, list them separated by commas. If no TKI agent is found, set tki_agent to \"NONE\". Output JSON only.",
+      "expect": {
+        "columns": [
+          "NCT",
+          "PMID",
+          "tki_agent"
+        ]
+      },
+      "out": "t2"
+    },
+    {
+      "id": "S3",
+      "op": "POST",
+      "desc": "Validate, coerce and deduplicate.",
+      "in": "t2",
+      "out": "t_final"
+    }
+  ],
+  "return": "t_final"
+}
