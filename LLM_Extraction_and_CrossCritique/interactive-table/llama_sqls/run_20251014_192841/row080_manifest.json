@@ -1,0 +1,52 @@
+{
+  "row_index": 80,
+  "question": "Find NSCLC trials with median follow\u2011up and show months by arm.",
+  "llm": {
+    "answer": "NSCLC trials with median follow-up and months by arm.",
+    "assumptions": "Assuming NSCLC trials are those with 'NSCLC' in the cancer_type column, and median follow-up is represented by follow_up_duration_rx_months and follow_up_duration_control_months.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL\",\n  \"answer\": \"NSCLC trials with median follow-up and months by arm.\",\n  \"assumptions\": \"Assuming NSCLC trials are those with 'NSCLC' in the cancer_type column, and median follow-up is represented by follow_up_duration_rx_months and follow_up_duration_control_months.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row080_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row080_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.1625000012572855,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row080_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.2803999860771,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row080_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.638399994699284,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row080_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row080_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.4874999730382115,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row080_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.52,
+    "deterministic_across_runs": true
+  }
+}

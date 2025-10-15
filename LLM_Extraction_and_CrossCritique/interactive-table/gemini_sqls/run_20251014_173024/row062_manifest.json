@@ -1,0 +1,52 @@
+{
+  "row_index": 62,
+  "question": "List Gastric/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials focused on Gastric/GEJ cancer where inclusion criteria require a biomarker other than PD-L1.",
+    "assumptions": "I assume that trials that have other biomarkers as inclusion criteria are signified by \"other_biomarker_inclusion\" = 'Yes' and PD-L1 not required is signified by \"pdl1_inclusion\" <> 'Yes'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Gastric/GEJ' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" <> 'Yes';\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials focused on Gastric/GEJ cancer where inclusion criteria require a biomarker other than PD-L1.\",\n  \"assumptions\": \"I assume that trials that have other biomarkers as inclusion criteria are signified by \\\"other_biomarker_inclusion\\\" = 'Yes' and PD-L1 not required is signified by \\\"pdl1_inclusion\\\" <> 'Yes'.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row062_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row062_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 7.2533999918960035,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row062_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.208400001516566,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row062_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.768900009570643,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row062_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row062_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.1118000196293,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row062_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 0.5,
+    "nct_f1": 0.6666666666666666,
+    "nct_jaccard": 0.5,
+    "sql_token_jaccard_vs_gt": 0.7777777777777778,
+    "deterministic_across_runs": true
+  }
+}

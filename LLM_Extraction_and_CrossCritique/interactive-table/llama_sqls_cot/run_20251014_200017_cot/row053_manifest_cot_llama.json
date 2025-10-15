@@ -1,0 +1,52 @@
+{
+  "row_index": 53,
+  "question": "List PD-L1 trials that reported composite or co-primary endpoints.",
+  "llama": {
+    "answer": "Trials with PD-L1 that reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_class\\\" = 'PD-L1' AND \\\"primary_endpoint_is_multiple_or_composite\\\" = 'Yes';\",\"answer\":\"Trials with PD-L1 that reported composite or co-primary endpoints.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row053_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row053_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.5963999980594963,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row053_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6646999942604452,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row053_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.667499986477196,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row053_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row053_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 5.327299993950874,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row053_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -13,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

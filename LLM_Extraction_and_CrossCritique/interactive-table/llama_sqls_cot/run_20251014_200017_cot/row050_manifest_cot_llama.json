@@ -1,0 +1,52 @@
+{
+  "row_index": 50,
+  "question": "Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llama": {
+    "answer": "HNSCC combo-therapy trials with \u22652 prior lines.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"publication_type\\\", \\\"lines_of_treatment\\\", \\\"therapy_modality\\\", \\\"cancer_type\\\", \\\"combination_type\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND NULLIF(regexp_replace((\\\"lines_of_treatment\\\")::text, '[^0-9\\\\.-]', '', 'g'), '')::numeric >= 2 AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"HNSCC combo-therapy trials with \u22652 prior lines.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row050_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row050_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9745999965816736,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row050_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.610600008163601,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row050_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.446200007805601,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row050_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row050_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.8670999822206795,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row050_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 1.0,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8888888888888888,
+    "deterministic_across_runs": true
+  }
+}

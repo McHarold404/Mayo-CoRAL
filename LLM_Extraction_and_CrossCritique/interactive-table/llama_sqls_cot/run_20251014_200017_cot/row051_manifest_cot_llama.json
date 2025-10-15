@@ -1,0 +1,52 @@
+{
+  "row_index": 51,
+  "question": "Show Head and Neck trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "llama": {
+    "answer": "Rows for HNSCC trials using PD-L1 with PD-L1 positivity as an inclusion criterion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"pdl1_inclusion\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"pdl1_inclusion\\\" = 'Yes';\",\"answer\":\"Rows for HNSCC trials using PD-L1 with PD-L1 positivity as an inclusion criterion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row051_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row051_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.284199996618554,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row051_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.269400000339374,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row051_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.947899997001514,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row051_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row051_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.024499998195097,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row051_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.7272727272727273,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7391304347826086,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 69,
+  "question": "Which Colorectal phase 3 trials compared ICI to Chemo?",
+  "llama": {
+    "answer": "Colorectal phase 3 trials comparing ICI to Chemo.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_phase\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"control_regimen\\\", \\\"combination_type\\\", \\\"control_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Colorectal' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"control_type\\\" = 'Chemo' AND \\\"therapy_modality\\\" = 'Combination' AND \\\"combination_type\\\" = 'ICI + Chemo';\",\"answer\":\"Colorectal phase 3 trials comparing ICI to Chemo.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row069_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row069_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.240900005446747,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row069_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.802100011147559,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row069_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.404200008139014,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row069_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row069_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.596900001866743,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row069_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5833333333333334,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.68,
+    "deterministic_across_runs": true
+  }
+}

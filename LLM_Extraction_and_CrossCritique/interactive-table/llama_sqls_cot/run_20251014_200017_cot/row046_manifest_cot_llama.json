@@ -1,0 +1,52 @@
+{
+  "row_index": 46,
+  "question": "Which Melanoma trials evaluated Pembrolizumab in phase 3?",
+  "llama": {
+    "answer": "Trials evaluating Pembrolizumab in Melanoma during Phase 3.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"trial_phase\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Melanoma' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"treatment_regimen\\\" ILIKE '%Pembrolizumab%';\",\"answer\":\"Trials evaluating Pembrolizumab in Melanoma during Phase 3.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row046_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row046_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.065800010925159,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row046_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.646900011925027,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row046_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.703499987954274,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row046_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row046_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.587200004607439,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row046_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.8,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8571428571428571,
+    "deterministic_across_runs": true
+  }
+}

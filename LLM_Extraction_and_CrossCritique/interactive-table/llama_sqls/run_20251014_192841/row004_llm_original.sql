@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "treatment_regimen" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "ici_class" = 'CTLA4' AND "cancer_type" ILIKE '%Melanoma%' AND "combination_type" IS NOT NULL

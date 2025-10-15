@@ -1,0 +1,52 @@
+{
+  "row_index": 68,
+  "question": "List Breast Chemotherapy trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This SQL query selects Breast cancer trials involving chemotherapy where overall follow-up exceeded 21 months, returning the NCT ID, author, year, and publication ID.",
+    "assumptions": "I assume 'Breast' implies 'Breast (TNBC)' and chemotherapy in the treatment regimen indicates it's a chemotherapy trial.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Breast (TNBC)' AND \\\"treatment_regimen\\\" ILIKE '%Chemotherapy%' AND \\\"follow_up_duration_overall_months\\\" > 21;\",\"answer\":\"This SQL query selects Breast cancer trials involving chemotherapy where overall follow-up exceeded 21 months, returning the NCT ID, author, year, and publication ID.\",\"assumptions\":\"I assume 'Breast' implies 'Breast (TNBC)' and chemotherapy in the treatment regimen indicates it's a chemotherapy trial.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row068_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row068_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.5518999793566763,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row068_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6754999891854823,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row068_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.660899994429201,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row068_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row068_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.821899987291545,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row068_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5,
+    "deterministic_across_runs": true
+  }
+}

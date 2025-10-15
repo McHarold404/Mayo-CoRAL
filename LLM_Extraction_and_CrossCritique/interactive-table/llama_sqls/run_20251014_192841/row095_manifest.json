@@ -1,0 +1,52 @@
+{
+  "row_index": 95,
+  "question": "Show Mesothelioma PD1 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of Mesothelioma PD1 trials conducted in 2018 or later.",
+    "assumptions": "Assuming 'Mesothelioma' is mentioned in the 'cancer_type' column and 'PD1' is the exact value for 'ici_class'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Mesothelioma%' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"List of Mesothelioma PD1 trials conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming 'Mesothelioma' is mentioned in the 'cancer_type' column and 'PD1' is the exact value for 'ici_class'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row095_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row095_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8050999864935875,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row095_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.835500003537163,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row095_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.28779998421669,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row095_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row095_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.440900014946237,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row095_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5384615384615384,
+    "deterministic_across_runs": true
+  }
+}

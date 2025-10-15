@@ -1,0 +1,52 @@
+{
+  "row_index": 43,
+  "question": "Show Non-Small Cell Lung studies included in the meta\u2011analysis that used PD-L1, CTLA-4 agents.",
+  "gemini": {
+    "answer": "This query selects NSCLC trials included in a meta-analysis that used either PD-L1 or CTLA-4 inhibitors, returning the NCT ID, author, year, and PubMed ID for each trial.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%NSCLC%'\\n  AND \\\"included_in_ma\\\" = 'Yes'\\n  AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4');\",\n  \"answer\": \"This query selects NSCLC trials included in a meta-analysis that used either PD-L1 or CTLA-4 inhibitors, returning the NCT ID, author, year, and PubMed ID for each trial.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row043_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row043_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.6447999882511795,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row043_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.2451999799814075,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row043_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.609000025084242,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row043_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row043_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.808199999388307,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row043_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6296296296296297,
+    "deterministic_across_runs": true
+  }
+}

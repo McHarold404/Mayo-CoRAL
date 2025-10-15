@@ -1,0 +1,52 @@
+{
+  "row_index": 66,
+  "question": "Which Melanoma studies tested ICI+ICI combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, authors, year, PubMed ID, and primary endpoint for clinical trials focused on Melanoma where the treatment regimen involved a combination of two immune checkpoint inhibitors (ICI+ICI).",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"combination_type\\\" = 'ICI + ICI'\",\n  \"answer\": \"This query retrieves the NCT ID, authors, year, PubMed ID, and primary endpoint for clinical trials focused on Melanoma where the treatment regimen involved a combination of two immune checkpoint inhibitors (ICI+ICI).\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row066_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row066_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.809400008525699,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row066_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.714900016551837,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row066_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.586099996231496,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row066_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row066_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.8135999930091202,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row066_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7777777777777778,
+    "deterministic_across_runs": true
+  }
+}

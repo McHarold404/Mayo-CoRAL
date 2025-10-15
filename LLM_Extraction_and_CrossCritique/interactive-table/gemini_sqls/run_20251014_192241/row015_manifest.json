@@ -1,0 +1,52 @@
+{
+  "row_index": 15,
+  "question": "List CTLA-4 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This SQL query returns the NCT, author, year, pubmed ID, trial name, cancer type, ICI name, ICI class, primary endpoint, and primary endpoint description for all trials using CTLA-4 inhibitors that reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_class\\\" = 'CTLA-4' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL;\",\"answer\":\"This SQL query returns the NCT, author, year, pubmed ID, trial name, cancer type, ICI name, ICI class, primary endpoint, and primary endpoint description for all trials using CTLA-4 inhibitors that reported composite or co-primary endpoints.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row015_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row015_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.14109998382628,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row015_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.126999992877245,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row015_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.05960000352934,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row015_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row015_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.784500004258007,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row015_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 21,
+    "column_overlap_ratio": 0.6363636363636364,
+    "nct_precision": 0.07142857142857142,
+    "nct_recall": 1.0,
+    "nct_f1": 0.13333333333333333,
+    "nct_jaccard": 0.07142857142857142,
+    "sql_token_jaccard_vs_gt": 0.625,
+    "deterministic_across_runs": true
+  }
+}

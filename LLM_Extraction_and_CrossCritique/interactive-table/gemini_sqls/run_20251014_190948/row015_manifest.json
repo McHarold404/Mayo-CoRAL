@@ -1,0 +1,52 @@
+{
+  "row_index": 15,
+  "question": "List CTLA-4 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This query selects clinical trials using CTLA-4 inhibitors that reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"ici_class\\\" = 'CTLA-4' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL;\",\n  \"answer\": \"This query selects clinical trials using CTLA-4 inhibitors that reported composite or co-primary endpoints.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_190948\\row015_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_190948\\row015_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.202000000281259,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_190948\\row015_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.850500001339242,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_190948\\row015_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.673899977002293,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_190948\\row015_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_190948\\row015_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.801400016527623,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_190948\\row015_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 21,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.07142857142857142,
+    "nct_recall": 1.0,
+    "nct_f1": 0.13333333333333333,
+    "nct_jaccard": 0.07142857142857142,
+    "sql_token_jaccard_vs_gt": 0.5909090909090909,
+    "deterministic_across_runs": true
+  }
+}

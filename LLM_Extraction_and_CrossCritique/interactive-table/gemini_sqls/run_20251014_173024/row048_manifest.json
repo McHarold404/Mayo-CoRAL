@@ -1,0 +1,52 @@
+{
+  "row_index": 48,
+  "question": "Which Non-Small Cell Lung trials used Chemo+Anti-VEGF as the control arm?",
+  "gemini": {
+    "answer": "This query returns the NCT, author, year, and PubMed ID for all clinical trials in the database that studied non-small cell lung cancer and used Chemo/Anti-VEGF as the control arm.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"control_regimen\\\" ILIKE '%Chemo/Anti-VEGF%'\",\n  \"answer\": \"This query returns the NCT, author, year, and PubMed ID for all clinical trials in the database that studied non-small cell lung cancer and used Chemo/Anti-VEGF as the control arm.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row048_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row048_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.01379998261109,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row048_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 9.723399998620152,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row048_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.864900002256036,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row048_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row048_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 8.061600005021319,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row048_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5833333333333334,
+    "deterministic_across_runs": true
+  }
+}

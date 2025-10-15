@@ -1,0 +1,52 @@
+{
+  "row_index": 80,
+  "question": "Find NSCLC trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This returns the NCT, author, year, and follow-up durations (overall, Rx, and control) for NSCLC trials.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC';\", \"answer\": \"This returns the NCT, author, year, and follow-up durations (overall, Rx, and control) for NSCLC trials.\", \"assumptions\": \"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row080_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row080_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.790800012415275,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row080_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.76179999532178,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row080_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.340600000228733,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row080_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row080_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.8745999918319285,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row080_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7058823529411765,
+    "deterministic_across_runs": true
+  }
+}

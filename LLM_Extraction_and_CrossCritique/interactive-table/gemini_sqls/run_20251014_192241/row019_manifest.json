@@ -1,0 +1,52 @@
+{
+  "row_index": 19,
+  "question": "Show Non-Small Cell Lung trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "gemini": {
+    "answer": "This SQL query returns the NCT, author, year, and pubmed_id for Non-Small Cell Lung Cancer clinical trials that used PD1 inhibitors and had PD-L1 positivity as an inclusion criterion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_class\\\" = 'PD1' AND \\\"pdl1_inclusion\\\" IS NOT NULL;\",\"answer\":\"This SQL query returns the NCT, author, year, and pubmed_id for Non-Small Cell Lung Cancer clinical trials that used PD1 inhibitors and had PD-L1 positivity as an inclusion criterion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row019_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row019_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.216499975882471,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row019_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.947999997762963,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row019_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.845599993132055,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row019_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row019_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.6678000178653747,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row019_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -10,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5,
+    "deterministic_across_runs": true
+  }
+}

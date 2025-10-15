@@ -1,0 +1,52 @@
+{
+  "row_index": 12,
+  "question": "Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "Prostate combo-therapy trials with \u22652 prior lines.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"lines_of_treatment\\\", \\\"therapy_modality\\\", \\\"cancer_type\\\", \\\"combination_type\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Prostate' AND NULLIF(regexp_replace((\\\"lines_of_treatment\\\")::text, '[^0-9\\\\.-]', '', 'g'), '')::numeric >= 2 AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Prostate combo-therapy trials with \u22652 prior lines.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_191058\\row012_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_191058\\row012_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 11.41879998613149,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row012_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.44050000119023,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row012_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.123699996853247,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row012_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_191058\\row012_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.19589998293668,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_191058\\row012_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.8,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.9230769230769231,
+    "deterministic_across_runs": true
+  }
+}

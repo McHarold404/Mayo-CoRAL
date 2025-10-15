@@ -1,0 +1,52 @@
+{
+  "row_index": 8,
+  "question": "Which Small Cell Lung trials used Chemo as the control arm?",
+  "llama": {
+    "answer": "SCLC trials with Chemo as control arm.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"control_type\\\", \\\"control_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'SCLC' AND \\\"control_type\\\" = 'Chemo';\",\"answer\":\"SCLC trials with Chemo as control arm.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row008_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row008_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.841900012455881,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row008_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.400700018275529,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row008_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.697300025029108,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row008_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row008_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 5.227199988439679,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row008_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -11,
+    "column_overlap_ratio": 0.7777777777777778,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

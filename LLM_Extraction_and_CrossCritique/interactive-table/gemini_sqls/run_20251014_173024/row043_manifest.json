@@ -1,0 +1,52 @@
+{
+  "row_index": 43,
+  "question": "Show Non-Small Cell Lung studies included in the meta\u2011analysis that used PD-L1, CTLA-4 agents.",
+  "gemini": {
+    "answer": "This query selects NSCLC studies that are included in the meta-analysis and used PD-L1 or CTLA-4 agents.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"included_in_ma\\\" = 'Yes' AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4');\",\n  \"answer\": \"This query selects NSCLC studies that are included in the meta-analysis and used PD-L1 or CTLA-4 agents.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row043_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row043_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.350199982989579,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row043_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 9.561500017298386,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row043_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.700400001136586,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row043_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row043_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.691200000001118,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row043_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6296296296296297,
+    "deterministic_across_runs": true
+  }
+}

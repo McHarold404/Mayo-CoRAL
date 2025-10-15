@@ -1,0 +1,3 @@
+SELECT "nct", "author", "year", "follow_up_duration_rx_months", "follow_up_duration_control_months", "follow_up_duration_overall_months", "cancer_type", "trial_phase", "therapy_type", "clinical_setting"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'NSCLC' AND "follow_up_duration_overall_months" IS NOT NULL AND ("follow_up_duration_rx_months" IS NOT NULL OR "follow_up_duration_control_months" IS NOT NULL);

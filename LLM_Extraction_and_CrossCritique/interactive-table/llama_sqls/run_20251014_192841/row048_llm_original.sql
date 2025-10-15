@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%NSCLC%' AND "control_regimen" ILIKE '%Chemo/Anti-VEGF%'

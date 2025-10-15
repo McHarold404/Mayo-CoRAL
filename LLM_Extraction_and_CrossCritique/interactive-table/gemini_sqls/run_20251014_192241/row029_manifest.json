@@ -1,0 +1,52 @@
+{
+  "row_index": 29,
+  "question": "List Head and Neck trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This SQL query lists HNSCC trials that require a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND \\\"other_biomarker_inclusion\\\" != '';\",\"answer\":\"This SQL query lists HNSCC trials that require a biomarker other than PD-L1 for inclusion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row029_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row029_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 4.612000018823892,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"\"\nLINE 3: ...ancer_type\" = 'HNSCC' AND \"other_biomarker_inclusion\" != '';\n                                                                    ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'HNSCC' AND \"other_biomarker_inclusion\" != '';]\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.3344999935943633,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"\"\nLINE 3: ...ancer_type\" = 'HNSCC' AND \"other_biomarker_inclusion\" != '';\n                                                                    ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'HNSCC' AND \"other_biomarker_inclusion\" != '';]\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 1.9246999872848392,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"\"\nLINE 3: ...ancer_type\" = 'HNSCC' AND \"other_biomarker_inclusion\" != '';\n                                                                    ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'HNSCC' AND \"other_biomarker_inclusion\" != '';]\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row029_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.139399989275262,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row029_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6111111111111112,
+    "deterministic_across_runs": false
+  }
+}

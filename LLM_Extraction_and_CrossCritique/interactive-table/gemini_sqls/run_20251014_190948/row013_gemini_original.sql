@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Prostate' AND "other_biomarker_inclusion" = 'Yes'

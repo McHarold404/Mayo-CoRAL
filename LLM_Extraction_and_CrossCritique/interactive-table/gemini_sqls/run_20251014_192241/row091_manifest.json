@@ -1,0 +1,52 @@
+{
+  "row_index": 91,
+  "question": "Show Renal cell PD1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "Rows for Renal cell (RCC) trials using PD1 inhibitors published in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'RCC' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018;\",\"answer\":\"Rows for Renal cell (RCC) trials using PD1 inhibitors published in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row091_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row091_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4296000085305423,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row091_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.165200011106208,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row091_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4596999757923186,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row091_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row091_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.216300003463402,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row091_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -5,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5,
+    "deterministic_across_runs": true
+  }
+}

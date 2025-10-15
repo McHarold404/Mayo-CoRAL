@@ -1,0 +1,52 @@
+{
+  "row_index": 40,
+  "question": "List CTLA-4 trials that reported composite or co-primary endpoints.",
+  "llama": {
+    "answer": "CTLA-4 trials with composite/co-primary endpoints.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_class\\\" = 'CTLA4' AND \\\"primary_endpoint_is_multiple_or_composite\\\" = TRUE;\",\"answer\":\"CTLA-4 trials with composite/co-primary endpoints.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row040_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row040_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.8119000198785216,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 3: ...LA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE;\n                                                                ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"ici_class\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_class\" = 'CTLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE;]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 1.9381999736651778,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 3: ...LA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE;\n                                                                ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"ici_class\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_class\" = 'CTLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE;]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 1.7345999949611723,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean\nLINE 3: ...LA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE;\n                                                                ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"ici_class\", \"primary_endpoint\", \"primary_endpoint_is_multiple_or_composite\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_class\" = 'CTLA4' AND \"primary_endpoint_is_multiple_or_composite\" = TRUE;]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row040_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.090600006747991,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row040_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": false
+  }
+}

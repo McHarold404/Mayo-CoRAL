@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "treatment_regimen" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "ici_class" = 'PD-L1' AND "cancer_type" = 'Colorectal' AND "therapy_type" = 'Monotherapy'

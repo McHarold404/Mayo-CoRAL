@@ -1,0 +1,52 @@
+{
+  "row_index": 35,
+  "question": "Which Gastric/GEJ trials used Placebo as the control arm?",
+  "llama": {
+    "answer": "Gastric/GEJ trials using Placebo as the control arm.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"control_type\\\", \\\"control_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Gastric/GEJ' AND \\\"control_type\\\" = 'Placebo';\",\"answer\":\"Gastric/GEJ trials using Placebo as the control arm.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row035_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row035_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.814700001385063,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row035_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.889899981208146,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row035_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.915300010703504,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row035_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row035_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 5.047699989518151,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row035_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.7777777777777778,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8888888888888888,
+    "deterministic_across_runs": true
+  }
+}

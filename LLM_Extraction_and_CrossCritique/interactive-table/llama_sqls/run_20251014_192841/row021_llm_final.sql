@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "follow_up_duration_rx_months" AS "Experimental Arm", "follow_up_duration_control_months" AS "Control Arm" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Melanoma%' ORDER BY "follow_up_duration_rx_months" ASC LIMIT 1

@@ -1,0 +1,52 @@
+{
+  "row_index": 60,
+  "question": "Show Non-Small Cell Lung studies included in the meta\u2011analysis that used PD1, CTLA-4 agents.",
+  "gemini": {
+    "answer": "This returns NSCLC studies included in the meta-analysis that used PD1 or CTLA-4 agents.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC'\\nAND \\\"included_in_ma\\\" = 'Yes'\\nAND (\\\"ici_class\\\" = 'PD1' OR \\\"ici_class\\\" = 'CTLA-4');\",\"answer\":\"This returns NSCLC studies included in the meta-analysis that used PD1 or CTLA-4 agents.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row060_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row060_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.3295999930705875,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row060_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.56190001568757,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row060_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.252700007986277,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row060_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row060_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.6721000000834465,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row060_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.64,
+    "deterministic_across_runs": true
+  }
+}

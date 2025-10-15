@@ -1,0 +1,52 @@
+{
+  "row_index": 1,
+  "question": "Show Melanoma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "Melanoma combo-therapy trials with \u22652 prior lines.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Melanoma' AND NULLIF(regexp_replace((\\\"lines_of_treatment\\\")::text, '[^0-9\\\\.-]', '', 'g'), '')::numeric >= 2 AND \\\"therapy_modality\\\" = 'Combination Therapy';\",\"answer\":\"Melanoma combo-therapy trials with \u22652 prior lines.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row001_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row001_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.980000016279519,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row001_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.2675999836064875,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row001_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.090299983043224,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row001_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row001_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.989799992879853,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row001_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8148148148148148,
+    "deterministic_across_runs": true
+  }
+}

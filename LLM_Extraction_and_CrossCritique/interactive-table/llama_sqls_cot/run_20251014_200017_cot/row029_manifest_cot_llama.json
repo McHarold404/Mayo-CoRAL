@@ -1,0 +1,52 @@
+{
+  "row_index": 29,
+  "question": "List Head and Neck trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "Trials for Head and Neck cancer that require a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"pdl1_inclusion\\\" IS NULL;\",\"answer\":\"Trials for Head and Neck cancer that require a biomarker other than PD-L1 for inclusion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row029_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row029_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.863000016892329,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row029_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.6713999840430915,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row029_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.276600023033097,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row029_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row029_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.578899999614805,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row029_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4583333333333333,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 41,
+  "question": "Show Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "llama": {
+    "answer": "Trials for NSCLC with PD-L1 or CTLA-4 conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"year\\\" >= 2018 AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4');\",\"answer\":\"Trials for NSCLC with PD-L1 or CTLA-4 conducted in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row041_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row041_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.935000004479662,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row041_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.368599988287315,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row041_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.933299991535023,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row041_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row041_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 5.262600025162101,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row041_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5151515151515151,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 61,
+  "question": "List Non-Small Cell Lung Nivolumab, Ipilimumab trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT ID, author, year, and PubMed ID for Non-Small Cell Lung Cancer (NSCLC) clinical trials involving Nivolumab or Ipilimumab where the overall follow-up duration exceeded 21 months.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND (\\\"ici_name\\\" = 'Nivolumab' OR \\\"ici_name\\\" = 'Ipilimumab') AND \\\"follow_up_duration_overall_months\\\" > 21;\",\"answer\":\"This SQL query retrieves the NCT ID, author, year, and PubMed ID for Non-Small Cell Lung Cancer (NSCLC) clinical trials involving Nivolumab or Ipilimumab where the overall follow-up duration exceeded 21 months.\",\"assumptions\":\"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row061_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row061_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4666999999899417,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row061_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6112999951001257,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row061_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.208299990044907,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row061_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row061_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.247699999017641,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row061_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4838709677419355,
+    "deterministic_across_runs": true
+  }
+}

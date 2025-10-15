@@ -1,0 +1,52 @@
+{
+  "row_index": 9,
+  "question": "Find Small Cell Lung trials with minimum follow\u2011up and show months by arm.",
+  "llm": {
+    "answer": "The trial with the minimum follow-up for Small Cell Lung cancer is shown with follow-up months by arm.",
+    "assumptions": "Assuming 'Small Cell Lung' is a substring of the cancer type and follow-up duration is the overall duration.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_control_months\\\", \\\"follow_up_duration_rx_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' ORDER BY \\\"follow_up_duration_overall_months\\\" ASC LIMIT 1\",\n  \"answer\": \"The trial with the minimum follow-up for Small Cell Lung cancer is shown with follow-up months by arm.\",\n  \"assumptions\": \"Assuming 'Small Cell Lung' is a substring of the cancer type and follow-up duration is the overall duration.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_122155\\row009_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_122155\\row009_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 21.368899993831292,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row009_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.041499989805743,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row009_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.174099980853498,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row009_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_122155\\row009_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.034999980125576,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_122155\\row009_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5384615384615384,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 94,
+  "question": "List Mesothelioma Nivolumab, Ipilimumab trials where overall follow\u2011up exceeded 21 months.",
+  "llama": {
+    "answer": "Trials for Mesothelioma using Nivolumab or Ipilimumab with follow-up over 21 months.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"follow_up_duration_overall_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Mesothelioma' AND \\\"ici_name\\\" IN ('Nivolumab', 'Ipilimumab') AND \\\"follow_up_duration_overall_months\\\" > 21;\",\"answer\":\"Trials for Mesothelioma using Nivolumab or Ipilimumab with follow-up over 21 months.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row094_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row094_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.156299990834668,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row094_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.22699999762699,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row094_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9704999944660813,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row094_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row094_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.774200002430007,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row094_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}

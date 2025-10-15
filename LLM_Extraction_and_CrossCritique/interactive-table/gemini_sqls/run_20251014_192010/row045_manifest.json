@@ -1,0 +1,52 @@
+{
+  "row_index": 45,
+  "question": "Which Pancreatic trials evaluated Pembrolizumab in phase 2?",
+  "gemini": {
+    "answer": "This query retrieves the NCT, author, year, and pubmed_id for Pancreatic cancer trials that evaluated Pembrolizumab in phase 2.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Pancreatic' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 2'\",\n  \"answer\": \"This query retrieves the NCT, author, year, and pubmed_id for Pancreatic cancer trials that evaluated Pembrolizumab in phase 2.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row045_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row045_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.9205000104848295,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row045_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.787599998759106,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row045_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4201999951619655,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row045_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row045_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.630599985830486,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row045_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8,
+    "deterministic_across_runs": true
+  }
+}

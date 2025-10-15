@@ -1,0 +1,52 @@
+{
+  "row_index": 8,
+  "question": "Which Small Cell Lung trials used Chemo as the control arm?",
+  "llm": {
+    "answer": "List of Small Cell Lung trials using Chemo as the control arm.",
+    "assumptions": "Assuming 'Small Cell Lung' is part of the cancer type description and 'Chemo' is an exact match for the control type.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"control_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' AND \\\"control_type\\\" = 'Chemo'\",\n  \"answer\": \"List of Small Cell Lung trials using Chemo as the control arm.\",\n  \"assumptions\": \"Assuming 'Small Cell Lung' is part of the cancer type description and 'Chemo' is an exact match for the control type.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_122155\\row008_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_122155\\row008_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.098800000268966,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row008_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.194099987624213,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row008_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 8.83480001357384,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row008_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_122155\\row008_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.506200006697327,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_122155\\row008_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 36,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.2413793103448276,
+    "nct_recall": 1.0,
+    "nct_f1": 0.3888888888888889,
+    "nct_jaccard": 0.2413793103448276,
+    "sql_token_jaccard_vs_gt": 0.7142857142857143,
+    "deterministic_across_runs": true
+  }
+}

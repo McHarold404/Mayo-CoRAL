@@ -1,0 +1,52 @@
+{
+  "row_index": 6,
+  "question": "Which Non-Small Cell Lung phase 2 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query returns the nct, author, year, and pubmed_id for Non-Small Cell Lung Cancer (NSCLC) trials in phase 2 that used Chemo as the control type.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"trial_phase\\\" = 'Phase 2' AND \\\"control_type\\\" = 'Chemo';\", \"answer\": \"This query returns the nct, author, year, and pubmed_id for Non-Small Cell Lung Cancer (NSCLC) trials in phase 2 that used Chemo as the control type.\", \"assumptions\": \"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_191058\\row006_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_191058\\row006_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.175600013695657,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row006_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.727800016757101,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row006_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.3325999975204468,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row006_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_191058\\row006_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.663899977458641,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_191058\\row006_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -9,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.625,
+    "deterministic_across_runs": true
+  }
+}

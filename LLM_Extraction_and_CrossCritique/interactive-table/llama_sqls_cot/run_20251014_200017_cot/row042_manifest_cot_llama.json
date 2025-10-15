@@ -1,0 +1,52 @@
+{
+  "row_index": 42,
+  "question": "List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.",
+  "llama": {
+    "answer": "Trials with PD-L1 or CTLA-4 ICIs that reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"primary_endpoint_is_multiple_or_composite\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4') AND \\\"primary_endpoint_is_multiple_or_composite\\\" = 'Yes';\",\"answer\":\"Trials with PD-L1 or CTLA-4 ICIs that reported composite or co-primary endpoints.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row042_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row042_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.699799988884479,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row042_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.398999997647479,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row042_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.703099995618686,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row042_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row042_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.200800001854077,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row042_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6818181818181818,
+    "deterministic_across_runs": true
+  }
+}

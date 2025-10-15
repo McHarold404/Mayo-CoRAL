@@ -1,0 +1,52 @@
+{
+  "row_index": 94,
+  "question": "List Mesothelioma Nivolumab, Ipilimumab trials where overall follow\u2011up exceeded 21 months.",
+  "llm": {
+    "answer": "List of trials for Mesothelioma with Nivolumab and Ipilimumab where overall follow-up exceeded 21 months.",
+    "assumptions": "Assuming 'treatment_regimen' contains both Nivolumab and Ipilimumab, and 'cancer_type' contains Mesothelioma.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"follow_up_duration_overall_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Mesothelioma%' AND \\\"treatment_regimen\\\" ILIKE '%Nivolumab%' AND \\\"treatment_regimen\\\" ILIKE '%Ipilimumab%' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"List of trials for Mesothelioma with Nivolumab and Ipilimumab where overall follow-up exceeded 21 months.\",\n  \"assumptions\": \"Assuming 'treatment_regimen' contains both Nivolumab and Ipilimumab, and 'cancer_type' contains Mesothelioma.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row094_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row094_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.84940000064671,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row094_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.260500009171665,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row094_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 13.392399996519089,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row094_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row094_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.3184999958612025,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row094_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5333333333333333,
+    "deterministic_across_runs": true
+  }
+}

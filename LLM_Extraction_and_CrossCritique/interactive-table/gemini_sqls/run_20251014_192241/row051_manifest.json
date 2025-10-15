@@ -1,0 +1,52 @@
+{
+  "row_index": 51,
+  "question": "Show Head and Neck trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "gemini": {
+    "answer": "This query returns Head and Neck Cancer (HNSCC) trials using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"ici_class\\\", \\\"pdl1_inclusion\\\" \\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"pdl1_inclusion\\\" = 'Yes';\", \"answer\": \"This query returns Head and Neck Cancer (HNSCC) trials using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.\", \"assumptions\": \"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row051_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row051_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.216100001940504,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row051_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.305099981138483,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row051_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.654200001619756,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row051_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row051_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.296200000680983,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row051_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.6,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6818181818181818,
+    "deterministic_across_runs": true
+  }
+}

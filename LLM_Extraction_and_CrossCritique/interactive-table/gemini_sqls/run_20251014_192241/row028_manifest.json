@@ -1,0 +1,52 @@
+{
+  "row_index": 28,
+  "question": "Find Head and Neck trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "Trials with Head and Neck cancer and show the overall, rx, and control follow-up duration in months.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"cancer_type\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC';\",\"answer\":\"Trials with Head and Neck cancer and show the overall, rx, and control follow-up duration in months.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row028_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row028_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.5542999976314604,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row028_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.243099993094802,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row028_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.414600007701665,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row028_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row028_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.4506000014953315,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row028_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -7,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5789473684210527,
+    "deterministic_across_runs": true
+  }
+}

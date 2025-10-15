@@ -1,0 +1,52 @@
+{
+  "row_index": 30,
+  "question": "List Head and Neck Nivolumab trials where overall follow\u2011up exceeded 21 months.",
+  "llm": {
+    "answer": "List of Head and Neck Nivolumab trials with overall follow-up exceeding 21 months.",
+    "assumptions": "Assuming 'Head and Neck' is a substring of the cancer type and 'Nivolumab' is the exact ICI name.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"follow_up_duration_overall_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"ici_name\\\" = 'Nivolumab' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"List of Head and Neck Nivolumab trials with overall follow-up exceeding 21 months.\",\n  \"assumptions\": \"Assuming 'Head and Neck' is a substring of the cancer type and 'Nivolumab' is the exact ICI name.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row030_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row030_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.24479997693561,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row030_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.507200006628409,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row030_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.393900006311014,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row030_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row030_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.5332000008784235,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row030_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}

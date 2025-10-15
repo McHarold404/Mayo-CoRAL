@@ -1,0 +1,52 @@
+{
+  "row_index": 98,
+  "question": "Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?",
+  "llm": {
+    "answer": "List of Small Cell Lung studies that tested ICI+ICI+Chemo combinations, along with their primary endpoints and treatment regimens.",
+    "assumptions": "Assuming 'Small Cell Lung' is mentioned in the 'cancer_type' column, and 'ICI + ICI + Chemo' is an exact match for the 'combination_type' column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' AND \\\"combination_type\\\" = 'ICI + ICI + Chemo'\",\n  \"answer\": \"List of Small Cell Lung studies that tested ICI+ICI+Chemo combinations, along with their primary endpoints and treatment regimens.\",\n  \"assumptions\": \"Assuming 'Small Cell Lung' is mentioned in the 'cancer_type' column, and 'ICI + ICI + Chemo' is an exact match for the 'combination_type' column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row098_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row098_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.45379999675788,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row098_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.103199975565076,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row098_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.864399998448789,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row098_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row098_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.0227999745402485,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row098_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8571428571428571,
+    "deterministic_across_runs": true
+  }
+}

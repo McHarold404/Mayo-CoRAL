@@ -1,0 +1,52 @@
+{
+  "row_index": 49,
+  "question": "Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "Trials for Head and Neck Cancer with PD-L1 or CTLA-4 ICIs published in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"ici_class\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4') AND \\\"year\\\" >= 2018;\",\"answer\":\"Trials for Head and Neck Cancer with PD-L1 or CTLA-4 ICIs published in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row049_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row049_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.119800003943965,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row049_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.00189999002032,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row049_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.5078999935649335,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row049_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row049_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.7081000045873225,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row049_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5333333333333333,
+    "deterministic_across_runs": true
+  }
+}

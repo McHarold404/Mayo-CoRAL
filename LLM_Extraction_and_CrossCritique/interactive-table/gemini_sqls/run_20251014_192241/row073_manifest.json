@@ -1,0 +1,52 @@
+{
+  "row_index": 73,
+  "question": "Show Esophageal/GEJ PD1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "Esophageal/GEJ trials using PD1 inhibitors published in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Esophageal/GEJ' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018;\",\"answer\":\"Esophageal/GEJ trials using PD1 inhibitors published in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row073_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row073_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.0379999845754355,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row073_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.634100012481213,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row073_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8373999996110797,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row073_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row073_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.222999996272847,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row073_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

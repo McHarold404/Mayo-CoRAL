@@ -1,0 +1,52 @@
+{
+  "row_index": 53,
+  "question": "List PD-L1 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "This returns the trials using PD-L1 ICIs that reported composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_class\\\" = 'PD-L1' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL;\",\"answer\":\"This returns the trials using PD-L1 ICIs that reported composite or co-primary endpoints.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row053_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row053_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.991300025722012,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row053_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.35150001430884,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row053_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.792600007727742,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row053_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row053_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.76189999608323,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row053_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 36,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.2777777777777778,
+    "nct_recall": 1.0,
+    "nct_f1": 0.4347826086956522,
+    "nct_jaccard": 0.2777777777777778,
+    "sql_token_jaccard_vs_gt": 0.6363636363636364,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,5 @@
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'NSCLC'
+AND "included_in_ma" = 'Yes'
+AND ("ici_class" = 'PD1' OR "ici_class" = 'CTLA-4');

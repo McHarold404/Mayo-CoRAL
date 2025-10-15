@@ -1,0 +1,52 @@
+{
+  "row_index": 79,
+  "question": "Show Gastric/GEJ PD-L1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "Rows for Gastric/GEJ PD-L1 trials from 2018 onwards.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"publication_type\\\", \\\"cancer_type\\\", \\\"ici_class\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Gastric/GEJ' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"year\\\" >= 2018;\",\"answer\":\"Rows for Gastric/GEJ PD-L1 trials from 2018 onwards.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row079_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row079_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.40469999355264,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row079_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.787900001043454,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row079_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.003799986094236,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row079_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row079_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.580600012559444,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row079_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.8571428571428571,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.68,
+    "deterministic_across_runs": true
+  }
+}

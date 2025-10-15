@@ -1,0 +1,52 @@
+{
+  "row_index": 22,
+  "question": "Show Pancreatic trials that used ICI+Vaccine combinations.",
+  "llama": {
+    "answer": "Rows for Pancreatic trials using ICI+Vaccine combinations.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"publication_type\\\", \\\"combination_type\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Pancreatic' AND \\\"combination_type\\\" = 'ICI+Vaccine';\",\"answer\":\"Rows for Pancreatic trials using ICI+Vaccine combinations.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row022_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row022_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.276399984722957,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row022_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.546800017124042,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row022_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8791999977547675,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row022_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row022_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.8161000120453537,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row022_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": true,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 1.0,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 1.0,
+    "deterministic_across_runs": true
+  }
+}

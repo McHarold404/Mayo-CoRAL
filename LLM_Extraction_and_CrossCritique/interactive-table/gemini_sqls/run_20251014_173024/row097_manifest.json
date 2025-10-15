@@ -1,0 +1,52 @@
+{
+  "row_index": 97,
+  "question": "Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year, and pubmed_id for all phase 3 trials using Durvalumab and Tremelimumab in Small Cell Lung cancer (SCLC) where the publication type is a follow-up.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_name\\\" = 'Durvalumab' AND \\\"ici_name\\\" = 'Tremelimumab' AND \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"publication_type\\\" = 'Follow-up'\",\n  \"answer\": \"This query retrieves the nct, author, year, and pubmed_id for all phase 3 trials using Durvalumab and Tremelimumab in Small Cell Lung cancer (SCLC) where the publication type is a follow-up.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row097_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row097_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.7985999952070415,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row097_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.197100002784282,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row097_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.924100019503385,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row097_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row097_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.168199975742027,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row097_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": true
+  }
+}

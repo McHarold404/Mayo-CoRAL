@@ -1,0 +1,52 @@
+{
+  "row_index": 2,
+  "question": "List Melanoma trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "Rows from Melanoma trials that required a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "\"other_biomarker_inclusion\" IS NOT NULL implies that another biomarker was required.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"other_biomarker_inclusion\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Melanoma' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL;\",\"answer\":\"Rows from Melanoma trials that required a biomarker other than PD-L1 for inclusion.\",\"assumptions\":\"\\\"other_biomarker_inclusion\\\" IS NOT NULL implies that another biomarker was required.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row002_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row002_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.645400000503287,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row002_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.052000011550263,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row002_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.624699999112636,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row002_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row002_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.910600000992417,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row002_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 16,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.3333333333333333,
+    "nct_recall": 1.0,
+    "nct_f1": 0.5,
+    "nct_jaccard": 0.3333333333333333,
+    "sql_token_jaccard_vs_gt": 0.631578947368421,
+    "deterministic_across_runs": true
+  }
+}

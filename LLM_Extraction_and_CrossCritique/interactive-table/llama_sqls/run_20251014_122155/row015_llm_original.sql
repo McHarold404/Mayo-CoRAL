@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "primary_endpoint", "primary_endpoint_is_multiple_or_composite" FROM public."clinical_trials" WHERE "ici_class" = 'CTLA4' AND "primary_endpoint_is_multiple_or_composite" = TRUE

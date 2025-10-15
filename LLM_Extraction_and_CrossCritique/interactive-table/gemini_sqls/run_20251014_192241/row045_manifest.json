@@ -1,0 +1,52 @@
+{
+  "row_index": 45,
+  "question": "Which Pancreatic trials evaluated Pembrolizumab in phase 2?",
+  "gemini": {
+    "answer": "This query returns Pancreatic cancer trials that evaluated Pembrolizumab in phase 2.",
+    "assumptions": "",
+    "raw": "{\"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Pancreatic' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 2';\", \"answer\": \"This query returns Pancreatic cancer trials that evaluated Pembrolizumab in phase 2.\", \"assumptions\": \"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row045_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row045_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.420399996684864,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row045_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.616999998688698,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row045_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.501399973174557,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row045_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row045_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.961899987189099,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row045_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.6,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8,
+    "deterministic_across_runs": true
+  }
+}

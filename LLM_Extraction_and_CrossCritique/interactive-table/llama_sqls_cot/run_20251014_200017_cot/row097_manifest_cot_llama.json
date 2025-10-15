@@ -1,0 +1,52 @@
+{
+  "row_index": 97,
+  "question": "Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "llama": {
+    "answer": "Rows for Phase 3 SCLC trials with Durvalumab or Tremelimumab that were follow-up publications.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"publication_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\", \\\"combination_type\\\", \\\"cancer_type\\\", \\\"trial_phase\\\", \\\"treatment_regimen\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"publication_type\\\" = 'Follow-up' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" = 'SCLC' AND (\\\"ici_name\\\" = 'Durvalumab' OR \\\"ici_name\\\" = 'Tremelimumab');\",\"answer\":\"Rows for Phase 3 SCLC trials with Durvalumab or Tremelimumab that were follow-up publications.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row097_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row097_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.343400000128895,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row097_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.533200019272044,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row097_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.546700005652383,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row097_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row097_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 6.750800006557256,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row097_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5384615384615384,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6333333333333333,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 68,
+  "question": "List Breast Chemotherapy trials where overall follow\u2011up exceeded 21 months.",
+  "llm": {
+    "answer": "List of breast chemotherapy trials with overall follow-up exceeding 21 months.",
+    "assumptions": "Assuming 'Chemo' is a substring of chemotherapy regimens and 'Breast' is a substring of breast cancer types.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"follow_up_duration_overall_months\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"treatment_regimen\\\" ILIKE '%Chemo%' AND \\\"follow_up_duration_overall_months\\\" > 21\",\n  \"answer\": \"List of breast chemotherapy trials with overall follow-up exceeding 21 months.\",\n  \"assumptions\": \"Assuming 'Chemo' is a substring of chemotherapy regimens and 'Breast' is a substring of breast cancer types.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row068_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row068_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.256099994061515,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row068_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.96349999634549,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row068_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.31749999593012,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row068_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row068_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.043199995066971,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row068_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.45454545454545453,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4482758620689655,
+    "deterministic_across_runs": true
+  }
+}

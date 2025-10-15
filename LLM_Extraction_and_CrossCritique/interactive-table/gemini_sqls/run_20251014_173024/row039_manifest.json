@@ -1,0 +1,52 @@
+{
+  "row_index": 39,
+  "question": "List Bladder trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This query returns the \"nct\", \"author\", \"year\", and \"pubmed_id\" for all clinical trials related to Bladder/Urothelial cancer where inclusion required biomarkers other than PD-L1.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Bladder/Urothelial' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No'\",\n  \"answer\": \"This query returns the \\\"nct\\\", \\\"author\\\", \\\"year\\\", and \\\"pubmed_id\\\" for all clinical trials related to Bladder/Urothelial cancer where inclusion required biomarkers other than PD-L1.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row039_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row039_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.9112999986391515,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row039_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.454199981410056,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row039_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.9321999724488705,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row039_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row039_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.469800002174452,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row039_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6842105263157895,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,3 @@
+SELECT "nct", "author", "year", "pubmed_id", "lines_of_treatment", "therapy_modality", "cancer_type", "combination_type", "trial_phase"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'Prostate' AND NULLIF(regexp_replace(("lines_of_treatment")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND "therapy_modality" = 'Combination';

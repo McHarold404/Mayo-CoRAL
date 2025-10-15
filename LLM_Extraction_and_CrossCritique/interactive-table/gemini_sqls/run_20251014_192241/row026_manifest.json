@@ -1,0 +1,52 @@
+{
+  "row_index": 26,
+  "question": "Show Renal cell trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "gemini": {
+    "answer": "Returns RCC trials using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "Assuming PD-L1 positivity being an inclusion criterion is represented by a non-null value in the \"pdl1_inclusion\" column.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"cancer_type\\\", \\\"pdl1_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'RCC' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"pdl1_inclusion\\\" IS NOT NULL;\",\"answer\":\"Returns RCC trials using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.\",\"assumptions\":\"Assuming PD-L1 positivity being an inclusion criterion is represented by a non-null value in the \\\"pdl1_inclusion\\\" column.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row026_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row026_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.022399989888072,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row026_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.5113999880850315,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row026_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.1061000160407275,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row026_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row026_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.4438000079244375,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row026_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -5,
+    "column_overlap_ratio": 0.6,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.56,
+    "deterministic_across_runs": true
+  }
+}

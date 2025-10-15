@@ -1,0 +1,52 @@
+{
+  "row_index": 50,
+  "question": "Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "Head and Neck combo-therapy trials with \u22652 prior lines.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"publication_type\\\", \\\"lines_of_treatment\\\", \\\"therapy_modality\\\", \\\"cancer_type\\\", \\\"combination_type\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HNSCC' AND NULLIF(regexp_replace((\\\"lines_of_treatment\\\")::text, '[^0-9\\\\.-]', '', 'g'), '')::numeric >= 2 AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Head and Neck combo-therapy trials with \u22652 prior lines.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row050_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row050_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.129000015789643,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row050_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.1702000016812235,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row050_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8724000041838735,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row050_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row050_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.2950000206474215,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row050_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 1.0,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8888888888888888,
+    "deterministic_across_runs": true
+  }
+}

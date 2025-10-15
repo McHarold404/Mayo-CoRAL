@@ -1,0 +1,52 @@
+{
+  "row_index": 93,
+  "question": "Which Colorectal trials evaluated Durvalumab, Tremelimumab in phase 2?",
+  "gemini": {
+    "answer": "This query retrieves the NCT identifier, authors, publication year, and PubMed ID for clinical trials focusing on Colorectal cancer in phase 2, where either Durvalumab or Tremelimumab was evaluated.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Colorectal%' AND \\\"trial_phase\\\" = 'Phase 2' AND (\\\"ici_name\\\" = 'Durvalumab' OR \\\"ici_name\\\" = 'Tremelimumab')\",\n  \"answer\": \"This query retrieves the NCT identifier, authors, publication year, and PubMed ID for clinical trials focusing on Colorectal cancer in phase 2, where either Durvalumab or Tremelimumab was evaluated.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row093_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row093_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.034199984744191,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row093_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.214900000486523,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row093_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.1916999984532595,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row093_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row093_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.7202000063844025,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row093_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7391304347826086,
+    "deterministic_across_runs": true
+  }
+}

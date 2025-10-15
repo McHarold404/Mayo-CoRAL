@@ -1,0 +1,52 @@
+{
+  "row_index": 59,
+  "question": "Find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.",
+  "llama": {
+    "answer": "Phase 3 Nivolumab and Ipilimumab trials in Non-Small Cell Lung that were original publication publications.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\", \\\"publication_type\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"control_type\\\", \\\"lines_of_treatment\\\", \\\"clinical_setting_in_relation_to_surgery\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\", \\\"secondary_endpoint\\\", \\\"pdl1_inclusion\\\", \\\"other_biomarker_inclusion\\\", \\\"follow_up_type\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\", \\\"included_in_ma\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"publication_type\\\" = 'Original publication' AND (\\\"treatment_regimen\\\" ILIKE '%Nivolumab%' AND \\\"treatment_regimen\\\" ILIKE '%Ipilimumab%');\",\"answer\":\"Phase 3 Nivolumab and Ipilimumab trials in Non-Small Cell Lung that were original publication publications.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row059_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row059_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.057799997506663,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row059_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.487599999876693,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row059_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.608099986100569,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row059_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row059_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.273900005500764,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row059_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.2413793103448276,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.40425531914893614,
+    "deterministic_across_runs": true
+  }
+}

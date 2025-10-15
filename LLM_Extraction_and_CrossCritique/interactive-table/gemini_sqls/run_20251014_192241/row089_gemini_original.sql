@@ -1,0 +1,3 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "primary_endpoint", "treatment_regimen"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'Bladder/Urothelial' AND "combination_type" = 'ICI+Chemo';

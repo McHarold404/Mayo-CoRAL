@@ -1,0 +1,52 @@
+{
+  "row_index": 31,
+  "question": "Show Renal cell PD1, CTLA-4 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "Rows for Renal cell trials using PD1 or CTLA-4 inhibitors, published in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'RCC' AND \\\"ici_class\\\" IN ('PD1', 'CTLA-4') AND \\\"year\\\" >= 2018;\",\"answer\":\"Rows for Renal cell trials using PD1 or CTLA-4 inhibitors, published in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row031_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row031_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.810200022300705,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row031_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.531799990218133,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row031_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6580000014510006,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row031_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row031_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.56339999800548,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row031_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5172413793103449,
+    "deterministic_across_runs": true
+  }
+}

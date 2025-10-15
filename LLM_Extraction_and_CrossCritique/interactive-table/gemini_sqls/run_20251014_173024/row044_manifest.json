@@ -1,0 +1,52 @@
+{
+  "row_index": 44,
+  "question": "Which Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query returns the NCT ID, authors, year, pubmed ID, and treatment regimen for Phase 3 clinical trials studying ICI+ICI combinations in NSCLC where the ICIs are PD-L1 and CTLA-4 inhibitors.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4') AND \\\"combination_type\\\" = 'ICI + ICI'\",\n  \"answer\": \"This query returns the NCT ID, authors, year, pubmed ID, and treatment regimen for Phase 3 clinical trials studying ICI+ICI combinations in NSCLC where the ICIs are PD-L1 and CTLA-4 inhibitors.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row044_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row044_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.302299996605143,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row044_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.966899985447526,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row044_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.406599997309968,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row044_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row044_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.623899993021041,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row044_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.59375,
+    "deterministic_across_runs": true
+  }
+}

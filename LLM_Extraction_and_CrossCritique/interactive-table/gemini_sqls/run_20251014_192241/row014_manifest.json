@@ -1,0 +1,52 @@
+{
+  "row_index": 14,
+  "question": "List Breast trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "Breast cancer trials with biomarker inclusion criteria beyond PD-L1.",
+    "assumptions": "Assuming that trials with non-null values in 'other_biomarker_inclusion' column used a biomarker other than PD-L1.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"other_biomarker_inclusion\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Breast (TNBC)' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL;\",\"answer\":\"Breast cancer trials with biomarker inclusion criteria beyond PD-L1.\",\"assumptions\":\"Assuming that trials with non-null values in 'other_biomarker_inclusion' column used a biomarker other than PD-L1.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row014_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row014_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.5945000126957893,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row014_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6610999959520996,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row014_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.022299999836832,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row014_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row014_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.667699988000095,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row014_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

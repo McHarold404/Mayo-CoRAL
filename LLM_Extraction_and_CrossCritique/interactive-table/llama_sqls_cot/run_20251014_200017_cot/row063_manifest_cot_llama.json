@@ -1,0 +1,52 @@
+{
+  "row_index": 63,
+  "question": "Find Urothelial trials with median follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "Urothelial trials with median follow-up and months by arm.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"cancer_type\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\", \\\"follow_up_duration_overall_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Bladder/Urothelial' AND \\\"follow_up_duration_overall_months\\\" IS NOT NULL AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL;\",\"answer\":\"Urothelial trials with median follow-up and months by arm.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row063_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row063_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.7363000155892223,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row063_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.181700001936406,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row063_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.857599997194484,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row063_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row063_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.4943000064231455,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row063_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -7,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6190476190476191,
+    "deterministic_across_runs": true
+  }
+}

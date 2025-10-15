@@ -1,0 +1,52 @@
+{
+  "row_index": 11,
+  "question": "Show Prostate CTLA-4 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of Prostate CTLA-4 trials conducted in 2018 or later.",
+    "assumptions": "Assuming 'Prostate' is a substring of the cancer type and CTLA-4 is the exact class of ICI.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Prostate%' AND \\\"ici_class\\\" = 'CTLA4' AND \\\"year\\\" >= 2018\",\n  \"answer\": \"List of Prostate CTLA-4 trials conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming 'Prostate' is a substring of the cancer type and CTLA-4 is the exact class of ICI.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row011_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row011_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.358600010164082,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row011_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.058399983681738,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row011_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.408000007970259,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row011_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row011_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.740500007756054,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row011_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4482758620689655,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "ici_name", "ici_class", "treatment_regimen", "control_regimen", "primary_endpoint" FROM public."clinical_trials" WHERE "year" >= 2018 AND "cancer_type" ILIKE '%Head and Neck%' AND ("ici_class" = 'PD-L1' OR "ici_class" = 'CTLA-4')

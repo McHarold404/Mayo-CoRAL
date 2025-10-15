@@ -1,0 +1,52 @@
+{
+  "row_index": 87,
+  "question": "Find Colorectal trials with median follow\u2011up and show months by arm.",
+  "llm": {
+    "answer": "Colorectal trials with median follow-up and months by arm.",
+    "assumptions": "Assuming 'Colorectal' is a substring of the cancer type and follow-up durations are non-null for both arms.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"Experimental Arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"Control Arm\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Colorectal%' AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL\",\n  \"answer\": \"Colorectal trials with median follow-up and months by arm.\",\n  \"assumptions\": \"Assuming 'Colorectal' is a substring of the cancer type and follow-up durations are non-null for both arms.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row087_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row087_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.617900013225153,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row087_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.7657000066246837,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row087_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.83289999444969,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row087_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row087_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.66850001248531,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row087_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 1.0,
+    "nct_recall": 0.3333333333333333,
+    "nct_f1": 0.5,
+    "nct_jaccard": 0.3333333333333333,
+    "sql_token_jaccard_vs_gt": 0.52,
+    "deterministic_across_runs": true
+  }
+}

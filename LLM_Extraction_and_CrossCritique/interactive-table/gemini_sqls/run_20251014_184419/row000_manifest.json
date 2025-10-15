@@ -1,0 +1,52 @@
+{
+  "row_index": 0,
+  "question": "Show Melanoma trials that used ICI+Vaccine combinations.",
+  "gemini": {
+    "answer": "Rows from clinical trials for Melanoma that used ICI+Vaccine combinations are shown.",
+    "assumptions": "",
+    "raw": "{\"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Melanoma' AND \\\"combination_type\\\" = 'ICI+Vaccine';\", \"answer\": \"Rows from clinical trials for Melanoma that used ICI+Vaccine combinations are shown.\",\"assumptions\": \"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_184419\\row000_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_184419\\row000_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 40.793799998937175,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_184419\\row000_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.7822000021114945,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_184419\\row000_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.582000001799315,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_184419\\row000_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_184419\\row000_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.278899993048981,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_184419\\row000_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7777777777777778,
+    "deterministic_across_runs": true
+  }
+}

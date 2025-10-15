@@ -1,0 +1,52 @@
+{
+  "row_index": 70,
+  "question": "Which Esophageal/GEJ trials evaluated Pembrolizumab in phase 3?",
+  "gemini": {
+    "answer": "Esophageal/GEJ trials evaluating Pembrolizumab in phase 3.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Esophageal/GEJ' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3';\", \"answer\": \"Esophageal/GEJ trials evaluating Pembrolizumab in phase 3.\", \"assumptions\": \"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row070_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row070_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8629999908152968,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row070_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.2375000193715096,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row070_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.875299986451864,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row070_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row070_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.702399997971952,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row070_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8095238095238095,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 26,
+  "question": "Show Renal cell trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, authors, year, and PubMed ID for renal cell trials using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" \\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' \\n  AND \\\"ici_class\\\" = 'PD-L1'\\n  AND \\\"pdl1_inclusion\\\" = 'Yes';\",\n  \"answer\": \"This query selects the NCT ID, authors, year, and PubMed ID for renal cell trials using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row026_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row026_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.601200013188645,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row026_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.243000003043562,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row026_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.516199995530769,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row026_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row026_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.440000018803403,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row026_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -5,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6956521739130435,
+    "deterministic_across_runs": true
+  }
+}

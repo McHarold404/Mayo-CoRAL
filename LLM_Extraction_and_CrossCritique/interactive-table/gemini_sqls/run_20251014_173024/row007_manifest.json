@@ -1,0 +1,52 @@
+{
+  "row_index": 7,
+  "question": "Which Phase 2 CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query returns the NCT ID, author, year, pubmed_id and treatment regimen for phase 2 clinical trials of CTLA-4 inhibitors in combination therapy for NSCLC.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'CTLA-4' AND \\\"combination_type\\\" <> 'Monotherapy' AND \\\"cancer_type\\\" = 'NSCLC'\",\n  \"answer\": \"This query returns the NCT ID, author, year, pubmed_id and treatment regimen for phase 2 clinical trials of CTLA-4 inhibitors in combination therapy for NSCLC.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row007_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row007_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.592099983710796,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row007_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.619400016963482,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row007_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.020200012950227,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row007_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row007_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.103899991605431,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row007_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.36363636363636365,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5862068965517241,
+    "deterministic_across_runs": true
+  }
+}

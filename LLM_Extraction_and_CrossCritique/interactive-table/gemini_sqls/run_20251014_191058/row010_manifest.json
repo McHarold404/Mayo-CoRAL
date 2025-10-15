@@ -1,0 +1,52 @@
+{
+  "row_index": 10,
+  "question": "List Small Cell Lung trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "SCLC trials using biomarkers other than PD-L1 for inclusion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"other_biomarker_inclusion\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'SCLC' AND \\\"other_biomarker_inclusion\\\" = 'Yes';\",\"answer\":\"SCLC trials using biomarkers other than PD-L1 for inclusion.\",\"assumptions\":\"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_191058\\row010_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_191058\\row010_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.852999998955056,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row010_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.353699980536476,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row010_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 8.353600016562268,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row010_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_191058\\row010_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.7119000013917685,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_191058\\row010_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -14,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.55,
+    "deterministic_across_runs": true
+  }
+}

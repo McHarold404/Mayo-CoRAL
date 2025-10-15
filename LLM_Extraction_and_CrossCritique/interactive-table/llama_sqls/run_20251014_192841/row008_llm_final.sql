@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "control_type" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Small Cell Lung%' AND "control_type" = 'Chemo'

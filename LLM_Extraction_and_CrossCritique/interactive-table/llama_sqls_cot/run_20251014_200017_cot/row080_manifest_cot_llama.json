@@ -1,0 +1,52 @@
+{
+  "row_index": 80,
+  "question": "Find NSCLC trials with median follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "NSCLC trials with median follow-up and arm-specific months.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\", \\\"follow_up_duration_overall_months\\\", \\\"cancer_type\\\", \\\"trial_phase\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"follow_up_duration_overall_months\\\" IS NOT NULL AND (\\\"follow_up_duration_rx_months\\\" IS NOT NULL OR \\\"follow_up_duration_control_months\\\" IS NOT NULL);\",\"answer\":\"NSCLC trials with median follow-up and arm-specific months.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row080_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row080_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.268799985060468,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row080_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.398700024466962,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row080_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.0540000083856285,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row080_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row080_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.782800009706989,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row080_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5416666666666666,
+    "deterministic_across_runs": true
+  }
+}

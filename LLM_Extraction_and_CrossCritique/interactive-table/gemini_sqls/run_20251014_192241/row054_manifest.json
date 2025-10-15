@@ -1,0 +1,52 @@
+{
+  "row_index": 54,
+  "question": "Find Breast trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "Shows Breast cancer trials and follow-up duration in months, broken out by arm.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"cancer_type\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%Breast%';\",\"answer\":\"Shows Breast cancer trials and follow-up duration in months, broken out by arm.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row054_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row054_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.527599995024502,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row054_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.836500000441447,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row054_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.72339999396354,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row054_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row054_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.025499995099381,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row054_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 1,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.9,
+    "nct_recall": 1.0,
+    "nct_f1": 0.9473684210526316,
+    "nct_jaccard": 0.9,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 67,
+  "question": "Show Melanoma PD1, CTLA-4 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "Melanoma trials with PD1 or CTLA-4 conducted in 2018 or later.",
+    "assumptions": "Assuming 'Melanoma' is a substring of the cancer type and 'PD1' and 'CTLA4' are exact matches for the ICI class.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"ici_class\\\", \\\"cancer_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"year\\\" >= 2018 AND \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"ici_class\\\" IN ('PD1', 'CTLA4')\",\n  \"answer\": \"Melanoma trials with PD1 or CTLA-4 conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming 'Melanoma' is a substring of the cancer type and 'PD1' and 'CTLA4' are exact matches for the ICI class.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row067_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row067_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.263400002149865,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row067_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.349699989892542,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row067_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 8.198399998946115,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row067_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row067_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.902100005187094,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row067_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 7,
+    "column_overlap_ratio": 0.5555555555555556,
+    "nct_precision": 0.2,
+    "nct_recall": 1.0,
+    "nct_f1": 0.33333333333333337,
+    "nct_jaccard": 0.2,
+    "sql_token_jaccard_vs_gt": 0.4666666666666667,
+    "deterministic_across_runs": true
+  }
+}

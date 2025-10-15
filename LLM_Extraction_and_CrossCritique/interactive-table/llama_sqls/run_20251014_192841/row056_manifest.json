@@ -1,0 +1,52 @@
+{
+  "row_index": 56,
+  "question": "List Breast trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llm": {
+    "answer": "Breast trials requiring a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "Assuming 'other_biomarker_inclusion' and 'pdl1_inclusion' are Yes/No fields and 'cancer_type' contains 'Breast' for relevant trials.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"other_biomarker_inclusion\\\" ILIKE '%Yes%' AND \\\"pdl1_inclusion\\\" ILIKE '%No%'\",\n  \"answer\": \"Breast trials requiring a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"Assuming 'other_biomarker_inclusion' and 'pdl1_inclusion' are Yes/No fields and 'cancer_type' contains 'Breast' for relevant trials.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row056_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row056_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.674999996088445,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ... ILIKE '%Breast%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Breast%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.5525999953970313,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ... ILIKE '%Breast%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Breast%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.209400001447648,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: boolean ~~* unknown\nLINE 1: ... ILIKE '%Breast%' AND \"other_biomarker_inclusion\" ILIKE '%Ye...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Breast%%' AND \"other_biomarker_inclusion\" ILIKE '%%Yes%%' AND \"pdl1_inclusion\" ILIKE '%%No%%']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row056_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.853500005789101,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row056_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.6842105263157895,
+    "deterministic_across_runs": false
+  }
+}

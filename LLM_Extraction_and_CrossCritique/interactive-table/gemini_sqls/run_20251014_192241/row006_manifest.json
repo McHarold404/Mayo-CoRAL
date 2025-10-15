@@ -1,0 +1,52 @@
+{
+  "row_index": 6,
+  "question": "Which Non-Small Cell Lung phase 2 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, PubMed ID, trial phase and control type for NSCLC trials in phase 2 that used ICI monotherapy and where the control type was Chemo.",
+    "assumptions": "Assuming the question is about ICI vs. Chemo, and thus selects for ICI monotherapy trials that compare to a Chemo control arm.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_phase\\\", \\\"control_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"trial_phase\\\" = 'Phase 2' AND \\\"control_type\\\" = 'Chemo' AND \\\"therapy_modality\\\" = 'Monotherapy';\",\"answer\":\"This query selects the NCT ID, author, year, PubMed ID, trial phase and control type for NSCLC trials in phase 2 that used ICI monotherapy and where the control type was Chemo.\",\"assumptions\":\"Assuming the question is about ICI vs. Chemo, and thus selects for ICI monotherapy trials that compare to a Chemo control arm.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row006_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row006_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.915800022194162,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row006_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.718200001865625,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row006_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.253199993399903,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row006_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row006_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.676199983805418,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row006_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -9,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5769230769230769,
+    "deterministic_across_runs": true
+  }
+}

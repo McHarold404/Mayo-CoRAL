@@ -1,0 +1,52 @@
+{
+  "row_index": 92,
+  "question": "Show Pembrolizumab combination trials in Renal cell with sample sizes.",
+  "llama": {
+    "answer": "Pembrolizumab combination trials in Renal cell carcinoma with sample sizes.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\", \\\"cancer_type\\\", \\\"total_sample_size\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"therapy_modality\\\" = 'Combination' AND \\\"cancer_type\\\" = 'RCC';\",\"answer\":\"Pembrolizumab combination trials in Renal cell carcinoma with sample sizes.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row092_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row092_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.039999999804422,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row092_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.009800002677366,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row092_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.12779999896884,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row092_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row092_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 5.538500001421198,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row092_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4166666666666667,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6521739130434783,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 95,
+  "question": "Show Mesothelioma PD1 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "Rows showing Mesothelioma trials with a PD1 class ICI and conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Mesothelioma' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018;\",\"answer\":\"Rows showing Mesothelioma trials with a PD1 class ICI and conducted in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row095_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row095_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.2977999944705516,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row095_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.081399984192103,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row095_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.314500005217269,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row095_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row095_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.847999982303008,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row095_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.5833333333333334,
+    "deterministic_across_runs": true
+  }
+}

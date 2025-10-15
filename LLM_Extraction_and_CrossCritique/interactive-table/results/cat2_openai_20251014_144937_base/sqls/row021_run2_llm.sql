@@ -1,0 +1,1 @@
+/* LLM disabled: placeholder for: Find Melanoma trials with minimum follow‑up and show months by arm. */ SELECT 1;

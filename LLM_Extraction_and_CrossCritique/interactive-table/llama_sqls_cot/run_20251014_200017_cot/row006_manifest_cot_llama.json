@@ -1,0 +1,52 @@
+{
+  "row_index": 6,
+  "question": "Which Non-Small Cell Lung phase 2 trials compared ICI to Chemo?",
+  "llama": {
+    "answer": "Rows for NSCLC Phase 2 trials comparing ICI to Chemo.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"trial_phase\\\", \\\"number_of_arms\\\", \\\"total_sample_size\\\", \\\"publication_type\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"control_type\\\", \\\"lines_of_treatment\\\", \\\"clinical_setting_in_relation_to_surgery\\\", \\\"primary_endpoint\\\", \\\"primary_endpoint_is_multiple_or_composite\\\", \\\"secondary_endpoint\\\", \\\"pdl1_inclusion\\\", \\\"other_biomarker_inclusion\\\", \\\"follow_up_type\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\", \\\"included_in_ma\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"trial_phase\\\" = 'Phase 2' AND \\\"therapy_modality\\\" = 'Combination' AND \\\"combination_type\\\" = 'ICI + Chemo' AND \\\"control_type\\\" = 'Chemo';\",\"answer\":\"Rows for NSCLC Phase 2 trials comparing ICI to Chemo.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row006_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row006_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 45.03169999225065,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row006_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 17.2753999941051,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row006_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 11.693599983118474,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row006_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row006_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 9.591300011379644,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row006_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -9,
+    "column_overlap_ratio": 0.2903225806451613,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.3829787234042553,
+    "deterministic_across_runs": true
+  }
+}

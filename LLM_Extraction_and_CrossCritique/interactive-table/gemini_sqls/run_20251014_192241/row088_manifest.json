@@ -1,0 +1,52 @@
+{
+  "row_index": 88,
+  "question": "Show Colorectal trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "Colorectal combination-therapy trials with \u22652 prior lines of treatment.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Colorectal' AND NULLIF(regexp_replace((\\\"lines_of_treatment\\\")::text, '[^0-9\\\\.-]', '', 'g'), '')::numeric >= 2 AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Colorectal combination-therapy trials with \u22652 prior lines of treatment.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row088_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row088_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.401300022844225,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row088_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.023399989819154,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row088_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.635599994799122,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row088_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row088_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.483199987793341,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row088_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8461538461538461,
+    "deterministic_across_runs": true
+  }
+}

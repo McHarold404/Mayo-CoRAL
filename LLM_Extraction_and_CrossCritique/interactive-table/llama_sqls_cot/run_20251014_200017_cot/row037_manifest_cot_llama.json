@@ -1,0 +1,52 @@
+{
+  "row_index": 37,
+  "question": "Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?",
+  "llama": {
+    "answer": "Review these Phase 2 PD-L1 monotherapy trials in Breast (TNBC) for regimen details.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\", \\\"trial_phase\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"therapy_modality\\\" = 'Monotherapy' AND \\\"cancer_type\\\" = 'Breast (TNBC)';\",\"answer\":\"Review these Phase 2 PD-L1 monotherapy trials in Breast (TNBC) for regimen details.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row037_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row037_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.405400017276406,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row037_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.115299991099164,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row037_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.583799978718162,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row037_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row037_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.136100003961474,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row037_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.75,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.84,
+    "deterministic_across_runs": true
+  }
+}

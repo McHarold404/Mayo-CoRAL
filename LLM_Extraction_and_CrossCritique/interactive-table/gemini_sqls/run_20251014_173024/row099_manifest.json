@@ -1,0 +1,52 @@
+{
+  "row_index": 99,
+  "question": "Show Small Cell Lung studies included in the meta\u2011analysis that used PD-L1, CTLA-4 agents.",
+  "gemini": {
+    "answer": "This query selects clinical trials related to SCLC, included in a meta-analysis, and using PD-L1 or CTLA-4 inhibitors.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"included_in_ma\\\" = 'Yes' AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4')\",\n  \"answer\": \"This query selects clinical trials related to SCLC, included in a meta-analysis, and using PD-L1 or CTLA-4 inhibitors.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row099_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row099_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.448799998499453,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row099_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.742399993119761,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row099_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.131800000322983,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row099_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row099_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.837300006533042,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row099_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6538461538461539,
+    "deterministic_across_runs": true
+  }
+}

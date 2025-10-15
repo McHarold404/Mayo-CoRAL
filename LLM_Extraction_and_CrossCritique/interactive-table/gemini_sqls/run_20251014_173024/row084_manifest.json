@@ -1,0 +1,52 @@
+{
+  "row_index": 84,
+  "question": "Which Hepatocellular trials evaluated Pembrolizumab in phase 3?",
+  "gemini": {
+    "answer": "This query retrieves Hepatocellular Carcinoma (HCC) clinical trials that evaluated Pembrolizumab and were in phase 3.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%HCC%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3'\",\n  \"answer\": \"This query retrieves Hepatocellular Carcinoma (HCC) clinical trials that evaluated Pembrolizumab and were in phase 3.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row084_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row084_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.570200009969994,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row084_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.747700004372746,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row084_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.8269000253640115,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row084_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row084_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.02709999657236,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row084_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6818181818181818,
+    "deterministic_across_runs": true
+  }
+}

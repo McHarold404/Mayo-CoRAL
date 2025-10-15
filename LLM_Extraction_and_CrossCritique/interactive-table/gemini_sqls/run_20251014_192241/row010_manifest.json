@@ -1,0 +1,52 @@
+{
+  "row_index": 10,
+  "question": "List Small Cell Lung trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT, author, year, pubmed_id, and other_biomarker_inclusion for Small Cell Lung Cancer trials where a biomarker other than PD-L1 was required for inclusion.",
+    "assumptions": "Trials with no entry in \"other_biomarker_inclusion\" column are assumed not to require other biomarkers for inclusion.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"other_biomarker_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'SCLC' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"pdl1_inclusion\\\" = 'No';\",\"answer\":\"This SQL query retrieves the NCT, author, year, pubmed_id, and other_biomarker_inclusion for Small Cell Lung Cancer trials where a biomarker other than PD-L1 was required for inclusion.\",\"assumptions\":\"Trials with no entry in \\\"other_biomarker_inclusion\\\" column are assumed not to require other biomarkers for inclusion.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row010_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row010_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.9983999924734235,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row010_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.574100002879277,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row010_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.571000008378178,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row010_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row010_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.9576999843120575,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row010_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -14,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5217391304347826,
+    "deterministic_across_runs": true
+  }
+}

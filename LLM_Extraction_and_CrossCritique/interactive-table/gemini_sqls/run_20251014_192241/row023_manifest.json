@@ -1,0 +1,52 @@
+{
+  "row_index": 23,
+  "question": "Which Phase 2 CTLA-4 combination trials in Pancreatic should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "Returns Phase 2 CTLA-4 combination trials in Pancreatic cancer, with their regimens.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'CTLA-4' AND \\\"cancer_type\\\" = 'Pancreatic' AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Returns Phase 2 CTLA-4 combination trials in Pancreatic cancer, with their regimens.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row023_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row023_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.863899997668341,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row023_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.584099991712719,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row023_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.268299991963431,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row023_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row023_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.724700003862381,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row023_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8333333333333334,
+    "deterministic_across_runs": true
+  }
+}

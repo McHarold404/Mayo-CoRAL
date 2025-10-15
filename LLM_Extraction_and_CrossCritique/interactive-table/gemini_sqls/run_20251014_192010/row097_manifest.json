@@ -1,0 +1,52 @@
+{
+  "row_index": 97,
+  "question": "Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for all phase 3 clinical trials involving both Durvalumab and Tremelimumab for Small Cell Lung Cancer that are follow-up publications.",
+    "assumptions": "I am assuming that when SCLC is mentioned it refers to Small Cell Lung Cancer. Additionally, the data must use 'Follow-up' to define follow-up publications in the \"publication_type\" column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_name\\\" = 'Durvalumab' AND \\\"ici_name\\\" = 'Tremelimumab' AND \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"publication_type\\\" = 'Follow-up'\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for all phase 3 clinical trials involving both Durvalumab and Tremelimumab for Small Cell Lung Cancer that are follow-up publications.\",\n  \"assumptions\": \"I am assuming that when SCLC is mentioned it refers to Small Cell Lung Cancer. Additionally, the data must use 'Follow-up' to define follow-up publications in the \\\"publication_type\\\" column.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row097_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row097_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8320000167004764,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row097_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.972700000507757,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row097_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.981399997835979,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row097_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row097_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.587400006130338,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row097_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.76,
+    "deterministic_across_runs": true
+  }
+}

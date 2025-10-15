@@ -1,0 +1,52 @@
+{
+  "row_index": 8,
+  "question": "Which Small Cell Lung trials used Chemo as the control arm?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, and PubMed ID for small cell lung cancer trials that used chemotherapy as the control regimen.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"control_regimen\\\" ILIKE '%Chemo%'\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, and PubMed ID for small cell lung cancer trials that used chemotherapy as the control regimen.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_190948\\row008_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_190948\\row008_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.506800011266023,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_190948\\row008_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.319800005760044,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_190948\\row008_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8949000008869916,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_190948\\row008_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_190948\\row008_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.075300014344975,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_190948\\row008_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -11,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}

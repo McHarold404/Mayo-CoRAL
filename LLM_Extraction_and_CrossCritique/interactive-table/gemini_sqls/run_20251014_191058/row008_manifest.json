@@ -1,0 +1,52 @@
+{
+  "row_index": 8,
+  "question": "Which Small Cell Lung trials used Chemo as the control arm?",
+  "gemini": {
+    "answer": "Returns trials for small cell lung cancer that used Chemo as the control arm.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'SCLC' AND \\\"control_type\\\" = 'Chemo';\", \"answer\": \"Returns trials for small cell lung cancer that used Chemo as the control arm.\", \"assumptions\": \"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_191058\\row008_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_191058\\row008_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.6313999919220805,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row008_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.234199983533472,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row008_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.171800003154203,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row008_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_191058\\row008_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.624600016744807,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_191058\\row008_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -11,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

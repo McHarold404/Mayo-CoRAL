@@ -1,0 +1,52 @@
+{
+  "row_index": 13,
+  "question": "List Prostate trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "Prostate trials with biomarker inclusion criteria beyond PD-L1.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"other_biomarker_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Prostate' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL;\",\"answer\":\"Prostate trials with biomarker inclusion criteria beyond PD-L1.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row013_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row013_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.446699990192428,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row013_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 8.59320000745356,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row013_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.38129998696968,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row013_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row013_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.361399999354035,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row013_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.631578947368421,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "cancer_type", "ici_name", "ici_class", "included_in_ma" FROM public."clinical_trials" WHERE "included_in_ma" = 'Yes' AND "cancer_type" ILIKE '%Non-Small Cell Lung%' AND "ici_class" IN ('PD-L1', 'CTLA-4')

@@ -1,0 +1,52 @@
+{
+  "row_index": 19,
+  "question": "Show Non-Small Cell Lung trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "llama": {
+    "answer": "Trials for NSCLC using PD1 with PD-L1 positivity as an inclusion criterion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"pdl1_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_class\\\" = 'PD1' AND \\\"pdl1_inclusion\\\" = 'Yes';\",\"answer\":\"Trials for NSCLC using PD1 with PD-L1 positivity as an inclusion criterion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row019_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row019_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.8423999978695065,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row019_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.7774999984540045,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row019_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.0173000015784055,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row019_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row019_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.167799983406439,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row019_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -10,
+    "column_overlap_ratio": 0.7,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5833333333333334,
+    "deterministic_across_runs": true
+  }
+}

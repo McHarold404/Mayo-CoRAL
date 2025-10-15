@@ -1,0 +1,52 @@
+{
+  "row_index": 70,
+  "question": "Which Esophageal/GEJ trials evaluated Pembrolizumab in phase 3?",
+  "llm": {
+    "answer": "List of Esophageal/GEJ trials that evaluated Pembrolizumab in phase 3.",
+    "assumptions": "Assuming 'Esophageal/GEJ' is a substring of the 'cancer_type' column and 'Pembrolizumab' is an exact match for 'ici_name'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Esophageal/GEJ%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3'\",\n  \"answer\": \"List of Esophageal/GEJ trials that evaluated Pembrolizumab in phase 3.\",\n  \"assumptions\": \"Assuming 'Esophageal/GEJ' is a substring of the 'cancer_type' column and 'Pembrolizumab' is an exact match for 'ici_name'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row070_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row070_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.470099986065179,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row070_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.973200001288205,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row070_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.023100016638637,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row070_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row070_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.966699983924627,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row070_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8181818181818182,
+    "deterministic_across_runs": true
+  }
+}

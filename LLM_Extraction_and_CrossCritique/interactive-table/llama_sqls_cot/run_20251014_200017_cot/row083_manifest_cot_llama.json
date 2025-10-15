@@ -1,0 +1,52 @@
+{
+  "row_index": 83,
+  "question": "Which Breast trials specified neoadjuvant ICI use?",
+  "llama": {
+    "answer": "Breast (TNBC) trials with neoadjuvant ICI use.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"clinical_setting\\\", \\\"therapy_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"combination_type\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Breast (TNBC)' AND \\\"clinical_setting\\\" = 'Neoadjuvant';\",\"answer\":\"Breast (TNBC) trials with neoadjuvant ICI use.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row083_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row083_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.393699975684285,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row083_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.43589998758398,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row083_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.0911000105552375,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row083_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row083_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.7103999929968268,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row083_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -4,
+    "column_overlap_ratio": 0.35714285714285715,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5416666666666666,
+    "deterministic_across_runs": true
+  }
+}

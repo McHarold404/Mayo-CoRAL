@@ -1,0 +1,52 @@
+{
+  "row_index": 31,
+  "question": "Show Renal cell PD1, CTLA-4 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year, and pubmed_id for renal cell cancer trials involving PD-1 or CTLA-4 inhibitors conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"ici_class\\\" IN ('PD-1', 'CTLA-4') AND \\\"year\\\" >= 2018\",\n  \"answer\": \"This query retrieves the nct, author, year, and pubmed_id for renal cell cancer trials involving PD-1 or CTLA-4 inhibitors conducted in 2018 or later.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row031_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row031_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 13.87830000021495,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row031_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.905000016558915,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row031_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.178699979092926,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row031_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row031_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.952899995259941,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row031_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.375,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5161290322580645,
+    "deterministic_across_runs": true
+  }
+}

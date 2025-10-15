@@ -1,0 +1,52 @@
+{
+  "row_index": 12,
+  "question": "Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llama": {
+    "answer": "Prostate combo-therapy trials with \u22652 prior lines.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"publication_type\\\", \\\"lines_of_treatment\\\", \\\"therapy_modality\\\", \\\"cancer_type\\\", \\\"combination_type\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Prostate' AND NULLIF(regexp_replace((\\\"lines_of_treatment\\\")::text, '[^0-9\\\\.-]', '', 'g'), '')::numeric >= 2 AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Prostate combo-therapy trials with \u22652 prior lines.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row012_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row012_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.2180000056978315,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row012_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.608699990669265,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row012_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.710699992254376,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row012_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row012_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.8436000070068985,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row012_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": true,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 1.0,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 1.0,
+    "deterministic_across_runs": true
+  }
+}

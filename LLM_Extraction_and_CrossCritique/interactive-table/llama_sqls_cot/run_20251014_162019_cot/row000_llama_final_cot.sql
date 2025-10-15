@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Melanoma%' AND "combination_type" ILIKE '%ICI + Vaccine%'

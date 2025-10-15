@@ -1,0 +1,52 @@
+{
+  "row_index": 95,
+  "question": "Show Mesothelioma PD1 trials conducted in 2018 or later.",
+  "llama": {
+    "answer": "Rows for Mesothelioma trials using PD1 conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"publication_type\\\", \\\"ici_class\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Mesothelioma' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018;\",\"answer\":\"Rows for Mesothelioma trials using PD1 conducted in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row095_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row095_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.549299996346235,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row095_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.366500012110919,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row095_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.067300003953278,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row095_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row095_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.711900004418567,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row095_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.875,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

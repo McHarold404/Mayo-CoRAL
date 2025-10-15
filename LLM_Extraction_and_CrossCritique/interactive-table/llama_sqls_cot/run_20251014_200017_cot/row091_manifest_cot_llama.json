@@ -1,0 +1,52 @@
+{
+  "row_index": 91,
+  "question": "Show Renal cell PD1 trials conducted in 2018 or later.",
+  "llama": {
+    "answer": "Rows for Renal cell PD1 trials conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'RCC' AND \\\"ici_class\\\" = 'PD1' AND \\\"year\\\" >= 2018;\",\"answer\":\"Rows for Renal cell PD1 trials conducted in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row091_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row091_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.032400000141934,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row091_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.811999980825931,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row091_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.132500005653128,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row091_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row091_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.332899989094585,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row091_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -5,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5185185185185185,
+    "deterministic_across_runs": true
+  }
+}

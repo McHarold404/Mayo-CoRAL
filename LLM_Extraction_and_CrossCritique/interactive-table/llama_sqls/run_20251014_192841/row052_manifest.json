@@ -1,0 +1,52 @@
+{
+  "row_index": 52,
+  "question": "Which Non-Small Cell Lung trials evaluated Atezolizumab in phase 3?",
+  "llm": {
+    "answer": "List of Non-Small Cell Lung trials evaluating Atezolizumab in phase 3.",
+    "assumptions": "Assuming NSCLC is mentioned in the cancer type for relevant trials.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%NSCLC%' AND \\\"ici_name\\\" = 'Atezolizumab' AND \\\"trial_phase\\\" = 'Phase 3'\",\n  \"answer\": \"List of Non-Small Cell Lung trials evaluating Atezolizumab in phase 3.\",\n  \"assumptions\": \"Assuming NSCLC is mentioned in the cancer type for relevant trials.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row052_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row052_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.882999997586012,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row052_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.9791000017430633,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row052_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.9939999987836927,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row052_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row052_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.160600005183369,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row052_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -9,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.64,
+    "deterministic_across_runs": true
+  }
+}

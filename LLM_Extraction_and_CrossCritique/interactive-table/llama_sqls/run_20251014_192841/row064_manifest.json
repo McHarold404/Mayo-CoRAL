@@ -1,0 +1,52 @@
+{
+  "row_index": 64,
+  "question": "Show Urothelial PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of urothelial trials conducted in 2018 or later with PD-L1 or CTLA-4 ICI.",
+    "assumptions": "Assuming 'Urothelial' is a substring of the cancer type and 'PD-L1' and 'CTLA-4' are exact matches for the ICI class.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"ici_class\\\", \\\"cancer_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"year\\\" >= 2018 AND \\\"cancer_type\\\" ILIKE '%Urothelial%' AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4')\",\n  \"answer\": \"List of urothelial trials conducted in 2018 or later with PD-L1 or CTLA-4 ICI.\",\n  \"assumptions\": \"Assuming 'Urothelial' is a substring of the cancer type and 'PD-L1' and 'CTLA-4' are exact matches for the ICI class.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row064_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row064_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.504300002939999,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row064_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.444300011731684,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row064_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.95900000189431,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row064_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row064_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.933300020638853,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row064_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 4,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.25,
+    "nct_recall": 1.0,
+    "nct_f1": 0.4,
+    "nct_jaccard": 0.25,
+    "sql_token_jaccard_vs_gt": 0.5862068965517241,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 50,
+  "question": "Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, year, and PubMed ID for head and neck cancer trials where the lines of treatment are at least 2 or more and the therapy type is a combination.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%HNSCC%' AND \\\"lines_of_treatment\\\" ILIKE '%2L+%' AND \\\"monotherapy/combination\\\" = 'Combination'\",\n  \"answer\": \"This query retrieves the NCT ID, author, year, and PubMed ID for head and neck cancer trials where the lines of treatment are at least 2 or more and the therapy type is a combination.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row050_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row050_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 3.2875000033527613,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy/combination\" does not exist\nLINE 1: ...NSCC%' AND \"lines_of_treatment\" ILIKE '%2L+%' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%HNSCC%%' AND \"lines_of_treatment\" ILIKE '%%2L+%%' AND \"monotherapy/combination\" = 'Combination']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.2035999863874167,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy/combination\" does not exist\nLINE 1: ...NSCC%' AND \"lines_of_treatment\" ILIKE '%2L+%' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%HNSCC%%' AND \"lines_of_treatment\" ILIKE '%%2L+%%' AND \"monotherapy/combination\" = 'Combination']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.123800019035116,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"monotherapy/combination\" does not exist\nLINE 1: ...NSCC%' AND \"lines_of_treatment\" ILIKE '%2L+%' AND \"monothera...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%HNSCC%%' AND \"lines_of_treatment\" ILIKE '%%2L+%%' AND \"monotherapy/combination\" = 'Combination']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row050_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.294099992373958,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row050_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.3870967741935484,
+    "deterministic_across_runs": false
+  }
+}

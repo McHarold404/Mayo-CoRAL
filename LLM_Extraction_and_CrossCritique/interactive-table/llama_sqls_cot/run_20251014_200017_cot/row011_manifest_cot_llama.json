@@ -1,0 +1,52 @@
+{
+  "row_index": 11,
+  "question": "Show Prostate CTLA-4 trials conducted in 2018 or later.",
+  "llama": {
+    "answer": "Prostate trials using CTLA-4 ICIs conducted in 2018 or later.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"ici_class\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Prostate' AND \\\"ici_class\\\" = 'CTLA4' AND \\\"year\\\" >= 2018;\",\"answer\":\"Prostate trials using CTLA-4 ICIs conducted in 2018 or later.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row011_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row011_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 10.009899997385219,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row011_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.569699995452538,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row011_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 7.820200000423938,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row011_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row011_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 7.426099997246638,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row011_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.75,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5384615384615384,
+    "deterministic_across_runs": true
+  }
+}

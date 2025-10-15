@@ -1,0 +1,52 @@
+{
+  "row_index": 0,
+  "question": "Show Melanoma trials that used ICI+Vaccine combinations.",
+  "llm": {
+    "answer": "Melanoma trials that used ICI+Vaccine combinations.",
+    "assumptions": "Assuming 'ICI + Vaccine' is the exact phrase used in the 'combination_type' column for such combinations.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"combination_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"combination_type\\\" ILIKE '%ICI + Vaccine%'\",\n  \"answer\": \"Melanoma trials that used ICI+Vaccine combinations.\",\n  \"assumptions\": \"Assuming 'ICI + Vaccine' is the exact phrase used in the 'combination_type' column for such combinations.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row000_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row000_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 13.590000016847625,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row000_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.214400007389486,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row000_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.355400014901534,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row000_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row000_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.95600001886487,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row000_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6818181818181818,
+    "deterministic_across_runs": true
+  }
+}

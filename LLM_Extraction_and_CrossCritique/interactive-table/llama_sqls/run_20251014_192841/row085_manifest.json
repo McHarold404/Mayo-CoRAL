@@ -1,0 +1,52 @@
+{
+  "row_index": 85,
+  "question": "List Hepatocellular trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llm": {
+    "answer": "List of Hepatocellular trials requiring a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "Assuming that 'Hepatocellular' is a substring of the cancer type and that 'other_biomarker_inclusion' is not null if a biomarker other than PD-L1 is required.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Hepatocellular%' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"pdl1_inclusion\\\" IS NULL\",\n  \"answer\": \"List of Hepatocellular trials requiring a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"Assuming that 'Hepatocellular' is a substring of the cancer type and that 'other_biomarker_inclusion' is not null if a biomarker other than PD-L1 is required.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row085_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row085_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.273700003977865,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row085_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.623100023716688,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row085_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.396199976326898,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row085_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row085_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.383099989965558,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row085_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}

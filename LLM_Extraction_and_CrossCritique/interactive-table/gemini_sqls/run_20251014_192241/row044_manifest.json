@@ -1,0 +1,52 @@
+{
+  "row_index": 44,
+  "question": "Which Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This SQL query retrieves Phase 3 combination therapy trials in NSCLC using PD-L1 and CTLA-4 inhibitors, displaying key details like NCT, author, and treatment regimens.",
+    "assumptions": "I am assuming the user is interested in trials where the therapy is a combination and that at least one of the ICI classes used is PD-L1 or CTLA-4.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_phase\\\", \\\"ici_class\\\", \\\"combination_type\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"control_regimen\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 3'\\n  AND \\\"cancer_type\\\" = 'NSCLC'\\n  AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4')\\n  AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"This SQL query retrieves Phase 3 combination therapy trials in NSCLC using PD-L1 and CTLA-4 inhibitors, displaying key details like NCT, author, and treatment regimens.\",\"assumptions\":\"I am assuming the user is interested in trials where the therapy is a combination and that at least one of the ICI classes used is PD-L1 or CTLA-4.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row044_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row044_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.4701999868266284,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row044_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.689500016160309,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row044_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.146100000478327,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row044_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row044_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.796699977712706,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row044_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5384615384615384,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.65625,
+    "deterministic_across_runs": true
+  }
+}

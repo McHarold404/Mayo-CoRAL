@@ -1,0 +1,52 @@
+{
+  "row_index": 87,
+  "question": "Find Colorectal trials with median follow\u2011up and show months by arm.",
+  "llama": {
+    "answer": "Colorectal trials with median follow-up and arm-specific months.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"follow_up_duration_overall_months\\\" AS \\\"median_follow_up\\\", \\\"follow_up_duration_rx_months\\\" AS \\\"rx_arm\\\", \\\"follow_up_duration_control_months\\\" AS \\\"control_arm\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Colorectal' AND \\\"follow_up_duration_overall_months\\\" IS NOT NULL AND \\\"follow_up_duration_rx_months\\\" IS NOT NULL AND \\\"follow_up_duration_control_months\\\" IS NOT NULL;\",\"answer\":\"Colorectal trials with median follow-up and arm-specific months.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row087_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row087_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.5384000113699585,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row087_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.072399992262945,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row087_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.990700002759695,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row087_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row087_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.867899999022484,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row087_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -4,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5416666666666666,
+    "deterministic_across_runs": true
+  }
+}

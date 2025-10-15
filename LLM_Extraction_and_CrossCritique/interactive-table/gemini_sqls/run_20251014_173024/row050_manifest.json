@@ -1,0 +1,52 @@
+{
+  "row_index": 50,
+  "question": "Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "gemini": {
+    "answer": "This query returns the NCT, author, year, and PubMed ID for clinical trials of Head and Neck Squamous Cell Carcinoma (HNSCC) that used combination therapy and enrolled patients with at least two prior lines of therapy.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%HNSCC%'\\n  AND \\\"lines_of_treatment\\\" ILIKE '%2L+%' \\n  AND \\\"therapy_type\\\" = 'Combination therapy';\",\n  \"answer\": \"This query returns the NCT, author, year, and PubMed ID for clinical trials of Head and Neck Squamous Cell Carcinoma (HNSCC) that used combination therapy and enrolled patients with at least two prior lines of therapy.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row050_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row050_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 8.745700004510581,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row050_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.262400005245581,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row050_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.783599975984544,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row050_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row050_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.023799989838153,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row050_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.375,
+    "deterministic_across_runs": true
+  }
+}

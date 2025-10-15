@@ -1,0 +1,52 @@
+{
+  "row_index": 70,
+  "question": "Which Esophageal/GEJ trials evaluated Pembrolizumab in phase 3?",
+  "llama": {
+    "answer": "Rows for Esophageal/GEJ trials evaluating Pembrolizumab in phase 3.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"trial_phase\\\", \\\"ici_name\\\", \\\"cancer_type\\\", \\\"therapy_modality\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"primary_endpoint\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Esophageal/GEJ' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3';\",\"answer\":\"Rows for Esophageal/GEJ trials evaluating Pembrolizumab in phase 3.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row070_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row070_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.327500006183982,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row070_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.020599997602403,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row070_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.082599993329495,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row070_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row070_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.8315999845508486,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row070_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.72,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "cancer_type", "treatment_regimen", "ici_name", "ici_class", "pdl1_inclusion" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Renal cell%' AND "ici_class" = 'PD-L1' AND "pdl1_inclusion" = 'Yes'

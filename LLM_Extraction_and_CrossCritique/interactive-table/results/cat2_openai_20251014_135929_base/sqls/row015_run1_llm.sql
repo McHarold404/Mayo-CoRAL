@@ -1,0 +1,1 @@
+/* LLM disabled: placeholder for: List CTLA-4 trials that reported composite or co-primary endpoints. */ SELECT 1;

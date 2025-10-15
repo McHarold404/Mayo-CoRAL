@@ -1,0 +1,52 @@
+{
+  "row_index": 41,
+  "question": "Show Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "gemini": {
+    "answer": "This SQL query selects the NCT ID, author, year, cancer type, and ICI class for Non-Small Cell Lung Cancer (NSCLC) trials conducted in 2018 or later that used PD-L1 or CTLA-4 inhibitors.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"cancer_type\\\", \\\"ici_class\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"year\\\" >= 2018 AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4');\",\"answer\":\"This SQL query selects the NCT ID, author, year, cancer type, and ICI class for Non-Small Cell Lung Cancer (NSCLC) trials conducted in 2018 or later that used PD-L1 or CTLA-4 inhibitors.\",\"assumptions\":\"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row041_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row041_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.707600019173697,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row041_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.554000013740733,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row041_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.843900020001456,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row041_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row041_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.789099999470636,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row041_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.7142857142857143,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5161290322580645,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 90,
+  "question": "Show Breast trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "llm": {
+    "answer": "Breast cancer trials using PD-1 where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "Assuming 'Breast' in 'cancer_type' refers to breast cancer trials and 'PD-L1 positivity' is captured by 'pdl1_inclusion'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Breast%' AND \\\"ici_class\\\" = 'PD1' AND \\\"pdl1_inclusion\\\" = 'Yes'\",\n  \"answer\": \"Breast cancer trials using PD-1 where PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"Assuming 'Breast' in 'cancer_type' refers to breast cancer trials and 'PD-L1 positivity' is captured by 'pdl1_inclusion'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row090_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row090_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 7.183100009569898,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row090_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.207499994663522,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row090_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.8314000121317804,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row090_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row090_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.885700004408136,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row090_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.2727272727272727,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7142857142857143,
+    "deterministic_across_runs": true
+  }
+}

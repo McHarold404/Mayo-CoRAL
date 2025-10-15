@@ -1,0 +1,52 @@
+{
+  "row_index": 7,
+  "question": "Which Phase 2 CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "Returns rows for Phase 2 CTLA-4 combination therapy trials in NSCLC, including regimens.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 2' AND \\\"ici_class\\\" = 'CTLA-4' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Returns rows for Phase 2 CTLA-4 combination therapy trials in NSCLC, including regimens.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_191058\\row007_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_191058\\row007_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 8.742699981667101,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row007_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.391799990320578,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row007_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.737299983389676,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row007_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_191058\\row007_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.775800014613196,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_191058\\row007_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6785714285714286,
+    "deterministic_across_runs": true
+  }
+}

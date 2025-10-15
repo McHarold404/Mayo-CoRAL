@@ -1,0 +1,52 @@
+{
+  "row_index": 17,
+  "question": "Which Small Cell Lung phase 3 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query returns the NCT IDs, authors, publication year, and PubMed IDs for Small Cell Lung Cancer trials in phase 3 that compared ICI monotherapy to Chemo.",
+    "assumptions": "Assuming that comparison of ICI to Chemo implies ICI monotherapy is compared against Chemo control arm.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'SCLC' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"control_type\\\" = 'Chemo' AND \\\"therapy_modality\\\" = 'Monotherapy';\",\"answer\":\"This query returns the NCT IDs, authors, publication year, and PubMed IDs for Small Cell Lung Cancer trials in phase 3 that compared ICI monotherapy to Chemo.\",\"assumptions\":\"Assuming that comparison of ICI to Chemo implies ICI monotherapy is compared against Chemo control arm.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_191058\\row017_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_191058\\row017_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.87890002457425,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row017_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.060399998910725,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row017_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6378000222612172,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_191058\\row017_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_191058\\row017_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.522200012113899,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_191058\\row017_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

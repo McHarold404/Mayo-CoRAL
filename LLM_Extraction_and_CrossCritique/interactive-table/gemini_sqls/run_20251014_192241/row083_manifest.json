@@ -1,0 +1,52 @@
+{
+  "row_index": 83,
+  "question": "Which Breast trials specified neoadjuvant ICI use?",
+  "gemini": {
+    "answer": "This returns Breast cancer trials that specified neoadjuvant ICI use.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"clinical_setting_in_relation_to_surgery\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" LIKE '%Breast%' AND \\\"clinical_setting_in_relation_to_surgery\\\" = 'Neoadjuvant';\",\"answer\":\"This returns Breast cancer trials that specified neoadjuvant ICI use.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row083_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row083_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 17.92269997531548,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row083_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6524000170174986,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row083_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.7403000169433653,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row083_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row083_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.8290999946184456,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row083_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.45454545454545453,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

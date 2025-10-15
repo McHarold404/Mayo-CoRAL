@@ -1,0 +1,52 @@
+{
+  "row_index": 61,
+  "question": "List Non-Small Cell Lung Nivolumab, Ipilimumab trials where overall follow\u2011up exceeded 21 months.",
+  "llama": {
+    "answer": "Trials for NSCLC using Nivolumab or Ipilimumab with overall follow-up exceeding 21 months.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"follow_up_duration_overall_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_name\\\" IN ('Nivolumab', 'Ipilimumab') AND \\\"follow_up_duration_overall_months\\\" > 21;\",\"answer\":\"Trials for NSCLC using Nivolumab or Ipilimumab with overall follow-up exceeding 21 months.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row061_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row061_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.25059997360222,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row061_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.035699985455722,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row061_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.444899997906759,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row061_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row061_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.3283999839331955,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row061_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.6,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.46875,
+    "deterministic_across_runs": true
+  }
+}

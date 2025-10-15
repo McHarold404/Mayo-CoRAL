@@ -1,0 +1,52 @@
+{
+  "row_index": 17,
+  "question": "Which Small Cell Lung phase 3 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query retrieves the nct, author, year, and pubmed_id for phase 3 trials involving Small Cell Lung Cancer (SCLC) where the control regimen contains Chemo and the ICI class is either PD-1, PD-L1, or CTLA-4.",
+    "assumptions": "I am assuming that 'ICI' is Immunotherapy and falls within the classes PD-1, PD-L1, or CTLA-4.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%SCLC%' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"control_regimen\\\" ILIKE '%Chemo%' AND (\\\"ici_class\\\" = 'PD-1' OR \\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4')\",\n  \"answer\": \"This query retrieves the nct, author, year, and pubmed_id for phase 3 trials involving Small Cell Lung Cancer (SCLC) where the control regimen contains Chemo and the ICI class is either PD-1, PD-L1, or CTLA-4.\",\n  \"assumptions\": \"I am assuming that 'ICI' is Immunotherapy and falls within the classes PD-1, PD-L1, or CTLA-4.\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row017_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row017_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 7.287899992661551,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row017_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.781900010537356,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row017_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.337400001939386,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row017_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row017_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.384399981470779,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row017_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.4375,
+    "deterministic_across_runs": true
+  }
+}

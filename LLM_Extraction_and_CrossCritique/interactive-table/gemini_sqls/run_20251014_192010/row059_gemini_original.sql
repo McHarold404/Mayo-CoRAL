@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND ("ici_name" = 'Nivolumab' OR "ici_name" = 'Ipilimumab') AND "cancer_type" ILIKE '%NSCLC%' AND "publication_type" = 'Original publication'

@@ -1,0 +1,52 @@
+{
+  "row_index": 17,
+  "question": "Which Small Cell Lung phase 3 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query returns the NCT, author, year, and pubmed_id for all phase 3 clinical trials of SCLC where the control regimen was Chemo.",
+    "assumptions": "",
+    "raw": "{\"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'SCLC' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"control_type\\\" = 'Chemo';\", \"answer\": \"This query returns the NCT, author, year, and pubmed_id for all phase 3 clinical trials of SCLC where the control regimen was Chemo.\", \"assumptions\": \"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row017_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row017_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.318100011209026,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row017_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.705099989427254,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row017_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.314199999906123,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row017_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row017_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.57969999499619,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row017_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -8,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6521739130434783,
+    "deterministic_across_runs": true
+  }
+}

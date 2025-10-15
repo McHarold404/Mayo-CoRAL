@@ -1,0 +1,52 @@
+{
+  "row_index": 33,
+  "question": "List PD1 trials that reported composite or co-primary endpoints.",
+  "gemini": {
+    "answer": "List of PD1 trials reporting composite or co-primary endpoints.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_class\\\" = 'PD1' AND \\\"primary_endpoint_is_multiple_or_composite\\\" IS NOT NULL;\",\"answer\":\"List of PD1 trials reporting composite or co-primary endpoints.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row033_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row033_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4314000222366303,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row033_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.154499998548999,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row033_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.821500013349578,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row033_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row033_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.161300021223724,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row033_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 52,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.27450980392156865,
+    "nct_recall": 1.0,
+    "nct_f1": 0.43076923076923085,
+    "nct_jaccard": 0.27450980392156865,
+    "sql_token_jaccard_vs_gt": 0.6,
+    "deterministic_across_runs": true
+  }
+}

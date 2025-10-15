@@ -1,0 +1,52 @@
+{
+  "row_index": 71,
+  "question": "List Esophageal/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llm": {
+    "answer": "List of Esophageal/GEJ trials requiring a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "Assuming that 'other_biomarker_inclusion' is not null and not empty for trials requiring a biomarker other than PD-L1, and 'pdl1_inclusion' is null or 'No' for trials not requiring PD-L1.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Esophageal/GEJ%' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"other_biomarker_inclusion\\\" <> '' AND \\\"pdl1_inclusion\\\" IS NULL OR \\\"pdl1_inclusion\\\" = 'No'\",\n  \"answer\": \"List of Esophageal/GEJ trials requiring a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"Assuming that 'other_biomarker_inclusion' is not null and not empty for trials requiring a biomarker other than PD-L1, and 'pdl1_inclusion' is null or 'No' for trials not requiring PD-L1.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row071_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row071_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 3.0630000110249966,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"\"\nLINE 1: ...n\" IS NOT NULL AND \"other_biomarker_inclusion\" <> '' AND \"pd...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Esophageal/GEJ%%' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" <> '' AND \"pdl1_inclusion\" IS NULL OR \"pdl1_inclusion\" = 'No']\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.3310999968089163,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"\"\nLINE 1: ...n\" IS NOT NULL AND \"other_biomarker_inclusion\" <> '' AND \"pd...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Esophageal/GEJ%%' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" <> '' AND \"pdl1_inclusion\" IS NULL OR \"pdl1_inclusion\" = 'No']\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 1.73789999098517,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"\"\nLINE 1: ...n\" IS NOT NULL AND \"other_biomarker_inclusion\" <> '' AND \"pd...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Esophageal/GEJ%%' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" <> '' AND \"pdl1_inclusion\" IS NULL OR \"pdl1_inclusion\" = 'No']\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row071_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.677199991419911,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row071_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.5416666666666666,
+    "deterministic_across_runs": false
+  }
+}

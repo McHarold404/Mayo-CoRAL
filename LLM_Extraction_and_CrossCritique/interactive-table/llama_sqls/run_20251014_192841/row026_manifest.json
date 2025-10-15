@@ -1,0 +1,52 @@
+{
+  "row_index": 26,
+  "question": "Show Renal cell trials using PD-L1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "llm": {
+    "answer": "Renal cell trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+    "assumptions": "Assuming 'Renal cell' is a substring of the cancer type and PD-L1 positivity is explicitly stated as 'Yes'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"pdl1_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"ici_class\\\" = 'PD-L1' AND \\\"pdl1_inclusion\\\" = 'Yes'\",\n  \"answer\": \"Renal cell trials using PD-L1 where PD-L1 positivity was an inclusion criterion.\",\n  \"assumptions\": \"Assuming 'Renal cell' is a substring of the cancer type and PD-L1 positivity is explicitly stated as 'Yes'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row026_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row026_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.219100003363565,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row026_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.345000012312084,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row026_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.916699999943376,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row026_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row026_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.9749000172596425,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row026_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -5,
+    "column_overlap_ratio": 0.5833333333333334,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.68,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%Melanoma%' AND "lines_of_treatment" >= 2 AND "combination_type" IS NOT NULL

@@ -1,0 +1,52 @@
+{
+  "row_index": 35,
+  "question": "Which Gastric/GEJ trials used Placebo as the control arm?",
+  "gemini": {
+    "answer": "This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Gastric/GEJ cancer where the control type was Placebo.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Gastric/GEJ' AND \\\"control_type\\\" = 'Placebo'\",\n  \"answer\": \"This query selects the NCT ID, author, year, and PubMed ID for clinical trials of Gastric/GEJ cancer where the control type was Placebo.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row035_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row035_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.1000999917741865,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row035_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.1694000062998384,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row035_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6579000006895512,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row035_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row035_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 8.26279999455437,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row035_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7777777777777778,
+    "deterministic_across_runs": true
+  }
+}

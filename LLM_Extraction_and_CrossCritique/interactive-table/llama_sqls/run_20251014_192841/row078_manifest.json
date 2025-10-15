@@ -1,0 +1,52 @@
+{
+  "row_index": 78,
+  "question": "Which Phase 3 PD1 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "llm": {
+    "answer": "Review the listed Phase 3 PD1 combination trials in Non-Small Cell Lung Cancer (NSCLC) with their respective treatment regimens.",
+    "assumptions": "Assuming 'ICI + Chemo' is the correct combination type for PD1 combination trials, and 'NSCLC' is the exact cancer type value in the table.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_class\\\" = 'PD1' AND \\\"combination_type\\\" = 'ICI + Chemo' AND \\\"cancer_type\\\" = 'NSCLC'\",\n  \"answer\": \"Review the listed Phase 3 PD1 combination trials in Non-Small Cell Lung Cancer (NSCLC) with their respective treatment regimens.\",\n  \"assumptions\": \"Assuming 'ICI + Chemo' is the correct combination type for PD1 combination trials, and 'NSCLC' is the exact cancer type value in the table.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row078_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row078_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.685799987986684,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row078_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.60650002444163,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row078_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.635300021618605,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row078_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row078_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.117099994095042,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row078_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5333333333333333,
+    "deterministic_across_runs": true
+  }
+}

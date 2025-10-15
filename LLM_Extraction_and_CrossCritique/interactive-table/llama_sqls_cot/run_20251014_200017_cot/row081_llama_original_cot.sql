@@ -1,0 +1,3 @@
+SELECT "nct", "author", "year", "pubmed_id", "cancer_type", "follow_up_duration_overall_months" AS "median_follow_up", "follow_up_duration_rx_months" AS "rx_arm", "follow_up_duration_control_months" AS "control_arm"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'Hodgkin Lymphoma' AND "follow_up_duration_overall_months" IS NOT NULL AND ("follow_up_duration_rx_months" IS NOT NULL OR "follow_up_duration_control_months" IS NOT NULL);

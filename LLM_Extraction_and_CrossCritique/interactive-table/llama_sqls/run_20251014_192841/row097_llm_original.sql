@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "ici_name" IN ('Durvalumab', 'Tremelimumab') AND "cancer_type" ILIKE '%Small Cell Lung%' AND "original_publication_or_follow_up" = 'Follow-up'

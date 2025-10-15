@@ -1,0 +1,52 @@
+{
+  "row_index": 74,
+  "question": "List Esophageal/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "Esophageal/GEJ trials using biomarkers other than PD-L1 for inclusion.",
+    "assumptions": "Trials requiring only other biomarkers will have \"other_biomarker_inclusion\" = 'Yes' AND \"pdl1_inclusion\" = 'No'.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Esophageal/GEJ' AND \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No';\", \"answer\": \"Esophageal/GEJ trials using biomarkers other than PD-L1 for inclusion.\", \"assumptions\": \"Trials requiring only other biomarkers will have \\\"other_biomarker_inclusion\\\" = 'Yes' AND \\\"pdl1_inclusion\\\" = 'No'.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row074_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row074_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.403000009711832,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row074_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.2774999930989,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row074_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.4555000020191073,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row074_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row074_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.8318999868351966,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row074_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7368421052631579,
+    "deterministic_across_runs": true
+  }
+}

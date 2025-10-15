@@ -1,0 +1,3 @@
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'Colorectal' AND "ici_name" = 'Durvalumab' AND "ici_name" = 'Tremelimumab' AND "trial_phase" = 'Phase 2';

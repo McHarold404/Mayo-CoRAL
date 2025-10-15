@@ -1,0 +1,1131 @@
+row_index,question,llama_sql_original,llama_sql_final,llama_answer,llama_assumptions,run1_status,run1_ms,run1_error,run2_status,run2_ms,run2_error,run3_status,run3_ms,run3_error,deterministic_across_runs,llama_result_rows_last_run,ground_truth_sql,ground_truth_sql_final,ground_truth_exec_status,ground_truth_ms,ground_truth_error,ground_truth_result_rows,results_equal_exact,rowcount_delta_pred_minus_gt,column_overlap_ratio,nct_precision,nct_recall,nct_f1,nct_jaccard,sql_token_jaccard_vs_gt
+0,Show Melanoma trials that used ICI+Vaccine combinations.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';",Rows for Melanoma trials using ICI+Vaccine combinations.,,ok,31.843800010392442,,ok,4.30999998934567,,ok,4.418800002895296,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';",ok,4.099699988728389,,2,True,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+1,Show Melanoma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""lines_of_treatment"" ILIKE '%2L%' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""lines_of_treatment"" ILIKE '%2L%' AND ""therapy_modality"" = 'Combination';",Melanoma combo-therapy trials with ≥2 prior lines.,,ok,10.966700006974861,,ok,5.00040000770241,,ok,4.677099990658462,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,9.255799988750368,,2,False,-2.0,1.0,0.0,0.0,0.0,0.0,0.6296296296296297
+2,List Melanoma trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'NA' AND ""other_biomarker_inclusion"" != 'Unknown';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'NA' AND ""other_biomarker_inclusion"" != 'Unknown';",Melanoma trials requiring a biomarker other than PD-L1 for inclusion.,,error,10.070999996969476,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'NA' AND ""other_biomarker_inclusion"" != 'Unknown';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,1.9142999954055995,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'NA' AND ""other_biomarker_inclusion"" != 'Unknown';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,1.9515999883878976,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'NA' AND ""other_biomarker_inclusion"" != 'Unknown';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" = 'Yes';",ok,6.851799989817664,,10,,,,,,,,0.5
+3,Show Ipilimumab combination trials in Melanoma with sample sizes.,"SELECT ""nct"", ""author"", ""year"", ""total_sample_size"", ""treatment_regimen"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_name"" = 'Ipilimumab' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""total_sample_size"", ""treatment_regimen"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_name"" = 'Ipilimumab' AND ""therapy_modality"" = 'Combination';",Rows for Melanoma trials using Ipilimumab in combination with sample sizes.,,ok,5.960699985735118,,ok,5.463700013933703,,ok,8.017899992410094,,True,3.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",ok,9.66159999370575,,3,False,0.0,0.45454545454545453,1.0,1.0,1.0,1.0,0.85
+4,"Which Phase 3 CTLA-4 combination trials in Melanoma should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_name"", ""ici_class""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA4' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_name"", ""ici_class""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA4' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",Review Phase 3 Melanoma trials with CTLA-4 combination therapy.,,ok,5.75899999239482,,ok,4.3950999970547855,,ok,4.276899999240413,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",ok,4.536500026006252,,3,False,-3.0,0.5384615384615384,0.0,0.0,0.0,0.0,0.7307692307692307
+5,"Which Non-Small Cell Lung studies tested ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""combination_type"" = 'ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""combination_type"" = 'ICI+Chemo';",Rows for NSCLC trials testing ICI+Chemo combinations with primary endpoints.,,ok,8.695100026670843,,ok,6.099499994888902,,ok,5.5868000199552625,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""combination_type"" = 'ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""combination_type"" = 'ICI+Chemo';",ok,7.0912000082898885,,13,False,-12.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.6818181818181818
+6,Which Non-Small Cell Lung phase 2 trials compared ICI to Chemo?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""number_of_arms"", ""total_sample_size"", ""publication_type"", ""cancer_type"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""combination_type"", ""control_regimen"", ""control_type"", ""lines_of_treatment"", ""clinical_setting_in_relation_to_surgery"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""secondary_endpoint"", ""pdl1_inclusion"", ""other_biomarker_inclusion"", ""follow_up_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""included_in_ma"", ""therapy_type"", ""clinical_setting""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination' AND ""combination_type"" = 'ICI + Chemo' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""number_of_arms"", ""total_sample_size"", ""publication_type"", ""cancer_type"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""combination_type"", ""control_regimen"", ""control_type"", ""lines_of_treatment"", ""clinical_setting_in_relation_to_surgery"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""secondary_endpoint"", ""pdl1_inclusion"", ""other_biomarker_inclusion"", ""follow_up_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""included_in_ma"", ""therapy_type"", ""clinical_setting""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination' AND ""combination_type"" = 'ICI + Chemo' AND ""control_type"" = 'Chemo';",Rows for NSCLC Phase 2 trials comparing ICI to Chemo.,,ok,45.03169999225065,,ok,17.2753999941051,,ok,11.693599983118474,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""control_type"" = 'Chemo';",ok,9.591300011379644,,9,False,-9.0,0.2903225806451613,0.0,0.0,0.0,0.0,0.3829787234042553
+7,"Which Phase 2 CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 2' AND ""ici_class"" = 'CTLA4' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'NSCLC';","SELECT ""nct"", ""author"", ""year"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 2' AND ""ici_class"" = 'CTLA4' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'NSCLC';",Review Phase 2 CTLA-4 combination trials in NSCLC for regimen details.,,ok,8.49259999813512,,ok,10.423800005810335,,ok,5.663900024956092,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';",ok,5.950799997663125,,2,False,-2.0,0.6363636363636364,0.0,0.0,0.0,0.0,0.6071428571428571
+8,Which Small Cell Lung trials used Chemo as the control arm?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""control_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""control_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""control_type"" = 'Chemo';",SCLC trials with Chemo as control arm.,,ok,5.841900012455881,,ok,6.400700018275529,,ok,7.697300025029108,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""control_type"" = 'Chemo';",ok,5.227199988439679,,11,False,-11.0,0.7777777777777778,0.0,0.0,0.0,0.0,0.7
+9,Find Small Cell Lung trials with minimum follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""follow_up_duration_overall_months"" IS NOT NULL
+ORDER BY ""follow_up_duration_overall_months"" ASC
+LIMIT 1;","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""follow_up_duration_overall_months"" IS NOT NULL
+ORDER BY ""follow_up_duration_overall_months"" ASC
+LIMIT 1;","The trial with the minimum follow-up duration for SCLC will be returned, along with the follow-up duration in months for each arm.",,ok,11.74919999903068,,ok,4.62710001738742,,ok,4.111700021894649,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""follow_up_type"" = 'Minimum';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""follow_up_type"" = 'Minimum';",ok,4.310900025302544,,3,False,-3.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.42857142857142855
+10,List Small Cell Lung trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;",Trials for SCLC that require a biomarker other than PD-L1 for inclusion.,,ok,5.2986000082455575,,ok,6.150500004878268,,ok,4.762299999129027,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""other_biomarker_inclusion"" = 'No';",ok,7.689199992455542,,14,False,-14.0,0.5,0.0,0.0,0.0,0.0,0.44
+11,Show Prostate CTLA-4 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""ici_class"" = 'CTLA4' AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""ici_class"" = 'CTLA4' AND ""year"" >= 2018;",Prostate trials using CTLA-4 ICIs conducted in 2018 or later.,,ok,10.009899997385219,,ok,6.569699995452538,,ok,7.820200000423938,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""ici_class"" = 'CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""ici_class"" = 'CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,7.426099997246638,,1,False,-1.0,0.75,0.0,0.0,0.0,0.0,0.5384615384615384
+12,Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",Prostate combo-therapy trials with ≥2 prior lines.,,ok,5.2180000056978315,,ok,7.608699990669265,,ok,6.710699992254376,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,4.8436000070068985,,2,True,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+13,List Prostate trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""other_biomarker_inclusion"" = 'Yes';",Trials for Prostate cancer that require a biomarker other than PD-L1 for inclusion.,,ok,8.746300009079278,,ok,12.103799992473796,,ok,8.347499999217689,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""other_biomarker_inclusion"" = 'No';",ok,5.629099992802367,,3,False,-3.0,0.5,0.0,0.0,0.0,0.0,0.631578947368421
+14,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;",Breast trials requiring a non-PD-L1 biomarker for inclusion.,,ok,5.706600000848994,,ok,6.097600009525195,,ok,4.377300007035956,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';",ok,6.530000013299286,,8,False,-8.0,0.5,0.0,0.0,0.0,0.0,0.5217391304347826
+15,List CTLA-4 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;",CTLA-4 trials with composite/co-primary endpoints.,,error,6.209699989994988,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...LA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,4.061300016473979,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...LA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,1.7626000044401735,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...LA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",ok,3.9513000228907913,,2,,,,,,,,0.5714285714285714
+16,Show Melanoma studies included in the meta‑analysis that used CTLA-4 agents.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA4' AND ""included_in_ma"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA4' AND ""included_in_ma"" = 'Yes';",Melanoma studies using CTLA-4 agents and included in the meta-analysis.,,ok,4.620799998519942,,ok,3.940499998861924,,ok,4.0268999873660505,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA-4' AND ""included_in_ma"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA-4' AND ""included_in_ma"" = 'No';",ok,3.976899984991178,,4,False,-4.0,0.5454545454545454,0.0,0.0,0.0,0.0,0.5652173913043478
+17,Which Small Cell Lung phase 3 trials compared ICI to Chemo?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""cancer_type"", ""treatment_regimen"", ""control_regimen"", ""control_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""trial_phase"" = 'Phase 3' AND ""therapy_type"" = 'Combination' AND ""combination_type"" = 'ICI + Chemo' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""cancer_type"", ""treatment_regimen"", ""control_regimen"", ""control_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""trial_phase"" = 'Phase 3' AND ""therapy_type"" = 'Combination' AND ""combination_type"" = 'ICI + Chemo' AND ""control_type"" = 'Chemo';",Rows for SCLC Phase 3 trials comparing ICI+Chemo to Chemo.,,ok,7.000199984759092,,ok,5.722400004742667,,ok,5.714700004318729,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';",ok,4.836199979763478,,8,False,-8.0,0.5833333333333334,0.0,0.0,0.0,0.0,0.5517241379310345
+18,List Renal cell trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';",Trials for Renal cell carcinoma requiring a biomarker other than PD-L1 for inclusion.,,error,2.3883999965619296,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""PD-L1""
+LINE 3: ...ion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';
+                                                               ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,1.9523000228218734,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""PD-L1""
+LINE 3: ...ion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';
+                                                               ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,2.9845999961253256,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""PD-L1""
+LINE 3: ...ion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';
+                                                               ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""other_biomarker_inclusion"" = 'No';",ok,4.603100009262562,,14,,,,,,,,0.4782608695652174
+19,Show Non-Small Cell Lung trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""ici_class"", ""pdl1_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""ici_class"", ""pdl1_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",Trials for NSCLC using PD1 with PD-L1 positivity as an inclusion criterion.,,ok,4.8423999978695065,,ok,4.7774999984540045,,ok,4.0173000015784055,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,4.167799983406439,,10,False,-10.0,0.7,0.0,0.0,0.0,0.0,0.5833333333333334
+20,Find Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""ici_name"", ""cancer_type"", ""trial_phase"", ""publication_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""ici_name"", ""cancer_type"", ""trial_phase"", ""publication_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';",Pembrolizumab Melanoma trials in Phase 2 that were original publication publications.,,ok,3.7429000076372176,,ok,4.105599975446239,,ok,4.9934000126086175,,True,4.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';",ok,4.0942000050563365,,4,False,0.0,0.7777777777777778,1.0,1.0,1.0,1.0,0.9047619047619048
+21,Find Melanoma trials with minimum follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL
+ORDER BY ""follow_up_duration_rx_months"" ASC, ""follow_up_duration_control_months"" ASC
+LIMIT 1;","SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL
+ORDER BY ""follow_up_duration_rx_months"" ASC, ""follow_up_duration_control_months"" ASC
+LIMIT 1;",Minimum follow-up Melanoma trial with months by arm.,,ok,6.54430000577122,,ok,3.9006999868433923,,ok,4.167000006418675,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""follow_up_type"" = 'Minimum';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""follow_up_type"" = 'Minimum';",ok,4.368199995951727,,4,False,-3.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.52
+22,Show Pancreatic trials that used ICI+Vaccine combinations.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""combination_type"" = 'ICI+Vaccine';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""combination_type"" = 'ICI+Vaccine';",Rows for Pancreatic trials using ICI+Vaccine combinations.,,ok,5.276399984722957,,ok,4.546800017124042,,ok,3.8791999977547675,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""combination_type"" = 'ICI+Vaccine';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""combination_type"" = 'ICI+Vaccine';",ok,3.8161000120453537,,1,True,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+23,"Which Phase 2 CTLA-4 combination trials in Pancreatic should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 2' AND ""ici_class"" = 'CTLA4' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'Pancreatic';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 2' AND ""ici_class"" = 'CTLA4' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'Pancreatic';",Review Phase 2 CTLA-4 combination trials in Pancreatic cancer with specified regimens.,,ok,4.464799974812195,,ok,5.055499990703538,,ok,3.9588999934494495,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';",ok,3.9893999928608537,,1,False,-1.0,0.5833333333333334,0.0,0.0,0.0,0.0,0.72
+24,Find Phase 2 Atezolizumab trials in Non-Small Cell Lung that were original publication publications.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""cancer_type"", ""ici_name"", ""publication_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'NSCLC' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""cancer_type"", ""ici_name"", ""publication_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'NSCLC' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';",Rows for Phase 2 Atezolizumab trials in NSCLC that were original publication publications.,,ok,4.1207999747712165,,ok,4.766600002767518,,ok,4.5267000095918775,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';",ok,3.96329999784939,,1,False,-1.0,0.7,0.0,0.0,0.0,0.0,0.6923076923076923
+25,Find Renal cell trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;",Renal cell trials with median follow-up and months by arm.,,ok,4.281899979105219,,ok,3.9234000141732395,,ok,4.690900008426979,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""follow_up_type"" = 'Median';",ok,4.143199999816716,,12,False,-12.0,0.6,0.0,0.0,0.0,0.0,0.5217391304347826
+26,Show Renal cell trials using PD-L1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""ici_class"", ""pdl1_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""ici_class"", ""pdl1_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';",Renal cell trials using PD-L1 where PD-L1 positivity was an inclusion criterion.,,ok,4.227099998388439,,ok,4.01059997966513,,ok,4.385400010505691,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'No';",ok,4.86859999364242,,5,False,-5.0,0.7,0.0,0.0,0.0,0.0,0.6521739130434783
+27,List Non-Small Cell Lung trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""other_biomarker_inclusion"" = 'Yes';",Trials for NSCLC that require a non-PD-L1 biomarker for inclusion.,,ok,5.083500000182539,,ok,3.942300012568012,,ok,4.452699999092147,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""other_biomarker_inclusion"" = 'Yes';",ok,5.476899998029694,,13,False,-12.0,0.5,0.0,0.0,0.0,0.0,0.5454545454545454
+28,Find Head and Neck trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""cancer_type"", ""trial_phase"", ""follow_up_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""cancer_type"", ""trial_phase"", ""follow_up_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;",HNSCC trials with median follow-up by arm.,,ok,4.435699986061081,,ok,5.0694000092335045,,ok,3.912500018486753,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""follow_up_type"" = 'Median';",ok,3.8687999767716974,,7,False,-7.0,0.7777777777777778,0.0,0.0,0.0,0.0,0.5909090909090909
+29,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;",Trials for Head and Neck cancer that require a biomarker other than PD-L1 for inclusion.,,ok,6.863000016892329,,ok,6.6713999840430915,,ok,7.276600023033097,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'No';",ok,4.578899999614805,,8,False,-8.0,0.5,0.0,0.0,0.0,0.0,0.4583333333333333
+30,List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""ici_name"" = 'Nivolumab' AND ""follow_up_duration_overall_months"" > 21;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""ici_name"" = 'Nivolumab' AND ""follow_up_duration_overall_months"" > 21;",Trials for HNSCC using Nivolumab with follow-up exceeding 21 months.,,ok,4.0040000167209655,,ok,5.04930000170134,,ok,4.376299999421462,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,5.94719999935478,,1,False,-1.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.5185185185185185
+31,"Show Renal cell PD1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""ici_class"" IN ('PD1', 'CTLA-4') AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""ici_class"" IN ('PD1', 'CTLA-4') AND ""year"" >= 2018;",Renal cell carcinoma trials using PD1 or CTLA-4 inhibitors conducted in 2018 or later.,,ok,6.743200006894767,,ok,3.9250999980140477,,ok,4.321499989600852,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.9300999778788537,,3,False,-3.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.5333333333333333
+32,"List PD1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;",PD1 and CTLA-4 trials with composite or co-primary endpoints.,,error,2.1736999915447086,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,1.721800013910979,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,2.713099995162338,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",ok,4.845400020712987,,4,,,,,,,,0.6363636363636364
+33,List PD1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';",PD1 trials with composite/co-primary endpoints.,,ok,3.9093999948818237,,ok,4.8195000272244215,,ok,4.263400012860075,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,3.9675000007264316,,19,False,-19.0,0.5555555555555556,0.0,0.0,0.0,0.0,0.7222222222222222
+34,Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",Bladder/Urothelial trials using PD1 with PD-L1 positivity as an inclusion criterion.,,ok,5.918900016695261,,ok,4.413400019984692,,ok,4.0689000161364675,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,3.9898999966681004,,2,False,-2.0,0.7272727272727273,0.0,0.0,0.0,0.0,0.7272727272727273
+35,Which Gastric/GEJ trials used Placebo as the control arm?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""control_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""control_type"" = 'Placebo';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""control_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""control_type"" = 'Placebo';",Gastric/GEJ trials using Placebo as the control arm.,,ok,3.814700001385063,,ok,4.889899981208146,,ok,3.915300010703504,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""control_type"" = 'Placebo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""control_type"" = 'Placebo';",ok,5.047699989518151,,2,False,0.0,0.7777777777777778,1.0,1.0,1.0,1.0,0.8888888888888888
+36,Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",Gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion.,,ok,4.040700005134568,,ok,3.983300004620105,,ok,4.334299999754876,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,4.356099991127849,,3,False,-1.0,0.7272727272727273,0.0,0.0,0.0,0.0,0.7727272727272727
+37,"Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 2' AND ""ici_class"" = 'PD-L1' AND ""therapy_modality"" = 'Monotherapy' AND ""cancer_type"" = 'Breast (TNBC)';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 2' AND ""ici_class"" = 'PD-L1' AND ""therapy_modality"" = 'Monotherapy' AND ""cancer_type"" = 'Breast (TNBC)';",Review these Phase 2 PD-L1 monotherapy trials in Breast (TNBC) for regimen details.,,ok,4.405400017276406,,ok,4.115299991099164,,ok,4.583799978718162,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Breast' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Monotherapy';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Breast' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Monotherapy';",ok,4.136100003961474,,1,False,-1.0,0.75,0.0,0.0,0.0,0.0,0.84
+38,Show Bladder PD-L1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018;",Rows for Bladder/Urothelial trials using PD-L1 ICI conducted in 2018 or later.,,ok,4.3117000022903085,,ok,3.9994000107981265,,ok,4.180199990514666,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,4.938400001265109,,1,False,-1.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.5925925925925926
+39,List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""other_biomarker_inclusion"" = 'Yes';",Trials for Bladder/Urothelial cancer that require a biomarker other than PD-L1 for inclusion.,,ok,5.054200009908527,,ok,4.715499992016703,,ok,4.8123000015039,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';",ok,4.422300000442192,,3,False,-3.0,0.625,0.0,0.0,0.0,0.0,0.6666666666666666
+40,List CTLA-4 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;",CTLA-4 trials with composite/co-primary endpoints.,,error,2.8119000198785216,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...LA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,1.9381999736651778,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...LA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,1.7345999949611723,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...LA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA4' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,4.090600006747991,,1,,,,,,,,0.6
+41,"Show Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""year"" >= 2018 AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4');","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""year"" >= 2018 AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4');",Trials for NSCLC with PD-L1 or CTLA-4 conducted in 2018 or later.,,ok,4.935000004479662,,ok,5.368599988287315,,ok,4.933299991535023,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,5.262600025162101,,2,False,-1.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.5151515151515151
+42,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';",Trials with PD-L1 or CTLA-4 ICIs that reported composite or co-primary endpoints.,,ok,4.699799988884479,,ok,4.398999997647479,,ok,3.703099995618686,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,4.200800001854077,,2,False,-2.0,0.5555555555555556,0.0,0.0,0.0,0.0,0.6818181818181818
+43,"Show Non-Small Cell Lung studies included in the meta‑analysis that used PD-L1, CTLA-4 agents.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""included_in_ma"" = 'Yes' AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4');","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""included_in_ma"" = 'Yes' AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4');",Rows for NSCLC studies in the meta-analysis using PD-L1 or CTLA-4 agents.,,ok,5.386700009694323,,ok,4.458600014913827,,ok,4.795300017576665,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';",ok,4.494599997997284,,2,False,-2.0,0.5454545454545454,0.0,0.0,0.0,0.0,0.6071428571428571
+44,"Which Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""combination_type"", ""control_regimen"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""combination_type"" = 'ICI + ICI' AND ""cancer_type"" = 'NSCLC';","SELECT ""nct"", ""author"", ""year"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""combination_type"", ""control_regimen"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""combination_type"" = 'ICI + ICI' AND ""cancer_type"" = 'NSCLC';",Review Phase 3 NSCLC trials using PD-L1 and CTLA-4 combination therapies.,,ok,4.067700006999075,,ok,4.534000006970018,,ok,4.355499986559153,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",ok,5.276200012303889,,2,False,-2.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.625
+45,Which Pancreatic trials evaluated Pembrolizumab in phase 2?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""ici_name"" = 'Pembrolizumab' AND ""trial_phase"" = 'Phase 2';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""ici_name"" = 'Pembrolizumab' AND ""trial_phase"" = 'Phase 2';",Pancreatic trials evaluating Pembrolizumab in phase 2.,,ok,3.8779000169597566,,ok,4.166900005657226,,ok,3.6167000071145594,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2';",ok,4.932500014547259,,1,False,0.0,0.7,1.0,1.0,1.0,1.0,0.9
+46,Which Melanoma trials evaluated Pembrolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""treatment_regimen"", ""ici_name"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""treatment_regimen"" ILIKE '%Pembrolizumab%';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""treatment_regimen"", ""ici_name"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""treatment_regimen"" ILIKE '%Pembrolizumab%';",Trials evaluating Pembrolizumab in Melanoma during Phase 3.,,ok,5.065800010925159,,ok,5.646900011925027,,ok,4.703499987954274,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3';",ok,4.587200004607439,,2,False,0.0,0.8,1.0,1.0,1.0,1.0,0.8571428571428571
+47,Show Melanoma trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",Melanoma trials using PD1 where PD-L1 positivity was an inclusion criterion.,,ok,5.387600016547367,,ok,4.037900012917817,,ok,4.299299995182082,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",ok,4.924499982735142,,14,False,-14.0,0.8,0.0,0.0,0.0,0.0,0.8
+48,Which Non-Small Cell Lung trials used Chemo+Anti-VEGF as the control arm?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""control_regimen"", ""control_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""control_type"" = 'Chemo/Anti-VEGF';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""control_regimen"", ""control_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""control_type"" = 'Chemo/Anti-VEGF';",Trials for NSCLC with Chemo+Anti-VEGF as control arm.,,ok,4.73519999650307,,ok,4.70560000394471,,ok,4.068799986271188,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""control_type"" = 'Chemo+Anti-VEGF';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""control_type"" = 'Chemo+Anti-VEGF';",ok,4.713400005130097,,2,False,-2.0,0.7,0.0,0.0,0.0,0.0,0.6666666666666666
+49,"Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""year"" >= 2018;",Rows for HNSCC trials using PD-L1 or CTLA-4 ICIs conducted in 2018 or later.,,ok,3.9360999944619834,,ok,4.867800016654655,,ok,5.0743999890983105,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.9942000003065914,,1,False,-1.0,0.875,0.0,0.0,0.0,0.0,0.6
+50,Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",HNSCC combo-therapy trials with ≥2 prior lines.,,ok,3.9745999965816736,,ok,4.610600008163601,,ok,4.446200007805601,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,4.8670999822206795,,1,False,-1.0,1.0,0.0,0.0,0.0,0.0,0.8888888888888888
+51,Show Head and Neck trials using PD-L1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';",Rows for HNSCC trials using PD-L1 with PD-L1 positivity as an inclusion criterion.,,ok,4.284199996618554,,ok,4.269400000339374,,ok,3.947899997001514,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';",ok,4.024499998195097,,1,False,-1.0,0.7272727272727273,0.0,0.0,0.0,0.0,0.7391304347826086
+52,Which Non-Small Cell Lung trials evaluated Atezolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""ici_name"" = 'Atezolizumab' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""ici_name"" = 'Atezolizumab' AND ""trial_phase"" = 'Phase 3';",Trials evaluating Atezolizumab in NSCLC in phase 3.,,ok,4.447899991646409,,ok,4.3009000073652714,,ok,3.850100009003654,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3';",ok,4.787800018675625,,10,False,-9.0,0.8,0.0,0.0,0.0,0.0,0.7083333333333334
+53,List PD-L1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';",Trials with PD-L1 that reported composite or co-primary endpoints.,,ok,3.5963999980594963,,ok,3.6646999942604452,,ok,3.667499986477196,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",ok,5.327299993950874,,13,False,-13.0,0.5555555555555556,0.0,0.0,0.0,0.0,0.7
+54,Find Breast trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""follow_up_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" ILIKE '%median%' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""follow_up_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" ILIKE '%median%' AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;",Breast trials with median follow-up and follow-up duration by arm.,,ok,3.8443999947048724,,ok,4.3268000008538365,,ok,4.098400007933378,,True,6.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';",ok,3.8539000088348985,,10,False,-4.0,0.7,1.0,0.5555555555555556,0.7142857142857143,0.5555555555555556,0.6818181818181818
+55,List PD-L1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;",Trials with PD-L1 and composite/co-primary endpoints.,,error,2.827199990861118,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,2.2487000096589327,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",error,1.8457999976817518,"(psycopg2.errors.UndefinedFunction) operator does not exist: character varying = boolean
+LINE 3: ...-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;
+                                                                ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""ici_class"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = TRUE;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",ok,4.7814999998081475,,9,,,,,,,,0.75
+56,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;",Breast trials with non-PD-L1 biomarker inclusion criteria.,,ok,3.9109000063035637,,ok,4.500799986999482,,ok,3.7580000062007457,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'No';",ok,3.9989000069908798,,3,False,-3.0,0.5,0.0,0.0,0.0,0.0,0.5217391304347826
+57,Show Non-Small Cell Lung trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",NSCLC combo-therapy trials with ≥2 prior lines.,,ok,4.727500025182962,,ok,4.729499982204288,,ok,4.107599990675226,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,4.990799992810935,,3,False,-3.0,1.0,0.0,0.0,0.0,0.0,0.8275862068965517
+58,List PD1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';",PD1 trials with composite or co-primary endpoints.,,ok,3.558199998224154,,ok,3.888200008077547,,ok,4.885100002866238,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",ok,4.41230001160875,,9,False,-9.0,0.5555555555555556,0.0,0.0,0.0,0.0,0.6842105263157895
+59,"Find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""publication_type"", ""cancer_type"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""combination_type"", ""control_regimen"", ""control_type"", ""lines_of_treatment"", ""clinical_setting_in_relation_to_surgery"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""secondary_endpoint"", ""pdl1_inclusion"", ""other_biomarker_inclusion"", ""follow_up_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""included_in_ma"", ""therapy_type"", ""clinical_setting""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""cancer_type"" = 'NSCLC' AND ""publication_type"" = 'Original publication' AND (""treatment_regimen"" ILIKE '%Nivolumab%' AND ""treatment_regimen"" ILIKE '%Ipilimumab%');","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""publication_type"", ""cancer_type"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""combination_type"", ""control_regimen"", ""control_type"", ""lines_of_treatment"", ""clinical_setting_in_relation_to_surgery"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite"", ""secondary_endpoint"", ""pdl1_inclusion"", ""other_biomarker_inclusion"", ""follow_up_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""included_in_ma"", ""therapy_type"", ""clinical_setting""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""cancer_type"" = 'NSCLC' AND ""publication_type"" = 'Original publication' AND (""treatment_regimen"" ILIKE '%Nivolumab%' AND ""treatment_regimen"" ILIKE '%Ipilimumab%');",Phase 3 Nivolumab and Ipilimumab trials in Non-Small Cell Lung that were original publication publications.,,ok,6.057799997506663,,ok,7.487599999876693,,ok,7.608099986100569,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Nivolumab, Ipilimumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Original publication';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Nivolumab, Ipilimumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Original publication';",ok,4.273900005500764,,2,False,-2.0,0.2413793103448276,0.0,0.0,0.0,0.0,0.40425531914893614
+60,"Show Non-Small Cell Lung studies included in the meta‑analysis that used PD1, CTLA-4 agents.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""included_in_ma"" = 'Yes' AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" IN ('PD1', 'CTLA-4');","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""included_in_ma"" = 'Yes' AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" IN ('PD1', 'CTLA-4');",Rows for NSCLC trials using PD1 or CTLA-4 agents included in the meta-analysis.,,ok,4.0243999974336475,,ok,4.708799999207258,,ok,3.95890002255328,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1, CTLA-4' AND ""included_in_ma"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1, CTLA-4' AND ""included_in_ma"" = 'Yes';",ok,3.953799983719364,,2,False,-2.0,0.5454545454545454,0.0,0.0,0.0,0.0,0.5925925925925926
+61,"List Non-Small Cell Lung Nivolumab, Ipilimumab trials where overall follow‑up exceeded 21 months.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""treatment_regimen"", ""ici_name"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""ici_name"" IN ('Nivolumab', 'Ipilimumab') AND ""follow_up_duration_overall_months"" > 21;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""treatment_regimen"", ""ici_name"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""ici_name"" IN ('Nivolumab', 'Ipilimumab') AND ""follow_up_duration_overall_months"" > 21;",Trials for NSCLC using Nivolumab or Ipilimumab with overall follow-up exceeding 21 months.,,ok,4.25059997360222,,ok,5.035699985455722,,ok,4.444899997906759,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,4.3283999839331955,,1,False,-1.0,0.6,0.0,0.0,0.0,0.0,0.46875
+62,List Gastric/GEJ trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""pdl1_inclusion"" IS NULL;",Trials for Gastric/GEJ that require a biomarker other than PD-L1 for inclusion.,,ok,4.690900008426979,,ok,3.8514999905601144,,ok,5.494199984241277,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';",ok,4.142799996770918,,3,False,-3.0,0.5,0.0,0.0,0.0,0.0,0.5652173913043478
+63,Find Urothelial trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""follow_up_duration_overall_months"" IS NOT NULL AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""follow_up_duration_overall_months"" IS NOT NULL AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;",Urothelial trials with median follow-up and months by arm.,,ok,3.7363000155892223,,ok,4.181700001936406,,ok,4.857599997194484,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""follow_up_type"" = 'Median';",ok,3.4943000064231455,,7,False,-7.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.6190476190476191
+64,"Show Urothelial PD-L1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND (""ici_class"" = 'PD-L1' OR ""ici_class"" = 'CTLA-4') AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND (""ici_class"" = 'PD-L1' OR ""ici_class"" = 'CTLA-4') AND ""year"" >= 2018;",Trials for Urothelial cancer with PD-L1 or CTLA-4 conducted in 2018 or later.,,ok,4.5381000090856105,,ok,4.673799994634464,,ok,5.477400001836941,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,4.6255000052042305,,1,False,-1.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.6
+65,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" IN ('PD-L1', 'CTLA-4') AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';",Trials using PD-L1 or CTLA-4 ICIs with composite/co-primary endpoints.,,ok,5.563900020206347,,ok,3.7684999988414347,,ok,4.5479999971576035,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",ok,4.928999987896532,,1,False,-1.0,0.5555555555555556,0.0,0.0,0.0,0.0,0.6521739130434783
+66,"Which Melanoma studies tested ICI+ICI combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+ICI';","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+ICI';",Melanoma trials that tested ICI+ICI combinations and their primary endpoints.,,ok,3.739799984032288,,ok,3.932400024496019,,ok,5.2266999846324325,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+ICI';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+ICI';",ok,5.4509000037796795,,1,False,0.0,0.6666666666666666,1.0,1.0,1.0,1.0,0.8823529411764706
+67,"Show Melanoma PD1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" IN ('PD1', 'CTLA-4') AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" IN ('PD1', 'CTLA-4') AND ""year"" >= 2018;",Rows for Melanoma trials conducted in 2018 or later that used PD1 or CTLA-4 ICIs.,,ok,4.683899984229356,,ok,3.6678999895229936,,ok,4.411600006278604,,True,10.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.6721999931614846,,1,False,9.0,0.875,0.16666666666666666,1.0,0.2857142857142857,0.16666666666666666,0.6666666666666666
+68,List Breast Chemotherapy trials where overall follow‑up exceeded 21 months.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""treatment_regimen"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""treatment_regimen"" ILIKE '%Chemo%' AND ""follow_up_duration_overall_months"" > 21;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""treatment_regimen"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""treatment_regimen"" ILIKE '%Chemo%' AND ""follow_up_duration_overall_months"" > 21;",Breast Chemotherapy trials with overall follow-up exceeding 21 months.,,ok,5.727399984607473,,ok,5.417599983047694,,ok,4.350100003648549,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_name"" = 'Chemotherapy' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_name"" = 'Chemotherapy' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,3.9296000031754375,,1,False,-1.0,0.5,0.0,0.0,0.0,0.0,0.4642857142857143
+69,Which Colorectal phase 3 trials compared ICI to Chemo?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_phase"", ""cancer_type"", ""treatment_regimen"", ""control_regimen"", ""combination_type"", ""control_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo' AND ""therapy_modality"" = 'Combination' AND ""combination_type"" = 'ICI + Chemo';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_phase"", ""cancer_type"", ""treatment_regimen"", ""control_regimen"", ""combination_type"", ""control_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo' AND ""therapy_modality"" = 'Combination' AND ""combination_type"" = 'ICI + Chemo';",Colorectal phase 3 trials comparing ICI to Chemo.,,ok,5.240900005446747,,ok,4.802100011147559,,ok,4.404200008139014,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';",ok,3.596900001866743,,1,False,-1.0,0.5833333333333334,0.0,0.0,0.0,0.0,0.68
+70,Which Esophageal/GEJ trials evaluated Pembrolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""ici_name"", ""cancer_type"", ""therapy_modality"", ""combination_type"", ""control_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_name"" = 'Pembrolizumab' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""trial_phase"", ""ici_name"", ""cancer_type"", ""therapy_modality"", ""combination_type"", ""control_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_name"" = 'Pembrolizumab' AND ""trial_phase"" = 'Phase 3';",Rows for Esophageal/GEJ trials evaluating Pembrolizumab in phase 3.,,ok,4.327500006183982,,ok,4.020599997602403,,ok,5.082599993329495,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Esophageal/GEJ' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Esophageal/GEJ' AND ""trial_phase"" = 'Phase 3';",ok,3.8315999845508486,,1,False,0.0,0.5,1.0,1.0,1.0,1.0,0.72
+71,List Esophageal/GEJ trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';",Trials for Esophageal/GEJ requiring non-PD-L1 biomarkers for inclusion.,,error,2.297700004419312,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...sion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';
+                                                                ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,2.005799993639812,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...sion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';
+                                                                ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,3.4354999952483922,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...sion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';
+                                                                ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';",ok,4.921599989756942,,1,,,,,,,,0.5652173913043478
+72,Find Esophageal/GEJ trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""follow_up_duration_overall_months"" IS NOT NULL AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""follow_up_duration_overall_months"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""follow_up_duration_overall_months"" IS NOT NULL AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;",Esophageal/GEJ trials with median follow-up and arm-specific durations.,,ok,5.848000000696629,,ok,4.343800013884902,,ok,4.275699990103021,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""follow_up_type"" = 'Median';",ok,6.589399999938905,,2,False,-2.0,0.6,0.0,0.0,0.0,0.0,0.6363636363636364
+73,Show Esophageal/GEJ PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_class"", ""therapy_modality"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_class"", ""therapy_modality"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018;",Rows for Esophageal/GEJ trials using PD1 conducted in 2018 or later.,,ok,3.9659999893046916,,ok,4.279100015992299,,ok,4.104499996174127,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.952300001401454,,2,False,0.0,0.6666666666666666,1.0,1.0,1.0,1.0,0.6153846153846154
+74,List Esophageal/GEJ trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';",Trials for Esophageal/GEJ that require a non-PD-L1 biomarker for inclusion.,,error,3.6646999942604452,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""PD-L1""
+LINE 3: ...ion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';
+                                                               ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,2.34990002354607,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""PD-L1""
+LINE 3: ...ion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';
+                                                               ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,2.2779999999329448,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""PD-L1""
+LINE 3: ...ion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';
+                                                               ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'No';",ok,3.735600010259077,,1,,,,,,,,0.5416666666666666
+75,"Which Multiple Myeloma studies tested ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""combination_type"" = 'ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""combination_type"" = 'ICI+Chemo';",Multiple Myeloma trials testing ICI+Chemo combinations and their primary endpoints.,,ok,3.7653000035788864,,ok,4.941899998812005,,ok,5.408700002590194,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""combination_type"" = 'ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""combination_type"" = 'ICI+Chemo';",ok,4.508299985900521,,2,False,0.0,0.6666666666666666,1.0,1.0,1.0,1.0,0.8947368421052632
+76,Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",Multiple Myeloma combo-therapy trials with ≥2 prior lines.,,ok,4.13659997866489,,ok,4.604100016877055,,ok,4.733200010377914,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,4.156499984674156,,1,True,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+77,"Which Phase 3 PD1 combination trials in Multiple Myeloma should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""trial_name"", ""treatment_regimen"", ""ici_name"", ""combination_type"", ""control_regimen"", ""primary_endpoint"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""ici_class"" = 'PD1' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'Multiple Myeloma';","SELECT ""nct"", ""author"", ""year"", ""trial_name"", ""treatment_regimen"", ""ici_name"", ""combination_type"", ""control_regimen"", ""primary_endpoint"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""ici_class"" = 'PD1' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'Multiple Myeloma';",Review these Phase 3 PD1 combination Multiple Myeloma trials for regimen details.,,ok,4.010100004961714,,ok,4.29519999306649,,ok,4.440999997314066,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Multiple Myeloma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Multiple Myeloma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",ok,3.771600022446364,,2,False,0.0,0.5,1.0,1.0,1.0,1.0,0.8076923076923077
+78,"Which Phase 3 PD1 combination trials in Non-Small Cell Lung should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_name"", ""ici_class""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" = 'PD1' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""combination_type"", ""trial_phase"", ""ici_name"", ""ici_class""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""cancer_type"" = 'NSCLC' AND ""ici_class"" = 'PD1' AND ""therapy_modality"" = 'Combination';",Review Phase 3 PD1 combination trials in NSCLC for regimen details.,,ok,4.511700011789799,,ok,4.202600015560165,,ok,4.823199997190386,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",ok,6.298199994489551,,3,False,-3.0,0.5384615384615384,0.0,0.0,0.0,0.0,0.6785714285714286
+79,Show Gastric/GEJ PD-L1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_class"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_class"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-L1' AND ""year"" >= 2018;",Gastric/GEJ PD-L1 trials conducted in 2018 or later.,,ok,4.881999979261309,,ok,5.619100003968924,,ok,3.8684000028297305,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.760899999178946,,2,False,0.0,0.6666666666666666,1.0,1.0,1.0,1.0,0.6296296296296297
+80,Find NSCLC trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase"", ""therapy_type"", ""clinical_setting""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""follow_up_duration_overall_months"" IS NOT NULL AND (""follow_up_duration_rx_months"" IS NOT NULL OR ""follow_up_duration_control_months"" IS NOT NULL);","SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase"", ""therapy_type"", ""clinical_setting""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""follow_up_duration_overall_months"" IS NOT NULL AND (""follow_up_duration_rx_months"" IS NOT NULL OR ""follow_up_duration_control_months"" IS NOT NULL);",NSCLC trials with median follow-up and arm-specific months.,,ok,5.268799985060468,,ok,4.398700024466962,,ok,5.0540000083856285,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""follow_up_type"" = 'Median';",ok,4.782800009706989,,1,False,-1.0,0.5,0.0,0.0,0.0,0.0,0.5416666666666666
+81,Find Hodgkin Lymphoma trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""follow_up_duration_overall_months"" AS ""median_follow_up"", ""follow_up_duration_rx_months"" AS ""rx_arm"", ""follow_up_duration_control_months"" AS ""control_arm""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hodgkin Lymphoma' AND ""follow_up_duration_overall_months"" IS NOT NULL AND (""follow_up_duration_rx_months"" IS NOT NULL OR ""follow_up_duration_control_months"" IS NOT NULL);","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""follow_up_duration_overall_months"" AS ""median_follow_up"", ""follow_up_duration_rx_months"" AS ""rx_arm"", ""follow_up_duration_control_months"" AS ""control_arm""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hodgkin Lymphoma' AND ""follow_up_duration_overall_months"" IS NOT NULL AND (""follow_up_duration_rx_months"" IS NOT NULL OR ""follow_up_duration_control_months"" IS NOT NULL);",Trials for Hodgkin Lymphoma with median follow-up and arm-specific durations.,,ok,18.2593000063207,,ok,5.159899999853224,,ok,3.9391999889630824,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hodgkin Lymphoma' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hodgkin Lymphoma' AND ""follow_up_type"" = 'Median';",ok,4.109799978323281,,1,False,-1.0,0.3333333333333333,0.0,0.0,0.0,0.0,0.5185185185185185
+82,List PD1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""primary_endpoint_is_multiple_or_composite""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Yes';",PD1 trials with composite or co-primary endpoints.,,ok,3.6924000014550984,,ok,4.1028999839909375,,ok,4.905999987386167,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Dual, unspecified';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Dual, unspecified';",ok,4.48190001770854,,1,False,-1.0,0.5555555555555556,0.0,0.0,0.0,0.0,0.6842105263157895
+83,Which Breast trials specified neoadjuvant ICI use?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""clinical_setting"", ""therapy_type"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""combination_type"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""clinical_setting"" = 'Neoadjuvant';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""clinical_setting"", ""therapy_type"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""combination_type"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""clinical_setting"" = 'Neoadjuvant';",Breast (TNBC) trials with neoadjuvant ICI use.,,ok,5.393699975684285,,ok,4.43589998758398,,ok,4.0911000105552375,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""cancer_type"", ""therapy_modality"", ""trial_phase"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""clinical_setting_in_relation_to_surgery"" = 'Neoadjuvant';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""cancer_type"", ""therapy_modality"", ""trial_phase"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""clinical_setting_in_relation_to_surgery"" = 'Neoadjuvant';",ok,3.7103999929968268,,4,False,-4.0,0.35714285714285715,0.0,0.0,0.0,0.0,0.5416666666666666
+84,Which Hepatocellular trials evaluated Pembrolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""cancer_type"", ""ici_name"", ""ici_class"", ""therapy_modality""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""ici_name"" = 'Pembrolizumab' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""cancer_type"", ""ici_name"", ""ici_class"", ""therapy_modality""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""ici_name"" = 'Pembrolizumab' AND ""trial_phase"" = 'Phase 3';",Hepatocellular trials evaluating Pembrolizumab in phase 3.,,ok,4.70699998550117,,ok,4.452099994523451,,ok,4.186199977993965,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Hepatocellular' AND ""trial_phase"" = 'Phase 3';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Hepatocellular' AND ""trial_phase"" = 'Phase 3';",ok,4.617600003257394,,1,False,-1.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.7391304347826086
+85,List Hepatocellular trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'PD-L1';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'PD-L1';",Hepatocellular trials requiring a biomarker other than PD-L1 for inclusion.,,error,2.2994999890215695,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,1.7794000159483403,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,1.6782000020612031,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""other_biomarker_inclusion"" != 'PD-L1';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hepatocellular' AND ""other_biomarker_inclusion"" = 'No';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hepatocellular' AND ""other_biomarker_inclusion"" = 'No';",ok,5.5694000038784,,2,,,,,,,,0.4782608695652174
+86,"Which Phase 3 PD-L1 monotherapy trials in Colorectal should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""trial_phase"", ""cancer_type"", ""therapy_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""ici_class"" = 'PD-L1' AND ""therapy_type"" = 'Monotherapy' AND ""cancer_type"" = 'Colorectal';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""ici_name"", ""ici_class"", ""trial_phase"", ""cancer_type"", ""therapy_type""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3' AND ""ici_class"" = 'PD-L1' AND ""therapy_type"" = 'Monotherapy' AND ""cancer_type"" = 'Colorectal';","Review Phase 3 Colorectal trials using PD-L1 monotherapy, focusing on regimens and trial details.",,ok,4.367199988337234,,ok,3.6868000170215964,,ok,3.8887000118847936,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Monotherapy';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Monotherapy';",ok,4.896099999314174,,1,False,0.0,0.6666666666666666,1.0,1.0,1.0,1.0,0.8333333333333334
+87,Find Colorectal trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_overall_months"" AS ""median_follow_up"", ""follow_up_duration_rx_months"" AS ""rx_arm"", ""follow_up_duration_control_months"" AS ""control_arm""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""follow_up_duration_overall_months"" IS NOT NULL AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;","SELECT ""nct"", ""author"", ""year"", ""follow_up_duration_overall_months"" AS ""median_follow_up"", ""follow_up_duration_rx_months"" AS ""rx_arm"", ""follow_up_duration_control_months"" AS ""control_arm""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""follow_up_duration_overall_months"" IS NOT NULL AND ""follow_up_duration_rx_months"" IS NOT NULL AND ""follow_up_duration_control_months"" IS NOT NULL;",Colorectal trials with median follow-up and arm-specific months.,,ok,4.5384000113699585,,ok,6.072399992262945,,ok,3.990700002759695,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""follow_up_type"" = 'Median';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""follow_up_type"" = 'Median';",ok,3.867899999022484,,4,False,-4.0,0.2727272727272727,0.0,0.0,0.0,0.0,0.5416666666666666
+88,Show Colorectal trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",Colorectal combo-therapy trials with ≥2 prior lines.,,ok,4.411000001709908,,ok,4.887499992037192,,ok,5.483100016135722,,True,2.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",ok,5.316099995980039,,2,True,0.0,1.0,1.0,1.0,1.0,1.0,1.0
+89,"Which Urothelial studies tested ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""combination_type"" = 'ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder/Urothelial' AND ""combination_type"" = 'ICI+Chemo';",Urothelial studies testing ICI+Chemo combinations and their primary endpoints.,,ok,4.485999990720302,,ok,5.233400006545708,,ok,3.910100000211969,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""combination_type"" = 'ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""combination_type"" = 'ICI+Chemo';",ok,3.867899999022484,,1,False,-1.0,0.6,0.0,0.0,0.0,0.0,0.8
+90,Show Breast trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""ici_name"", ""ici_class"", ""pdl1_inclusion"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast (TNBC)' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",Breast (TNBC) trials using PD1 where PD-L1 positivity was an inclusion criterion.,,ok,4.517499997746199,,ok,4.24919999204576,,ok,6.4569000096526,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",ok,5.194299999857321,,1,False,-1.0,0.7272727272727273,0.0,0.0,0.0,0.0,0.8095238095238095
+91,Show Renal cell PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""ici_class"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""ici_name"", ""ici_class"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'RCC' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018;",Rows for Renal cell PD1 trials conducted in 2018 or later.,,ok,4.032400000141934,,ok,3.811999980825931,,ok,4.132500005653128,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,4.332899989094585,,5,False,-5.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.5185185185185185
+92,Show Pembrolizumab combination trials in Renal cell with sample sizes.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""combination_type"", ""cancer_type"", ""total_sample_size""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'RCC';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""combination_type"", ""cancer_type"", ""total_sample_size""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""therapy_modality"" = 'Combination' AND ""cancer_type"" = 'RCC';",Pembrolizumab combination trials in Renal cell carcinoma with sample sizes.,,ok,4.039999999804422,,ok,4.009800002677366,,ok,4.12779999896884,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Renal cell' AND ""therapy_modality"" = 'Combination';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Renal cell' AND ""therapy_modality"" = 'Combination';",ok,5.538500001421198,,3,False,-3.0,0.4166666666666667,0.0,0.0,0.0,0.0,0.6521739130434783
+93,"Which Colorectal trials evaluated Durvalumab, Tremelimumab in phase 2?","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""ici_name"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""ici_name"" IN ('Durvalumab', 'Tremelimumab') AND ""trial_phase"" = 'Phase 2';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""treatment_regimen"", ""trial_phase"", ""ici_name"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""ici_name"" IN ('Durvalumab', 'Tremelimumab') AND ""trial_phase"" = 'Phase 2';",Colorectal trials evaluating Durvalumab or Tremelimumab in Phase 2.,,ok,4.675700009102002,,ok,4.128200002014637,,ok,4.648300004191697,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 2';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 2';",ok,3.5118999949190766,,1,False,-1.0,0.8,0.0,0.0,0.0,0.0,0.8636363636363636
+94,"List Mesothelioma Nivolumab, Ipilimumab trials where overall follow‑up exceeded 21 months.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_name"" IN ('Nivolumab', 'Ipilimumab') AND ""follow_up_duration_overall_months"" > 21;","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""treatment_regimen"", ""follow_up_duration_overall_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_name"" IN ('Nivolumab', 'Ipilimumab') AND ""follow_up_duration_overall_months"" > 21;",Trials for Mesothelioma using Nivolumab or Ipilimumab with follow-up over 21 months.,,ok,6.156299990834668,,ok,4.22699999762699,,ok,3.9704999944660813,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",ok,4.774200002430007,,1,False,-1.0,0.4,0.0,0.0,0.0,0.0,0.5714285714285714
+95,Show Mesothelioma PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND ""year"" >= 2018;",Rows for Mesothelioma trials using PD1 conducted in 2018 or later.,,ok,5.549299996346235,,ok,4.366500012110919,,ok,4.067300003953278,,True,1.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",ok,3.711900004418567,,1,False,0.0,0.875,1.0,1.0,1.0,1.0,0.6666666666666666
+96,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""pdl1_inclusion"" IS NULL OR ""pdl1_inclusion"" = 'None';","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""pdl1_inclusion"" IS NULL OR ""pdl1_inclusion"" = 'None';",Trials for Head and Neck cancer that require a biomarker other than PD-L1 for inclusion.,,error,2.590399992186576,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""pdl1_inclusion"" IS NULL OR ""pdl1_inclusion"" = 'None';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,1.7779000045266002,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""pdl1_inclusion"" IS NULL OR ""pdl1_inclusion"" = 'None';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",error,2.1069000067654997,"(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: ""None""
+LINE 3: ...n"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND...
+                                                             ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""cancer_type"", ""other_biomarker_inclusion""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'HNSCC' AND ""other_biomarker_inclusion"" IS NOT NULL AND ""other_biomarker_inclusion"" != 'None' AND ""pdl1_inclusion"" IS NULL OR ""pdl1_inclusion"" = 'None';]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)",False,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';",ok,3.885100013576448,,1,,,,,,,,0.4583333333333333
+97,"Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""publication_type"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""combination_type"", ""cancer_type"", ""trial_phase"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""publication_type"" = 'Follow-up' AND ""trial_phase"" = 'Phase 3' AND ""cancer_type"" = 'SCLC' AND (""ici_name"" = 'Durvalumab' OR ""ici_name"" = 'Tremelimumab');","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""trial_name"", ""publication_type"", ""ici_name"", ""ici_class"", ""therapy_modality"", ""combination_type"", ""cancer_type"", ""trial_phase"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""publication_type"" = 'Follow-up' AND ""trial_phase"" = 'Phase 3' AND ""cancer_type"" = 'SCLC' AND (""ici_name"" = 'Durvalumab' OR ""ici_name"" = 'Tremelimumab');",Rows for Phase 3 SCLC trials with Durvalumab or Tremelimumab that were follow-up publications.,,ok,5.343400000128895,,ok,5.533200019272044,,ok,5.546700005652383,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Follow-up';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Follow-up';",ok,6.750800006557256,,1,False,-1.0,0.5384615384615384,0.0,0.0,0.0,0.0,0.6333333333333333
+98,"Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""combination_type"" = 'ICI+ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""primary_endpoint"", ""combination_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'SCLC' AND ""combination_type"" = 'ICI+ICI+Chemo';",Small Cell Lung studies that tested ICI+ICI+Chemo combinations and their primary endpoints.,,ok,4.459899995708838,,ok,3.874600020935759,,ok,5.399600020609796,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';",ok,5.00340000144206,,2,False,-2.0,0.6666666666666666,0.0,0.0,0.0,0.0,0.7142857142857143
+99,"Show Small Cell Lung studies included in the meta‑analysis that used PD-L1, CTLA-4 agents.","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""included_in_ma"" = 'Yes' AND ""cancer_type"" = 'SCLC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4');","SELECT ""nct"", ""author"", ""year"", ""pubmed_id"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""included_in_ma"" = 'Yes' AND ""cancer_type"" = 'SCLC' AND ""ici_class"" IN ('PD-L1', 'CTLA-4');",Small Cell Lung studies using PD-L1 or CTLA-4 agents that were included in the meta-analysis.,,ok,4.19890001649037,,ok,6.482400000095367,,ok,5.58709999313578,,True,0.0,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';",ok,5.878299998585135,,1,False,-1.0,0.5454545454545454,0.0,0.0,0.0,0.0,0.6296296296296297

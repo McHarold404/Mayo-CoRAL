@@ -1,0 +1,52 @@
+{
+  "row_index": 78,
+  "question": "Which Phase 3 PD1 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "llama": {
+    "answer": "Review Phase 3 PD1 combination trials in NSCLC for regimen details.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\", \\\"trial_phase\\\", \\\"ici_name\\\", \\\"ici_class\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"ici_class\\\" = 'PD1' AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Review Phase 3 PD1 combination trials in NSCLC for regimen details.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row078_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row078_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.511700011789799,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row078_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.202600015560165,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row078_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.823199997190386,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row078_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row078_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 6.298199994489551,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row078_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.5384615384615384,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6785714285714286,
+    "deterministic_across_runs": true
+  }
+}

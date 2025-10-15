@@ -1,0 +1,52 @@
+{
+  "row_index": 97,
+  "question": "Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "llm": {
+    "answer": "List of Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+    "assumptions": "Assuming 'Small Cell Lung' is a substring of the 'cancer_type' column, and 'Follow-up' is an exact match for 'original_publication_or_follow_up'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_name\\\" IN ('Durvalumab', 'Tremelimumab') AND \\\"cancer_type\\\" ILIKE '%Small Cell Lung%' AND \\\"original_publication_or_follow_up\\\" = 'Follow-up'\",\n  \"answer\": \"List of Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.\",\n  \"assumptions\": \"Assuming 'Small Cell Lung' is a substring of the 'cancer_type' column, and 'Follow-up' is an exact match for 'original_publication_or_follow_up'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row097_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row097_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 15.392200002679601,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication_or_follow_up\" does not exist\nLINE 1: ...) AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"ici_name\" IN ('Durvalumab', 'Tremelimumab') AND \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"original_publication_or_follow_up\" = 'Follow-up']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.7351999888196588,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication_or_follow_up\" does not exist\nLINE 1: ...) AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"ici_name\" IN ('Durvalumab', 'Tremelimumab') AND \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"original_publication_or_follow_up\" = 'Follow-up']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.2081999923102558,
+      "error": "(psycopg2.errors.UndefinedColumn) column \"original_publication_or_follow_up\" does not exist\nLINE 1: ...) AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"original_...\n                                                             ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"ici_name\" IN ('Durvalumab', 'Tremelimumab') AND \"cancer_type\" ILIKE '%%Small Cell Lung%%' AND \"original_publication_or_follow_up\" = 'Follow-up']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row097_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.089199993060902,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row097_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.7777777777777778,
+    "deterministic_across_runs": false
+  }
+}

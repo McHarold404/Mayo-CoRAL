@@ -1,0 +1,52 @@
+{
+  "row_index": 63,
+  "question": "Find Urothelial trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "Urothelial cancer trials with follow-up durations.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Bladder/Urothelial'\",\"answer\":\"Urothelial cancer trials with follow-up durations.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row063_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row063_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.919500002870336,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row063_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.44800000009127,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row063_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.548199987970293,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row063_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row063_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.589699991513044,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row063_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -7,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.631578947368421,
+    "deterministic_across_runs": true
+  }
+}

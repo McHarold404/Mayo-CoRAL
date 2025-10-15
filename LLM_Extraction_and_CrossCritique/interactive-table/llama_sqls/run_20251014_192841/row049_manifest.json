@@ -1,0 +1,52 @@
+{
+  "row_index": 49,
+  "question": "Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "llm": {
+    "answer": "List of Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+    "assumptions": "Assuming 'Head and Neck' is a substring of the cancer type and the year is the publication year.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"treatment_regimen\\\", \\\"control_regimen\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"year\\\" >= 2018 AND \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND (\\\"ici_class\\\" = 'PD-L1' OR \\\"ici_class\\\" = 'CTLA-4')\",\n  \"answer\": \"List of Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.\",\n  \"assumptions\": \"Assuming 'Head and Neck' is a substring of the cancer type and the year is the publication year.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row049_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row049_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.910999996354803,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row049_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.237599980318919,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row049_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.395200005499646,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row049_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row049_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.807499983347952,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row049_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 2,
+    "column_overlap_ratio": 0.3076923076923077,
+    "nct_precision": 0.3333333333333333,
+    "nct_recall": 1.0,
+    "nct_f1": 0.5,
+    "nct_jaccard": 0.3333333333333333,
+    "sql_token_jaccard_vs_gt": 0.5142857142857142,
+    "deterministic_across_runs": true
+  }
+}

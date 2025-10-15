@@ -1,0 +1,52 @@
+{
+  "row_index": 50,
+  "question": "Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llm": {
+    "answer": "Trials with Head and Neck cancer, at least 2 prior lines of therapy, and combination treatment.",
+    "assumptions": "Assuming 'Head and Neck' is a substring of the cancer type, and 'Combination therapy' is an exact match for therapy type.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_type\\\", \\\"clinical_setting\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Head and Neck%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"Trials with Head and Neck cancer, at least 2 prior lines of therapy, and combination treatment.\",\n  \"assumptions\": \"Assuming 'Head and Neck' is a substring of the cancer type, and 'Combination therapy' is an exact match for therapy type.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row050_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row050_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.2393999970518053,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ... ILIKE '%Head and Neck%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"cancer_type\", \"treatment_regimen\", \"ici_name\", \"ici_class\", \"therapy_type\", \"clinical_setting\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Head and Neck%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 1.7408999847248197,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ... ILIKE '%Head and Neck%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"cancer_type\", \"treatment_regimen\", \"ici_name\", \"ici_class\", \"therapy_type\", \"clinical_setting\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Head and Neck%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 2.425000013317913,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ... ILIKE '%Head and Neck%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"cancer_type\", \"treatment_regimen\", \"ici_name\", \"ici_class\", \"therapy_type\", \"clinical_setting\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Head and Neck%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row050_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.793800006154925,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row050_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.42857142857142855,
+    "deterministic_across_runs": false
+  }
+}

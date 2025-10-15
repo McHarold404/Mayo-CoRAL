@@ -1,0 +1,52 @@
+{
+  "row_index": 24,
+  "question": "Find Phase 2 Atezolizumab trials in Non-Small Cell Lung that were original publication publications.",
+  "llama": {
+    "answer": "Rows for Phase 2 Atezolizumab trials in NSCLC that were original publication publications.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"publication_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"ici_name\\\" = 'Atezolizumab' AND \\\"cancer_type\\\" = 'NSCLC' AND \\\"trial_phase\\\" = 'Phase 2' AND \\\"publication_type\\\" = 'Original publication';\",\"answer\":\"Rows for Phase 2 Atezolizumab trials in NSCLC that were original publication publications.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row024_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row024_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.1207999747712165,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row024_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.766600002767518,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row024_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.5267000095918775,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row024_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row024_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.96329999784939,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row024_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.7,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6923076923076923,
+    "deterministic_across_runs": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 35,
+  "question": "Which Gastric/GEJ trials used Placebo as the control arm?",
+  "llm": {
+    "answer": "Trials with NCT identifiers and their corresponding authors, years, PubMed IDs, trial names, and control types that match the specified criteria.",
+    "assumptions": "Assuming 'Gastric/GEJ' is a substring of the 'cancer_type' column and 'Placebo' is an exact match for the 'control_type' column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"control_type\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Gastric/GEJ%' AND \\\"control_type\\\" = 'Placebo'\",\n  \"answer\": \"Trials with NCT identifiers and their corresponding authors, years, PubMed IDs, trial names, and control types that match the specified criteria.\",\n  \"assumptions\": \"Assuming 'Gastric/GEJ' is a substring of the 'cancer_type' column and 'Placebo' is an exact match for the 'control_type' column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row035_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row035_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.285800016485155,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row035_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.8983000160660595,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row035_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.164599988143891,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row035_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row035_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.2756999977864325,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row035_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.7,
+    "deterministic_across_runs": true
+  }
+}

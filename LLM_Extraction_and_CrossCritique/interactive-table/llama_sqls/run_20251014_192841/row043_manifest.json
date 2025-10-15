@@ -1,0 +1,52 @@
+{
+  "row_index": 43,
+  "question": "Show Non-Small Cell Lung studies included in the meta\u2011analysis that used PD-L1, CTLA-4 agents.",
+  "llm": {
+    "answer": "List of Non-Small Cell Lung studies included in the meta-analysis that used PD-L1, CTLA-4 agents.",
+    "assumptions": "Assuming 'Non-Small Cell Lung' is a substring of the 'cancer_type' column and 'PD-L1' and 'CTLA-4' are exact values in the 'ici_class' column.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"included_in_ma\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"included_in_ma\\\" = 'Yes' AND \\\"cancer_type\\\" ILIKE '%Non-Small Cell Lung%' AND \\\"ici_class\\\" IN ('PD-L1', 'CTLA-4')\",\n  \"answer\": \"List of Non-Small Cell Lung studies included in the meta-analysis that used PD-L1, CTLA-4 agents.\",\n  \"assumptions\": \"Assuming 'Non-Small Cell Lung' is a substring of the 'cancer_type' column and 'PD-L1' and 'CTLA-4' are exact values in the 'ici_class' column.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row043_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row043_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.972899991320446,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row043_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 7.230699993669987,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row043_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 6.656700017629191,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row043_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row043_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 7.264100015163422,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row043_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 12,
+    "column_overlap_ratio": 0.7,
+    "nct_precision": 0.2,
+    "nct_recall": 1.0,
+    "nct_f1": 0.33333333333333337,
+    "nct_jaccard": 0.2,
+    "sql_token_jaccard_vs_gt": 0.8148148148148148,
+    "deterministic_across_runs": true
+  }
+}

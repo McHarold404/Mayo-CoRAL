@@ -1,0 +1,52 @@
+{
+  "row_index": 77,
+  "question": "Which Phase 3 PD1 combination trials in Multiple Myeloma should I review, and what were their regimens?",
+  "llama": {
+    "answer": "Review these Phase 3 PD1 combination Multiple Myeloma trials for regimen details.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"primary_endpoint\\\", \\\"trial_phase\\\", \\\"cancer_type\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_class\\\" = 'PD1' AND \\\"therapy_modality\\\" = 'Combination' AND \\\"cancer_type\\\" = 'Multiple Myeloma';\",\"answer\":\"Review these Phase 3 PD1 combination Multiple Myeloma trials for regimen details.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row077_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row077_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.010100004961714,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row077_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.29519999306649,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row077_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.440999997314066,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row077_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row077_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 3.771600022446364,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row077_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8076923076923077,
+    "deterministic_across_runs": true
+  }
+}

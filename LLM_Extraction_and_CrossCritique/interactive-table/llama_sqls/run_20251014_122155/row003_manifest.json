@@ -1,0 +1,52 @@
+{
+  "row_index": 3,
+  "question": "Show Ipilimumab combination trials in Melanoma with sample sizes.",
+  "llm": {
+    "answer": "List of Ipilimumab combination trials in Melanoma with sample sizes.",
+    "assumptions": "Assuming 'Melanoma' is mentioned in the 'cancer_type' column and 'Ipilimumab' is the exact 'ici_name'.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Melanoma%' AND \\\"ici_name\\\" = 'Ipilimumab' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"List of Ipilimumab combination trials in Melanoma with sample sizes.\",\n  \"assumptions\": \"Assuming 'Melanoma' is mentioned in the 'cancer_type' column and 'Ipilimumab' is the exact 'ici_name'.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_122155\\row003_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_122155\\row003_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.39449998177588,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row003_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 6.970699992962182,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row003_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.853400023421273,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_122155\\row003_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_122155\\row003_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.86849999288097,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_122155\\row003_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6818181818181818,
+    "deterministic_across_runs": true
+  }
+}

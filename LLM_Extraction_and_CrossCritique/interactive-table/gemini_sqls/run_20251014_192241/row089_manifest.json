@@ -1,0 +1,52 @@
+{
+  "row_index": 89,
+  "question": "Which Urothelial studies tested ICI+Chemo combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "Returns Urothelial cancer trials that tested ICI+Chemo combinations, including the NCT ID, author, publication year, PubMed ID, trial name, primary endpoint, and treatment regimen.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"primary_endpoint\\\", \\\"treatment_regimen\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Bladder/Urothelial' AND \\\"combination_type\\\" = 'ICI+Chemo';\", \"answer\": \"Returns Urothelial cancer trials that tested ICI+Chemo combinations, including the NCT ID, author, publication year, PubMed ID, trial name, primary endpoint, and treatment regimen.\", \"assumptions\": \"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row089_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row089_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.472899985965341,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row089_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.181299988180399,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row089_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.6456999951042235,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row089_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row089_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.8180999874603,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row089_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8,
+    "deterministic_across_runs": true
+  }
+}

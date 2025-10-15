@@ -1,0 +1,52 @@
+{
+  "row_index": 71,
+  "question": "List Esophageal/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "gemini": {
+    "answer": "Esophageal/GEJ trials using biomarkers other than PD-L1 for inclusion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"other_biomarker_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Esophageal/GEJ' AND \\\"other_biomarker_inclusion\\\" = 'Yes'\",\"answer\":\"Esophageal/GEJ trials using biomarkers other than PD-L1 for inclusion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row071_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row071_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.708300024503842,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row071_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8096999924164265,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row071_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.384300012839958,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row071_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row071_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.472400003578514,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row071_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8235294117647058,
+    "deterministic_across_runs": true
+  }
+}

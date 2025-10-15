@@ -1,0 +1,52 @@
+{
+  "row_index": 18,
+  "question": "List Renal cell trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llm": {
+    "answer": "List of renal cell trials requiring a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "Assuming 'Renal cell' is a substring of the cancer type and 'other_biomarker_inclusion' is not null when a biomarker other than PD-L1 is required.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"pdl1_inclusion\\\" IS NULL\",\n  \"answer\": \"List of renal cell trials requiring a biomarker other than PD-L1 for inclusion.\",\n  \"assumptions\": \"Assuming 'Renal cell' is a substring of the cancer type and 'other_biomarker_inclusion' is not null when a biomarker other than PD-L1 is required.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row018_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row018_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.8881000073160976,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row018_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.0419999859295785,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row018_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.0298999811057,
+      "error": null,
+      "results_csv": "llama_sqls\\run_20251014_192841\\row018_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row018_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.314299992984161,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row018_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -14,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5909090909090909,
+    "deterministic_across_runs": true
+  }
+}

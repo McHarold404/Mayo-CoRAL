@@ -1,0 +1,52 @@
+{
+  "row_index": 93,
+  "question": "Which Colorectal trials evaluated Durvalumab, Tremelimumab in phase 2?",
+  "gemini": {
+    "answer": "This SQL query retrieves the NCT, author, year, and PubMed ID for colorectal cancer trials that evaluated Durvalumab and Tremelimumab in phase 2.",
+    "assumptions": "It is assumed that if both Durvalumab and Tremelimumab are listed as ici_name values for the same trial, they were evaluated in combination.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Colorectal' AND \\\"ici_name\\\" = 'Durvalumab' AND \\\"ici_name\\\" = 'Tremelimumab' AND \\\"trial_phase\\\" = 'Phase 2';\",\"answer\":\"This SQL query retrieves the NCT, author, year, and PubMed ID for colorectal cancer trials that evaluated Durvalumab and Tremelimumab in phase 2.\",\"assumptions\":\"It is assumed that if both Durvalumab and Tremelimumab are listed as ici_name values for the same trial, they were evaluated in combination.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row093_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row093_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.920000006677583,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row093_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.723600006196648,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row093_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.37370000872761,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row093_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row093_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.082199990283698,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row093_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8095238095238095,
+    "deterministic_across_runs": true
+  }
+}

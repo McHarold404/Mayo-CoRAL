@@ -1,0 +1,52 @@
+{
+  "row_index": 84,
+  "question": "Which Hepatocellular trials evaluated Pembrolizumab in phase 3?",
+  "llama": {
+    "answer": "Hepatocellular trials evaluating Pembrolizumab in phase 3.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\", \\\"cancer_type\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'HCC' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"trial_phase\\\" = 'Phase 3';\",\"answer\":\"Hepatocellular trials evaluating Pembrolizumab in phase 3.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row084_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row084_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.70699998550117,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row084_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.452099994523451,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row084_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.186199977993965,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row084_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row084_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.617600003257394,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row084_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.6666666666666666,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.7391304347826086,
+    "deterministic_across_runs": true
+  }
+}

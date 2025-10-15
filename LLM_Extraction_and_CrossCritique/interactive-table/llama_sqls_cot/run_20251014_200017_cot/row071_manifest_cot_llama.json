@@ -1,0 +1,52 @@
+{
+  "row_index": 71,
+  "question": "List Esophageal/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "Trials for Esophageal/GEJ requiring non-PD-L1 biomarkers for inclusion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\", \\\"treatment_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Esophageal/GEJ' AND \\\"other_biomarker_inclusion\\\" IS NOT NULL AND \\\"other_biomarker_inclusion\\\" != 'None';\",\"answer\":\"Trials for Esophageal/GEJ requiring non-PD-L1 biomarkers for inclusion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row071_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row071_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.297700004419312,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"None\"\nLINE 3: ...sion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None';\n                                                                ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None';]\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.005799993639812,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"None\"\nLINE 3: ...sion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None';\n                                                                ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None';]\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 3.4354999952483922,
+      "error": "(psycopg2.errors.InvalidTextRepresentation) invalid input syntax for type boolean: \"None\"\nLINE 3: ...sion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None';\n                                                                ^\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"other_biomarker_inclusion\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"other_biomarker_inclusion\" IS NOT NULL AND \"other_biomarker_inclusion\" != 'None';]\n(Background on this error at: https://sqlalche.me/e/20/9h9h)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row071_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.921599989756942,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row071_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.5652173913043478,
+    "deterministic_across_runs": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 87,
+  "question": "Find Colorectal trials with median follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This SQL query retrieves the trial identifier, author, year, PubMed ID, and median follow-up duration for overall, treatment, and control arms from the clinical_trials table for Colorectal cancer trials.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Colorectal'\",\"answer\":\"This SQL query retrieves the trial identifier, author, year, PubMed ID, and median follow-up duration for overall, treatment, and control arms from the clinical_trials table for Colorectal cancer trials.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row087_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row087_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.4002999891526997,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row087_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.6887999740429223,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row087_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.978599987225607,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row087_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row087_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 6.3590999925509095,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row087_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

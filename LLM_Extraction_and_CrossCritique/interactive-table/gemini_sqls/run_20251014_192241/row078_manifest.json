@@ -1,0 +1,52 @@
+{
+  "row_index": 78,
+  "question": "Which Phase 3 PD1 combination trials in Non-Small Cell Lung should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, authors, publication year, PubMed ID, treatment regimen, combination type, and ICI name for Phase 3 clinical trials in Non-Small Cell Lung Cancer (NSCLC) that used a PD-1 inhibitor in combination therapy.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\", \\\"ici_name\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"trial_phase\\\" = 'Phase 3'\\n  AND \\\"cancer_type\\\" = 'NSCLC'\\n  AND \\\"ici_class\\\" = 'PD-1'\\n  AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"This query retrieves the NCT ID, authors, publication year, PubMed ID, treatment regimen, combination type, and ICI name for Phase 3 clinical trials in Non-Small Cell Lung Cancer (NSCLC) that used a PD-1 inhibitor in combination therapy.\",\"assumptions\":\"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row078_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row078_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.4827999954577535,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row078_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.463399993255734,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row078_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.547199991066009,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row078_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row078_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.609900002833456,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row078_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4166666666666667,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6206896551724138,
+    "deterministic_across_runs": true
+  }
+}

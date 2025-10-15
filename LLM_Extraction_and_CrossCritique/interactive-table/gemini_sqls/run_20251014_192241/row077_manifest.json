@@ -1,0 +1,52 @@
+{
+  "row_index": 77,
+  "question": "Which Phase 3 PD1 combination trials in Multiple Myeloma should I review, and what were their regimens?",
+  "gemini": {
+    "answer": "Returns Phase 3 combination therapy trials in Multiple Myeloma with a PD1 inhibitor, including the regimens used.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"treatment_regimen\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"trial_phase\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Multiple Myeloma' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"ici_class\\\" = 'PD1' AND \\\"therapy_modality\\\" = 'Combination';\",\"answer\":\"Returns Phase 3 combination therapy trials in Multiple Myeloma with a PD1 inhibitor, including the regimens used.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row077_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row077_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.5318000009283423,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row077_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 3.8938999932724983,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row077_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.0253000042866915,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row077_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row077_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.288299988023937,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row077_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.38461538461538464,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8,
+    "deterministic_across_runs": true
+  }
+}

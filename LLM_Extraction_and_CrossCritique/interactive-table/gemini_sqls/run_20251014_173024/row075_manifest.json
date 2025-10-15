@@ -1,0 +1,52 @@
+{
+  "row_index": 75,
+  "question": "Which Multiple Myeloma studies tested ICI+Chemo combinations, and what were the primary endpoints?",
+  "gemini": {
+    "answer": "This query returns the NCT ID, author, year, PubMed ID, and primary endpoint for all clinical trials studying Multiple Myeloma where the treatment regimen was an ICI + Chemo combination.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"primary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'Multiple Myeloma' AND \\\"combination_type\\\" = 'ICI + Chemo'\",\n  \"answer\": \"This query returns the NCT ID, author, year, PubMed ID, and primary endpoint for all clinical trials studying Multiple Myeloma where the treatment regimen was an ICI + Chemo combination.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_173024\\row075_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_173024\\row075_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.656099986983463,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row075_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.0691000069491565,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row075_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.140199976973236,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_173024\\row075_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_173024\\row075_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 10.61280001886189,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_173024\\row075_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -2,
+    "column_overlap_ratio": 0.4444444444444444,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.8421052631578947,
+    "deterministic_across_runs": true
+  }
+}

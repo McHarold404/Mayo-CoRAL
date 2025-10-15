@@ -1,0 +1,4 @@
+SELECT "nct", "author", "year", "pubmed_id", "ici_class", "primary_endpoint_is_multiple_or_composite"
+FROM public."clinical_trials"
+WHERE "ici_class" IN ('PD1', 'CTLA-4')
+AND "primary_endpoint_is_multiple_or_composite" IS NOT NULL;

@@ -1,0 +1,52 @@
+{
+  "row_index": 69,
+  "question": "Which Colorectal phase 3 trials compared ICI to Chemo?",
+  "gemini": {
+    "answer": "This query returns the Colorectal cancer trials that are in phase 3 and compared ICI to Chemo.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Colorectal' AND \\\"trial_phase\\\" = 'Phase 3' AND \\\"control_type\\\" = 'Chemo';\", \"answer\": \"This query returns the Colorectal cancer trials that are in phase 3 and compared ICI to Chemo.\", \"assumptions\": \"\"}\n",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row069_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row069_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9730000135023147,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row069_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.794300009962171,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row069_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 3.879900003084913,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row069_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row069_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.884599999058992,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row069_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 0,
+    "column_overlap_ratio": 0.3,
+    "nct_precision": 1.0,
+    "nct_recall": 1.0,
+    "nct_f1": 1.0,
+    "nct_jaccard": 1.0,
+    "sql_token_jaccard_vs_gt": 0.8,
+    "deterministic_across_runs": true
+  }
+}

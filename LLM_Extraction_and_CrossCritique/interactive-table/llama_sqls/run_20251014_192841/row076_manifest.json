@@ -1,0 +1,52 @@
+{
+  "row_index": 76,
+  "question": "Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "llm": {
+    "answer": "Trials with Multiple Myeloma, at least 2 prior lines of therapy, and combination treatment.",
+    "assumptions": "Assuming 'Multiple Myeloma' is mentioned in the 'cancer_type' column, and 'lines_of_treatment' is numeric or can be compared as such.",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"trial_name\\\", \\\"cancer_type\\\", \\\"treatment_regimen\\\", \\\"ici_name\\\", \\\"ici_class\\\", \\\"therapy_modality\\\", \\\"combination_type\\\", \\\"control_regimen\\\", \\\"control_type\\\", \\\"lines_of_treatment\\\", \\\"clinical_setting_in_relation_to_surgery\\\", \\\"primary_endpoint\\\", \\\"secondary_endpoint\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Multiple Myeloma%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"Trials with Multiple Myeloma, at least 2 prior lines of therapy, and combination treatment.\",\n  \"assumptions\": \"Assuming 'Multiple Myeloma' is mentioned in the 'cancer_type' column, and 'lines_of_treatment' is numeric or can be compared as such.\"\n}\n```",
+    "sql_original_file": "llama_sqls\\run_20251014_192841\\row076_llm_original.sql",
+    "sql_final_file": "llama_sqls\\run_20251014_192841\\row076_llm_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "error",
+      "latency_ms": 2.7800999814644456,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...IKE '%Multiple Myeloma%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"cancer_type\", \"treatment_regimen\", \"ici_name\", \"ici_class\", \"therapy_modality\", \"combination_type\", \"control_regimen\", \"control_type\", \"lines_of_treatment\", \"clinical_setting_in_relation_to_surgery\", \"primary_endpoint\", \"secondary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Multiple Myeloma%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 2,
+      "status": "error",
+      "latency_ms": 2.8024000057484955,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...IKE '%Multiple Myeloma%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"cancer_type\", \"treatment_regimen\", \"ici_name\", \"ici_class\", \"therapy_modality\", \"combination_type\", \"control_regimen\", \"control_type\", \"lines_of_treatment\", \"clinical_setting_in_relation_to_surgery\", \"primary_endpoint\", \"secondary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Multiple Myeloma%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    },
+    {
+      "run": 3,
+      "status": "error",
+      "latency_ms": 3.6958999990019947,
+      "error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer\nLINE 1: ...IKE '%Multiple Myeloma%' AND \"lines_of_treatment\" >= 2 AND \"...\n                                                             ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"cancer_type\", \"treatment_regimen\", \"ici_name\", \"ici_class\", \"therapy_modality\", \"combination_type\", \"control_regimen\", \"control_type\", \"lines_of_treatment\", \"clinical_setting_in_relation_to_surgery\", \"primary_endpoint\", \"secondary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%Multiple Myeloma%%' AND \"lines_of_treatment\" >= 2 AND \"therapy_type\" = 'Combination therapy']\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+      "results_csv": null
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls\\run_20251014_192841\\row076_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 12.486599996918812,
+    "error": null,
+    "results_csv": "llama_sqls\\run_20251014_192841\\row076_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": null,
+    "rowcount_delta_pred_minus_gt": null,
+    "column_overlap_ratio": null,
+    "nct_precision": null,
+    "nct_recall": null,
+    "nct_f1": null,
+    "nct_jaccard": null,
+    "sql_token_jaccard_vs_gt": 0.4358974358974359,
+    "deterministic_across_runs": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 30,
+  "question": "List Head and Neck Nivolumab trials where overall follow\u2011up exceeded 21 months.",
+  "gemini": {
+    "answer": "Trials of Nivolumab in Head and Neck Cancer where the overall follow-up duration exceeded 21 months are returned.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" = 'HNSCC' AND \\\"ici_name\\\" = 'Nivolumab' AND \\\"follow_up_duration_overall_months\\\" > 21\",\"answer\":\"Trials of Nivolumab in Head and Neck Cancer where the overall follow-up duration exceeded 21 months are returned.\",\"assumptions\":\"\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row030_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row030_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 4.9273000040557235,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row030_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.287000017939135,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row030_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.534199979389086,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row030_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row030_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 4.110399982891977,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row030_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -1,
+    "column_overlap_ratio": 0.3333333333333333,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.5185185185185185,
+    "deterministic_across_runs": true
+  }
+}

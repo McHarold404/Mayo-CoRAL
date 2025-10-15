@@ -1,0 +1,52 @@
+{
+  "row_index": 39,
+  "question": "List Bladder trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "llama": {
+    "answer": "Trials for Bladder/Urothelial cancer that require a biomarker other than PD-L1 for inclusion.",
+    "assumptions": "",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"cancer_type\\\", \\\"other_biomarker_inclusion\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Bladder/Urothelial' AND \\\"other_biomarker_inclusion\\\" = 'Yes';\",\"answer\":\"Trials for Bladder/Urothelial cancer that require a biomarker other than PD-L1 for inclusion.\",\"assumptions\":\"\"}",
+    "sql_original_file": "llama_sqls_cot\\run_20251014_200017_cot\\row039_llama_original_cot.sql",
+    "sql_final_file": "llama_sqls_cot\\run_20251014_200017_cot\\row039_llama_final_cot.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 5.054200009908527,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row039_run1_results_cot.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 4.715499992016703,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row039_run2_results_cot.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.8123000015039,
+      "error": null,
+      "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row039_run3_results_cot.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "llama_sqls_cot\\run_20251014_200017_cot\\row039_ground_truth_cot.sql",
+    "status": "ok",
+    "latency_ms": 4.422300000442192,
+    "error": null,
+    "results_csv": "llama_sqls_cot\\run_20251014_200017_cot\\row039_gt_results_cot.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.625,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6666666666666666,
+    "deterministic_across_runs": true
+  }
+}

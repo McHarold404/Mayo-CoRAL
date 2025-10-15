@@ -1,0 +1,52 @@
+{
+  "row_index": 92,
+  "question": "Show Pembrolizumab combination trials in Renal cell with sample sizes.",
+  "gemini": {
+    "answer": "This query retrieves the NCT ID, author, publication year, PubMed ID, and total sample size for clinical trials of combination therapies involving Pembrolizumab in Renal cell carcinoma.",
+    "assumptions": "",
+    "raw": "```json\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"total_sample_size\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%Renal cell%' AND \\\"ici_name\\\" = 'Pembrolizumab' AND \\\"therapy_type\\\" = 'Combination therapy'\",\n  \"answer\": \"This query retrieves the NCT ID, author, publication year, PubMed ID, and total sample size for clinical trials of combination therapies involving Pembrolizumab in Renal cell carcinoma.\",\n  \"assumptions\": \"\"\n}\n```",
+    "sql_original_file": "gemini_sqls\\run_20251014_192010\\row092_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192010\\row092_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 6.530600017867982,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row092_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.501100007677451,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row092_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 4.617099999450147,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192010\\row092_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192010\\row092_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 5.197099992074072,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192010\\row092_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": -3,
+    "column_overlap_ratio": 0.4,
+    "nct_precision": 0.0,
+    "nct_recall": 0.0,
+    "nct_f1": 0.0,
+    "nct_jaccard": 0.0,
+    "sql_token_jaccard_vs_gt": 0.6956521739130435,
+    "deterministic_across_runs": true
+  }
+}

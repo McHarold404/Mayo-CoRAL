@@ -1,0 +1,52 @@
+{
+  "row_index": 21,
+  "question": "Find Melanoma trials with minimum follow\u2011up and show months by arm.",
+  "gemini": {
+    "answer": "This SQL query selects Melanoma trials, ordering them by ascending overall follow-up duration and showing follow-up in months by arm.",
+    "assumptions": "I am assuming that 'minimum follow-up' implies sorting the trials by the shortest follow-up duration first.",
+    "raw": "{\"sql\":\"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\", \\\"follow_up_duration_overall_months\\\", \\\"follow_up_duration_rx_months\\\", \\\"follow_up_duration_control_months\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" = 'Melanoma'\\nORDER BY \\\"follow_up_duration_overall_months\\\" ASC;\",\"answer\":\"This SQL query selects Melanoma trials, ordering them by ascending overall follow-up duration and showing follow-up in months by arm.\",\"assumptions\":\"I am assuming that 'minimum follow-up' implies sorting the trials by the shortest follow-up duration first.\"}",
+    "sql_original_file": "gemini_sqls\\run_20251014_192241\\row021_gemini_original.sql",
+    "sql_final_file": "gemini_sqls\\run_20251014_192241\\row021_gemini_final.sql"
+  },
+  "runs": [
+    {
+      "run": 1,
+      "status": "ok",
+      "latency_ms": 3.9880999829620123,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row021_run1_results.csv"
+    },
+    {
+      "run": 2,
+      "status": "ok",
+      "latency_ms": 5.124099989188835,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row021_run2_results.csv"
+    },
+    {
+      "run": 3,
+      "status": "ok",
+      "latency_ms": 5.2284999983385205,
+      "error": null,
+      "results_csv": "gemini_sqls\\run_20251014_192241\\row021_run3_results.csv"
+    }
+  ],
+  "ground_truth": {
+    "sql_file": "gemini_sqls\\run_20251014_192241\\row021_ground_truth.sql",
+    "status": "ok",
+    "latency_ms": 3.899999981513247,
+    "error": null,
+    "results_csv": "gemini_sqls\\run_20251014_192241\\row021_gt_results.csv"
+  },
+  "metrics": {
+    "results_equal_exact": false,
+    "rowcount_delta_pred_minus_gt": 22,
+    "column_overlap_ratio": 0.5,
+    "nct_precision": 0.16666666666666666,
+    "nct_recall": 1.0,
+    "nct_f1": 0.2857142857142857,
+    "nct_jaccard": 0.16666666666666666,
+    "sql_token_jaccard_vs_gt": 0.5714285714285714,
+    "deterministic_across_runs": true
+  }
+}
