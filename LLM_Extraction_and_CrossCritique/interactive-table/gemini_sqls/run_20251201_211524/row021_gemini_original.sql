@@ -1,0 +1,2 @@
+/* Gemini unavailable: placeholder SQL for: Find Melanoma trials with minimum follow‑up and show months by arm.... */
+SELECT 1;
