@@ -1,0 +1,1256 @@
+#!/usr/bin/env python
+
+"""
+self_consistency.py
+
+Pipeline 4.1 — Schema-Constrained Self-Consistency + Verifier Reranking (vLLM version)
+
+High-level:
+  - Generate K candidates per question (mix of single-stage and two-stage prompts).
+  - Deterministically canonicalize & validate (closed set for filters/columns).
+  - Score/rerank by intent coverage, parsimony, and schema fidelity.
+  - Short "judge" pass on the top M candidates to correct/trim within the same schema.
+  - Accept/Revise self-check on the winner; re-validate; write results.
+
+Notes:
+  - Uses the same directory layout and CLI style as base_prompt.py and split_verify.py.
+  - Uses vLLM with HF models instead of Gemini.
+  - Enforces canonical filter NAMES and common VALUE synonyms.
+  - Enforces REQUIRED_COLS and a cap on additional columns.
+  - In --mode run, writes one row per question per model to:
+        results/self_consistency/<model>_limit-*_TIMESTAMP.xlsx
+    with columns:
+        Original_Index, Query, Parsed_Filter, Parsed_Column,
+        Final_JSON, Audit_JSON,
+        t_generate_sec, t_judge_sec, t_accept_revise_sec, t_total_sec
+  - In --mode eval, computes exact-match precision/recall vs Ground Truth JSON,
+    saving per-row metrics to:
+        results/self_consistency/<model>_EVAL_TIMESTAMP.xlsx
+"""
+
+import os
+import re
+import gc
+import sys
+import json
+import ast
+import time
+import math
+import argparse
+from datetime import datetime
+
+import torch
+import pandas as pd
+from dotenv import load_dotenv
+from vllm import LLM, SamplingParams
+
+# ============================
+# CONFIGURATION & PATHS
+# ============================
+
+load_dotenv()
+
+BASE_DIR = "/scratch/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table"
+INPUT_FILE = f"{BASE_DIR}/runs/query-chosen-filters-columns - full.xlsx"
+RESULTS_DIR = f"{BASE_DIR}/results"
+
+SCRIPT_NAME = os.path.splitext(os.path.basename(__file__))[0]
+EXPERIMENT_RESULTS_DIR = os.path.join(RESULTS_DIR, SCRIPT_NAME)
+
+DEF_FOLDER = f"{BASE_DIR}/definitions_folder"
+FILTER_NAMES_PATH = f"{DEF_FOLDER}/definitions - aim2 - filter names.txt"
+COLUMN_DEFS_PATH  = f"{DEF_FOLDER}/definitions - aim2 - column.txt"
+FILTER_DEFS_FULL_PATH = f"{DEF_FOLDER}/definitions - aim2 - filter.txt"
+
+# Ground truth JSON column (same as other pipelines)
+GT_FILTER_COL = "Ground Truth JSON"
+GT_COLUMN_COL = "Ground Truth JSON"
+
+HF_TOKEN = os.getenv("HF_TOKEN")
+if not HF_TOKEN:
+    sys.exit("❌ Error: HF_TOKEN not found in .env file or environment variables.")
+
+DEFAULT_MODEL_ID = os.getenv("MODEL_ID", "mistralai/Mistral-7B-Instruct-v0.2")
+
+REQUIRED_COLS = ["NCT", "PMID", "Authors", "Year"]
+MAX_ADDITIONAL_COLS = 6  # extra columns beyond REQUIRED_COLS
+
+# Batch size across questions
+BATCH_SIZE = 16  # tune as needed
+
+# Candidate generation knobs
+N_SINGLE_STAGE_CANDIDATES = 3
+N_TWO_STAGE_CANDIDATES = 3
+TOP_M_FOR_JUDGE = 2
+
+# HF cache/env
+os.environ["HF_TOKEN"] = HF_TOKEN
+if not os.environ.get("HF_HOME"):
+    os.environ["HF_HOME"] = "/scratch/srchowd3/models"
+
+# ============================
+# LOAD DEFINITIONS
+# ============================
+
+def load_definitions():
+    print("Loading definition files...")
+    try:
+        with open(FILTER_NAMES_PATH, "r", encoding="utf-8") as f:
+            filter_names = f.read()
+        with open(COLUMN_DEFS_PATH, "r", encoding="utf-8") as f:
+            column_defs = f.read()
+        with open(FILTER_DEFS_FULL_PATH, "r", encoding="utf-8") as f:
+            filter_defs = f.read()
+        return filter_names, column_defs, filter_defs
+    except FileNotFoundError as e:
+        print(f"CRITICAL ERROR: Could not find definition files.\n{e}")
+        sys.exit(1)
+
+FILTER_NAMES_TEXT, COLUMN_DEFS_TEXT, FILTER_DEFS_TEXT = load_definitions()
+
+# ============================
+# JSON & PARSING HELPERS
+# ============================
+
+def strip_code_fences(s: str) -> str:
+    s = (s or "").strip()
+    if s.startswith("```") and s.endswith("```"):
+        lines = s.splitlines()
+        if lines and lines[0].startswith("```"):
+            lines = lines[1:]
+        if lines and lines[-1].startswith("```"):
+            lines = lines[:-1]
+        s = "\n".join(lines)
+    return s.strip()
+
+def extract_json(text: str):
+    raw = strip_code_fences(text or "")
+    # direct
+    try:
+        return json.loads(raw)
+    except Exception:
+        pass
+    # first {...}
+    try:
+        start = raw.find("{")
+        end = raw.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            candidate = raw[start:end+1]
+            try:
+                return json.loads(candidate)
+            except Exception:
+                obj = ast.literal_eval(candidate)
+                if isinstance(obj, (dict, list)):
+                    return obj
+    except Exception:
+        pass
+    raise ValueError(f"Could not parse JSON from model text: {text[:200]}...")
+
+def _extract_json_safe(text):
+    try:
+        return extract_json(text)
+    except Exception:
+        return {}
+
+def parse_json_safe_eval(text):
+    """For eval path: return dict/list or None on failure."""
+    if isinstance(text, (dict, list)):
+        return text
+    try:
+        return extract_json(text)
+    except Exception:
+        return None
+
+def _as_dict(obj, preferred_keys=("selected_filter","selected_column","status")) -> dict:
+    """
+    Coerce model output into a dict.
+    - If dict: return as-is.
+    - If list: return the first dict that contains any preferred key; else first dict; else merged dicts; else {}.
+    """
+    if isinstance(obj, dict):
+        return obj
+    if isinstance(obj, list):
+        for item in obj:
+            if isinstance(item, dict) and any(k in item for k in preferred_keys):
+                return item
+        dicts = [d for d in obj if isinstance(d, dict)]
+        if dicts:
+            if len(dicts) == 1:
+                return dicts[0]
+            merged = {}
+            for d in dicts:
+                merged.update(d)
+            return merged
+        return {}
+    return {}
+
+# ============================
+# CANONICALIZATION (filters & columns)
+# ============================
+
+# Canonical filter category names (interface)
+CANON_FILTER_KEYS = [
+    "ICI Class",
+    "ICI Name",
+    "Cancer Type",
+    "Type of Therapy",
+    "Type of combination (Treatment Arm)",
+    "Control Arm",
+    "Clinical Setting",
+    "Trial Phase",
+    "Type of Study",
+    "Primary Endpoint",
+    "Included in MA",
+]
+
+# Canonical column names (align with your UI)
+CANON_COLUMN_NAMES = [
+    "NCT","PMID","Authors","Year","Original/Follow Up","Study name","Trial phase",
+    "Number of arms","Cancer type","Treatment regimen","Name of ICI","Class of ICI",
+    "Monotherapy/combination","Type of combination","Control regimen","Type of control",
+    "Total sample size","Lines of treatment","Clinical setting in relation to surgery",
+    "Is PD-L1 positivity inclusion criteria","Is any other biomarker used for inclusion",
+    "Primary endpoint","Secondary endpoint","Type of follow-up given",
+    "Follow-up duration for primary endpoint(s) in months","Included in MA",
+    "Primary multiple, composite, or co-primary endpoints?"
+]
+
+# Synonyms for filter keys
+CANON_KEYS_MAP = {
+    "Class of ICI": "ICI Class",
+    "Name of ICI": "ICI Name",
+    "Cancer type": "Cancer Type",
+    "Monotherapy/combination": "Type of Therapy",
+    "Monotherapy/Combination": "Type of Therapy",
+    "Mono/Combo": "Type of Therapy",
+    "Monotherapy vs Combination": "Type of Therapy",
+    "Type of combination": "Type of combination (Treatment Arm)",
+    "Type of control": "Control Arm",
+    "Control regimen": "Control Arm",
+    "Trial phase": "Trial Phase",
+    "Clinical setting in relation to surgery": "Clinical Setting",
+    "Clinical setting": "Clinical Setting",
+    "Perioperative setting": "Clinical Setting",
+    "Setting in relation to surgery": "Clinical Setting",
+    "Primary endpoint": "Primary Endpoint",
+    "Primary Endpoint(s)": "Primary Endpoint",
+    "Primary endpoints": "Primary Endpoint",
+    "Included in Meta-analysis": "Included in MA",
+    "Lines of treatment": "Clinical Setting",
+}
+
+# Value sets where enumerated
+ALLOWED_VALUES = {
+    "ICI Class": {"PD-1", "PD-L1", "CTLA-4"},
+    "Type of Therapy": {"Monotherapy", "Combination"},
+    "Primary Endpoint": {"OS","PFS","ORR","RFS","EFS","Path CR","Safety"},
+    "Trial Phase": {"Phase 2","Phase 3"},
+    "Type of Study": {"Original publication","Follow-up"},
+    "Included in MA": {"Yes","No"},
+    "Type of combination (Treatment Arm)": {
+        "ICI + Chemo","ICI + TKI","ICI + ICI","ICI + ICI + Chemo","ICI + Radiation",
+        "ICI + Vaccine","ICI + MEKi","ICI + Anti-VEGF","ICI + BRAFi + MEKi","ICI + Chemo + Anti-VEGF"
+    },
+    "Control Arm": {
+        "Placebo","Chemo","TKI","Interferon","Best Supportive Care","Radiation","Vaccine",
+        "Multikinase inhibitor","mTOR inhibitor","Chemo / Anti-VEGF","Chemo / Anti-EGFR"
+    },
+}
+
+ICI_CLASS_VALUE_MAP = {
+    "pd1": "PD-1","pd-1": "PD-1","pd 1":"PD-1",
+    "pdl1": "PD-L1","pd-l1":"PD-L1","pd l1":"PD-L1","pd_l1":"PD-L1",
+    "ctla4":"CTLA-4","ctla-4":"CTLA-4","ctla 4":"CTLA-4",
+}
+TYPE_OF_THERAPY_VALUE_MAP = {
+    "mono":"Monotherapy","monotherapy":"Monotherapy",
+    "combination therapy":"Combination","combination":"Combination",
+}
+PRIMARY_ENDPOINT_VALUE_MAP = {
+    "os (overall survival)":"OS","os":"OS","pfs":"PFS","orr":"ORR",
+    "rfs":"RFS","dfs":"RFS","efs":"EFS","pcr":"Path CR","path cr":"Path CR",
+    "safety":"Safety",
+}
+TRIAL_PHASE_VALUE_MAP = {
+    "iii":"Phase 3","phase iii":"Phase 3","3":"Phase 3",
+    "ii":"Phase 2","phase ii":"Phase 2","2":"Phase 2",
+}
+TYPE_OF_STUDY_VALUE_MAP = {
+    "original":"Original publication","original publication":"Original publication",
+    "follow up":"Follow-up","follow-up":"Follow-up",
+}
+INCLUDED_MA_VALUE_MAP = {"yes":"Yes","no":"No"}
+COMBO_TREATMENT_VALUE_MAP = {
+    "ici + meki (mek inhibitor)":"ICI + MEKi","ici + meki":"ICI + MEKi",
+    "ici + radiation":"ICI + Radiation","ici + radiotherapy":"ICI + Radiation",
+    "ici + vaccine":"ICI + Vaccine","ici + tki":"ICI + TKI","ici + chemo":"ICI + Chemo",
+    "ici + anti-vegf":"ICI + Anti-VEGF","ici + brafi + meki":"ICI + BRAFi + MEKi",
+    "ici + chemo + anti-vegf":"ICI + Chemo + Anti-VEGF","ici + ici":"ICI + ICI",
+    "ici + ici + chemo":"ICI + ICI + Chemo"
+}
+CONTROL_ARM_VALUE_MAP = {
+    "chemo":"Chemo","tki":"TKI","interferon":"Interferon",
+    "multikinase inhibitor":"Multikinase inhibitor","mtor inhibitor":"mTOR inhibitor",
+    "radiation":"Radiation","vaccine":"Vaccine","placebo":"Placebo","bsc":"Best Supportive Care",
+    "best supportive care":"Best Supportive Care","chemo / anti-egfr":"Chemo / Anti-EGFR",
+    "chemo / anti-vegf":"Chemo / Anti-VEGF",
+}
+CANCER_TYPE_VALUE_MAP = {
+    "nsclc":"Non-Small Cell Lung Cancer (NSCLC)",
+    "non small cell lung cancer":"Non-Small Cell Lung Cancer (NSCLC)",
+    "non-small cell lung cancer":"Non-Small Cell Lung Cancer (NSCLC)",
+    "sclc":"Small Cell Lung Cancer (SCLC)",
+    "small cell lung cancer":"Small Cell Lung Cancer (SCLC)",
+    "hnscc":"Head and Neck (HNSCC)","head and neck (hnscc)":"Head and Neck (HNSCC)",
+    "head and neck":"Head and Neck",
+    "hcc":"Hepatocellular carcinoma (HCC)","hepatocellular carcinoma":"Hepatocellular carcinoma (HCC)",
+    "rcc":"Renal Cell Carcinoma (RCC)","renal cell carcinoma":"Renal Cell Carcinoma (RCC)",
+    "melanoma":"Melanoma","breast":"Breast","colorectal":"Colorectal",
+    "gastric/gej":"Gastric/GEJ","esophageal/gej":"Esophageal/GEJ",
+    "bladder":"Bladder","urothelial":"Bladder"
+}
+
+COLUMN_SYNONYMS = {
+    "original/follow up":"Original/Follow Up","original/follow-up":"Original/Follow Up",
+    "follow up duration for primary endpoints (overall, rx, control)":"Follow-up duration for primary endpoint(s) in months",
+    "trial phase":"Trial phase","cancer type":"Cancer type","name of ici":"Name of ICI","class of ici":"Class of ICI",
+    "monotherapy/combination":"Monotherapy/combination","type of combination":"Type of combination",
+    "control regimen":"Control regimen","type of control":"Type of control","total sample size":"Total sample size",
+    "lines of treatment":"Lines of treatment","clinical setting in relation to surgery":"Clinical setting in relation to surgery",
+    "is pd-l1 positivity inclusion criteria":"Is PD-L1 positivity inclusion criteria",
+    "is any other biomarker used for inclusion":"Is any other biomarker used for inclusion",
+    "primary endpoint":"Primary endpoint","secondary endpoint":"Secondary endpoint",
+    "type of follow-up given":"Type of follow-up given",
+    "follow-up duration for primary endpoint(s) in months":"Follow-up duration for primary endpoint(s) in months",
+    "included in ma":"Included in MA",
+    "primary multiple, composite, or co-primary endpoints?":"Primary multiple, composite, or co-primary endpoints?",
+}
+
+def _canon_simple(value: str) -> str:
+    return re.sub(r"\s+", " ", str(value or "").strip())
+
+def _norm_key(key: str) -> str:
+    k = _canon_simple(key)
+    return CANON_KEYS_MAP.get(k, k)
+
+def _canon_filter_value(cat: str, value: str) -> str:
+    cat_c = _norm_key(cat)
+    v = _canon_simple(value)
+    low = v.lower()
+
+    if cat_c == "ICI Class": return ICI_CLASS_VALUE_MAP.get(low, v)
+    if cat_c == "Type of Therapy": return TYPE_OF_THERAPY_VALUE_MAP.get(low, v)
+    if cat_c == "Primary Endpoint": return PRIMARY_ENDPOINT_VALUE_MAP.get(low, v)
+    if cat_c == "Trial Phase": return TRIAL_PHASE_VALUE_MAP.get(low, v)
+    if cat_c == "Type of Study": return TYPE_OF_STUDY_VALUE_MAP.get(low, v)
+    if cat_c == "Included in MA": return INCLUDED_MA_VALUE_MAP.get(low, v)
+    if cat_c == "Type of combination (Treatment Arm)": return COMBO_TREATMENT_VALUE_MAP.get(low, v)
+    if cat_c == "Control Arm": return CONTROL_ARM_VALUE_MAP.get(low, v)
+    if cat_c == "Cancer Type": return CANCER_TYPE_VALUE_MAP.get(low, v)
+    if cat_c == "Clinical Setting":
+        vv = low
+        if vv in {"neoadjuvant","adjuvant","perioperative","maintenance"}:
+            return v.title()
+        if vv in {"1l","first line","first-line"}:
+            return "First-line metastatic"
+        if any(x in vv for x in ["2l","3l","second line","third line","second-line","third-line","2l+","second-line+"]):
+            return "Second-line+"
+        if vv == "metastatic / recurrent (unresectable)":
+            return "Metastatic / Recurrent (Unresectable)"
+        return v
+    return v
+
+def _listify_values(v) -> list:
+    if isinstance(v, (list, tuple, set)):
+        return list(v)
+    if isinstance(v, dict):
+        candidates = []
+        for key in ("value","name","label"):
+            if key in v:
+                candidates.append(v[key])
+        candidates.extend([x for x in v.values() if x not in candidates])
+        return candidates
+    return [v]
+
+def normalize_selected_filter(sel: dict) -> dict:
+    out = {}
+    for k, v in (sel or {}).items():
+        k_can = _norm_key(k)
+        if not k_can:
+            continue
+        candidates = _listify_values(v)
+        chosen = ""
+
+        if k_can in ALLOWED_VALUES:
+            allowed = ALLOWED_VALUES[k_can]
+            for c in candidates:
+                c1 = _canon_simple(c)
+                if not c1 or c1.lower() == "all":
+                    continue
+                c2 = _canon_filter_value(k_can, c1)
+                if c2 in allowed:
+                    chosen = c2
+                    break
+
+        if not chosen:
+            for c in candidates:
+                c1 = _canon_simple(c)
+                if not c1 or c1.lower() == "all":
+                    continue
+                chosen = _canon_filter_value(k_can, c1)
+                if chosen:
+                    break
+
+        if chosen:
+            out[k_can] = chosen
+    return out
+
+def _ordered_values_from_column_object(col_obj: dict) -> list[str]:
+    if not isinstance(col_obj, dict):
+        return []
+    items = []
+    for k, v in col_obj.items():
+        m = re.search(r"Column\s*(\d+)", str(k))
+        idx = int(m.group(1)) if m else 10**9
+        items.append((idx, v))
+    items.sort(key=lambda x: x[0])
+    return [val for _, val in items if isinstance(val, str) and val and str(val).strip()]
+
+def _normalize_column_name(name: str) -> str:
+    raw = _canon_simple(name)
+    key = raw.lower()
+    if key in COLUMN_SYNONYMS:
+        return COLUMN_SYNONYMS[key]
+    return raw
+
+def normalize_selected_column(selected_column) -> dict:
+    if isinstance(selected_column, dict):
+        cols = _ordered_values_from_column_object(selected_column)
+    elif isinstance(selected_column, list):
+        cols = [c for c in selected_column if isinstance(c, str) and c.strip()]
+    else:
+        cols = []
+
+    normed = []
+    for c in cols:
+        cc = _normalize_column_name(c)
+        if cc.lower() == "all the remaining columns":
+            continue
+        normed.append(cc)
+
+    out_list, seen = [], set()
+    for rc in REQUIRED_COLS:
+        if rc not in seen:
+            out_list.append(rc); seen.add(rc)
+    for c in normed:
+        c2 = _normalize_column_name(c)
+        if (c2 in CANON_COLUMN_NAMES or c2 in REQUIRED_COLS) and c2 not in seen:
+            out_list.append(c2); seen.add(c2)
+
+    cap = len(REQUIRED_COLS) + MAX_ADDITIONAL_COLS
+    out_list = out_list[:cap]
+    return {f"Column {i+1}": name for i, name in enumerate(out_list)}
+
+def validate_and_fix(candidate: dict):
+    """Return (fixed_candidate, audit_dict)"""
+    audit = {
+        "dropped_non_canonical_filter_keys": [],
+        "dropped_filter_values": [],
+        "composite_ici_class_rejected": False,
+        "moved_filters_that_are_columns": [],
+        "trimmed_columns_count": 0,
+        "notes": [],
+    }
+
+    sf = dict(candidate.get("selected_filter", {}) or {})
+    sc = candidate.get("selected_column", {}) or {}
+
+    sf = normalize_selected_filter(sf)
+    sc = normalize_selected_column(sc)
+
+    sf_fixed = {}
+    for k, v in sf.items():
+        if k not in CANON_FILTER_KEYS:
+            audit["dropped_non_canonical_filter_keys"].append(k)
+            continue
+        if k == "ICI Class" and isinstance(v, str) and re.search(r"\bor\b|,|both", v, flags=re.I):
+            audit["composite_ici_class_rejected"] = True
+            continue
+        if k in ALLOWED_VALUES and v not in ALLOWED_VALUES[k]:
+            audit["dropped_filter_values"].append({k: v})
+            continue
+        sf_fixed[k] = v
+
+    column_like_filters = {
+        "Year","Total sample size","Lines of treatment",
+        "Is PD-L1 positivity inclusion criteria","Is any other biomarker used for inclusion",
+        "Primary multiple, composite, or co-primary endpoints?"
+    }
+    for bad in list(sf_fixed.keys()):
+        if bad in column_like_filters:
+            audit["moved_filters_that_are_columns"].append({bad: sf_fixed[bad]})
+            del sf_fixed[bad]
+
+    final_cols = list(sc.values())
+    if len(final_cols) > len(REQUIRED_COLS) + MAX_ADDITIONAL_COLS:
+        audit["trimmed_columns_count"] = len(final_cols) - (len(REQUIRED_COLS) + MAX_ADDITIONAL_COLS)
+
+    fixed = {"selected_filter": sf_fixed, "selected_column": normalize_selected_column(sc)}
+    return fixed, audit
+
+# ============================
+# PROMPTS
+# ============================
+
+def build_single_stage_prompt(question: str) -> str:
+    total_slots = len(REQUIRED_COLS) + MAX_ADDITIONAL_COLS
+    schema_columns = ',\n'.join([f'    "Column {i}": "Name"' for i in range(1, total_slots + 1)])
+    schema = (
+        '{\n'
+        '  "selected_filter": {\n'
+        '    "Filter Category 1": "Chosen Value",\n'
+        '    "Filter Category 2": "Chosen Value"\n'
+        '  },\n'
+        '  "selected_column": {\n'
+        f'{schema_columns}\n'
+        '  }\n'
+        '}'
+    )
+    return (
+        "You are a medical expert researching cancer trials.\n"
+        "Return ONLY a valid JSON object (no prose, no code fences) with this schema:\n"
+        f"{schema}\n"
+        "Strict rules:\n"
+        f"- Columns: ALWAYS include these first (do NOT count toward the limit): {', '.join(REQUIRED_COLS)}.\n"
+        f"- You may add at most {MAX_ADDITIONAL_COLS} additional columns beyond those required.\n"
+        "- The enumerated object keys MUST be exactly 'Column 1', 'Column 2', ... in display order.\n"
+        "- Use exact column names from the list below.\n"
+        "- Filters: choose only categories/values justified by the question. If a category would be 'All', OMIT it.\n"
+        "- Use exact category and value strings from the lists below.\n"
+        "- Use double quotes everywhere. No trailing commas. No explanations.\n\n"
+        "Available filter CATEGORY NAMES (reference):\n"
+        f"{FILTER_NAMES_TEXT}\n\n"
+        "Available FULL filter categories and values (use exact strings; omit categories that would be 'All'):\n"
+        f"{FILTER_DEFS_TEXT}\n\n"
+        "Available columns and definitions (select by exact name):\n"
+        f"{COLUMN_DEFS_TEXT}\n\n"
+        f"Question: {question}\n"
+        "Return JSON now."
+    )
+
+def build_two_stage_prompt_stage1(question: str) -> str:
+    schema = (
+        '{\n'
+        '  "selected_filter": {\n'
+        '    "Filter Category 1": "Chosen Value",\n'
+        '    "Filter Category 2": "Chosen Value"\n'
+        '  }\n'
+        '}'
+    )
+    return (
+        "You are a medical expert researching cancer.\n"
+        "Stage 1: choose FILTERS (categories + values) ONLY.\n"
+        "Return ONLY a valid JSON with key `selected_filter` (no prose):\n"
+        f"{schema}\n\n"
+        "Rules:\n"
+        "- Use exact category names from this canonical list: "
+        '["ICI Class","ICI Name","Cancer Type","Type of Therapy","Type of combination (Treatment Arm)",'
+        '"Control Arm","Clinical Setting","Trial Phase","Type of Study","Primary Endpoint","Included in MA"]\n'
+        "- Use exact strings for values from the filter definitions.\n"
+        "- Omit any filters whose correct value would be \"All\".\n"
+        "- Include only filters directly justified by the question.\n\n"
+        "Available filter CATEGORY NAMES:\n"
+        f"{FILTER_NAMES_TEXT}\n\n"
+        "Available filter CATEGORIES + VALUES (use exact strings whenever possible):\n"
+        f"{FILTER_DEFS_TEXT}\n\n"
+        f"Question: {question}\n"
+        "Return JSON now."
+    )
+
+def build_two_stage_prompt_stage2(question: str, selected_filter: dict) -> str:
+    total_slots = len(REQUIRED_COLS) + MAX_ADDITIONAL_COLS
+    schema_columns = ',\n'.join([f'    "Column {i}": "Name"' for i in range(1, total_slots + 1)])
+    schema = '{\n  "selected_column": {\n' + schema_columns + '\n  }\n}'
+    return (
+        "You are a medical expert researching cancer.\n"
+        "Stage 2: choose COLUMNS ONLY (REQUIRED first; at most additional columns as allowed).\n"
+        "Return ONLY a valid JSON with key `selected_column` (no prose):\n"
+        f"{schema}\n\n"
+        "Rules:\n"
+        f"- ALWAYS include: {', '.join(REQUIRED_COLS)} (do not count toward the cap).\n"
+        f"- Choose at most {MAX_ADDITIONAL_COLS} additional columns.\n"
+        "- Use exact column names from the list below.\n\n"
+        "Context — chosen filters:\n"
+        f"{json.dumps(selected_filter, ensure_ascii=False)}\n\n"
+        "Available columns and definitions (select by exact name):\n"
+        f"{COLUMN_DEFS_TEXT}\n\n"
+        f"Question: {question}\n"
+        "Return JSON now."
+    )
+
+def build_judge_prompt(question: str, candidate_json: dict) -> str:
+    schema = (
+        '{ "selected_filter": { ... }, "selected_column": { "Column 1": "...", "Column 2": "...", ... } }'
+    )
+    return (
+        "You are a meticulous validator.\n"
+        "Task: Examine the candidate JSON (filters+columns) against the schema and the question. "
+        "If it is minimal and correct, return it unchanged. Otherwise, return a corrected JSON that:\n"
+        "- Uses only canonical filter category names and allowed values (or valid cancer types),\n"
+        "- Omits categories whose correct value would be 'All',\n"
+        "- Includes REQUIRED columns first (NCT, PMID, Authors, Year) and at most 6 additional columns,\n"
+        "- Uses exact column names from the list.\n\n"
+        "Return ONLY a valid JSON object (no prose) with this schema:\n"
+        f"{schema}\n\n"
+        "Available canonical filter CATEGORY NAMES:\n"
+        f"{FILTER_NAMES_TEXT}\n\n"
+        "Available filter CATEGORIES + VALUES:\n"
+        f"{FILTER_DEFS_TEXT}\n\n"
+        "Available columns and definitions:\n"
+        f"{COLUMN_DEFS_TEXT}\n\n"
+        f"Question: {question}\n"
+        f"Candidate JSON:\n{json.dumps(candidate_json, ensure_ascii=False)}\n"
+        "Return JSON now."
+    )
+
+def build_accept_revise_prompt(question: str, merged: dict) -> str:
+    return (
+        "Final check: evaluate the COMBINATION of filters + columns for relevance, correctness, and parsimony.\n"
+        'Return ONLY one JSON: {"status":"accept","selected_filter":{...},"selected_column":{...}} '
+        'or {"status":"revise","selected_filter":{...},"selected_column":{...},"notes":"<25 chars>"}\n\n'
+        f"Question: {question}\n"
+        f"Current selection: {json.dumps(merged, ensure_ascii=False)}\n"
+        "Rules:\n"
+        "- Filters must use canonical category names.\n"
+        f"- Columns must include {', '.join(REQUIRED_COLS)} and only up to {MAX_ADDITIONAL_COLS} extras.\n"
+        "- Omit any filter whose correct value would be 'All'.\n"
+        "- Prefer minimal set that answers the question; drop irrelevant columns.\n"
+        "Return JSON now."
+    )
+
+# ============================
+# SCORING / RERANK
+# ============================
+
+def score_candidate(question: str, cand: dict) -> float:
+    """Heuristic scoring: intent coverage (+), parsimony (-), schema fidelity (+), consistency (+)."""
+    q = (question or "").lower()
+
+    sf = cand.get("selected_filter", {}) or {}
+    sc = cand.get("selected_column", {}) or {}
+
+    cues = 0
+    if re.search(r"\bphase\s*3\b|phase iii|\biii\b", q): cues += 1
+    if re.search(r"\bphase\s*2\b|phase ii|\bii\b", q): cues += 1
+    if any(x in q for x in ["adjuvant","neoadjuvant","perioperative","maintenance","first-line","second-line","1l","2l","3l"]): cues += 1
+    if any(x in q for x in ["pd-1","pd1","pdl1","pd-l1","ctla-4","ctla4"]): cues += 1
+    if any(x in q for x in ["nsclc","non-small cell","sclc","melanoma","rcc","hnscc","esophageal","gastric","bladder","urothelial","breast","colorectal","hcc","pancreatic","prostate","mesothelioma"]): cues += 1
+
+    coverage = 0
+    if "Trial Phase" in sf and ("phase 3" in sf["Trial Phase"].lower() or "phase 2" in sf["Trial Phase"].lower()):
+        coverage += 1
+    if "Clinical Setting" in sf and any(x in sf["Clinical Setting"].lower() for x in ["adjuvant","neoadjuvant","perioperative","maintenance","first-line","second-line"]):
+        coverage += 1
+    if "ICI Class" in sf: coverage += 1
+    if "Cancer Type" in sf: coverage += 1
+
+    addl_cols = max(0, len(sc) - len(REQUIRED_COLS))
+    parsimony_penalty = 0.15 * max(0, addl_cols - MAX_ADDITIONAL_COLS)
+    parsimony_penalty += 0.05 * max(0, addl_cols - 4)
+
+    schema_bonus = 0
+    if all(k in CANON_FILTER_KEYS for k in sf.keys()):
+        schema_bonus += 0.5
+    if all(v in CANON_COLUMN_NAMES or v in REQUIRED_COLS for v in sc.values()):
+        schema_bonus += 0.5
+
+    consistency = 0
+    if "Trial Phase" in sf and sf["Trial Phase"] in {"Phase 2","Phase 3"}:
+        consistency += 0.25
+    if "ICI Class" in sf and sf["ICI Class"] in {"PD-1","PD-L1","CTLA-4"}:
+        consistency += 0.25
+
+    score = 0.8 * cues + 1.2 * coverage + schema_bonus + consistency - parsimony_penalty
+    return float(score)
+
+# ============================
+# BATCH CANDIDATE GENERATION
+# ============================
+
+def gen_candidates_for_batch(llm: LLM, sampling_params: SamplingParams, questions: list[str]):
+    """
+    For a batch of questions, generate candidates:
+      - N_SINGLE_STAGE_CANDIDATES single-stage
+      - N_TWO_STAGE_CANDIDATES two-stage
+    Returns: list of list of candidate dicts per question.
+    """
+    num_q = len(questions)
+    candidates_by_q = [[] for _ in range(num_q)]
+
+    # ----- SINGLE-STAGE -----
+    single_prompts = []
+    single_map = []  # (qi)
+    for qi, q in enumerate(questions):
+        for _ in range(N_SINGLE_STAGE_CANDIDATES):
+            single_prompts.append(build_single_stage_prompt(q))
+            single_map.append(qi)
+
+    if single_prompts:
+        outputs = llm.generate(single_prompts, sampling_params)
+        for qi, out in zip(single_map, outputs):
+            raw = out.outputs[0].text
+            obj = _as_dict(_extract_json_safe(raw), preferred_keys=("selected_filter","selected_column"))
+            cand = {
+                "selected_filter": obj.get("selected_filter") or {},
+                "selected_column": obj.get("selected_column") or {},
+            }
+            fixed, audit = validate_and_fix(cand)
+            candidates_by_q[qi].append({
+                "raw": cand,
+                "fixed": fixed,
+                "audit": audit,
+                "gen_style": "single",
+            })
+
+    # ----- TWO-STAGE STAGE 1 -----
+    stage1_prompts = []
+    stage1_map = []  # (qi)
+    for qi, q in enumerate(questions):
+        for _ in range(N_TWO_STAGE_CANDIDATES):
+            stage1_prompts.append(build_two_stage_prompt_stage1(q))
+            stage1_map.append(qi)
+
+    if stage1_prompts:
+        outputs1 = llm.generate(stage1_prompts, sampling_params)
+        stage2_prompts = []
+        stage2_map = []  # (qi, sel_filter_norm)
+
+        for qi, out in zip(stage1_map, outputs1):
+            raw1 = out.outputs[0].text
+            o1 = _as_dict(_extract_json_safe(raw1), preferred_keys=("selected_filter",))
+            sel_filter = o1.get("selected_filter") or {}
+            sel_filter_norm = normalize_selected_filter(sel_filter)
+            stage2_prompts.append(build_two_stage_prompt_stage2(questions[qi], sel_filter_norm))
+            stage2_map.append((qi, sel_filter_norm))
+
+        # ----- TWO-STAGE STAGE 2 -----
+        if stage2_prompts:
+            outputs2 = llm.generate(stage2_prompts, sampling_params)
+            for (qi, sel_filter_norm), out in zip(stage2_map, outputs2):
+                raw2 = out.outputs[0].text
+                o2 = _as_dict(_extract_json_safe(raw2), preferred_keys=("selected_column",))
+                sel_col = o2.get("selected_column") or {}
+                cand = {
+                    "selected_filter": sel_filter_norm,
+                    "selected_column": sel_col,
+                }
+                fixed, audit = validate_and_fix(cand)
+                candidates_by_q[qi].append({
+                    "raw": cand,
+                    "fixed": fixed,
+                    "audit": audit,
+                    "gen_style": "two-stage",
+                })
+
+    return candidates_by_q
+
+# ============================
+# BATCH JUDGE & ACCEPT/REVISE
+# ============================
+
+def judge_batch(llm: LLM, sampling_params: SamplingParams, questions: list[str], candidates_by_q: list[list[dict]]):
+    num_q = len(questions)
+    winners = [None] * num_q
+
+    judge_prompts = []
+    judge_jobs = []  # (qi, orig_c)
+
+    for qi in range(num_q):
+        cand_list = candidates_by_q[qi]
+        if not cand_list:
+            continue
+        scored = sorted(
+            [(score_candidate(questions[qi], c["fixed"]), c) for c in cand_list],
+            key=lambda x: x[0],
+            reverse=True
+        )
+        top = scored[:TOP_M_FOR_JUDGE] or scored[:1]
+        for score, c in top:
+            judge_prompts.append(build_judge_prompt(questions[qi], c["fixed"]))
+            judge_jobs.append((qi, c))
+
+    judged_by_q = [[] for _ in range(num_q)]
+
+    if judge_prompts:
+        outputs = llm.generate(judge_prompts, sampling_params)
+        for (qi, orig_c), out in zip(judge_jobs, outputs):
+            raw = out.outputs[0].text
+            obj = _as_dict(_extract_json_safe(raw), preferred_keys=("selected_filter","selected_column"))
+            if not obj:
+                fixed2, audit2 = orig_c["fixed"], orig_c["audit"]
+            else:
+                cand2 = {
+                    "selected_filter": obj.get("selected_filter") or {},
+                    "selected_column": obj.get("selected_column") or {},
+                }
+                fixed2, audit2 = validate_and_fix(cand2)
+            judged_by_q[qi].append({
+                "fixed": fixed2,
+                "audit": audit2,
+                "source": orig_c,
+            })
+
+    for qi in range(num_q):
+        if not candidates_by_q[qi]:
+            winners[qi] = {
+                "fixed": {"selected_filter": {}, "selected_column": {}},
+                "audit": {},
+                "source": None,
+            }
+            continue
+
+        if judged_by_q[qi]:
+            scored_j = sorted(
+                [(score_candidate(questions[qi], jc["fixed"]), jc) for jc in judged_by_q[qi]],
+                key=lambda x: x[0],
+                reverse=True
+            )
+            winners[qi] = scored_j[0][1]
+        else:
+            scored_orig = sorted(
+                [(score_candidate(questions[qi], c["fixed"]), c) for c in candidates_by_q[qi]],
+                key=lambda x: x[0],
+                reverse=True
+            )
+            best = scored_orig[0][1]
+            winners[qi] = {"fixed": best["fixed"], "audit": best["audit"], "source": best}
+
+    return winners
+
+def accept_revise_batch(llm: LLM, sampling_params: SamplingParams, questions: list[str], winners_by_q: list[dict]):
+    num_q = len(questions)
+    prompts = []
+    idx_map = []
+
+    for qi in range(num_q):
+        merged = winners_by_q[qi]["fixed"]
+        prompts.append(build_accept_revise_prompt(questions[qi], merged))
+        idx_map.append(qi)
+
+    finals = [None] * num_q
+
+    if prompts:
+        outputs = llm.generate(prompts, sampling_params)
+        for qi, out in zip(idx_map, outputs):
+            raw = out.outputs[0].text
+            obj = _as_dict(_extract_json_safe(raw), preferred_keys=("status","selected_filter","selected_column"))
+            status = str(obj.get("status") or "accept").strip().lower()
+            if status not in ("accept", "revise"):
+                status = "accept"
+
+            sel_f = obj.get("selected_filter")
+            sel_c = obj.get("selected_column")
+            if not isinstance(sel_f, dict):
+                sel_f = {}
+            if not isinstance(sel_c, dict):
+                sel_c = {}
+
+            base = winners_by_q[qi]["fixed"]
+            merged = {
+                "selected_filter": (sel_f or base.get("selected_filter", {})),
+                "selected_column": (sel_c or base.get("selected_column", {})),
+            }
+            fixed, audit = validate_and_fix(merged)
+            audit["accept_revise_status"] = status
+            audit["accept_revise_raw"] = (raw[:2000] if isinstance(raw, str) else str(raw))
+
+            finals[qi] = {"fixed": fixed, "audit": audit}
+
+    return finals
+
+# ============================
+# RESUME / FILE HELPERS
+# ============================
+
+def get_processed_indices_for_model(model_id: str):
+    os.makedirs(EXPERIMENT_RESULTS_DIR, exist_ok=True)
+    safe_name = model_id.split("/")[-1]
+    processed = set()
+
+    if os.path.isdir(EXPERIMENT_RESULTS_DIR):
+        for fname in os.listdir(EXPERIMENT_RESULTS_DIR):
+            if not fname.endswith(".xlsx"):
+                continue
+            if not fname.startswith(safe_name + "_"):
+                continue
+            fpath = os.path.join(EXPERIMENT_RESULTS_DIR, fname)
+            try:
+                df_res = pd.read_excel(fpath)
+                if "Original_Index" in df_res.columns:
+                    processed.update(
+                        df_res["Original_Index"].dropna().astype(int).tolist()
+                    )
+            except Exception as e:
+                print(f"⚠️ Could not read results file {fname}: {e}")
+
+    print(f"📂 Found {len(processed)} processed rows for model '{model_id}' in {EXPERIMENT_RESULTS_DIR}.")
+    return processed
+
+def load_all_results_for_model(model_id: str) -> pd.DataFrame | None:
+    os.makedirs(EXPERIMENT_RESULTS_DIR, exist_ok=True)
+    safe_name = model_id.split("/")[-1]
+
+    frames = []
+    for fname in os.listdir(EXPERIMENT_RESULTS_DIR):
+        if not fname.endswith(".xlsx"):
+            continue
+        if not fname.startswith(safe_name + "_"):
+            continue
+        fpath = os.path.join(EXPERIMENT_RESULTS_DIR, fname)
+        try:
+            frames.append(pd.read_excel(fpath))
+        except Exception as e:
+            print(f"⚠️ Could not read results file {fname}: {e}")
+
+    if not frames:
+        print(f"❌ No result files found for model '{model_id}' in {EXPERIMENT_RESULTS_DIR}")
+        return None
+
+    df_all = pd.concat(frames, ignore_index=True)
+
+    if "Original_Index" in df_all.columns:
+        df_all = df_all.dropna(subset=["Original_Index"])
+        df_all["Original_Index"] = df_all["Original_Index"].astype(int)
+        df_all = (
+            df_all
+            .sort_index()
+            .drop_duplicates(subset=["Original_Index"], keep="last")
+        )
+    return df_all
+
+# ============================
+# EVAL HELPERS (same style as other pipelines)
+# ============================
+
+def precision_recall(pred_set, true_set):
+    pred = set(pred_set)
+    true = set(true_set)
+    if not pred and not true:
+        return 1.0, 1.0
+    tp = len(pred & true)
+    precision = tp / len(pred) if pred else 0.0
+    recall = tp / len(true) if true else 0.0
+    return precision, recall
+
+def evaluate_model_exact_match(model_id: str):
+    print(f"\n🔍 Starting evaluation for model (self_consistency): {model_id}")
+
+    pred_df = load_all_results_for_model(model_id)
+    if pred_df is None or pred_df.empty:
+        print("❌ No predictions to evaluate.")
+        return
+
+    full_df = pd.read_excel(INPUT_FILE)
+
+    if GT_FILTER_COL not in full_df.columns or GT_COLUMN_COL not in full_df.columns:
+        print(
+            f"❌ Ground truth columns '{GT_FILTER_COL}' and/or '{GT_COLUMN_COL}' "
+            f"not found in {INPUT_FILE}. Please update GT_FILTER_COL / GT_COLUMN_COL."
+        )
+        return
+
+    records = []
+    n = 0
+    sum_prec_filters = sum_rec_filters = 0.0
+    sum_prec_cols = sum_rec_cols = 0.0
+
+    for _, row in pred_df.iterrows():
+        idx = int(row["Original_Index"])
+        if idx not in full_df.index:
+            print(f"⚠️ Original_Index {idx} not in ground truth file; skipping.")
+            continue
+
+        gt_row = full_df.loc[idx]
+
+        pred_filter_obj = parse_json_safe_eval(row.get("Parsed_Filter", "{}")) or {}
+        pred_cols_obj   = parse_json_safe_eval(row.get("Parsed_Column", "{}")) or {}
+
+        gt_obj = parse_json_safe_eval(gt_row.get(GT_FILTER_COL, "{}")) or {}
+        if isinstance(gt_obj, dict):
+            gt_filter_raw = gt_obj.get("selected_filter", {})
+            gt_cols_raw   = gt_obj.get("selected_column", {})
+        else:
+            gt_filter_raw = {}
+            gt_cols_raw   = {}
+
+        pred_filter_norm = normalize_selected_filter(pred_filter_obj or {})
+        gt_filter_norm   = normalize_selected_filter(gt_filter_raw or {})
+
+        pred_cols_norm = normalize_selected_column(pred_cols_obj or {})
+        gt_cols_norm   = normalize_selected_column(gt_cols_raw or {})
+
+        pred_filter_items = set(pred_filter_norm.items())
+        gt_filter_items   = set(gt_filter_norm.items())
+
+        pred_col_names = set(pred_cols_norm.values())
+        gt_col_names   = set(gt_cols_norm.values())
+
+        prec_f, rec_f = precision_recall(pred_filter_items, gt_filter_items)
+        prec_c, rec_c = precision_recall(pred_col_names, gt_col_names)
+
+        n += 1
+        sum_prec_filters += prec_f
+        sum_rec_filters  += rec_f
+        sum_prec_cols    += prec_c
+        sum_rec_cols     += rec_c
+
+        records.append({
+            "Original_Index": idx,
+            "Query": row.get("Query"),
+            "Pred_Filter": json.dumps(pred_filter_norm, ensure_ascii=False),
+            "GT_Filter":   json.dumps(gt_filter_norm, ensure_ascii=False),
+            "Pred_Columns": json.dumps(pred_cols_norm, ensure_ascii=False),
+            "GT_Columns":   json.dumps(gt_cols_norm, ensure_ascii=False),
+            "precision_filters": prec_f,
+            "recall_filters": rec_f,
+            "precision_columns": prec_c,
+            "recall_columns": rec_c,
+        })
+
+    if n == 0:
+        print("⚠️ No aligned rows between predictions and ground truth.")
+        return
+
+    avg_prec_filters = sum_prec_filters / n
+    avg_rec_filters  = sum_rec_filters  / n
+    avg_prec_cols    = sum_prec_cols    / n
+    avg_rec_cols     = sum_rec_cols     / n
+
+    print("\n📊 Precision / Recall (averaged across rows)")
+    print(f"  # evaluated rows               : {n}")
+    print(f"  Filters - precision (avg)      : {avg_prec_filters:.3f}")
+    print(f"  Filters - recall (avg)         : {avg_rec_filters:.3f}")
+    print(f"  Columns - precision (avg)      : {avg_prec_cols:.3f}")
+    print(f"  Columns - recall (avg)         : {avg_rec_cols:.3f}")
+
+    eval_df = pd.DataFrame(records)
+    os.makedirs(EXPERIMENT_RESULTS_DIR, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    clean_model_name = model_id.split("/")[-1]
+    eval_filename = os.path.join(
+        EXPERIMENT_RESULTS_DIR,
+        f"{clean_model_name}_EVAL_{timestamp}.xlsx"
+    )
+    eval_df.to_excel(eval_filename, index=False)
+    print(f"\n✅ Per-row evaluation saved to: {eval_filename}\n")
+
+# ============================
+# MISC UTILS
+# ============================
+
+def chunked(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i:i+n]
+
+# ============================
+# MAIN
+# ============================
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--mode",
+        choices=["run", "eval"],
+        default="run",
+        help="'run' = generate with LLM, 'eval' = compute exact-match scores only."
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=1,
+        help="Maximum number of NEW (unprocessed) rows to run. -1 = all remaining."
+    )
+    parser.add_argument(
+        "--start",
+        type=int,
+        default=0,
+        help="(Deprecated when resume is used) starting row index (ignored if resume)."
+    )
+    parser.add_argument("--tp", type=int, default=torch.cuda.device_count())
+    parser.add_argument("--model", type=str, default=DEFAULT_MODEL_ID)
+
+    args = parser.parse_args()
+    model_id = args.model.strip().rstrip(",")
+
+    # ---- EVAL ONLY ----
+    if args.mode == "eval":
+        evaluate_model_exact_match(model_id)
+        return
+
+    # ---- RUN MODE ----
+    print("\n--- HARDWARE CHECK ---")
+    print("Torch:", torch.__version__)
+    if torch.cuda.is_available():
+        for i in range(torch.cuda.device_count()):
+            print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
+    else:
+        sys.exit("❌ CUDA not available.")
+    print("----------------------\n")
+
+    if args.tp > torch.cuda.device_count():
+        args.tp = torch.cuda.device_count()
+
+    if "mistral" in model_id.lower():
+        tokenizer_mode = "mistral"
+    else:
+        tokenizer_mode = "auto"
+
+    print(f"🚀 Initializing vLLM with model: {model_id}")
+    print("⚠️  Config: Memory Util=0.5, Eager Mode=TRUE")
+    print(f"🔤 tokenizer_mode = {tokenizer_mode}")
+
+    try:
+        llm = LLM(
+            model=model_id,
+            tensor_parallel_size=args.tp,
+            gpu_memory_utilization=0.50,
+            enforce_eager=True,
+            swap_space=0,
+            dtype="bfloat16",
+            # tokenizer_mode=tokenizer_mode,  # if your vLLM version supports it
+        )
+    except Exception as e:
+        sys.exit(f"❌ Failed to initialize LLM: {e}")
+
+    sampling_params = SamplingParams(
+        temperature=0.3,    # a bit of randomness for self-consistency
+        max_tokens=512,
+        stop=["<|eot_id|>", "<|end_of_text|>", "<|im_end|>"],
+    )
+
+    df = pd.read_excel(INPUT_FILE)
+    all_indices = list(df.index)
+
+    processed_indices = get_processed_indices_for_model(model_id)
+    remaining_indices = [i for i in all_indices if i not in processed_indices]
+    total_remaining = len(remaining_indices)
+
+    if total_remaining == 0:
+        print(f"✅ Nothing to do: all {len(all_indices)} rows are already processed for model '{model_id}'.")
+        return
+
+    if args.limit is None or args.limit == 0:
+        print("⚠️ limit=0 -> nothing to run.")
+        return
+    if args.limit > 0:
+        remaining_indices = remaining_indices[:args.limit]
+
+    print(f"🧮 Total rows in input: {len(all_indices)}")
+    print(f"🧾 Already processed for this model (self_consistency): {len(processed_indices)}")
+    print(f"📌 Remaining rows BEFORE limit: {total_remaining}")
+    print(f"▶️ This run will process: {len(remaining_indices)} rows")
+
+    if not remaining_indices:
+        print("✅ No new rows to process after applying limit.")
+        return
+
+    results_rows = []
+
+    t_all0 = time.time()
+
+    for batch_indices in chunked(remaining_indices, BATCH_SIZE):
+        questions = []
+        idxs = []
+
+        for idx in batch_indices:
+            row = df.loc[idx]
+            q = row.get("Query", row.get("question", ""))
+            q = "" if pd.isna(q) else str(q).strip()
+            if not q:
+                print(f"Skipping row {idx}: empty question/query.")
+                continue
+            idxs.append(idx)
+            questions.append(q)
+
+        if not questions:
+            continue
+
+        n_batch = len(questions)
+
+        # ----- CANDIDATES -----
+        t_gen0 = time.time()
+        candidates_by_q = gen_candidates_for_batch(llm, sampling_params, questions)
+        t_gen = time.time() - t_gen0
+
+        # ----- JUDGE -----
+        t_j0 = time.time()
+        winners_by_q = judge_batch(llm, sampling_params, questions, candidates_by_q)
+        t_j = time.time() - t_j0
+
+        # ----- ACCEPT/REVISE -----
+        t_ar0 = time.time()
+        finals_by_q = accept_revise_batch(llm, sampling_params, questions, winners_by_q)
+        t_ar = time.time() - t_ar0
+
+        per_row_gen = t_gen / n_batch
+        per_row_j   = t_j   / n_batch
+        per_row_ar  = t_ar  / n_batch
+        per_row_tot = per_row_gen + per_row_j + per_row_ar
+
+        for local_i, idx in enumerate(idxs):
+            final = finals_by_q[local_i]
+            if final is None:
+                # fallback to empty if something went weird
+                fixed = {"selected_filter": {}, "selected_column": {}}
+                audit = {}
+            else:
+                fixed = final["fixed"]
+                audit = final["audit"]
+
+            results_rows.append({
+                "Original_Index": idx,
+                "Query": questions[local_i],
+                "Parsed_Filter": json.dumps(fixed.get("selected_filter", {}), ensure_ascii=False),
+                "Parsed_Column": json.dumps(fixed.get("selected_column", {}), ensure_ascii=False),
+                "Final_JSON": json.dumps(fixed, ensure_ascii=False),
+                "Audit_JSON": json.dumps(audit, ensure_ascii=False),
+                "t_generate_sec": per_row_gen,
+                "t_judge_sec": per_row_j,
+                "t_accept_revise_sec": per_row_ar,
+                "t_total_sec": per_row_tot,
+            })
+
+        print(f"[self_consistency] Processed batch of {n_batch} rows.")
+
+    if not results_rows:
+        print("⚠️ No rows were actually processed.")
+        return
+
+    output_df = pd.DataFrame(results_rows)
+
+    os.makedirs(EXPERIMENT_RESULTS_DIR, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    clean_model_name = model_id.split("/")[-1]
+    run_type = f"limit-{len(remaining_indices)}"
+
+    output_filename = os.path.join(
+        EXPERIMENT_RESULTS_DIR,
+        f"{clean_model_name}_{run_type}_{timestamp}.xlsx"
+    )
+
+    output_df.to_excel(output_filename, index=False)
+    print(f"\n✅ self_consistency results saved: {output_filename}")
+    print(f"⏱️ Total elapsed: {time.time() - t_all0:.2f}s")
+
+    try:
+        from vllm.distributed.parallel_state import destroy_model_parallel
+        destroy_model_parallel()
+    except Exception:
+        pass
+
+    del llm
+    gc.collect()
+    torch.cuda.empty_cache()
+
+if __name__ == "__main__":
+    main()
