@@ -1,0 +1,36 @@
+========================================
+CAT2 SQL (vLLM) - RESUMABLE
+Model (load): Qwen/Qwen2.5-7B-Instruct
+Model (name): Qwen/Qwen2.5-7B-Instruct
+Run ID: cat2_all__cat2_simple_sql__20260127_101036__Qwen_Qwen2.5-7B-Instruct
+Results dir: results/cat2_all__cat2_simple_sql__20260127_101036__Qwen_Qwen2.5-7B-Instruct
+tp: 1
+gpu_memory_utilization: 0.9
+max_model_len: 8192
+dtype: bfloat16
+temperature: 0.1
+max_tokens: 600
+DB run enabled: False (sqlalchemy=False)
+XLSX: ../runs/query-cat2.xlsx
+Resume: 0 rows already completed
+Pred SQL exec num-runs: 1
+========================================
+INFO 01-27 10:10:47 [utils.py:263] non-default args: {'dtype': 'bfloat16', 'max_model_len': 8192, 'swap_space': 0, 'disable_log_stats': True, 'enforce_eager': True, 'model': 'Qwen/Qwen2.5-7B-Instruct'}
+INFO 01-27 10:10:48 [model.py:530] Resolved architecture: Qwen2ForCausalLM
+INFO 01-27 10:10:48 [model.py:1545] Using max model len 8192
+INFO 01-27 10:10:48 [scheduler.py:229] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 01-27 10:10:48 [vllm.py:630] Asynchronous scheduling is enabled.
+INFO 01-27 10:10:48 [vllm.py:637] Disabling NCCL for DP synchronization when using async scheduling.
+WARNING 01-27 10:10:48 [vllm.py:665] Enforce eager set, overriding optimization level to -O0
+INFO 01-27 10:10:48 [vllm.py:765] Cudagraph is disabled under eager mode
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m INFO 01-27 10:10:49 [core.py:97] Initializing a V1 LLM engine (v0.14.0) with config: model='Qwen/Qwen2.5-7B-Instruct', speculative_config=None, tokenizer='Qwen/Qwen2.5-7B-Instruct', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=Qwen/Qwen2.5-7B-Instruct, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'eliminate_noops': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': True}, 'local_cache_dir': None}
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m INFO 01-27 10:10:51 [parallel_state.py:1214] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.4.58.52:56073 backend=nccl
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m INFO 01-27 10:10:51 [parallel_state.py:1425] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m INFO 01-27 10:10:51 [gpu_model_runner.py:3808] Starting to load model Qwen/Qwen2.5-7B-Instruct...
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m INFO 01-27 10:10:52 [cuda.py:351] Using FLASH_ATTN attention backend out of potential backends: ('FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION')
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m /mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/file_download.py:798: UserWarning: Not enough free disk space to download the file. The expected file size is: 3864.73 MB. The target location /home/ad.asu.edu/srchowd3/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/blobs only has 3412.95 MB free disk space.
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m   warnings.warn(
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m /mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/file_download.py:798: UserWarning: Not enough free disk space to download the file. The expected file size is: 3945.44 MB. The target location /home/ad.asu.edu/srchowd3/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/blobs only has 3412.95 MB free disk space.
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m   warnings.warn(
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m /mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/file_download.py:798: UserWarning: Not enough free disk space to download the file. The expected file size is: 3556.38 MB. The target location /home/ad.asu.edu/srchowd3/.cache/huggingface/hub/models--Qwen--Qwen2.5-7B-Instruct/blobs only has 3412.95 MB free disk space.
+[0;36m(EngineCore_DP0 pid=3710576)[0;0m   warnings.warn(

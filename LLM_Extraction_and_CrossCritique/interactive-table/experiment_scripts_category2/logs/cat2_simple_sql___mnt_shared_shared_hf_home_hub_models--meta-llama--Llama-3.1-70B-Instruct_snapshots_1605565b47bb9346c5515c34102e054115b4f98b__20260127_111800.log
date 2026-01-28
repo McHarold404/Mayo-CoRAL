@@ -1,0 +1,47 @@
+========================================
+CAT2 SQL (vLLM) - RESUMABLE
+Model (load): /mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.1-70B-Instruct/snapshots/1605565b47bb9346c5515c34102e054115b4f98b
+Model (name): /mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.1-70B-Instruct/snapshots/1605565b47bb9346c5515c34102e054115b4f98b
+Run ID: cat2_all__cat2_simple_sql__20260127_111900___mnt_shared_shared_hf_home_hub_models--meta-llama--Llama-3.1-70B-Instruct_snapshots_1605565b47bb9346c5515c34102e054115b4f98b
+Results dir: results/cat2_all__cat2_simple_sql__20260127_111900___mnt_shared_shared_hf_home_hub_models--meta-llama--Llama-3.1-70B-Instruct_snapshots_1605565b47bb9346c5515c34102e054115b4f98b
+tp: 1
+gpu_memory_utilization: 0.8
+max_model_len: 8192
+dtype: bfloat16
+temperature: 0.1
+max_tokens: 600
+DB run enabled: False (sqlalchemy=False)
+XLSX: ../runs/query-cat2.xlsx
+Resume: 0 rows already completed
+Pred SQL exec num-runs: 1
+========================================
+INFO 01-27 11:19:10 [utils.py:263] non-default args: {'dtype': 'bfloat16', 'max_model_len': 8192, 'swap_space': 0, 'gpu_memory_utilization': 0.8, 'disable_log_stats': True, 'enforce_eager': True, 'model': '/mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.1-70B-Instruct/snapshots/1605565b47bb9346c5515c34102e054115b4f98b'}
+Traceback (most recent call last):
+  File "/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py", line 956, in <module>
+    main()
+  File "/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py", line 629, in main
+    llm = LLM(
+          ^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 338, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 168, in from_engine_args
+    vllm_config = engine_args.create_engine_config(usage_context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1369, in create_engine_config
+    model_config = self.create_model_config()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1223, in create_model_config
+    return ModelConfig(
+           ^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+    s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+  Value error, Invalid repository ID or local directory specified: '/mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.1-70B-Instruct/snapshots/1605565b47bb9346c5515c34102e054115b4f98b'.
+Please verify the following requirements:
+1. Provide a valid Hugging Face repository ID.
+2. Specify a local directory that contains a recognized configuration file.
+   - For Hugging Face models: ensure the presence of a 'config.json'.
+   - For Mistral models: ensure the presence of a 'params.json'.
+ [type=value_error, input_value=ArgsKwargs((), {'model': ...rocessor_plugin': None}), input_type=ArgsKwargs]
+    For further information visit https://errors.pydantic.dev/2.12/v/value_error
