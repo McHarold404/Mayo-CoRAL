@@ -1,0 +1,44 @@
+{
+  "row_index": 0,
+  "question": "Show Melanoma trials that used ICI+Vaccine combinations.",
+  "model_name": "gpt-oss-120b",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%melanoma%'\n  AND \"type_of_combination\" ILIKE '%vaccine%'\n  AND (\"class_of_ici\" IS NOT NULL OR \"name_of_ici\" IS NOT NULL);",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%melanoma%'\n  AND \"type_of_combination\" ILIKE '%vaccine%'\n  AND (\"class_of_ici\" IS NOT NULL OR \"name_of_ici\" IS NOT NULL);",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query returns all melanoma trials that combined an ICI with a vaccine.",
+  "pred_assumptions": "Assumes that the column \"type_of_combination\" contains the term \"vaccine\" for ICI+Vaccine regimens and that any non\u2011null value in \"class_of_ici\" or \"name_of_ici\" indicates the presence of an ICI.",
+  "raw_text": "assistantanalysisWe need to write a query to show melanoma trials that used ICI+Vaccine combinations. Need to return rows with columns \"nct\",\"author\",\"year\",\"pubmed_id\". Also need to filter cancer_type = 'Melanoma' (maybe case-insensitive). Need combination type includes vaccine. There are columns: \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"monotherapy_combination\", \"type_of_combination\", \"type_of_combination_1\". Also \"type_of_combination\" maybe indicates ICI+Vaccine. Use ILIKE '%vaccine%' in type_of_combination or type_of_combination_1. Also need ICI present: class_of_ici maybe not null, or name_of_ici not null. Use condition that \"class_of_ici\" ILIKE '%PD1%' OR other ICI classes. Simpler: require \"type_of_combination\" ILIKE '%vaccine%' AND (\"class_of_ici\" IS NOT NULL OR \"name_of_ici\" IS NOT NULL). Also filter cancer_type ILIKE '%melanoma%'.\n\nReturn query.\n\nAssumptions: using type_of_combination column for combination description.\n\nNow produce JSON.assistantfinal{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%melanoma%'\\n  AND \\\"type_of_combination\\\" ILIKE '%vaccine%'\\n  AND (\\\"class_of_ici\\\" IS NOT NULL OR \\\"name_of_ici\\\" IS NOT NULL);\",\n  \"answer\": \"The query returns all melanoma trials that combined an ICI with a vaccine.\",\n  \"assumptions\": \"Assumes that the column \\\"type_of_combination\\\" contains the term \\\"vaccine\\\" for ICI+Vaccine regimens and that any non\u2011null value in \\\"class_of_ici\\\" or \\\"name_of_ici\\\" indicates the presence of an ICI.\"\n}",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"combination_type\", \"cancer_type\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"combination_type\" = 'ICI+Vaccine';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_combination\", \"cancer_type\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+Vaccine';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3333333333333333,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 22.716759936884046,
+  "pred_exec_error": null,
+  "pred_result_rows": 2,
+  "pred_result_hash": "e78647451cffdf775b815735ebe4a7a8",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 4.193353932350874,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "1a634f7db2d988edb87fd3721f646b89",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.3333333333333333,
+  "row_artifacts_dir": "results/cat2_all__cat2_simple_sql__20260130_183441__gpt-oss-120b/sql_runs/row000"
+}

@@ -1,0 +1,29 @@
+We need to write a query to retrieve Phase 3 CTLA-4 combination trials in Melanoma, and their regimens. Need columns: nct, author, year, pubmed_id (always include). Also need regimen info: likely "treatment_regimen". Also maybe "name_of_ici" or "class_of_ici". But question: "what were their regimens?" So include "treatment_regimen". Also maybe "name_of_ici". We'll include "treatment_regimen". Also maybe "class_of_ici". But not required.
+
+We need to filter: "trial_phase" = 'Phase 3' (exact equality). "class_of_ici" = 'CTLA-4' (exact). "cancer_type" includes Melanoma. Use ILIKE '%Melanoma%'.
+
+Also combination trials: likely "monotherapy_combination" column indicates combination? Could be 'Combination' or something. Use "monotherapy_combination" = 'Combination' maybe. But not sure values. Could also use "type_of_combination" not null. Safer: filter where "type_of_combination" IS NOT NULL AND NOT empty. Use ILIKE '%'. We'll include condition: ("type_of_combination" IS NOT NULL AND "type_of_combination" <> ''). That indicates combination.
+
+Return columns: "nct","author","year","pubmed_id","treatment_regimen". Provide answer summarizing.
+
+Assumptions: column values as described.
+
+Let's craft SQL:
+
+SELECT "nct","author","year","pubmed_id","treatment_regimen"
+FROM public."clinical_trials"
+WHERE "trial_phase" = 'Phase 3'
+  AND "class_of_ici" = 'CTLA-4'
+  AND "cancer_type" ILIKE '%Melanoma%'
+  AND ("type_of_combination" IS NOT NULL AND "type_of_combination" <> '');
+
+Return JSON.
+
+Answer: Provide brief statement.
+
+Assumptions: that combination indicated by non-null type_of_combination.
+
+Let's output.assistantfinal{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"trial_phase\" = 'Phase 3'\n  AND \"class_of_ici\" = 'CTLA-4'\n  AND \"cancer_type\" ILIKE '%Melanoma%'\n  AND (\"type_of_combination\" IS NOT NULL AND \"type_of_combination\" <> '');",
+  "answer": "The query returns all Phase 3 CTLA‑4 combination trials in melanoma, listing each trial’s NCT ID, author, year, PubMed ID, and the treatment regimen used.",
+  "assumptions": "Combination trials are identified by a non‑null, non‑empty \"type_of_combination\"

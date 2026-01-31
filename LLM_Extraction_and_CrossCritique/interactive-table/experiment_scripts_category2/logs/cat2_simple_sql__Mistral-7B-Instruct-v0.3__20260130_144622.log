@@ -1,0 +1,104 @@
+[WARN] DB reflection failed: (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: could not initiate GSSAPI security context: Unspecified GSS failure.  Minor code may provide more information: Server not found in Kerberos database
+connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  role "postgres" does not exist
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+========================================
+CAT2 SQL (vLLM) - RESUMABLE
+Model (load): /mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a
+Model (name): Mistral-7B-Instruct-v0.3
+Run ID: cat2_all__cat2_simple_sql__20260130_144734__Mistral-7B-Instruct-v0.3
+Results dir: results/cat2_all__cat2_simple_sql__20260130_144734__Mistral-7B-Instruct-v0.3
+tp: 1
+gpu_memory_utilization: 0.25
+max_model_len: 8192
+dtype: bfloat16
+temperature: 0.1
+max_tokens: 600
+DB run enabled: True (sqlalchemy=True)
+XLSX: ../runs/query-cat2.xlsx
+Resume: 0 rows already completed
+Pred SQL exec num-runs: 1
+========================================
+INFO 01-30 14:47:46 [utils.py:263] non-default args: {'dtype': 'bfloat16', 'max_model_len': 8192, 'swap_space': 0, 'gpu_memory_utilization': 0.25, 'disable_log_stats': True, 'enforce_eager': True, 'model': '/mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a'}
+INFO 01-30 14:47:46 [model.py:530] Resolved architecture: MistralForCausalLM
+INFO 01-30 14:47:46 [model.py:1545] Using max model len 8192
+INFO 01-30 14:47:47 [scheduler.py:229] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 01-30 14:47:47 [vllm.py:630] Asynchronous scheduling is enabled.
+INFO 01-30 14:47:47 [vllm.py:637] Disabling NCCL for DP synchronization when using async scheduling.
+WARNING 01-30 14:47:47 [vllm.py:665] Enforce eager set, overriding optimization level to -O0
+INFO 01-30 14:47:47 [vllm.py:765] Cudagraph is disabled under eager mode
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:47 [core.py:97] Initializing a V1 LLM engine (v0.14.0) with config: model='/mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a', speculative_config=None, tokenizer='/mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=/mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'eliminate_noops': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': True}, 'local_cache_dir': None}
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:49 [parallel_state.py:1214] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.4.58.52:48069 backend=nccl
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:49 [parallel_state.py:1425] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:50 [gpu_model_runner.py:3808] Starting to load model /mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a...
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:50 [cuda.py:351] Using FLASH_ATTN attention backend out of potential backends: ('FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION')
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/3 [00:00<?, ?it/s]
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m Loading safetensors checkpoint shards:  33% Completed | 1/3 [00:02<00:04,  2.23s/it]
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m Loading safetensors checkpoint shards:  67% Completed | 2/3 [00:04<00:02,  2.20s/it]
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:06<00:00,  2.27s/it]
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m Loading safetensors checkpoint shards: 100% Completed | 3/3 [00:06<00:00,  2.25s/it]
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m 
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:57 [default_loader.py:291] Loading weights took 6.93 seconds
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:58 [gpu_model_runner.py:3905] Model loading took 13.51 GiB memory and 7.255856 seconds
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:59 [gpu_worker.py:358] Available KV cache memory: 19.59 GiB
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:59 [kv_cache_utils.py:1305] GPU KV cache size: 160,464 tokens
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:59 [kv_cache_utils.py:1310] Maximum concurrency for 8,192 tokens per request: 19.59x
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m 2026-01-30 14:47:59,613 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m 2026-01-30 14:47:59,621 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:47:59 [core.py:273] init engine (profile, create kv cache, warmup model) took 1.57 seconds
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m WARNING 01-30 14:48:00 [vllm.py:672] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+[0;36m(EngineCore_DP0 pid=1409809)[0;0m INFO 01-30 14:48:00 [vllm.py:765] Cudagraph is disabled under eager mode
+INFO 01-30 14:48:00 [llm.py:347] Supported tasks: ['generate']
+Questions:   0%|          | 0/5 [00:00<?, ?q/s]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 92.60it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.03s/it, est. speed input: 611.26 toks/s, output: 110.75 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.03s/it, est. speed input: 611.26 toks/s, output: 110.75 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.03s/it, est. speed input: 611.26 toks/s, output: 110.75 toks/s]
+Questions:  20%|██        | 1/5 [00:01<00:06,  1.60s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 593.09it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.04s/it, est. speed input: 606.17 toks/s, output: 111.08 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.04s/it, est. speed input: 606.17 toks/s, output: 111.08 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.05s/it, est. speed input: 606.17 toks/s, output: 111.08 toks/s]
+Questions:  40%|████      | 2/5 [00:03<00:04,  1.54s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 533.36it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.05s/it, est. speed input: 601.14 toks/s, output: 113.77 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.05s/it, est. speed input: 601.14 toks/s, output: 113.77 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.06s/it, est. speed input: 601.14 toks/s, output: 113.77 toks/s]
+Questions:  60%|██████    | 3/5 [00:04<00:03,  1.51s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 694.65it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:00<00:00,  1.01it/s, est. speed input: 638.00 toks/s, output: 114.43 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:00<00:00,  1.01it/s, est. speed input: 638.00 toks/s, output: 114.43 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:00<00:00,  1.01it/s, est. speed input: 638.00 toks/s, output: 114.43 toks/s]
+Questions:  80%|████████  | 4/5 [00:05<00:01,  1.46s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 736.49it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it, est. speed input: 283.52 toks/s, output: 109.86 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it, est. speed input: 283.52 toks/s, output: 109.86 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:02<00:00,  2.26s/it, est. speed input: 283.52 toks/s, output: 109.86 toks/s]
+Questions: 100%|██████████| 5/5 [00:08<00:00,  2.00s/q]Questions: 100%|██████████| 5/5 [00:08<00:00,  1.79s/q]
+/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py:897: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  "results_equal_rate": float(df_out["results_equal_exact"].fillna(False).astype(bool).mean()) if "results_equal_exact" in df_out else None,
+
+--- Run Summary ---
+Artifacts folder: results/cat2_all__cat2_simple_sql__20260130_144734__Mistral-7B-Instruct-v0.3
+Saved progress JSONL: results/cat2_all__cat2_simple_sql__20260130_144734__Mistral-7B-Instruct-v0.3/progress.jsonl
+Saved CSV: results/cat2_all__cat2_simple_sql__20260130_144734__Mistral-7B-Instruct-v0.3/evaluation.csv
+Saved XLSX: results/cat2_all__cat2_simple_sql__20260130_144734__Mistral-7B-Instruct-v0.3/evaluation.xlsx (if engine available)
+Completed rows: 5 / 5
+Runtime: 8.93s
+
+--- Overall Metrics ---
+              rows_completed: 5
+                ok_rate_run1: 0.0000
+                ok_rate_run2: NA
+                ok_rate_run3: NA
+          results_equal_rate: 0.0000
+ avg_sql_token_jaccard_vs_gt: 0.6034
+        relaxed_em_threshold: 0.7000
+             relaxed_em_rate: 0.2000
+             runtime_seconds: 8.9322
+                    num_runs: 1

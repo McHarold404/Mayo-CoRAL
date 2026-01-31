@@ -1,0 +1,184 @@
+row_index,question,model_name,model_load_path_or_id,pred_sql,pred_answer,pred_assumptions,raw_text,sql_jaccard,relaxed_exact_match,relaxed_em_threshold,pred_exec_status,pred_exec_ms,pred_exec_error,pred_result_rows,pred_result_hash,ground_truth_sql,gt_exec_status,gt_exec_ms,gt_exec_error,gt_result_rows,gt_result_hash,results_equal_exact,results_equal_normalized,rowcount_delta_pred_minus_gt,column_overlap_ratio,row_artifacts_dir
+0,Show Melanoma trials that used ICI+Vaccine combinations.,gpt-oss-120b,/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%melanoma%'
+  AND ""type_of_combination"" ILIKE '%vaccine%'
+  AND (""class_of_ici"" IS NOT NULL OR ""name_of_ici"" IS NOT NULL);",The query returns all melanoma trials that combined an ICI with a vaccine.,"Assumes that the column ""type_of_combination"" contains the term ""vaccine"" for ICI+Vaccine regimens and that any non‑null value in ""class_of_ici"" or ""name_of_ici"" indicates the presence of an ICI.","assistantanalysisWe need to write a query to show melanoma trials that used ICI+Vaccine combinations. Need to return rows with columns ""nct"",""author"",""year"",""pubmed_id"". Also need to filter cancer_type = 'Melanoma' (maybe case-insensitive). Need combination type includes vaccine. There are columns: ""treatment_regimen"", ""name_of_ici"", ""class_of_ici"", ""monotherapy_combination"", ""type_of_combination"", ""type_of_combination_1"". Also ""type_of_combination"" maybe indicates ICI+Vaccine. Use ILIKE '%vaccine%' in type_of_combination or type_of_combination_1. Also need ICI present: class_of_ici maybe not null, or name_of_ici not null. Use condition that ""class_of_ici"" ILIKE '%PD1%' OR other ICI classes. Simpler: require ""type_of_combination"" ILIKE '%vaccine%' AND (""class_of_ici"" IS NOT NULL OR ""name_of_ici"" IS NOT NULL). Also filter cancer_type ILIKE '%melanoma%'.
+
+Return query.
+
+Assumptions: using type_of_combination column for combination description.
+
+Now produce JSON.assistantfinal{
+  ""sql"": ""SELECT \""nct\"", \""author\"", \""year\"", \""pubmed_id\""\nFROM public.\""clinical_trials\""\nWHERE \""cancer_type\"" ILIKE '%melanoma%'\n  AND \""type_of_combination\"" ILIKE '%vaccine%'\n  AND (\""class_of_ici\"" IS NOT NULL OR \""name_of_ici\"" IS NOT NULL);"",
+  ""answer"": ""The query returns all melanoma trials that combined an ICI with a vaccine."",
+  ""assumptions"": ""Assumes that the column \""type_of_combination\"" contains the term \""vaccine\"" for ICI+Vaccine regimens and that any non‑null value in \""class_of_ici\"" or \""name_of_ici\"" indicates the presence of an ICI.""
+}",0.3333333333333333,False,0.7,ok,25.63047898001969,,2.0,e78647451cffdf775b815735ebe4a7a8,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';",error,1.9202509429305792,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,,,,,results/cat2_all__cat2_simple_sql__20260130_180018__gpt-oss-120b/sql_runs/row000
+1,Show Melanoma trials with at least 2 prior lines of therapy that used combination treatment.,gpt-oss-120b,/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma'
+  AND ""lines_of_treatment"" >= 2
+  AND (""type_of_combination"" ILIKE '%Combination%' OR ""monotherapy_combination"" ILIKE '%Combination%');",The query returns melanoma trials that had at least two prior lines of therapy and employed a combination treatment regimen.,"Assumed that ""lines_of_treatment"" is numeric and that combination therapy is indicated by either ""type_of_combination"" or ""monotherapy_combination"" containing the word 'Combination'.","assistantanalysisWe need to write a query to show melanoma trials with at least 2 prior lines of therapy that used combination treatment.
+
+Columns: ""cancer_type"", ""lines_of_treatment"", ""type_of_combination"" maybe indicates combination treatment. Also there is ""monotherapy_combination"" column maybe indicates monotherapy vs combination. Also ""type_of_combination"" column. We need to filter where ""cancer_type"" = 'Melanoma' (exact equality). ""lines_of_treatment"" >= 2. Need combination treatment: could be where ""type_of_combination"" is not null and not empty, or maybe ""monotherapy_combination"" = 'Combination'. Use ILIKE? The instruction: Prefer exact equality for enumerated values; use ILIKE with %...% for free text. Likely ""type_of_combination"" enumerated values like 'Combination' maybe. Use ""type_of_combination"" ILIKE '%combination%'? But better to check ""type_of_combination"" = 'Combination' if that's exact. Not sure. We'll include condition: ""type_of_combination"" ILIKE '%Combination%' OR ""monotherapy_combination"" ILIKE '%Combination%'.
+
+Return rows with columns ""nct"",""author"",""year"",""pubmed_id"". Also include maybe other columns? Requirement: unless question explicitly asks for count or summary, return rows and always include those four columns. So we select those four.
+
+Thus SQL:
+
+SELECT ""nct"",""author"",""year"",""pubmed_id""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma'
+  AND ""lines_of_treatment"" >= 2
+  AND (
+        ""type_of_combination"" ILIKE '%Combination%'
+        OR ""monotherapy_combination"" ILIKE '%Combination%'
+      );
+
+Assumptions: lines_of_treatment numeric; combination indicated by those columns.
+
+Answer: Provide brief.
+
+Now produce JSON.assistantfinal{
+  ""sql"": ""SELECT \""nct\"", \""author\"", \""year\"", \""pubmed_id\""\nFROM public.\""clinical_trials\""\nWHERE \""cancer_type\"" = 'Melanoma'\n  AND \""lines_of_treatment\"" >= 2\n  AND (\""type_of_combination\"" ILIKE '%Combination%' OR \""monotherapy_combination\"" ILIKE '%Combination%');"",
+  ""answer"": ""The query returns melanoma trials that had at least two prior lines of therapy and employed a combination treatment regimen."",
+  ""assumptions"": ""Assumed that \""lines_of_treatment\"" is numeric and that combination therapy is indicated by either \""type_of_combination\"" or \""monotherapy_combination\"" containing the word 'Combination'.""
+}",0.3125,False,0.7,error,4.821346141397953,"(psycopg2.errors.UndefinedFunction) operator does not exist: text >= integer
+LINE 4:   AND ""lines_of_treatment"" >= 2
+                                   ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""pubmed_id""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma'
+  AND ""lines_of_treatment"" >= 2
+  AND (""type_of_combination"" ILIKE '%%Combination%%' OR ""monotherapy_combination"" ILIKE '%%Combination%%');]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,1.9113779999315739,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,,,,,results/cat2_all__cat2_simple_sql__20260130_180018__gpt-oss-120b/sql_runs/row001
+2,List Melanoma trials requiring a biomarker other than PD‑L1 for inclusion.,gpt-oss-120b,/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a,"SELECT ""nct"", ""author"", ""year"", ""pubmed_id""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Melanoma%'
+  AND ""is_any_other_biomarker_used_for_inclusion"" ILIKE '%yes%'
+  AND (""is_pd_l1_positivity_inclusion_criteria"" IS NULL OR ""is_pd_l1_positivity_inclusion_criteria"" ILIKE '%no%');",The query returns melanoma trials that require a biomarker other than PD‑L1 for inclusion.,Biomarker inclusion fields contain textual values like 'Yes'/'No'; PD‑L1 inclusion is indicated by a similar yes/no field.,"assistantanalysisWe need to list melanoma trials requiring a biomarker other than PD-L1 for inclusion. Columns: ""cancer_type"", ""is_pd_l1_positivity_inclusion_criteria"", ""is_any_other_biomarker_used_for_inclusion"". We need trials where cancer_type = 'Melanoma' (maybe ILIKE). And is_any_other_biomarker_used_for_inclusion indicates other biomarker used. Probably boolean? Not sure values. Use ILIKE? Might be 'Yes'/'No'. We'll filter where ""is_any_other_biomarker_used_for_inclusion"" ILIKE '%yes%' (or true). Also ensure not PD-L1: maybe ""is_pd_l1_positivity_inclusion_criteria"" = false or not yes. So condition: ""cancer_type"" ILIKE '%Melanoma%' AND (""is_any_other_biomarker_used_for_inclusion"" ILIKE '%yes%') AND ((""is_pd_l1_positivity_inclusion_criteria"" IS NULL) OR (""is_pd_l1_positivity_inclusion_criteria"" ILIKE '%no%')). Return columns: nct, author, year, pubmed_id. Also maybe include biomarker column? Not required. We'll follow requirement: always include those four columns. Provide answer sentence.
+
+Assumptions: values are stored as text indicating yes/no.
+
+Construct SQL:
+
+SELECT ""nct"",""author"",""year"",""pubmed_id""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" ILIKE '%Melanoma%'
+  AND ""is_any_other_biomarker_used_for_inclusion"" ILIKE '%yes%'
+  AND ( ""is_pd_l1_positivity_inclusion_criteria"" IS NULL
+        OR ""is_pd_l1_positivity_inclusion_criteria"" ILIKE '%no%');
+
+Return JSON.
+
+assistantfinal{
+  ""sql"": ""SELECT \""nct\"", \""author\"", \""year\"", \""pubmed_id\""\nFROM public.\""clinical_trials\""\nWHERE \""cancer_type\"" ILIKE '%Melanoma%'\n  AND \""is_any_other_biomarker_used_for_inclusion\"" ILIKE '%yes%'\n  AND (\""is_pd_l1_positivity_inclusion_criteria\"" IS NULL OR \""is_pd_l1_positivity_inclusion_criteria\"" ILIKE '%no%');"",
+  ""answer"": ""The query returns melanoma trials that require a biomarker other than PD‑L1 for inclusion."",
+  ""assumptions"": ""Biomarker inclusion fields contain textual values like 'Yes'/'No'; PD‑L1 inclusion is indicated by a similar yes/no field.""
+}",0.4,False,0.7,ok,7.326208986341953,,10.0,e1582cc8d31cd11daff888b4fac0215b,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" = 'Yes';",error,1.8508569337427616,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,,,,,results/cat2_all__cat2_simple_sql__20260130_180018__gpt-oss-120b/sql_runs/row002
+3,Show Ipilimumab combination trials in Melanoma with sample sizes.,gpt-oss-120b,/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a,"with sample sizes.""
+
+We need to show Ipilimumab combination trials in Melanoma with sample sizes. So we need rows where ""name_of_ici"" (or ""name_of_ici_1"") includes Ipilimumab, and ""cancer_type"" includes Melanoma, and likely ""monotherapy_combination"" indicates combination? Could also use ""type_of_combination"" or ""type_of_combination_1"". But we can filter by ""name_of_ici"" ILIKE '%Ipilimumab%' and ""cancer_type"" ILIKE '%Melanoma%'. Also need sample sizes: column ""total_sample_size"". The requirement: unless question asks for count, return rows and always include ""nct"",""author"",""year"",""pubmed_id"". Also include sample size column. So we need to include ""total_sample_size"". Also maybe include ""treatment_regimen"" etc but not required. We'll include the required columns plus ""total_sample_size"". The query: SELECT ""nct"",""author"",""year"",""pubmed_id"",""total_sample_size"" FROM public.""clinical_trials"" WHERE ""name_of_ici"" ILIKE '%Ipilimumab%' AND ""cancer_type"" ILIKE '%Melanoma%' AND ""monotherapy_combination"" ILIKE '%combination%';",,,"assistantanalysisWe need to write a query that selects trials where ""name_of_ici"" or maybe ""name_of_ici_1""? The question: ""Ipilimumab combination trials in Melanoma with sample sizes.""
+
+We need to show Ipilimumab combination trials in Melanoma with sample sizes. So we need rows where ""name_of_ici"" (or ""name_of_ici_1"") includes Ipilimumab, and ""cancer_type"" includes Melanoma, and likely ""monotherapy_combination"" indicates combination? Could also use ""type_of_combination"" or ""type_of_combination_1"". But we can filter by ""name_of_ici"" ILIKE '%Ipilimumab%' and ""cancer_type"" ILIKE '%Melanoma%'. Also need sample sizes: column ""total_sample_size"". The requirement: unless question asks for count, return rows and always include ""nct"",""author"",""year"",""pubmed_id"". Also include sample size column. So we need to include ""total_sample_size"". Also maybe include ""treatment_regimen"" etc but not required. We'll include the required columns plus ""total_sample_size"". The query: SELECT ""nct"",""author"",""year"",""pubmed_id"",""total_sample_size"" FROM public.""clinical_trials"" WHERE ""name_of_ici"" ILIKE '%Ipilimumab%' AND ""cancer_type"" ILIKE '%Melanoma%' AND ""monotherapy_combination"" ILIKE '%combination%'; But ""monotherapy_combination"" maybe indicates monotherapy vs combination. Could be values like 'Combination' or 'Combination therapy'. Use ILIKE '%combination%'.
+
+If ""name_of_ici_1"" also could have Ipilimumab, but we can include OR condition: (""name_of_ici"" ILIKE '%Ipilimumab%' OR ""name_of_ici_1"" ILIKE '%Ipilimumab%'). We'll include both.
+
+Thus final JSON.
+
+Answer: Provide brief answer.
+
+Assumptions: Ipilimumab appears in name_of_ici or name_of_ici_1; combination indicated by monotherapy_combination column containing 'combination'.
+
+Let's craft JSON.assistantfinal{
+  ""sql"": ""SELECT \""nct\"", \""author\"", \""year\"", \""pubmed_id\"", \""total_sample_size\""\nFROM public.\""clinical_trials\""\nWHERE (\""name_of_ici\"" ILIKE '%Ipilimumab%' OR \""name_of_ici_1\"" ILIKE '%Ipilimumab%')\n  AND \""cancer_type\"" ILIKE '%Melanoma%'\n  AND \""monotherapy_combination\"" ILIKE '%combination%';"",
+  ""answer"": ""The query returns all Ipilimumab combination trials in melanoma together with their total sample sizes."",
+  ""assumptions"": ""Ipilimum",0.09615384615384616,False,0.7,error,3.1974250450730324,"(psycopg2.errors.SyntaxError) syntax error at or near ""sizes""
+LINE 1: with sample sizes.""
+                    ^
+
+[SQL: with sample sizes.""
+
+We need to show Ipilimumab combination trials in Melanoma with sample sizes. So we need rows where ""name_of_ici"" (or ""name_of_ici_1"") includes Ipilimumab, and ""cancer_type"" includes Melanoma, and likely ""monotherapy_combination"" indicates combination? Could also use ""type_of_combination"" or ""type_of_combination_1"". But we can filter by ""name_of_ici"" ILIKE '%%Ipilimumab%%' and ""cancer_type"" ILIKE '%%Melanoma%%'. Also need sample sizes: column ""total_sample_size"". The requirement: unless question asks for count, return rows and always include ""nct"",""author"",""year"",""pubmed_id"". Also include sample size column. So we need to include ""total_sample_size"". Also maybe include ""treatment_regimen"" etc but not required. We'll include the required columns plus ""total_sample_size"". The query: SELECT ""nct"",""author"",""year"",""pubmed_id"",""total_sample_size"" FROM public.""clinical_trials"" WHERE ""name_of_ici"" ILIKE '%%Ipilimumab%%' AND ""cancer_type"" ILIKE '%%Melanoma%%' AND ""monotherapy_combination"" ILIKE '%%combination%%';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",error,1.6486088279634714,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,,,,,results/cat2_all__cat2_simple_sql__20260130_180018__gpt-oss-120b/sql_runs/row003
+4,"Which Phase 3 CTLA-4 combination trials in Melanoma should I review, and what were their regimens?",gpt-oss-120b,/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a,"SELECT ""nct"",""author"",""year"",""pubmed_id"",""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3'
+  AND ""class_of_ici"" = 'CTLA-4'
+  AND ""cancer_type"" ILIKE '%Melanoma%'
+  AND (""type_of_combination"" IS NOT NULL AND ""type_of_combination"" <> '');",,,"We need to write a query to retrieve Phase 3 CTLA-4 combination trials in Melanoma, and their regimens. Need columns: nct, author, year, pubmed_id (always include). Also need regimen info: likely ""treatment_regimen"". Also maybe ""name_of_ici"" or ""class_of_ici"". But question: ""what were their regimens?"" So include ""treatment_regimen"". Also maybe ""name_of_ici"". We'll include ""treatment_regimen"". Also maybe ""class_of_ici"". But not required.
+
+We need to filter: ""trial_phase"" = 'Phase 3' (exact equality). ""class_of_ici"" = 'CTLA-4' (exact). ""cancer_type"" includes Melanoma. Use ILIKE '%Melanoma%'.
+
+Also combination trials: likely ""monotherapy_combination"" column indicates combination? Could be 'Combination' or something. Use ""monotherapy_combination"" = 'Combination' maybe. But not sure values. Could also use ""type_of_combination"" not null. Safer: filter where ""type_of_combination"" IS NOT NULL AND NOT empty. Use ILIKE '%'. We'll include condition: (""type_of_combination"" IS NOT NULL AND ""type_of_combination"" <> ''). That indicates combination.
+
+Return columns: ""nct"",""author"",""year"",""pubmed_id"",""treatment_regimen"". Provide answer summarizing.
+
+Assumptions: column values as described.
+
+Let's craft SQL:
+
+SELECT ""nct"",""author"",""year"",""pubmed_id"",""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""trial_phase"" = 'Phase 3'
+  AND ""class_of_ici"" = 'CTLA-4'
+  AND ""cancer_type"" ILIKE '%Melanoma%'
+  AND (""type_of_combination"" IS NOT NULL AND ""type_of_combination"" <> '');
+
+Return JSON.
+
+Answer: Provide brief statement.
+
+Assumptions: that combination indicated by non-null type_of_combination.
+
+Let's output.assistantfinal{
+  ""sql"": ""SELECT \""nct\"", \""author\"", \""year\"", \""pubmed_id\"", \""treatment_regimen\""\nFROM public.\""clinical_trials\""\nWHERE \""trial_phase\"" = 'Phase 3'\n  AND \""class_of_ici\"" = 'CTLA-4'\n  AND \""cancer_type\"" ILIKE '%Melanoma%'\n  AND (\""type_of_combination\"" IS NOT NULL AND \""type_of_combination\"" <> '');"",
+  ""answer"": ""The query returns all Phase 3 CTLA‑4 combination trials in melanoma, listing each trial’s NCT ID, author, year, PubMed ID, and the treatment regimen used."",
+  ""assumptions"": ""Combination trials are identified by a non‑null, non‑empty \""type_of_combination\""",0.46153846153846156,False,0.7,ok,5.11489505879581,,3.0,0d10b17a382d927c56add014211ed5ad,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",error,2.927120076492429,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,,,,,,results/cat2_all__cat2_simple_sql__20260130_180018__gpt-oss-120b/sql_runs/row004

@@ -1,0 +1,115 @@
+[WARN] DB reflection failed, using fallback columns: (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: could not initiate GSSAPI security context: Unspecified GSS failure.  Minor code may provide more information: Server not found in Kerberos database
+connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  role "postgres" does not exist
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+========================================
+CAT2 SQL (vLLM) - GEN + (optional) EXEC + SAVE + PRINT
+Model (load): /mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a
+Model (name): gpt-oss-120b
+Run ID: cat2_all__cat2_simple_sql__20260130_170529__gpt-oss-120b
+Results dir: results/cat2_all__cat2_simple_sql__20260130_170529__gpt-oss-120b
+XLSX: ../runs/query-cat2.xlsx
+qcol: natural_language_query | gt col: sql_rewritten
+run_sql: True | engine_uri_set: True
+Resume: 0 rows already completed
+========================================
+INFO 01-30 17:05:40 [utils.py:263] non-default args: {'dtype': 'bfloat16', 'max_model_len': 8192, 'swap_space': 0, 'disable_log_stats': True, 'enforce_eager': True, 'model': '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'}
+INFO 01-30 17:05:40 [model.py:530] Resolved architecture: GptOssForCausalLM
+ERROR 01-30 17:05:40 [repo_utils.py:65] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'. Use `repo_type` argument if needed., retrying 1 of 2
+ERROR 01-30 17:05:42 [repo_utils.py:63] Error retrieving safetensors: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'. Use `repo_type` argument if needed.
+INFO 01-30 17:05:42 [model.py:1866] Downcasting torch.float32 to torch.bfloat16.
+INFO 01-30 17:05:42 [model.py:1545] Using max model len 8192
+INFO 01-30 17:05:44 [scheduler.py:229] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 01-30 17:05:44 [config.py:314] Overriding max cuda graph capture size to 1024 for performance.
+INFO 01-30 17:05:44 [vllm.py:630] Asynchronous scheduling is enabled.
+INFO 01-30 17:05:44 [vllm.py:637] Disabling NCCL for DP synchronization when using async scheduling.
+WARNING 01-30 17:05:44 [vllm.py:665] Enforce eager set, overriding optimization level to -O0
+INFO 01-30 17:05:44 [vllm.py:765] Cudagraph is disabled under eager mode
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:05:45 [core.py:97] Initializing a V1 LLM engine (v0.14.0) with config: model='/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a', speculative_config=None, tokenizer='/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=mxfp4, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='openai_gptoss', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'eliminate_noops': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': True}, 'local_cache_dir': None}
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:05:46 [parallel_state.py:1214] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.4.58.52:33343 backend=nccl
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:05:46 [parallel_state.py:1425] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank 0
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:05:46 [gpu_model_runner.py:3808] Starting to load model /mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a...
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:05:47 [cuda.py:351] Using FLASH_ATTN attention backend out of potential backends: ('FLASH_ATTN', 'TRITON_ATTN')
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:05:47 [mxfp4.py:165] Using Triton backend
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/15 [00:00<?, ?it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:   7% Completed | 1/15 [00:00<00:11,  1.20it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  13% Completed | 2/15 [00:01<00:12,  1.03it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  20% Completed | 3/15 [00:02<00:12,  1.01s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  27% Completed | 4/15 [00:04<00:11,  1.05s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  33% Completed | 5/15 [00:05<00:10,  1.09s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  40% Completed | 6/15 [00:06<00:09,  1.05s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  47% Completed | 7/15 [00:07<00:08,  1.04s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  53% Completed | 8/15 [00:08<00:07,  1.00s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  60% Completed | 9/15 [00:09<00:05,  1.00it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  67% Completed | 10/15 [00:10<00:05,  1.01s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  73% Completed | 11/15 [00:11<00:04,  1.02s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  80% Completed | 12/15 [00:12<00:03,  1.05s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  87% Completed | 13/15 [00:13<00:02,  1.01s/it]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards:  93% Completed | 14/15 [00:14<00:00,  1.02it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards: 100% Completed | 15/15 [00:14<00:00,  1.07it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m Loading safetensors checkpoint shards: 100% Completed | 15/15 [00:14<00:00,  1.00it/s]
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m 
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:02 [default_loader.py:291] Loading weights took 15.07 seconds
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:05 [gpu_model_runner.py:3905] Model loading took 64.38 GiB memory and 17.730453 seconds
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:07 [gpu_worker.py:358] Available KV cache memory: 53.91 GiB
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:07 [kv_cache_utils.py:1305] GPU KV cache size: 785,040 tokens
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:07 [kv_cache_utils.py:1310] Maximum concurrency for 8,192 tokens per request: 95.74x
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m 2026-01-30 17:06:07,360 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m 2026-01-30 17:06:07,408 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:09 [core.py:273] init engine (profile, create kv cache, warmup model) took 4.46 seconds
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m WARNING 01-30 17:06:10 [vllm.py:672] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+[0;36m(EngineCore_DP0 pid=1940662)[0;0m INFO 01-30 17:06:10 [vllm.py:765] Cudagraph is disabled under eager mode
+INFO 01-30 17:06:10 [llm.py:347] Supported tasks: ['generate']
+Questions:   0%|          | 0/5 [00:00<?, ?q/s]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 63.62it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.93s/it, est. speed input: 26.50 toks/s, output: 13.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.93s/it, est. speed input: 26.50 toks/s, output: 13.00 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:21<00:00, 21.93s/it, est. speed input: 26.50 toks/s, output: 13.00 toks/s]
+Questions:  20%|██        | 1/5 [00:23<01:32, 23.01s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 358.03it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.07s/it, est. speed input: 25.40 toks/s, output: 17.99 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.07s/it, est. speed input: 25.40 toks/s, output: 17.99 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:23<00:00, 23.07s/it, est. speed input: 25.40 toks/s, output: 17.99 toks/s]
+Questions:  40%|████      | 2/5 [00:47<01:10, 23.64s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 444.31it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:29<00:00, 29.38s/it, est. speed input: 19.91 toks/s, output: 18.62 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:29<00:00, 29.38s/it, est. speed input: 19.91 toks/s, output: 18.62 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:29<00:00, 29.38s/it, est. speed input: 19.91 toks/s, output: 18.62 toks/s]
+Questions:  60%|██████    | 3/5 [01:17<00:53, 26.72s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 395.65it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:29<00:00, 29.46s/it, est. speed input: 19.75 toks/s, output: 19.41 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:29<00:00, 29.46s/it, est. speed input: 19.75 toks/s, output: 19.41 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:29<00:00, 29.47s/it, est. speed input: 19.75 toks/s, output: 19.41 toks/s]
+Questions:  80%|████████  | 4/5 [01:47<00:28, 28.17s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 426.12it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:33<00:00, 33.28s/it, est. speed input: 17.79 toks/s, output: 18.03 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:33<00:00, 33.28s/it, est. speed input: 17.79 toks/s, output: 18.03 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:33<00:00, 33.28s/it, est. speed input: 17.79 toks/s, output: 18.03 toks/s]
+Questions: 100%|██████████| 5/5 [02:22<00:00, 30.39s/q]Questions: 100%|██████████| 5/5 [02:22<00:00, 28.44s/q]
+/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py:710: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  eq_exact = float(df_out["results_equal_exact"].fillna(False).astype(bool).mean()) if "results_equal_exact" in df_out else None
+/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py:711: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  eq_norm = float(df_out["results_equal_normalized"].fillna(False).astype(bool).mean()) if "results_equal_normalized" in df_out else None
+
+================ RUN SUMMARY ================
+Artifacts folder: results/cat2_all__cat2_simple_sql__20260130_170529__gpt-oss-120b
+Progress JSONL:   results/cat2_all__cat2_simple_sql__20260130_170529__gpt-oss-120b/progress.jsonl
+Evaluation CSV:   results/cat2_all__cat2_simple_sql__20260130_170529__gpt-oss-120b/evaluation.csv
+Completed rows:   5 / 5
+Runtime:          142.21s
+
+------------- EXEC + COMPARE METRICS -------------
+Pred exec ok rate:        0.0000
+GT exec ok rate:          0.0000
+Results equal (exact):    0.0000
+Results equal (normhash): 0.0000
+Avg pred ms:              79.79
+Avg gt ms:                75.38
+
+[OK] Done.
+ERROR 01-30 17:08:32 [core_client.py:610] Engine core proc EngineCore_DP0 died unexpectedly, shutting down client.

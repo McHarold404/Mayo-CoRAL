@@ -1,0 +1,105 @@
+[WARN] DB reflection failed: (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: could not initiate GSSAPI security context: Unspecified GSS failure.  Minor code may provide more information: Server not found in Kerberos database
+connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  role "postgres" does not exist
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+========================================
+CAT2 SQL (vLLM) - RESUMABLE
+Model (load): /mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b
+Model (name): Lexi-Uncensored-8B
+Run ID: cat2_all__cat2_simple_sql__20260130_145057__Lexi-Uncensored-8B
+Results dir: results/cat2_all__cat2_simple_sql__20260130_145057__Lexi-Uncensored-8B
+tp: 1
+gpu_memory_utilization: 0.25
+max_model_len: 8192
+dtype: bfloat16
+temperature: 0.1
+max_tokens: 600
+DB run enabled: True (sqlalchemy=True)
+XLSX: ../runs/query-cat2.xlsx
+Resume: 0 rows already completed
+Pred SQL exec num-runs: 1
+========================================
+INFO 01-30 14:51:10 [utils.py:263] non-default args: {'dtype': 'bfloat16', 'max_model_len': 8192, 'swap_space': 0, 'gpu_memory_utilization': 0.25, 'disable_log_stats': True, 'enforce_eager': True, 'model': '/mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b'}
+INFO 01-30 14:51:10 [model.py:530] Resolved architecture: LlamaForCausalLM
+INFO 01-30 14:51:10 [model.py:1545] Using max model len 8192
+INFO 01-30 14:51:10 [scheduler.py:229] Chunked prefill is enabled with max_num_batched_tokens=16384.
+INFO 01-30 14:51:10 [vllm.py:630] Asynchronous scheduling is enabled.
+INFO 01-30 14:51:10 [vllm.py:637] Disabling NCCL for DP synchronization when using async scheduling.
+WARNING 01-30 14:51:10 [vllm.py:665] Enforce eager set, overriding optimization level to -O0
+INFO 01-30 14:51:10 [vllm.py:765] Cudagraph is disabled under eager mode
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:10 [core.py:97] Initializing a V1 LLM engine (v0.14.0) with config: model='/mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b', speculative_config=None, tokenizer='/mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=8192, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=True, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_fallback=False, disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False), seed=0, served_model_name=/mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'level': None, 'mode': <CompilationMode.NONE: 0>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['all'], 'splitting_ops': [], 'compile_mm_encoder': False, 'compile_sizes': [], 'compile_ranges_split_points': [16384], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.NONE: 0>, 'cudagraph_num_of_warmups': 0, 'cudagraph_capture_sizes': [], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'eliminate_noops': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False}, 'max_cudagraph_capture_size': 0, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': True}, 'local_cache_dir': None}
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:13 [parallel_state.py:1214] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://10.4.58.52:46103 backend=nccl
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:13 [parallel_state.py:1425] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:13 [gpu_model_runner.py:3808] Starting to load model /mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b...
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:14 [cuda.py:351] Using FLASH_ATTN attention backend out of potential backends: ('FLASH_ATTN', 'FLASHINFER', 'TRITON_ATTN', 'FLEX_ATTENTION')
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:02<00:06,  2.30s/it]
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:04<00:04,  2.39s/it]
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:07<00:02,  2.38s/it]
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:08<00:00,  1.96s/it]
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:08<00:00,  2.11s/it]
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m 
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:22 [default_loader.py:291] Loading weights took 8.53 seconds
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:23 [gpu_model_runner.py:3905] Model loading took 14.96 GiB memory and 8.843184 seconds
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:24 [gpu_worker.py:358] Available KV cache memory: 15.03 GiB
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:24 [kv_cache_utils.py:1305] GPU KV cache size: 123,152 tokens
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:24 [kv_cache_utils.py:1310] Maximum concurrency for 8,192 tokens per request: 15.03x
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m 2026-01-30 14:51:24,325 - INFO - autotuner.py:256 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m 2026-01-30 14:51:24,332 - INFO - autotuner.py:262 - flashinfer.jit: [Autotuner]: Autotuning process ends
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:24 [core.py:273] init engine (profile, create kv cache, warmup model) took 1.55 seconds
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m WARNING 01-30 14:51:24 [vllm.py:672] Inductor compilation was disabled by user settings, optimizations settings that are only active during inductor compilation will be ignored.
+[0;36m(EngineCore_DP0 pid=1427340)[0;0m INFO 01-30 14:51:24 [vllm.py:765] Cudagraph is disabled under eager mode
+INFO 01-30 14:51:25 [llm.py:347] Supported tasks: ['generate']
+Questions:   0%|          | 0/5 [00:00<?, ?q/s]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 79.13it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.06s/it, est. speed input: 477.61 toks/s, output: 106.87 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.06s/it, est. speed input: 477.61 toks/s, output: 106.87 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.06s/it, est. speed input: 477.61 toks/s, output: 106.87 toks/s]
+Questions:  20%|██        | 1/5 [00:01<00:06,  1.61s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 510.13it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.13s/it, est. speed input: 452.95 toks/s, output: 117.23 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.13s/it, est. speed input: 452.95 toks/s, output: 117.23 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.13s/it, est. speed input: 452.95 toks/s, output: 117.23 toks/s]
+Questions:  40%|████      | 2/5 [00:03<00:04,  1.59s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 637.43it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.14s/it, est. speed input: 444.59 toks/s, output: 108.30 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.14s/it, est. speed input: 444.59 toks/s, output: 108.30 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.15s/it, est. speed input: 444.59 toks/s, output: 108.30 toks/s]
+Questions:  60%|██████    | 3/5 [00:04<00:03,  1.63s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 638.11it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:00<00:00,  1.09it/s, est. speed input: 551.64 toks/s, output: 115.56 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:00<00:00,  1.09it/s, est. speed input: 551.64 toks/s, output: 115.56 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:00<00:00,  1.09it/s, est. speed input: 551.64 toks/s, output: 115.56 toks/s]
+Questions:  80%|████████  | 4/5 [00:06<00:01,  1.61s/q]
+Adding requests:   0%|          | 0/1 [00:00<?, ?it/s][AAdding requests: 100%|██████████| 1/1 [00:00<00:00, 671.95it/s]
+
+Processed prompts:   0%|          | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.45s/it, est. speed input: 356.23 toks/s, output: 100.79 toks/s][A
+Processed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.45s/it, est. speed input: 356.23 toks/s, output: 100.79 toks/s][AProcessed prompts: 100%|██████████| 1/1 [00:01<00:00,  1.45s/it, est. speed input: 356.23 toks/s, output: 100.79 toks/s]
+Questions: 100%|██████████| 5/5 [00:08<00:00,  1.73s/q]Questions: 100%|██████████| 5/5 [00:08<00:00,  1.68s/q]
+/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py:897: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  "results_equal_rate": float(df_out["results_equal_exact"].fillna(False).astype(bool).mean()) if "results_equal_exact" in df_out else None,
+
+--- Run Summary ---
+Artifacts folder: results/cat2_all__cat2_simple_sql__20260130_145057__Lexi-Uncensored-8B
+Saved progress JSONL: results/cat2_all__cat2_simple_sql__20260130_145057__Lexi-Uncensored-8B/progress.jsonl
+Saved CSV: results/cat2_all__cat2_simple_sql__20260130_145057__Lexi-Uncensored-8B/evaluation.csv
+Saved XLSX: results/cat2_all__cat2_simple_sql__20260130_145057__Lexi-Uncensored-8B/evaluation.xlsx (if engine available)
+Completed rows: 5 / 5
+Runtime: 8.38s
+
+--- Overall Metrics ---
+              rows_completed: 5
+                ok_rate_run1: 0.0000
+                ok_rate_run2: NA
+                ok_rate_run3: NA
+          results_equal_rate: 0.0000
+ avg_sql_token_jaccard_vs_gt: 0.1356
+        relaxed_em_threshold: 0.7000
+             relaxed_em_rate: 0.0000
+             runtime_seconds: 8.3782
+                    num_runs: 1

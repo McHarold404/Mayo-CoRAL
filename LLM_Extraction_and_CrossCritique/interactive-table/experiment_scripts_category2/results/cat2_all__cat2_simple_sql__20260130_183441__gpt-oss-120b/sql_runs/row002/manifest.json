@@ -1,0 +1,44 @@
+{
+  "row_index": 2,
+  "question": "List Melanoma trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "model_name": "gpt-oss-120b",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%Melanoma%'\n  AND \"is_any_other_biomarker_used_for_inclusion\" ILIKE '%yes%'\n  AND (\"is_pd_l1_positivity_inclusion_criteria\" IS NULL OR \"is_pd_l1_positivity_inclusion_criteria\" ILIKE '%no%');",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%Melanoma%'\n  AND \"is_any_other_biomarker_used_for_inclusion\" ILIKE '%yes%'\n  AND (\"is_pd_l1_positivity_inclusion_criteria\" IS NULL OR \"is_pd_l1_positivity_inclusion_criteria\" ILIKE '%no%');",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query returns melanoma trials that require a biomarker other than PD\u2011L1 for inclusion.",
+  "pred_assumptions": "Biomarker inclusion fields contain textual values like 'Yes'/'No'; PD\u2011L1 inclusion is indicated by a similar yes/no field.",
+  "raw_text": "assistantanalysisWe need to list melanoma trials requiring a biomarker other than PD-L1 for inclusion. Columns: \"cancer_type\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\". We need trials where cancer_type = 'Melanoma' (maybe ILIKE). And is_any_other_biomarker_used_for_inclusion indicates other biomarker used. Probably boolean? Not sure values. Use ILIKE? Might be 'Yes'/'No'. We'll filter where \"is_any_other_biomarker_used_for_inclusion\" ILIKE '%yes%' (or true). Also ensure not PD-L1: maybe \"is_pd_l1_positivity_inclusion_criteria\" = false or not yes. So condition: \"cancer_type\" ILIKE '%Melanoma%' AND (\"is_any_other_biomarker_used_for_inclusion\" ILIKE '%yes%') AND ((\"is_pd_l1_positivity_inclusion_criteria\" IS NULL) OR (\"is_pd_l1_positivity_inclusion_criteria\" ILIKE '%no%')). Return columns: nct, author, year, pubmed_id. Also maybe include biomarker column? Not required. We'll follow requirement: always include those four columns. Provide answer sentence.\n\nAssumptions: values are stored as text indicating yes/no.\n\nConstruct SQL:\n\nSELECT \"nct\",\"author\",\"year\",\"pubmed_id\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" ILIKE '%Melanoma%'\n  AND \"is_any_other_biomarker_used_for_inclusion\" ILIKE '%yes%'\n  AND ( \"is_pd_l1_positivity_inclusion_criteria\" IS NULL\n        OR \"is_pd_l1_positivity_inclusion_criteria\" ILIKE '%no%');\n\nReturn JSON.\n\nassistantfinal{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\"\\nFROM public.\\\"clinical_trials\\\"\\nWHERE \\\"cancer_type\\\" ILIKE '%Melanoma%'\\n  AND \\\"is_any_other_biomarker_used_for_inclusion\\\" ILIKE '%yes%'\\n  AND (\\\"is_pd_l1_positivity_inclusion_criteria\\\" IS NULL OR \\\"is_pd_l1_positivity_inclusion_criteria\\\" ILIKE '%no%');\",\n  \"answer\": \"The query returns melanoma trials that require a biomarker other than PD\u2011L1 for inclusion.\",\n  \"assumptions\": \"Biomarker inclusion fields contain textual values like 'Yes'/'No'; PD\u2011L1 inclusion is indicated by a similar yes/no field.\"\n}",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"other_biomarker_inclusion\", \"cancer_type\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"other_biomarker_inclusion\" = 'Yes';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"is_any_other_biomarker_used_for_inclusion\", \"cancer_type\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"is_any_other_biomarker_used_for_inclusion\" = 'Yes';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "other_biomarker_inclusion",
+      "replaced_with": "is_any_other_biomarker_used_for_inclusion",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 4.938069032505155,
+  "pred_exec_error": null,
+  "pred_result_rows": 10,
+  "pred_result_hash": "e1582cc8d31cd11daff888b4fac0215b",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.6175111308693886,
+  "gt_exec_error": null,
+  "gt_result_rows": 10,
+  "gt_result_hash": "7bd97799fb8efed6ec4bb7cba3048ede",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_simple_sql__20260130_183441__gpt-oss-120b/sql_runs/row002"
+}
