@@ -1,0 +1,23 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a single string (empty if none).
+- SQL must be a valid PostgreSQL SELECT query.
+
+Okay, let's tackle this question. The user wants Esophageal/GEJ trials with median follow-up and months by arm. First, I need to figure out which columns are relevant. The cancer_type column should include 'Esophageal' or 'GEJ'. Then, the follow-up durations are spread across several columns: follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control. Since the question mentions "by arm," I need to consider each arm's follow-up. The control_arm might also be relevant here.
+
+Wait, the user mentioned "median follow-up," but the data might have follow-up durations for each arm. So I should include all three follow-up columns. Also, the answer needs to show months by arm, so each arm's follow-up should be a separate column. The primary endpoint might be related, but the question doesn't specify, so maybe just include the follow-up columns as they are. 
+
+I should check if the columns are named correctly. The original columns are follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control. These likely represent overall, treatment (rx), and control arms. 
+
+So the SQL query needs to select the necessary columns: nct, author, year, pubmed_id, cancer_type, and the three follow-up durations. But the user wants Esophageal/GEJ trials, so filter cancer_type with ILIKE '%Esophageal%' or '%GEJ%'. 
+
+Wait, the cancer_type column might have entries like 'Esophageal Cancer' or 'GEJ Cancer', so using ILIKE with % would capture those. Also, the answer should mention that the follow-up durations are by arm. 
+
+Assumptions: The follow-up columns are correctly named and represent the different arms. Also, that the cancer_type includes the necessary terms. 
+
+Putting it all together, the SQL would select the required fields, filter on cancer_type, and include all three follow-up columns. The answer would state that the query retrieves the trials with median follow-up by arm. 
+
+I need to make sure to use the exact column names with double quotes. Also, the user wants the answer to show months by arm, so including all three columns makes sense. The assumptions should note that the follow-up columns are for the arms and that cancer_type includes the terms.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"cancer_type\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s

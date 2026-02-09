@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'CTLA-4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "The query retrieves CTLA-4 trials that reported composite or co-primary endpoints by selecting the specified columns from the clinical_trials table where the name_of_ici is 'CTLA-4' and the priamry_multiple_composite_or_co_primary_endpoints flag is set to 'Yes'.",
+  "assumptions": "Assumes that 'CTLA-4' is the exact value for the name_of_ici column and that 'Yes' is the exact value for the priamry_multiple_composite_or_co_primary_endpoints column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'CTLA-4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "The query retrieves CTLA-4 trials with composite or co-primary endpoints by filtering on the name_of_ici and priamry_multiple_composite_or_co_primary_endpoints columns.",
+  "assumptions": "Assumes exact matches for 'CTLA-4' in name_of_ici and 'Yes' in priamry_multiple_composite_or_co_primary_endpoints."
+}

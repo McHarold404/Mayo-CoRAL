@@ -1,0 +1,8 @@
+- Answer must be a string, not a JSON object.
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, not a JSON object.
+- Assumptions must be empty if none.
+
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Urothelial' ORDER BY \"year\";", "answer": "The query retrieves urothelial trials with their median follow-up duration by arm, including overall, treatment, and control arms.", "assumptions": "Assumed that 'median follow-up' is represented by the 'follow_up_duration_for_primary_endpoint_s_in_months' fields and that 'arm' refers to overall, RX, and control arms."}

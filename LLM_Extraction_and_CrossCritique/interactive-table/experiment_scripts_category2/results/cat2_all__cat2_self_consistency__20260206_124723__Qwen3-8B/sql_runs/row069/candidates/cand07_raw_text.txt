@@ -1,0 +1,16 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+In your query:
+- Use ONLY the columns listed above.
+- Qualify the table as public."clinical_trials".
+- When counting trials, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemotherapy%' OR \"control_regimen\" ILIKE '%Chemo%';",
+  "answer": "The query retrieves Colorectal phase 3 trials that compared ICI to chemotherapy.",
+  "assumptions": "Assumed that 'Chemo' in the control regimen refers to chemotherapy. If 'Chemo' appears in other contexts, it may lead to false positives."
+}

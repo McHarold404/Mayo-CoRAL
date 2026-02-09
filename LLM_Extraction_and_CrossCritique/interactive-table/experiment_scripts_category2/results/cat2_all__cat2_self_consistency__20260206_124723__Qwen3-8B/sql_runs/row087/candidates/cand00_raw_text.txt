@@ -1,0 +1,14 @@
+- Answer must be <= 1–2 sentences.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Colorectal' ORDER BY \"year\" DESC;",
+  "answer": "The query retrieves Colorectal trials with their median follow-up durations by arm, showing months for overall, RX, and control arms.",
+  "assumptions": "Assuming that 'median follow-up' is represented by 'follow_up_duration_for_primary_endpoint_s_in_months_overall' and that the columns for RX and control arms are correctly named."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Colorectal' ORDER BY \"year\" DESC;",
+  "answer": "The query retrieves Colorectal trials with their median follow-up durations by arm, showing months for overall, RX, and control arms.",
+  "assumptions": "Assuming that 'median follow-up' is represented by 'follow_up_duration_for_primary_endpoint_s_in_months_overall' and that the columns for RX and control arms are correctly named."
+}

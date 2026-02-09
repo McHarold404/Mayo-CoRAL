@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (even if empty).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%placebo%' AND \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%';",
+  "answer": "The following Gastric/GEJ trials used Placebo as the control arm: [list of trials].",
+  "assumptions": "Assumed that 'GEJ' refers to Gastric/GEJ and that 'Placebo' is case-insensitive in the control_arm field."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%placebo%' AND (\"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%');",
+  "answer": "The following Gastric/GEJ trials used Placebo as the control arm: [list of trials].",
+  "assumptions": "Assumed that 'GEJ' refers to Gastric/GEJ and that 'Placebo' is case-insensitive in the control_arm field."
+}

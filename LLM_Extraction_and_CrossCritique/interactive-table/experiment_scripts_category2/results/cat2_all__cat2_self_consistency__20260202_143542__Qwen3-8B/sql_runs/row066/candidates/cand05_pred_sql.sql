@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "primary_endpoint" FROM public."clinical_trials" WHERE "cancer_type" = 'Melanoma' AND "type_of_combination" = 'ICI+ICI' AND "class_of_ici" = 'PD1' OR "class_of_ici_1" = 'PD1';

@@ -1,0 +1,18 @@
+- Do not use markdown.
+- Use double quotes for all strings.
+- Use double quotes for column names.
+- No trailing commas.
+- No extra spaces.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%'",
+  "answer": "Retrieved renal cell trials with median follow-up durations by arm, showing overall, RX, and control arm durations in months.",
+  "assumptions": "Assumed that 'median follow-up' refers to the 'follow_up_duration_for_primary_endpoint_s_in_months_overall' field. If the question requires specific arm-based median follow-up calculations, additional data or aggregation might be needed."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%'",
+  "answer": "Retrieved renal cell trials with median follow-up durations by arm, showing overall, RX, and control arm durations in months.",
+  "assumptions": "Assumed that 'median follow-up' refers to the 'follow_up_duration_for_primary_endpoint_s_in_months_overall' field. If the question requires specific arm-based median follow-up calculations, additional data or aggregation might be needed."
+}

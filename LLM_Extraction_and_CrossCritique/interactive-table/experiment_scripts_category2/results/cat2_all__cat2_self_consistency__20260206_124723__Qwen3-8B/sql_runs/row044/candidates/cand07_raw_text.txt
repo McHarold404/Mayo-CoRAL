@@ -1,0 +1,9 @@
+- "answer" is a summary of the query's purpose (not the result).
+- "assumptions" is a list of assumptions made (empty if none).
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%PDL1%' AND \"name_of_ici\" ILIKE '%CTLA4%' AND \"cancer_type\" = 'Non-Small Cell Lung'",
+  "answer": "This query retrieves Phase 3 PD-L1, CTLA-4 combination trials for Non-Small Cell Lung cancer, including their regimens and key details.",
+  "assumptions": "Assumed 'PD-L1' and 'CTLA-4' are referred to as 'PD1' and 'CTLA4' in the data, and that 'Non-Small Cell Lung' is the exact value for \"cancer_type\"."
+}

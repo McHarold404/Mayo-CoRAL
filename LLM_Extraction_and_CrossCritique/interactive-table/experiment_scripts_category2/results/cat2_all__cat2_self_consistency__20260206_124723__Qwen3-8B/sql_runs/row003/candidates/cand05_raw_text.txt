@@ -1,0 +1,10 @@
+- Answer is <= 1–2 sentences.
+- Assumptions is a single string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "The query retrieves Ipilimumab combination trials in Melanoma along with their sample sizes.",
+  "assumptions": "Assumes that 'Ipilimumab' is mentioned in the 'name_of_ici' column and that 'Melanoma' is mentioned in the 'cancer_type' column."
+}

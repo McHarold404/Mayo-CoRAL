@@ -1,0 +1,7 @@
+- Answer must be <= 1–2 sentences.
+- Do not include any other text.
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Mesothelioma' AND \"name_of_ici\" ILIKE '%Nivolumab%' AND \"name_of_ici\" ILIKE '%Ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;", "answer": "Trials listed meet the criteria of Mesothelioma with Nivolumab and Ipilimumab where overall follow-up exceeded 21 months.", "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' refers to the overall follow-up duration for the primary endpoint."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Mesothelioma' AND \"name_of_ici\" = 'Nivolumab' AND \"name_of_ici\" = 'Ipilimumab' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;", "answer": "Trials listed meet the criteria of Mesothelioma with Nivolumab and Ipilimumab where overall follow-up exceeded 21 months.", "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' refers to the overall follow-up duration for the primary endpoint."}

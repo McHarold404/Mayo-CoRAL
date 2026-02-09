@@ -1,0 +1,47 @@
+{
+  "row_index": 0,
+  "question": "Show Melanoma trials that used ICI+Vaccine combinations.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ici+vac%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ici+vac%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query returns Melanoma trials that used ICI+Vaccine combinations, including their NCT ID, author, year, and PubMed ID.",
+  "pred_assumptions": "Assumed that 'ICI+Vaccine' combinations are indicated by the presence of 'ici+vac' in the 'type_of_combination' field.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"combination_type\", \"cancer_type\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"combination_type\" = 'ICI+Vaccine';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_combination\", \"cancer_type\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+Vaccine';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.0888568833470345,
+  "pred_exec_error": null,
+  "pred_result_rows": 2,
+  "pred_result_hash": "e78647451cffdf775b815735ebe4a7a8",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.8826951272785664,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "1a634f7db2d988edb87fd3721f646b89",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.3333333333333333,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row000",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 3,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row000/candidates"
+}

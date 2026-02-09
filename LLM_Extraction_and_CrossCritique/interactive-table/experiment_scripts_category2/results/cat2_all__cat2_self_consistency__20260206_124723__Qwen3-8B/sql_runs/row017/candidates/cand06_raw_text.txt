@@ -1,0 +1,12 @@
+- "answer" must be a string (not a list) of 1–2 sentences.
+- "assumptions" must be a string (not a list) and empty if none.
+- "sql" must be a valid PostgreSQL SELECT statement.
+
+I will now generate the SQL query and answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%pd1%' AND \"control_regimen\" ILIKE '%chemo%';",
+  "answer": "The query identifies Small Cell Lung phase 3 trials that compared PD-1 inhibitors to chemotherapy.",
+  "assumptions": ""
+}

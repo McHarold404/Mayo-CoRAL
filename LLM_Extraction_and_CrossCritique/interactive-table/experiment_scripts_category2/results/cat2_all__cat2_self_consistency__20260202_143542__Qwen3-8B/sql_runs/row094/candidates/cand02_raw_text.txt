@@ -1,0 +1,21 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+I have to write a SQL query to find Mesothelioma trials with Nivolumab and Ipilimumab where overall follow-up exceeded 21 months.
+
+First, I need to identify the relevant columns. The cancer_type should be 'Mesothelioma'. The name_of_ici should include both 'Nivolumab' and 'Ipilimumab'. The follow_up_duration_for_primary_endpoint_s_in_months_overall should be greater than 21.
+
+I should check if the name_of_ici column allows for multiple entries. If it's a single string, I might need to use LIKE with %...% to find both drugs. Also, I need to ensure that the follow-up duration is correctly referenced.
+
+I should structure the query to select the required fields and apply the filters. I need to make sure to use the correct column names with double quotes. Also, I should count the distinct NCT numbers to avoid duplicates.
+
+I need to make sure that the query is efficient and uses the correct operators. Also, I should check if the follow-up duration is stored as a numeric value. If it's stored as text, I might need to cast it to a numeric type before comparison.
+
+I should test the query with sample data to ensure it returns the correct results. Also, I should consider any possible edge cases, such as missing or null values in the relevant columns.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Mesothelioma%' AND \"name_of_ici\" ILIKE '%Nivolumab%' AND \"name_of_ici\" ILIKE '%Ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed meet criteria for Mesothelioma, Nivolumab, Ipilimumab combination with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumes 'name_of_ici' contains both drugs in the same entry and follow-up duration is stored as numeric value."
+}

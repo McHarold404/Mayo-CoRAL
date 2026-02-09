@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"treatment_regimen\" ILIKE '%ICI+ICI+Chemo%'",
+  "answer": "The query retrieves Small Cell Lung studies that tested ICI+ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming 'ICI+ICI+Chemo' is a valid format for combination therapy in the treatment_regimen column."
+}

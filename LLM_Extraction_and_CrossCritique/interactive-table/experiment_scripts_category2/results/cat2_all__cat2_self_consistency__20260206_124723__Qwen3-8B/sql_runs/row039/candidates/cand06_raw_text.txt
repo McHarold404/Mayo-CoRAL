@@ -1,0 +1,26 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+
+I'll write a PostgreSQL query to find bladder cancer trials that require a biomarker other than PD-L1 for inclusion.
+
+The query will:
+1. Filter for bladder cancer trials using "cancer_type" = 'Bladder'
+2. Check for trials that have any biomarker requirement using "is_any_other_biomarker_used_for_inclusion" = true
+3. Exclude trials that specifically require PD-L1 positivity using "is_pd_l1_positivity_inclusion_criteria" = false
+
+I'll use the exact column names from the table and qualify the table as public."clinical_trials".
+
+The query will return the required columns: "nct", "author", "year", "pubmed_id".
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Bladder' AND \"is_any_other_biomarker_used_for_inclusion\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "The query returns bladder cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Bladder' AND \"is_any_other_biomarker_used_for_inclusion\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "The query returns bladder cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}

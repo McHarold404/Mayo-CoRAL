@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false AND \"cancer_type\" = 'Esophageal/GEJ';",
+  "answer": "The query retrieves Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'Esophageal/GEJ' is the exact value for the cancer_type column and that the boolean flags correctly indicate biomarker requirements."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false AND \"cancer_type\" = 'Esophageal/GEJ';",
+  "answer": "The query retrieves Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'Esophageal/GEJ' is the exact value for the cancer_type column and that the boolean flags correctly indicate biomarker requirements."
+}

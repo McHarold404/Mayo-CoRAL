@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+I will now write the SQL query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Small Cell Lung' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemo%';",
+  "answer": "The query retrieves Small Cell Lung phase 3 trials that compared ICI to chemotherapy.",
+  "assumptions": "Assumes 'Chemo' is a valid term for chemotherapy in the control regimen and 'ICI' refers to immune checkpoint inhibitors."
+}

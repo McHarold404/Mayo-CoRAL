@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table, with double quotes.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'true' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'false' AND \"cancer_type\" = 'Non-Small Cell Lung Cancer';",
+  "answer": "Non-Small Cell Lung Cancer trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assumes 'Non-Small Cell Lung Cancer' is the exact value for cancer_type and that 'true' and 'false' are the exact values for the boolean fields."
+}

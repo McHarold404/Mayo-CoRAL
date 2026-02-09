@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 3'",
+  "answer": "The SQL query retrieves Melanoma trials that evaluated Pembrolizumab in phase 3 by selecting the specified columns from the clinical_trials table with the given conditions.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 3'",
+  "answer": "The SQL query retrieves Melanoma trials that evaluated Pembrolizumab in phase 3 by selecting the specified columns from the clinical_trials table with the given conditions.",
+  "assumptions": ""
+}

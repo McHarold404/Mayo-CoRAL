@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use single quotes for SQL string literals.
+- Ensure valid JSON.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%prostate%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL",
+  "answer": "Retrieved trials for prostate cancer with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assumed that 'combination treatment' is indicated by non-null values in \"type_of_combination\"."
+}

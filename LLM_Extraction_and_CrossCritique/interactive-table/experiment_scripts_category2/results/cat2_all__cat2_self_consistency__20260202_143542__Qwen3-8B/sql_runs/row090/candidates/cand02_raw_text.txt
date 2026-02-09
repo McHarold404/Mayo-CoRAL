@@ -1,0 +1,9 @@
+- Answer must be a string (not a JSON object).
+- Use double quotes for all strings, even inside the JSON.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "answer": "The query retrieves distinct clinical trials for Breast cancer using PD1 immunotherapy where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumes 'PD1' is the correct mapping for PD-1 and that 'Yes' indicates PD-L1 positivity was an inclusion criterion."
+}

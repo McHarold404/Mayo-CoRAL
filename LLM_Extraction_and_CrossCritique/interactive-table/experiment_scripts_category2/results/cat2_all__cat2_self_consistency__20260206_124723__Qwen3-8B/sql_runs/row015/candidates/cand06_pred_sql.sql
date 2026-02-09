@@ -1,0 +1,4 @@
+SELECT unless the question asks for a count.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%ctla-4%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%';

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%PDL1%' AND \"class_of_ici_1\" ILIKE '%CTLA4%' AND \"year\" >= 2018;

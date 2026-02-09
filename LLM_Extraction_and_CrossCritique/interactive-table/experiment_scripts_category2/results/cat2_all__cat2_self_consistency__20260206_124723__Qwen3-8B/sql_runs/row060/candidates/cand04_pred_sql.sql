@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"included_in_ma\" = true AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA-4')",
+  "answer": "The query retrieves Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents.",
+  "assumptions": "Assuming that 'PD1' and 'CTLA-4' are correctly mapped in the class_of_ici column and that 'Non-Small Cell Lung' is a valid search term for the cancer_type column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"included_in_ma\" = true AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA-4')",
+  "answer": "The query retrieves Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents.",
+  "assumptions": "Assuming that 'PD1' and 'CTLA-4' are correctly mapped in the class_of_ici column and that 'Non-Small Cell Lung' is a valid search term for the cancer_type column."
+}

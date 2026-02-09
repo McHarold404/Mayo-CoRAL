@@ -1,0 +1,52 @@
+{
+  "row_index": 16,
+  "question": "Show Melanoma studies included in the meta\u2011analysis that used CTLA-4 agents.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%melanoma%' AND \\\"included_in_ma\\\" = 'yes' AND \\\"name_of_ici\\\" ILIKE '%ctla-4%'\", \n  \"answer\": \"Here are the Melanoma studies included in the meta-analysis that used CTLA-4 agents.\", \n  \"assumptions\": \"Assuming 'yes' indicates inclusion in the meta-analysis and that 'ctla-4' is mentioned in the name_of_ici field.\"\n}\n</think>\n\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%melanoma%' AND \\\"included_in_ma\\\" = 'yes' AND \\\"name_of_ici\\\" ILIKE '%ctla-4%'\", \n  \"answer\": \"Here are the Melanoma studies included in the meta-analysis that used CTLA-4 agents.\", \n  \"assumptions\": \"Assuming 'yes' indicates inclusion in the meta-analysis and that 'ctla-4' is mentioned in the name_of_ici field.\"\n}",
+  "pred_sql_final": "SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%melanoma%' AND \\\"included_in_ma\\\" = 'yes' AND \\\"name_of_ici\\\" ILIKE '%ctla-4%'\", \n  \"answer\": \"Here are the Melanoma studies included in the meta-analysis that used CTLA-4 agents.\", \n  \"assumptions\": \"Assuming 'yes' indicates inclusion in the meta-analysis and that 'ctla-4' is mentioned in the name_of_ici field.\"\n}\n</think>\n\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%melanoma%' AND \\\"included_in_ma\\\" = 'yes' AND \\\"name_of_ici\\\" ILIKE '%ctla-4%'\", \n  \"answer\": \"Here are the Melanoma studies included in the meta-analysis that used CTLA-4 agents.\", \n  \"assumptions\": \"Assuming 'yes' indicates inclusion in the meta-analysis and that 'ctla-4' is mentioned in the name_of_ici field.\"\n}",
+  "pred_sql_fixes": [],
+  "pred_answer": "",
+  "pred_assumptions": "",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"included_in_ma\", \"ici_class\", \"cancer_type\", \"ici_name\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"ici_class\" = 'CTLA-4' AND \"included_in_ma\" = 'No';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"included_in_ma\", \"class_of_ici\", \"cancer_type\", \"name_of_ici\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"class_of_ici\" = 'CTLA-4' AND \"included_in_ma\" = 'No';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.16129032258064516,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "error",
+  "pred_exec_ms": 0.665364321321249,
+  "pred_exec_error": "(psycopg2.errors.SyntaxError) syntax error at or near \"\\\"\nLINE 1: SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM pub...\n               ^\n\n[SQL: SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%%melanoma%%' AND \\\"included_in_ma\\\" = 'yes' AND \\\"name_of_ici\\\" ILIKE '%%ctla-4%%'\", \n  \"answer\": \"Here are the Melanoma studies included in the meta-analysis that used CTLA-4 agents.\", \n  \"assumptions\": \"Assuming 'yes' indicates inclusion in the meta-analysis and that 'ctla-4' is mentioned in the name_of_ici field.\"\n}\n</think>\n\n{\n  \"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%%melanoma%%' AND \\\"included_in_ma\\\" = 'yes' AND \\\"name_of_ici\\\" ILIKE '%%ctla-4%%'\", \n  \"answer\": \"Here are the Melanoma studies included in the meta-analysis that used CTLA-4 agents.\", \n  \"assumptions\": \"Assuming 'yes' indicates inclusion in the meta-analysis and that 'ctla-4' is mentioned in the name_of_ici field.\"\n}]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+  "pred_result_rows": null,
+  "pred_result_hash": "",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.8224339000880718,
+  "gt_exec_error": null,
+  "gt_result_rows": 4,
+  "gt_result_hash": "e7900aa25b921ded5c84df52810ab8fd",
+  "results_equal_exact": null,
+  "results_equal_normalized": null,
+  "rowcount_delta_pred_minus_gt": null,
+  "column_overlap_ratio": null,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row016",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row016/candidates"
+}

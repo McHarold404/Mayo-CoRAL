@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_phase", "treatment_regimen", "class_of_ici", "name_of_ici", "monotherapy_combination", "type_of_combination", "control_regimen", "type_of_control", "cancer_type" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "class_of_ici" = 'PD1' AND "cancer_type" = 'Multiple Myeloma' AND "type_of_combination" IS NOT NULL;

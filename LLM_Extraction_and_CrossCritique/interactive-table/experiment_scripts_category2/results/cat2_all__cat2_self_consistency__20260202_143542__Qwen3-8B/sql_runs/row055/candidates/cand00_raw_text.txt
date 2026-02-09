@@ -1,0 +1,21 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+I'll write the SQL query to find PD-L1 trials with composite or co-primary endpoints.
+
+First, I need to filter for PD-L1 trials. The "class_of_ici" column should be 'PD1' (since PD-1 is mapped to PD1) and "name_of_ici" should include 'L1' (since PD-L1 is the full name).
+
+Next, I need to check for composite or co-primary endpoints. The "priamry_multiple_composite_or_co_primary_endpoints" column should indicate this. I'll use ILIKE to check for any mention of 'composite' or 'co-primary'.
+
+I'll select the required columns and ensure to use COUNT(DISTINCT "nct") for the count.
+
+I'll make sure to qualify the table as public."clinical_trials" and use double quotes for all column names.
+
+Now, I'll construct the SQL query.
+</think>
+
+{
+  "sql": "SELECT COUNT(DISTINCT \"nct\") AS pd_l1_composite_trials, \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%L1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%co-primary%';",
+  "answer": "There are X PD-L1 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming 'PD-L1' is correctly identified by 'PD1' in class_of_ici and 'L1' in name_of_ici. Assumes priamry_multiple_composite_or_co_primary_endpoints contains keywords like 'composite' or 'co-primary'."
+}

@@ -1,0 +1,10 @@
+- Strings must be in double quotes.
+- Ensure valid JSON.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes'",
+  "answer": "The query lists PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming 'PD1' is used for PD-L1 and 'CTLA4' is the correct class for CTLA-4, and that 'Yes' indicates composite or co-primary endpoints."
+}

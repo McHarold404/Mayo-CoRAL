@@ -1,0 +1,22 @@
+- No markdown.
+- Use the exact column names from the database schema.
+- Use double quotes for column names.
+- Ensure the SQL query is valid and runnable.
+
+I will now generate the SQL query based on the requirements.
+
+The query should:
+1. Filter for Phase 3 trials: "trial_phase" = 'Phase 3'
+2. Filter for PD1 combinations: "class_of_ici" = 'PD1' and "type_of_combination" = 'Combination'
+3. Filter for Non-Small Cell Lung: "cancer_type" = 'Non-Small Cell Lung'
+4. Select the required columns: "nct", "author", "year", "pubmed_id", "treatment_regimen", "control_regimen", "type_of_combination", "class_of_ici"
+5. Order by year to show the most recent first
+
+I will now write the SQL query with these requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"control_regimen\", \"type_of_combination\", \"class_of_ici\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"type_of_combination\" = 'Combination' AND \"cancer_type\" = 'Non-Small Cell Lung' ORDER BY \"year\" DESC;",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung include trials with specific treatment and control regimens; review the listed trials for detailed regimens.",
+  "assumptions": "Assumes 'PD1' is the correct mapping for PD-1 and that 'Non-Small Cell Lung' is the exact cancer type value."
+}

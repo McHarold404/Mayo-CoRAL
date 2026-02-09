@@ -1,0 +1,11 @@
+- Use double quotes for keys and strings.
+- No markdown.
+- Use the exact column names from the list.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Renal cell' AND \"number_of_arms\" > 1;",
+  "answer": "This query retrieves Pembrolizumab combination trials in Renal cell cancer with their sample sizes.",
+  "assumptions": "Assuming that trials with more than one arm are considered combination trials."
+}

@@ -1,0 +1,9 @@
+- Use the output format as described.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"cancer_type\" = 'Breast' AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "The query lists breast cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes that 'Breast' is the exact value for the cancer_type column and that 'is_any_other_biomarker_used_for_inclusion_criteria' being true indicates the use of a biomarker other than PD-L1."
+}

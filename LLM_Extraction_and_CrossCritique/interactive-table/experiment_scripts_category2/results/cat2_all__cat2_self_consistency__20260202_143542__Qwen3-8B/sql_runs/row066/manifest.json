@@ -1,0 +1,47 @@
+{
+  "row_index": 66,
+  "question": "Which Melanoma studies tested ICI+ICI combinations, and what were the primary endpoints?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici_1\" ILIKE '%PD1%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici_1\" ILIKE '%PD1%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Melanoma studies that tested ICI+ICI combinations and their primary endpoints, including those where PD-1 is mentioned in either the first or second ICI class.",
+  "pred_assumptions": "Assuming that ICI+ICI combinations are identified by the 'type_of_combination' column and that PD-1 is mapped to 'PD1' in the 'class_of_ici' or 'class_of_ici_1' columns.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"combination_type\", \"cancer_type\", \"treatment_regimen\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"combination_type\" = 'ICI+ICI';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_combination\", \"cancer_type\", \"treatment_regimen\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4166666666666667,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 3.4618498757481575,
+  "pred_exec_error": null,
+  "pred_result_rows": 80,
+  "pred_result_hash": "7b0f8c80aceea0d74c9ddfd5d51dd903",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 2.716862130910158,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "4bd386b8466571f86b6bf1beab1dbbd4",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 79,
+  "column_overlap_ratio": 0.4444444444444444,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row066",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 1,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row066/candidates"
+}

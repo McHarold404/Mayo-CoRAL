@@ -1,0 +1,16 @@
+- Use the exact column names from the schema.
+- Use double quotes for column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Use ILIKE for free text searches.
+- Use exact equality for enumerated values.
+- SELECT only; no DDL/DML.
+
+Okay, let's tackle this query. The user wants Breast Chemotherapy trials where overall follow-up exceeded 21 months.
+
+First, I need to check the columns related to follow-up. The column "follow_up_duration_for_primary_endpoint_s_in_months_overall" seems relevant. The question mentions "overall follow-up," so that's the right column. The condition is that this value exceeds 21 months. So I'll use a WHERE clause with "follow_up_duration_for_primary_endpoint_s_in_months_overall" > 21.
+
+Next, the cancer_type should be 'Breast Cancer' or similar. But the exact value might vary. The user wrote "Breast Chemotherapy," but the column is "cancer_type." Wait, maybe the trial's name or other fields might mention chemotherapy. However, the user specified to use the exact columns. The "cancer_type" is likely the correct column here. So I'll check if "cancer_type" ILIKE '%Breast%'. But the user might mean trials involving chemotherapy, not necessarily breast cancer. Wait, the question says "Breast Chemotherapy trials," which could be trials for breast cancer using chemotherapy. But the exact column is "cancer_type," so maybe it's better to check for 'Breast Cancer' in that column. Alternatively, maybe the trial_name or other fields have 'chemotherapy' in them. But according to the requirements, I should use the exact columns provided. The user's instruction says to use the columns listed, so "cancer_type" is the right one. However, the term "Breast Chemotherapy" might not be directly in "cancer_type." Maybe the user intended "cancer_type" to be 'Breast Cancer' and the treatment_regimen includes chemotherapy. But the question is a bit ambiguous. Let me re-read the question.
+
+The question is: "List Breast Chemotherapy trials where overall follow‑up exceeded 21 months." So, the trials are for breast cancer and involve chemotherapy. So "cancer_type" should be 'Breast Cancer' and the treatment_regimen should include chemotherapy. But the columns available are "cancer_type" and "treatment_regimen." So I need to check both. Wait, but the user might have intended that "Breast Chemotherapy" refers to the cancer type, but that's not standard. Alternatively, maybe the "cancer_type" is 'Breast' and the treatment_regimen includes chemotherapy. But the exact column names are fixed. Let me check the columns again.
+
+Looking back, the columns include "cancer_type" and "treatment_regimen." So

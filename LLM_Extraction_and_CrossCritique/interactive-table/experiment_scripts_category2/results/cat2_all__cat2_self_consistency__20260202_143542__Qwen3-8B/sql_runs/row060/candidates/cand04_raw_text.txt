@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' AND \"included_in_ma\" = 'yes';",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed 'included_in_ma' is a boolean field with 'yes' indicating inclusion in the meta-analysis. Assumed 'class_of_ici' contains entries like 'PD1' or 'CTLA-4'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%') AND \"included_in_ma\" = 'yes';",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed 'included_in_ma' is a boolean field with 'yes' indicating inclusion in the meta-analysis. Assumed 'class_of_ici' contains entries like 'PD1' or 'CTLA-4'."
+}

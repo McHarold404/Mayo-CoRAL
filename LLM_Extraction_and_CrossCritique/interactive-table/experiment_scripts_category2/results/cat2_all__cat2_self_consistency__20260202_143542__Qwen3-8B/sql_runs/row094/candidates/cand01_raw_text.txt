@@ -1,0 +1,11 @@
+- Use the exact column names with double quotes.
+- Use the exact spelling in the column names.
+- Do NOT use any other keys.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "List of Mesothelioma Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assuming that the combination of Nivolumab and Ipilimumab is indicated by both names being present in the \"name_of_ici\" column."
+}

@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Found Melanoma trials with minimum follow-up duration by arm, showing months for each arm.",
+  "assumptions": "Assumed 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents the minimum follow-up duration for the trial, and ordered by this field to find the minimum."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Found Melanoma trials with minimum follow-up duration by arm, showing months for each arm.",
+  "assumptions": "Assumed 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents the minimum follow-up duration for the trial, and ordered by this field to find the minimum."
+}

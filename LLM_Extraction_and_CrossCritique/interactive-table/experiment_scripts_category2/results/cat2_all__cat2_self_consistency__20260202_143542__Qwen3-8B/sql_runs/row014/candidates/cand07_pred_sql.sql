@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT "nct") AS count, "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Breast' AND NOT "is_pd_l1_positivity_inclusion_criteria" AND "is_any_other_biomarker_used_for_inclusion" = true GROUP BY "nct", "author", "year", "pubmed_id";

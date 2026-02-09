@@ -1,0 +1,11 @@
+- No markdown.
+- Use the exact column names as given, with double quotes.
+- Use COUNT(DISTINCT "nct") when counting trials.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Phase 3 PD1 combination trials in Multiple Myeloma and their regimens can be reviewed by examining the results of the query.",
+  "assumptions": "Assuming that 'PD1' is the correct mapping for PD-1 and that 'type_of_combination' indicates combination therapy."
+}

@@ -1,0 +1,15 @@
+- Answer must be a string, not a JSON object.
+- Do not include any additional text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"name_of_ici\" ILIKE '%PD-L1%' OR \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved non-small cell lung PD-L1 and CTLA-4 trials from 2018 onwards.",
+  "assumptions": "Assumed that PD-1 is mapped to PD1 and that trials with PD-L1 or CTLA-4 as the ICI are relevant."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%PD-L1%') AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved non-small cell lung PD-L1 and CTLA-4 trials from 2018 onwards.",
+  "assumptions": "Assumed that PD-1 is mapped to PD1 and that trials with PD-L1 or CTLA-4 as the ICI are relevant."
+}

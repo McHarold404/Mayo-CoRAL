@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+I will now generate the SQL query and answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"trial_phase\" = 'III' AND \"class_of_ici\" ILIKE '%pd1%' AND \"type_of_control\" ILIKE '%chemotherapy%'",
+  "answer": "The query retrieves Small Cell Lung phase 3 trials that compared PD-1 inhibitors to chemotherapy.",
+  "assumptions": "Assumed 'ICI' refers to PD-1 inhibitors based on the mapping rule. Used ILIKE for flexibility in cancer type and control regimen descriptions."
+}

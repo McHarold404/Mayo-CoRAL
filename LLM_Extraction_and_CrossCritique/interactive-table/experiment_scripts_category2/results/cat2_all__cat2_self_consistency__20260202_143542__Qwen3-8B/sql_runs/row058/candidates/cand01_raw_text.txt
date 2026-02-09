@@ -1,0 +1,12 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table definition.
+- Make sure to qualify the table as public."clinical_trials".
+
+The output must be a JSON object with keys sql, answer, and assumptions.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "PD1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assuming 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates the presence of composite or co-primary endpoints."
+}

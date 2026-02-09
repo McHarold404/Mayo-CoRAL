@@ -1,0 +1,10 @@
+- "answer" must be a string, not a count.
+- "assumptions" is a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" ILIKE '%Esophageal%' OR \"cancer_type\" ILIKE '%GEJ%';",
+  "answer": "The query lists Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'GEJ' refers to Gastric Esophageal Junction cancer and that 'is_any_other_biomarker_used_for_inclusion_criteria' indicates the use of a biomarker other than PD-L1."
+}

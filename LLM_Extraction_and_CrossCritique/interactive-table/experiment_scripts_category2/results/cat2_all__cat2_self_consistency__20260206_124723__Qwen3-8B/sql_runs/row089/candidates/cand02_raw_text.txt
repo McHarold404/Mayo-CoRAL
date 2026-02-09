@@ -1,0 +1,9 @@
+- Use proper PostgreSQL syntax and escape double quotes.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"treatment_regimen\" ILIKE '%ICI%Chemo%' AND \"cancer_type\" ILIKE '%urothelial%';",
+  "answer": "The query retrieves Urothelial cancer trials that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming 'ICI+Chemo' combinations are identified by the presence of both ICI and Chemo in the treatment_regimen field, and that 'Urothelial' is a substring of the cancer_type field."
+}

@@ -1,0 +1,11 @@
+- No markdown.
+- Use the exact column names, double-quoted.
+
+I will now generate the SQL query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Head and Neck cancer with PD-L1 or CTLA-4 ICI therapy conducted in 2018 or later.",
+  "assumptions": "Assumed PD-L1 refers to PD1 and CTLA-4 is correctly mapped to class_of_ici."
+}

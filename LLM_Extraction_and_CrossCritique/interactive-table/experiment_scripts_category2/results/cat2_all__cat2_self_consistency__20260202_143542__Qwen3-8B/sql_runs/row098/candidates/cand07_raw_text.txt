@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- Do not include extra fields.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"type_of_combination\" ILIKE '%ICI+ICI+Chemo%';",
+  "answer": "The query retrieves the NCT, author, year, PubMed ID, and primary endpoints of Small Cell Lung studies that tested ICI+ICI+Chemo combinations.",
+  "assumptions": "Assumes that the 'type_of_combination' column contains entries with 'ICI+ICI+Chemo' in the text."
+}

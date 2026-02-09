@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "The query retrieves Melanoma trials that require a biomarker other than PD-L1 for inclusion, excluding those that specifically require PD-L1 positivity.",
+  "assumptions": "Assumes that 'is_any_other_biomarker_used_for_inclusion' being TRUE indicates the use of a biomarker other than PD-L1, and that 'is_pd_l1_positivity_inclusion_criteria' being FALSE means PD-L1 is not a requirement."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE AND NOT \"is_pd_l1_positivity_inclusion_criteria\";",
+  "answer": "The query lists Melanoma trials that require biomarkers other than PD-L1 for patient inclusion.",
+  "assumptions": "Assumes that 'is_any_other_biomarker_used_for_inclusion' being TRUE indicates the use of a biomarker other than PD-L1, and that 'is_pd_l1_positivity_inclusion_criteria' being FALSE means PD-L1 is not a requirement."
+}

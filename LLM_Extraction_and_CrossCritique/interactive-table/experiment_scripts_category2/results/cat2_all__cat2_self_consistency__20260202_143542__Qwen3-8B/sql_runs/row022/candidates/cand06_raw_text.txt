@@ -1,0 +1,9 @@
+- Answer must be a string (not JSON).
+- Use markdown-style code blocks for SQL (if needed).
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" ILIKE '%ICI+Vaccine%';",
+  "answer": "The query retrieves distinct clinical trials for Pancreatic cancer that used ICI+Vaccine combinations, including their NCT ID, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'ICI+Vaccine' is a valid combination type and that 'Pancreatic' is the exact value for cancer_type."
+}

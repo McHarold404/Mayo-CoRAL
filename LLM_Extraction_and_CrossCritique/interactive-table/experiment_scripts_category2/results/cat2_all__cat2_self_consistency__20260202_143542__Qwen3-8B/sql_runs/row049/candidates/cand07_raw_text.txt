@@ -1,0 +1,10 @@
+- "answer" should be a concise sentence(s) explaining the result.
+- "assumptions" should be a brief explanation of any assumptions made.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials for Head and Neck cancers involving PD-1 or CTLA-4 inhibitors conducted in 2018 or later, including their NCT ID, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is represented as 'CTLA4'."
+}

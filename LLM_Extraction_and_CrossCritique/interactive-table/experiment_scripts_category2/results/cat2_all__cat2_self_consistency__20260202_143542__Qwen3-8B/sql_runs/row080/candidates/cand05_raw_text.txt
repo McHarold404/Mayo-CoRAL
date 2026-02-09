@@ -1,0 +1,9 @@
+- Answer must be <= 1–2 sentences.
+- The SQL must be a SELECT query only.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%nsclc%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_control\" IS NOT NULL;",
+  "answer": "Retrieved NSCLC trials with median follow-up durations by arm, showing months for overall, treatment, and control arms.",
+  "assumptions": "Assumed that 'NSCLC' is a keyword present in the 'cancer_type' field and that follow-up durations are available for all arms."
+}

@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- Ensure SQL is valid PostgreSQL.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Renal cell trials using PD-L1 where PD-L1 positivity was an inclusion criterion are listed with their details.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and 'Renal cell' is a substring of the 'cancer_type' field."
+}

@@ -1,0 +1,1 @@
+/* empty model output for row 22 cand 1 */ SELECT 1;

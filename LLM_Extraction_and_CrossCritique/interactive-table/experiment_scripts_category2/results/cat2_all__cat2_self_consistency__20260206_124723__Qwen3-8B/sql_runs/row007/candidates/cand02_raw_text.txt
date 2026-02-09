@@ -1,0 +1,10 @@
+- "answer" is 1–2 sentences, "assumptions" is empty if none.
+
+I will now generate the SQL query and answer based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" = 'CTLA4' AND \"trial_phase\" = 'Phase 2' AND \"type_of_combination\" IS NOT NULL",
+  "answer": "Review Phase 2 CTLA-4 combination trials in Non-Small Cell Lung cancer, which include specific regimens and control regimens as detailed in the results.",
+  "assumptions": ""
+}

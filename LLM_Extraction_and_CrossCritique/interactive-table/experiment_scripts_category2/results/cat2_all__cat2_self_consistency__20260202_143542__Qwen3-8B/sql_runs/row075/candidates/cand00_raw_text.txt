@@ -1,0 +1,11 @@
+- answer must be <= 1–2 sentences.
+- assumptions must be a string (empty if none).
+
+I will now write the SQL query to answer the question.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "The SQL query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}

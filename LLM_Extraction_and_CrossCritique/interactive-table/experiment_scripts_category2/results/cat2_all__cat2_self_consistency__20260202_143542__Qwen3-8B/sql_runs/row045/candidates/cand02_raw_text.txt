@@ -1,0 +1,11 @@
+- "answer" should be a concise summary, not just the count.
+- "assumptions" should be a brief explanation of any assumptions made.
+
+I will now generate the SQL query and answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 2';",
+  "answer": "The query retrieves Phase 2 pancreatic trials that evaluated Pembrolizumab.",
+  "assumptions": "Assumes 'Pembrolizumab' is correctly spelled and 'Phase 2' is specified exactly as stored in the database."
+}

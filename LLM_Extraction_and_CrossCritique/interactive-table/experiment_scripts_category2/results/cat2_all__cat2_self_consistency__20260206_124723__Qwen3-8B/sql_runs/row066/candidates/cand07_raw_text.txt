@@ -1,0 +1,7 @@
+- Answer must be <= 1–2 sentences.
+- No markdown.
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ici+ici%' ORDER BY \"year\" DESC;", "answer": "Melanoma studies that tested ICI+ICI combinations include trials with primary endpoints such as overall survival (OS) and progression-free survival (PFS).", "assumptions": "Assuming 'ICI+ICI' combinations are explicitly mentioned in the 'type_of_combination' field."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ici+ici%' ORDER BY \"year\" DESC;", "answer": "Melanoma studies testing ICI+ICI combinations had primary endpoints such as overall survival (OS) and progression-free survival (PFS).", "assumptions": "Assuming 'ICI+ICI' combinations are explicitly noted in the 'type_of_combination' field."}

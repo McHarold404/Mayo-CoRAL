@@ -1,0 +1,12 @@
+- No markdown.
+- Use only the columns listed in the DATABASE section.
+- Use the exact column names, including case and quotes.
+- Assume that the question refers to the primary endpoint follow-up duration.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Melanoma trials with the minimum follow-up duration for the primary endpoint, showing follow-up months by arm.",
+  "assumptions": "Assuming the question refers to the primary endpoint follow-up duration and that 'minimum follow-up' means the smallest value in the 'follow_up_duration_for_primary_endpoint_s_in_months_overall' column."
+}

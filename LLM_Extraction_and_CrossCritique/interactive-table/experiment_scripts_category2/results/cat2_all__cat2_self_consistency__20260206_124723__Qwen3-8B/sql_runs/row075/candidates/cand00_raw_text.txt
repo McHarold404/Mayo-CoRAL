@@ -1,0 +1,9 @@
+- Use double quotes for all strings.
+- Do not include any other text.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" ILIKE '%Chemo%' AND \"class_of_ici\" IS NOT NULL AND \"name_of_ici\" IS NOT NULL AND \"type_of_combination\" ILIKE '%ICI%';",
+  "answer": "The query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assumes that 'ICI+Chemo' combinations are indicated by the presence of both ICI and Chemo in the combination type, and that 'Multiple Myeloma' is specified in the cancer_type column."
+}

@@ -1,0 +1,11 @@
+- "answer" is a sentence or two, not a query.
+- "assumptions" is a sentence or two, not a query.
+- "sql" is a valid, runnable PostgreSQL SELECT query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%pd-l1%' AND \"name_of_ici\" ILIKE '%ctla-4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves non-small cell lung PD-L1, CTLA-4 trials conducted in 2018 or later, including their NCT ID, author, year, and PubMed ID.",
+  "assumptions": "Assumes that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is correctly captured in the 'name_of_ici' column."
+}

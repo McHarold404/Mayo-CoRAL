@@ -1,0 +1,9 @@
+- SQL must be a valid SELECT query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%urothelial%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "The query retrieves urothelial PD-L1, CTLA-4 trials conducted in 2018 or later, including their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is mentioned in the 'name_of_ici' column."
+}

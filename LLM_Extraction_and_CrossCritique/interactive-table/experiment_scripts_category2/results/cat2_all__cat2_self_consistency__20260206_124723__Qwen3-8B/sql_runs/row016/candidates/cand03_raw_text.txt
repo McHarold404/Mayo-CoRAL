@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- Do not include any other text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'yes' AND \"name_of_ici\" ILIKE '%ctla-4%';",
+  "answer": "The query retrieves Melanoma studies included in the meta-analysis that used CTLA-4 agents.",
+  "assumptions": "Assumes that 'included_in_ma' indicates inclusion in a meta-analysis and 'name_of_ici' contains the name of the immunotherapy agent."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'yes' AND \"name_of_ici\" ILIKE '%ctla-4%';",
+  "answer": "The query retrieves Melanoma studies included in the meta-analysis that used CTLA-4 agents.",
+  "assumptions": "Assumes that 'included_in_ma' indicates inclusion in a meta-analysis and 'name_of_ici' contains the name of the immunotherapy agent."
+}

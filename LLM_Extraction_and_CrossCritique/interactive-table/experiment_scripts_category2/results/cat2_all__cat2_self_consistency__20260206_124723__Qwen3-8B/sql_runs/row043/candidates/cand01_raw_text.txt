@@ -1,0 +1,15 @@
+- Answer must be <= 2 sentences.
+- Assumptions must be <= 1 sentence.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"included_in_ma\" = true AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' OR \"class_of_ici\" ILIKE '%PD-L1%')",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD-L1, CTLA-4 agents are listed with their nct, author, year, and pubmed_id.",
+  "assumptions": "Assumes that the 'class_of_ici' field contains the necessary information about the agents used in the trials."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"included_in_ma\" = true AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' OR \"class_of_ici\" ILIKE '%PD-L1%')",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD-L1, CTLA-4 agents are listed with their nct, author, year, and pubmed_id.",
+  "assumptions": "Assumes that the 'class_of_ici' field contains the necessary information about the agents used in the trials."
+}

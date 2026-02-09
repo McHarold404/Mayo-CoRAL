@@ -1,0 +1,10 @@
+- "answer" must be a string (not a list).
+- "assumptions" must be a string (not a list).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "List of Mesothelioma Nivolumab, Ipilimumab trials where overall follow-up exceeded 21 months.",
+  "assumptions": "Assuming that 'Nivolumab' and 'Ipilimumab' are the names of the ICI drugs and that 'Mesothelioma' is the cancer type."
+}

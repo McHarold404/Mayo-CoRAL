@@ -1,0 +1,9 @@
+- The answer must be a string (not a JSON object).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" DESC;",
+  "answer": "Retrieved Small Cell Lung trials with their follow-up durations by arm, sorted by overall follow-up duration.",
+  "assumptions": "Assumed that 'Small Cell Lung' is a substring of the cancer_type field and that follow-up durations are available for all arms."
+}

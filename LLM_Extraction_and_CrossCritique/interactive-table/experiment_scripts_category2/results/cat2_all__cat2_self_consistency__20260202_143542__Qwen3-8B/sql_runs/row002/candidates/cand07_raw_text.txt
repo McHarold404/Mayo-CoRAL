@@ -1,0 +1,16 @@
+- SQL must be a valid SELECT statement.
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion_criteria\" IS TRUE;",
+  "answer": "The query retrieves Melanoma trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "The query retrieves Melanoma trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes \"is_any_other_biomarker_used_for_inclusion\" column indicates use of biomarkers other than PD-L1."
+}

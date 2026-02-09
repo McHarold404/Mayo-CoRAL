@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Durvalumab%' AND \"trial_name\" ILIKE '%Tremelimumab%' AND \"cancer_type\" = 'Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'follow-up'",
+  "answer": "Found 2 trials matching the criteria.",
+  "assumptions": "Assumed 'originial_publication_or_follow_up' column refers to follow-up publications."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Durvalumab%' AND \"trial_name\" ILIKE '%Tremelimumab%' AND \"cancer_type\" = 'Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'follow-up'",
+  "answer": "Found 2 trials matching the criteria.",
+  "assumptions": "Assumed 'originial_publication_or_follow_up' column refers to follow-up publications."
+}

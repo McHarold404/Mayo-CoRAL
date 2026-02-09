@@ -1,0 +1,4 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemo%'", "answer": "Non-Small Cell Lung phase 2 trials that compared ICI to Chemo.", "assumptions": "Assumed that 'ICI' refers to immune checkpoint inhibitors and 'Chemo' refers to chemotherapy."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemo%'", "answer": "Non-Small Cell Lung phase 2 trials that compared ICI to Chemo.", "assumptions": "Assumed that 'ICI' refers to immune checkpoint inhibitors and 'Chemo' refers to chemotherapy."}

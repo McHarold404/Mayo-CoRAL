@@ -1,0 +1,8 @@
+- No markdown.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%'",
+  "answer": "Retrieved breast cancer trials with median follow-up durations by arm (overall, RX, and control arms) along with basic trial metadata.",
+  "assumptions": "Assumed 'median follow-up' is represented by the 'follow_up_duration_for_primary_endpoint_s_in_months' fields. Used ILIKE for cancer type flexibility."
+}

@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4' AND \"type_of_combination\" IS NOT NULL",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung are available, with regimens listed in the treatment_regimen column.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the class_of_ici column and that 'CTLA-4' is mapped to 'CTLA4'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Non-Small Cell Lung' AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND \"type_of_combination\" IS NOT NULL",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung are available, with regimens listed in the treatment_regimen column.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the class_of_ici column and that 'CTLA-4' is mapped to 'CTLA4'."
+}

@@ -1,0 +1,15 @@
+- "answer" must be <= 2 sentences.
+- "assumptions" must be empty unless you made assumptions.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed include NCT numbers, authors, years, and PubMed IDs of Mesothelioma Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that trials with both Nivolumab and Ipilimumab in \"name_of_ici\" field are combinations of the two agents."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed include NCT numbers, authors, years, and PubMed IDs of Mesothelioma Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that trials with both Nivolumab and Ipilimumab in \"name_of_ici\" field are combinations of the two agents."
+}

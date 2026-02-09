@@ -1,0 +1,9 @@
+- Use the exact column names from the table.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL",
+  "answer": "The query retrieves Melanoma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assumes that 'type_of_combination' is not null for combination treatments and 'lines_of_treatment' accurately reflects the number of prior lines."
+}

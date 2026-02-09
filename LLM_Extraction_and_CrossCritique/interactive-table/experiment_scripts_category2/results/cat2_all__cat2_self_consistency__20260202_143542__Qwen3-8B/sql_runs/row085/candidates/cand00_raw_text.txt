@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- Ensure valid JSON.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" = 'Hepatocellular' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No';",
+  "answer": "The query lists Hepatocellular carcinoma trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'Yes' and 'No' are the exact values for the \"is_any_other_biomarker_used_for_inclusion_criteria\" and \"is_pd_l1_positivity_inclusion_criteria\" columns."
+}

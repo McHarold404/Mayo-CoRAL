@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"lines_of_treatment\", \"clincal_setting_in_relation_to_surgery\", \"primary_endpoint\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"type_of_follow_up_given\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\", \"class_of_ici_1\", \"name_of_ici_1\", \"type_of_therapy\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint_1\", \"included_in_ma\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Review Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung cancer, focusing on their treatment regimens and inclusion criteria.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the class_of_ici column and 'CTLA-4' is mapped to 'CTLA4'."
+}

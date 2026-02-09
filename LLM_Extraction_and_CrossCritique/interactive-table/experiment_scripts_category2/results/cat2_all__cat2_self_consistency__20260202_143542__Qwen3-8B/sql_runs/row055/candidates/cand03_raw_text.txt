@@ -1,0 +1,22 @@
+- Use the exact column names from the list.
+- Use the exact spelling of the column names.
+
+I will now generate the SQL query.
+
+The query needs to:
+1. Select nct, author, year, pubmed_id
+2. From public."clinical_trials"
+3. Where "is_pd_l1_positivity_inclusion_criteria" = true
+4. And "priamry_multiple_composite_or_co_primary_endpoints" = true
+5. Order by year
+
+I will now format the SQL query properly.
+
+I will now write the answer and assumptions.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_pd_l1_positivity_inclusion_criteria\" = true AND \"priamry_multiple_composite_or_co_primary_endpoints\" = true ORDER BY \"year\";",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their corresponding author, year, and PubMed ID.",
+  "assumptions": ""
+}

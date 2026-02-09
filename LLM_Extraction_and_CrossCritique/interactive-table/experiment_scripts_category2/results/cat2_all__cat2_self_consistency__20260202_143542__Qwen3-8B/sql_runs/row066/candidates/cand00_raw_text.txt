@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"class_of_ici\" ILIKE '%PD1%';",
+  "answer": "The query retrieves Melanoma studies that tested ICI+ICI combinations and their primary endpoints.",
+  "assumptions": "Assuming that 'PD1' is used in the 'class_of_ici' column to denote PD-1 inhibitors."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"class_of_ici\" ILIKE '%PD1%';",
+  "answer": "The query retrieves Melanoma studies that tested ICI+ICI combinations and their primary endpoints.",
+  "assumptions": "Assuming that 'PD1' is used in the 'class_of_ici' column to denote PD-1 inhibitors."
+}

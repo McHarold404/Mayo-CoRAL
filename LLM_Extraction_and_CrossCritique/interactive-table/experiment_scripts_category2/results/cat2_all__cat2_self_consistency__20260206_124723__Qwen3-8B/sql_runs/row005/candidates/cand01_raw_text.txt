@@ -1,0 +1,10 @@
+- Values must be strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" = 'I' OR \"trial_phase\" = 'II' OR \"trial_phase\" = 'III' ORDER BY \"year\" DESC;",
+  "answer": "The query retrieves Non-Small Cell Lung studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming that 'ICI+Chemo' combinations are explicitly mentioned in the \"type_of_combination\" column and that trials in phases I, II, or III are relevant."
+}

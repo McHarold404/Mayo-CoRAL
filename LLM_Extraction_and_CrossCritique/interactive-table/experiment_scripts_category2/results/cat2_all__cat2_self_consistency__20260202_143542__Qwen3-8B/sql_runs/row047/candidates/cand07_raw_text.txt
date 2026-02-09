@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Use markdown in answer (e.g., **bold**).
+
+I will now generate the SQL query and answer based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "**Melanoma trials** using PD1 where PD-L1 positivity was an inclusion criterion are listed with their corresponding details.",
+  "assumptions": "Assuming 'PD1' is the correct mapping for PD-1 and that 'Melanoma' is mentioned in the cancer_type field."
+}

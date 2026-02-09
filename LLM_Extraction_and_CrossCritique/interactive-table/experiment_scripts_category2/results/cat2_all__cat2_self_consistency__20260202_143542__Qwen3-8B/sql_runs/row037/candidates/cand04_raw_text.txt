@@ -1,0 +1,13 @@
+- "answer" must be a string, not a list.
+- "assumptions" must be a string, not a list.
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+
+# YOUR JSON OUTPUT HERE
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Breast' AND \"number_of_arms\" = 1 AND \"monotherapy_combination\" = 'Monotherapy' AND \"type_of_combination\" = 'Monotherapy' AND \"type_of_control\" = 'Standard of Care' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes' AND \"is_any_other_biomarker_used_for_inclusion\" = 'No'",
+  "answer": "Phase 2 PD-L1 monotherapy trials in Breast cancer that should be reviewed include their treatment regimens, control regimens, and inclusion criteria details.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'Breast' refers to Breast cancer. Trials with only one arm and monotherapy combinations are considered."
+}

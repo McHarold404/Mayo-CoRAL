@@ -1,0 +1,29 @@
+- Use double quotes for all strings.
+- If no rows match, answer is "No matching rows found."
+
+I'll write a PostgreSQL query to find Small Cell Lung trials with minimum follow-up and show months by arm.
+
+First, I need to filter trials where "cancer_type" is 'Small Cell Lung Cancer' (assuming that's the exact value in the database).
+
+Next, I need to find the minimum follow-up duration. The follow-up durations are stored in different columns:
+- follow_up_duration_for_primary_endpoint_s_in_months_overall
+- follow_up_duration_for_primary_endpoint_s_in_months_rx
+- follow_up_duration_for_primary_endpoint_s_in_months_control
+
+I'll calculate the minimum value among these columns using GREATEST() function.
+
+Finally, I'll select the relevant columns including the follow-up durations by arm and show the minimum follow-up value.
+
+I'll make the following assumptions:
+1. The exact value for cancer_type is 'Small Cell Lung Cancer'
+2. The follow-up durations are stored as numeric values
+3. The minimum follow-up is determined by the smallest value among the three follow-up duration columns
+
+Now, I'll write the SQL query:
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung Cancer' ORDER BY GREATEST(\"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\") ASC;",
+  "answer": "Query retrieves Small Cell Lung Cancer trials with minimum follow-up durations by arm (overall, RX, control).",
+  "assumptions": "Assumed 'Small Cell Lung Cancer' is the exact value in \"cancer_type\" column."
+}

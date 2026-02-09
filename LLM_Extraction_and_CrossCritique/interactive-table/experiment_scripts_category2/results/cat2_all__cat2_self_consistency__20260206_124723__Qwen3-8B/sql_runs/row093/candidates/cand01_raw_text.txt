@@ -1,0 +1,12 @@
+- Use the exact column names from the table.
+- Ensure SQL is valid and runnable.
+- Use double quotes for column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%' AND \"trial_phase\" = '2'",
+  "answer": "The query retrieves Colorectal trials that evaluated Durvalumab or Tremelimumab in phase 2.",
+  "assumptions": "Assumes that 'Colorectal' is specified in the 'cancer_type' column and that 'Durvalumab' and 'Tremelimumab' are mentioned in the 'name_of_ici' column."
+}

@@ -1,0 +1,16 @@
+- SQL must be valid PostgreSQL.
+- Answer must be a concise summary of the query result.
+- Assumptions must be a concise summary of any assumptions made.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Esophageal/GEJ%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "The query returns Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Esophageal/GEJ%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "The query returns Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}

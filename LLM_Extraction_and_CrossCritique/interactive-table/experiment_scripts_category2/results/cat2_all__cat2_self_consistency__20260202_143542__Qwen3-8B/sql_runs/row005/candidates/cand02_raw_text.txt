@@ -1,0 +1,10 @@
+- Use the exact column names from the table.
+
+I will now generate the SQL query and answer based on the given requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" = 'II' OR \"trial_phase\" = 'III' ORDER BY \"year\" DESC;",
+  "answer": "Non-Small Cell Lung studies that tested ICI+Chemo combinations had primary endpoints including progression-free survival, overall survival, and objective response rate.",
+  "assumptions": "Assuming trial phases II and III are relevant for combination therapies, and that 'ICI+Chemo' specifically refers to immunotherapy combined with chemotherapy."
+}

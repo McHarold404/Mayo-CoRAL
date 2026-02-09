@@ -1,0 +1,10 @@
+- The answer must be <= 1–2 sentences.
+- The assumptions must be a string (not a list) and may be empty.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 't';",
+  "answer": "The query retrieves renal cell trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the \"class_of_ici\" column and that 'renal' is a keyword for renal cell cancer."
+}

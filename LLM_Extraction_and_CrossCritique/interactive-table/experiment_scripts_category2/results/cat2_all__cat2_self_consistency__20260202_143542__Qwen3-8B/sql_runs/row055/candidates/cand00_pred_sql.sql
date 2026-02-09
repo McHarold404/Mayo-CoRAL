@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT "nct") AS pd_l1_composite_trials, "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "class_of_ici" = 'PD1' AND "name_of_ici" ILIKE '%L1%' AND "priamry_multiple_composite_or_co_primary_endpoints" ILIKE '%composite%' OR "priamry_multiple_composite_or_co_primary_endpoints" ILIKE '%co-primary%';

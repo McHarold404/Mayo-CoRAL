@@ -1,0 +1,15 @@
+- Answer is a concise summary of the query's purpose.
+- Assumptions are any simplifications or assumptions made.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%chemo%' AND \"type_of_control\" = 'Active Control' AND \"type_of_combination\" IS NULL;",
+  "answer": "This query retrieves Non-Small Cell Lung phase 2 trials that compared ICI to Chemo.",
+  "assumptions": "Assumed 'Chemo' is a valid term in the control_regimen field and that 'type_of_combination' being NULL indicates a direct comparison between ICI and Chemo."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%chemo%' AND \"type_of_control\" = 'Active Control' AND \"type_of_combination\" IS NULL;",
+  "answer": "This query retrieves Non-Small Cell Lung phase 2 trials that compared ICI to Chemo.",
+  "assumptions": "Assumed 'Chemo' is a valid term in the control_regimen field and that 'type_of_combination' being NULL indicates a direct comparison between ICI and Chemo."
+}

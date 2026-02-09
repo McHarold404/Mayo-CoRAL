@@ -1,0 +1,4 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes'", "answer": "PD1 trials that reported composite or co-primary endpoints are listed.", "assumptions": "Assuming 'Yes' indicates the presence of composite or co-primary endpoints in the \"priamry_multiple_composite_or_co_primary_endpoints\" field."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes'", "answer": "PD1 trials that reported composite or co-primary endpoints are listed.", "assumptions": "Assuming 'Yes' indicates the presence of composite or co-primary endpoints in the \"priamry_multiple_composite_or_co_primary_endpoints\" field."}

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (LOWER(\"class_of_ici\") ILIKE '%pd-l1%' OR LOWER(\"class_of_ici\") ILIKE '%ctla-4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' OR \"primary_endpoint\" ILIKE '%composite%' OR \"primary_endpoint\" ILIKE '%co-primary%';

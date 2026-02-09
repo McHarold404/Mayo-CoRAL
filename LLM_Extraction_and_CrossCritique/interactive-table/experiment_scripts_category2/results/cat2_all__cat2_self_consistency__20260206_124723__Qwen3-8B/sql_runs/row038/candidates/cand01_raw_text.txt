@@ -1,0 +1,10 @@
+- Use double-quotes for all strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Bladder PD-L1 conducted in 2018 or later, including their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD-L1' is represented as 'PD1' in the 'class_of_ici' column and that 'Bladder' is mentioned in the 'cancer_type' field."
+}

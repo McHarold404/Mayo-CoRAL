@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "total_sample_size" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%melanoma%' AND "name_of_ici" ILIKE '%ipilimumab%' AND "type_of_combination" IS NOT NULL;

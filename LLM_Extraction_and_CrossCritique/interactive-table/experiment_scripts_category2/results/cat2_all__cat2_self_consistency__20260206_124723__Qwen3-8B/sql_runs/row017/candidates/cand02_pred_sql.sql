@@ -1,0 +1,4 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%chemo%'", "answer": "The query retrieves phase 3 Small Cell Lung trials comparing ICI to Chemo.", "assumptions": "Assuming 'chemo' is a valid substring for chemotherapy regimens and that 'class_of_ici' is non-null for ICI trials."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%chemo%'", "answer": "The query retrieves phase 3 Small Cell Lung trials comparing ICI to Chemo.", "assumptions": "Assuming 'chemo' is a valid substring for chemotherapy regimens and that 'class_of_ici' is non-null for ICI trials."}

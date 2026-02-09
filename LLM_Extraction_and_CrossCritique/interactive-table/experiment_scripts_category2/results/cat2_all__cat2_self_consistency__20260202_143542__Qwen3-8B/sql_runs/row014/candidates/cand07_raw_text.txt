@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+
+The user wants to find breast cancer trials that require a biomarker other than PD-L1 for inclusion. So I need to look at the "cancer_type" column to filter for breast cancer and the "is_pd_l1_positivity_inclusion_criteria" column to check if PD-L1 is not required. Also, there's another column "is_any_other_biomarker_used_for_inclusion" that indicates if any other biomarker is used. I should make sure that this is true.
+
+I should select the required columns: "nct", "author", "year", "pubmed_id". Also, I need to count the distinct NCTs to get the number of trials. The query should use COUNT(DISTINCT "nct") and filter the rows where "cancer_type" is 'Breast' and "is_pd_l1_positivity_inclusion_criteria" is false, and "is_any_other_biomarker_used_for_inclusion" is true.
+
+I need to make sure to use the correct column names with double quotes. Also, the answer should mention that the count is based on distinct NCTs. The assumptions should state that the biomarker columns are boolean and that the cancer type is exactly 'Breast'.
+</think>
+
+{
+  "sql": "SELECT COUNT(DISTINCT \"nct\") AS count, \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true GROUP BY \"nct\", \"author\", \"year\", \"pubmed_id\";",
+  "answer": "There are X breast cancer trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'is_pd_l1_positivity_inclusion_criteria' and 'is_any_other_biomarker_used_for_inclusion' are boolean fields, and 'cancer_type' is exactly 'Breast'."
+}

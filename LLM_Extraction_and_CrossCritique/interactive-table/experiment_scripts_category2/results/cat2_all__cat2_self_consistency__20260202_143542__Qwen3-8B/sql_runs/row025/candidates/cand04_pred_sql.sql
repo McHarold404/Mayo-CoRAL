@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%' AND \"primary_endpoint\" ILIKE '%median follow-up%'",
+  "answer": "Retrieved renal cell trials with median follow-up and their follow-up months by arm.",
+  "assumptions": "Assumed that 'median follow-up' is mentioned in the primary endpoint field."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%' AND \"primary_endpoint\" ILIKE '%median follow-up%'", 
+  "answer": "Retrieved renal cell trials with median follow-up and their follow-up months by arm.", 
+  "assumptions": "Assumed that 'median follow-up' is mentioned in the primary endpoint field."
+}

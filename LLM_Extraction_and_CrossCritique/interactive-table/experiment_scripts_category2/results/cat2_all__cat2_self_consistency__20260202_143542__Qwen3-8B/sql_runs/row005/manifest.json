@@ -1,0 +1,47 @@
+{
+  "row_index": 5,
+  "question": "Which Non-Small Cell Lung studies tested ICI+Chemo combinations, and what were the primary endpoints?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL;",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Non-Small Cell Lung studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "pred_assumptions": "Assuming 'ICI+Chemo' is explicitly mentioned in the 'type_of_combination' column and 'Non-Small Cell Lung' is the exact value in 'cancer_type'.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"combination_type\", \"cancer_type\", \"treatment_regimen\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"combination_type\" = 'ICI+Chemo';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_combination\", \"cancer_type\", \"treatment_regimen\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.5,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 3.333703149110079,
+  "pred_exec_error": null,
+  "pred_result_rows": 13,
+  "pred_result_hash": "c8824dd5106fdda25730c60d3ac88f33",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 2.8290296904742718,
+  "gt_exec_error": null,
+  "gt_result_rows": 13,
+  "gt_result_hash": "236df42ce4bb6747f87067a0ee5d91a9",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.4444444444444444,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row005",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row005/candidates"
+}

@@ -1,0 +1,17 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+- SQL must be a valid PostgreSQL query.
+- SQL must reference columns with double quotes.
+- SQL must qualify table as public."clinical_trials".
+- SQL must use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"type_of_therapy\" ILIKE '%chemotherapy%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Breast Chemotherapy trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assumes 'Breast' is identified in the \"cancer_type\" column and 'chemotherapy' is identified in the \"type_of_therapy\" column."
+}

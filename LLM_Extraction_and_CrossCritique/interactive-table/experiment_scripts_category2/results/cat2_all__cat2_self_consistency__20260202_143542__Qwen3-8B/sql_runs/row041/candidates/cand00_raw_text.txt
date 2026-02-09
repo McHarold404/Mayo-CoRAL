@@ -1,0 +1,20 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions field is optional, but include it if needed.
+
+I need to write a PostgreSQL query to find clinical trials related to Non-Small Cell Lung Cancer (NSCLC) that involve PD-L1 and CTLA-4, conducted in 2018 or later.
+
+First, I need to filter the trials by cancer_type. The cancer_type should be 'Non-Small Cell Lung' or similar variations. I'll use ILIKE with %...% to account for possible variations in naming.
+
+Next, I need to check for PD-L1 and CTLA-4. Since the question mentions both PD-L1 and CTLA-4, I should look for trials where either "class_of_ici" is 'PD1' (since PD-1 is mentioned and should be mapped to PD1) or "name_of_ici" includes 'CTLA-4'. However, since the question specifies both PD-L1 and CTLA-4, I need to ensure that the trial includes both agents. This might require checking both "class_of_ici" and "name_of_ici" columns. But I'm not sure if the same trial can have both, so I'll include trials that have either PD-L1 or CTLA-4 and then check if they are conducted in 2018 or later.
+
+I should also consider that the question might mean trials that include both PD-L1 and CTLA-4. In that case, I need to look for trials where "class_of_ici" is 'PD1' and "name_of_ici" includes 'CTLA-4' or vice versa. But I'm not certain if the same trial can have both, so I'll include trials that have either PD-L1 or CTLA-4 and then check the year.
+
+I'll construct a query that selects the required columns, filters by cancer_type, checks for PD-L1 or CTLA-4, and ensures the year is 2018 or later. I'll use ILIKE for the cancer_type to account for variations in naming. I'll also use COUNT(DISTINCT "nct") to count the number of trials.
+
+I need to make sure that the query uses the correct column names and qualifies the table as public."clinical_trials". I'll also ensure that the query returns the required columns: "nct", "author", "year", "pubmed_id".
+
+Finally, I'll format the query and the answer according to the specified format.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%CTLA-4%') AND \"year\"

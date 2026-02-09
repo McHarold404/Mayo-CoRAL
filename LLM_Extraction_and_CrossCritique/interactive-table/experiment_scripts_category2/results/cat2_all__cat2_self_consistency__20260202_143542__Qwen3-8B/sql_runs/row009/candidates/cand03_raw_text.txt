@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"trial_phase\" = 'II' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" DESC;",
+  "answer": "The query retrieves Small Cell Lung trials with minimum follow-up duration by arm, ordered by overall follow-up duration.",
+  "assumptions": "Assuming 'minimum follow-up' refers to the lowest overall follow-up duration, and that 'by arm' implies comparing overall, RX, and control arms."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "The query retrieves Small Cell Lung trials with the minimum overall follow-up duration and shows follow-up months by arm.",
+  "assumptions": "Assuming 'minimum follow-up' refers to the lowest overall follow-up duration, and that 'by arm' implies displaying follow-up for overall, RX, and control arms."
+}

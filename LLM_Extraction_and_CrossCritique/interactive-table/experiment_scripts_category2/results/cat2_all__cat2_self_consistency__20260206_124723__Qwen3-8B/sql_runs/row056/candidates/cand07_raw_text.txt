@@ -1,0 +1,16 @@
+- No markdown.
+- Keep answer concise (1–2 sentences).
+- No extra text, just the JSON.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion_criteria\" IS TRUE;",
+  "answer": "Breast trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"is_pd_l1_positivity_inclusion_criteria\" = false AND \"is_any_other_biomarker_used_for_inclusion\" = true;",
+  "answer": "Breast trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": ""
+}

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Renal cell' AND \"year\" >= 2018;

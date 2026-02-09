@@ -1,0 +1,11 @@
+- The sql must be a valid PostgreSQL SELECT query.
+- The answer must be a concise summary of the query's findings.
+- The assumptions must be a brief description of any assumptions made.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\", \"control_regimen\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung include trials with specific regimens and control regimens, which can be reviewed using the retrieved data.",
+  "assumptions": "Assumed that 'PD1' is the correct class for PD-1 inhibitors and that 'Non-Small Cell Lung' is the exact cancer type."
+}

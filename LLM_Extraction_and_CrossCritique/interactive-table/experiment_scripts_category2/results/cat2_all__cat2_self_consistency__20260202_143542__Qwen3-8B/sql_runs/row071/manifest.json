@@ -1,0 +1,47 @@
+{
+  "row_index": 71,
+  "question": "List Esophageal/GEJ trials requiring a biomarker other than PD\u2011L1 for inclusion.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"is_any_other_biomarker_used_for_inclusion_criteria\\\" = 't' AND \\\"is_pd_l1_positivity_inclusion_criteria\\\" = 'f' AND \\\"cancer_type\\\" = 'Esophageal/GEJ';",
+  "pred_sql_final": "SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"is_any_other_biomarker_used_for_inclusion_criteria\\\" = 't' AND \\\"is_pd_l1_positivity_inclusion_criteria\\\" = 'f' AND \\\"cancer_type\\\" = 'Esophageal/GEJ';",
+  "pred_sql_fixes": [],
+  "pred_answer": "",
+  "pred_assumptions": "",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"other_biomarker_inclusion\", \"cancer_type\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"other_biomarker_inclusion\" = 'Yes';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"is_any_other_biomarker_used_for_inclusion\", \"cancer_type\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"is_any_other_biomarker_used_for_inclusion\" = 'Yes';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "other_biomarker_inclusion",
+      "replaced_with": "is_any_other_biomarker_used_for_inclusion",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "error",
+  "pred_exec_ms": 1.4186440967023373,
+  "pred_exec_error": "(psycopg2.errors.SyntaxError) syntax error at or near \"\\\"\nLINE 1: SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM pub...\n               ^\n\n[SQL: SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"is_any_other_biomarker_used_for_inclusion_criteria\\\" = 't' AND \\\"is_pd_l1_positivity_inclusion_criteria\\\" = 'f' AND \\\"cancer_type\\\" = 'Esophageal/GEJ';]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+  "pred_result_rows": null,
+  "pred_result_hash": "",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.689900040626526,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "0ef3aaa1a285cad570ae401ced9dee32",
+  "results_equal_exact": null,
+  "results_equal_normalized": null,
+  "rowcount_delta_pred_minus_gt": null,
+  "column_overlap_ratio": null,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row071",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row071/candidates"
+}

@@ -1,0 +1,24 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+In your query:
+- Use ONLY the columns listed above and reference them with double quotes.
+- Qualify the table as public."clinical_trials".
+- When counting trials, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+The question asks for NSCLC trials with median follow‑up and show months by arm.
+
+First, identify the relevant columns. The cancer_type is "NSCLC" (non-small cell lung cancer). The follow-up durations are in columns like follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control. The question mentions "median follow-up," which might refer to the overall follow-up, but since the user says "by arm," we need to consider each arm's follow-up. However, the table might not have a direct column for "arm" but might have "control_arm" or other fields. The question says "show months by arm," which might imply separate columns for each arm's follow-up. Since the table has follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control, we'll assume these represent different arms (e.g., overall, treatment, control). We'll include these in the query. We'll filter for cancer_type = 'NSCLC' and select the relevant follow-up columns. We'll also include the required fields: "nct", "author", "year", "pubmed_id".
+
+Now, construct the SQL query to select these columns and filter for NSCLC.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'NSCLC';",
+  "answer": "Retrieved NSCLC trials with median follow-up durations by arm (overall, treatment, control arms).",
+  "assumptions": "Assumed 'follow_up_duration_for_primary_endpoint_s_in_months_overall', 'follow_up_duration_for_primary_endpoint_s_in_months_rx', and 'follow_up_duration_for_primary_endpoint_s_in_months

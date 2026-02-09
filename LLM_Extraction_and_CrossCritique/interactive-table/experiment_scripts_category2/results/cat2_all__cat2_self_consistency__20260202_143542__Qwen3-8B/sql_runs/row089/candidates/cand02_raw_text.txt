@@ -1,0 +1,11 @@
+- Use the exact column names from the table.
+- Use double quotes for column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" IS NOT NULL AND \"type_of_combination\" ILIKE '%chemo%' AND \"cancer_type\" ILIKE '%urothelial%';",
+  "answer": "The query retrieves Urothelial studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assumed that 'ICI+Chemo' combinations are indicated by the presence of an ICI name and the term 'chemo' in the combination type."
+}

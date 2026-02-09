@@ -1,0 +1,28 @@
+- "answer" and "assumptions" are strings; "sql" is a string (runnable PostgreSQL SELECT).
+- "answer" must be <= 1–2 sentences.
+- "assumptions" is a string (empty if none).
+
+I need to write a PostgreSQL query to find trials related to Renal cell cancer that involve PD1 or CTLA-4 as the ICI, and were conducted in 2018 or later.
+
+First, I need to check the columns available in the table. The relevant columns for this query are "cancer_type", "class_of_ici", "name_of_ici", and "year". 
+
+The user is asking for trials involving PD1 or CTLA-4. The "class_of_ici" column should be mapped to "PD1" if PD-1 is mentioned. Also, "CTLA-4" should be checked in the "name_of_ici" column. 
+
+The query needs to filter for "Renal cell" in the "cancer_type" column. The "year" should be greater than or equal to 2018. 
+
+I need to use the ILIKE operator for the "cancer_type" to allow for case-insensitive matching. Also, I should use the exact values for "class_of_ici" and "name_of_ici" as specified. 
+
+I should select the required columns: "nct", "author", "year", "pubmed_id". 
+
+I need to make sure that the query is structured correctly with the WHERE clause to filter the relevant trials. 
+
+I should also check if there are any other possible variations in the data that might affect the results, such as different spellings or formats for the year. 
+
+Finally, I need to format the query as a JSON object with the keys "sql", "answer", and "assumptions" as specified.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Renal cell%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%CTLA-4%') AND \"year\" >= 2018;",
+  "answer": "Trials involving PD1 or CTLA-4 for Renal cell cancer conducted in 2018 or later are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'PD1' is mapped from 'PD-1' mentions and 'CTLA-4' is explicitly named in the data."
+}

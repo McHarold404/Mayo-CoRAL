@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' AND \"primary_endpoint\" IS NOT NULL;",
+  "answer": "The query lists PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming 'PD1' and 'CTLA4' are the correct mappings for PD-1 and CTLA-4, respectively, and that 'Yes' indicates composite or co-primary endpoints."
+}

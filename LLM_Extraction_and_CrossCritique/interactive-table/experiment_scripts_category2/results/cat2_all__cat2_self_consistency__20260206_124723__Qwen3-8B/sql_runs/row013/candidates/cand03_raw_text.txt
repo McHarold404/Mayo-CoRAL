@@ -1,0 +1,12 @@
+- Use double quotes for all strings.
+- SQL must be a valid PostgreSQL query.
+- Answer must be a concise summary of the query result.
+- Assumptions must explain any assumptions made in the query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No' AND \"cancer_type\" = 'Prostate';",
+  "answer": "List of prostate trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming that 'Yes' for 'is_any_other_biomarker_used_for_inclusion_criteria' indicates the use of a biomarker other than PD-L1, and 'No' for 'is_pd_l1_positivity_inclusion_criteria' confirms PD-L1 is not used."
+}

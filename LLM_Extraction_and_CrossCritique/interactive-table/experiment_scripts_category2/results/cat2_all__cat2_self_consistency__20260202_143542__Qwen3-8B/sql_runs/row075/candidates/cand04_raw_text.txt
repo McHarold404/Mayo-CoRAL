@@ -1,0 +1,11 @@
+- "answer" is a concise summary of the query's purpose.
+- "assumptions" is a list of assumptions made (as bullet points, but in one string, with -).
+
+Now, generate the answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"treatment_regimen\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" ILIKE '%chemo%' AND \"name_of_ici\" IS NOT NULL AND \"class_of_ici\" ILIKE '%PD1%'",
+  "answer": "This query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming that 'ICI+Chemo' combinations are identified by non-null 'name_of_ici' and 'type_of_combination' containing 'chemo', and PD-1 ICIs are mapped to 'PD1' in 'class_of_ici'."
+}

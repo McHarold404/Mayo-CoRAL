@@ -1,0 +1,15 @@
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "Renal cell PD1, CTLA-4 trials conducted in 2018 or later are listed with their nct, author, year, and pubmed_id.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "Renal cell PD1, CTLA-4 trials conducted in 2018 or later are listed with their nct, author, year, and pubmed_id.",
+  "assumptions": "Assumed that 'PD1' and 'CTLA-4' refer to immunotherapies and that 'Renal cell' is the correct cancer type."
+}

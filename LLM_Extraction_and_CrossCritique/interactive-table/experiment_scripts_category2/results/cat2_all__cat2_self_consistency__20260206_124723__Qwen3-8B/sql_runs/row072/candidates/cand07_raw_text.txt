@@ -1,0 +1,16 @@
+- Use double quotes for all strings.
+- Use the exact column names from the database as specified above.
+- Do not include any extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS median_follow_up_overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS median_follow_up_rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS median_follow_up_control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%';",
+  "answer": "Retrieved Esophageal/GEJ trials with median follow-up durations by arm.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up for the overall study, 'follow_up_duration_for_primary_endpoint_s_in_months_rx' for the treatment arm, and 'follow_up_duration_for_primary_endpoint_s_in_months_control' for the control arm."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS median_follow_up_overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS median_follow_up_rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS median_follow_up_control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%';",
+  "answer": "Retrieved Esophageal/GEJ trials with median follow-up durations by arm.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up for the overall study, 'follow_up_duration_for_primary_endpoint_s_in_months_rx' for the treatment arm, and 'follow_up_duration_for_primary_endpoint_s_in_months_control' for the control arm."
+}

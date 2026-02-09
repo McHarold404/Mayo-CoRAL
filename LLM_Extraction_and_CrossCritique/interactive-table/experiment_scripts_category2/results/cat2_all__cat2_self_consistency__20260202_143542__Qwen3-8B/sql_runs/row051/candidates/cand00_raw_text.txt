@@ -1,0 +1,12 @@
+- The answer must be a string, not a query result.
+- The answer must be <= 1–2 sentences.
+- The answer must be in English.
+- The assumptions must be a string, not a list.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves Head and Neck trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": ""
+}

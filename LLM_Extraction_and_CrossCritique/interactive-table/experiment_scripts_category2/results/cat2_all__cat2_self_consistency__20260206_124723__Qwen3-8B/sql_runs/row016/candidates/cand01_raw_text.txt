@@ -1,0 +1,14 @@
+- No markdown, no explanation, just the JSON.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'yes' AND \"name_of_ici\" ILIKE '%ctla-4%';",
+  "answer": "The query retrieves Melanoma studies included in the meta-analysis that used CTLA-4 agents.",
+  "assumptions": "Assuming 'included_in_ma' indicates whether the study was included in the meta-analysis and 'name_of_ici' contains the name of the immune checkpoint inhibitor used."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'yes' AND \"name_of_ici\" ILIKE '%ctla-4%';",
+  "answer": "The query retrieves Melanoma studies included in the meta-analysis that used CTLA-4 agents.",
+  "assumptions": "Assuming 'included_in_ma' indicates whether the study was included in the meta-analysis and 'name_of_ici' contains the name of the immune checkpoint inhibitor used."
+}

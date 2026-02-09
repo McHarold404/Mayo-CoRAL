@@ -1,0 +1,10 @@
+- "answer" is the final answer, not the query.
+- "assumptions" is a brief explanation of assumptions made.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'GEJ' refers to Gastric/GEJ cancer and that 'PD1' is the correct class for PD-1 inhibitors."
+}

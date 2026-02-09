@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "The query retrieves renal cell carcinoma trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "The query lists renal cell carcinoma trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'renal cell' is a sufficient keyword for identifying renal cell carcinoma trials."
+}

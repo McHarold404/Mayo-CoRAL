@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%colorectal%' AND \"trial_phase\" = '3' AND \"class_of_ici\" = 'PD1' AND \"number_of_arms\" = 1 AND \"type_of_combination\" IS NULL;",
+  "answer": "Phase 3 PD-L1 monotherapy trials in Colorectal cancer are listed with their regimens.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that a single arm indicates monotherapy."
+}

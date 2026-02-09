@@ -1,0 +1,18 @@
+- No markdown.
+- Use single quotes for strings in SQL.
+- Use double quotes for column names.
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Prostate'",
+  "answer": "The query retrieves prostate trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 't' and 'f' are used to represent true and false in the boolean fields."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f'",
+  "answer": "Prostate trials requiring a biomarker other than PD-L1 for inclusion are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assuming 't' and 'f' represent true and false for boolean fields and 'Prostate' is the exact value in the cancer_type column."
+}

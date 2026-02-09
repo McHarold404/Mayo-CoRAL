@@ -1,0 +1,11 @@
+- Answer and assumptions must be in English.
+- Answer must be <= 1–2 sentences.
+- Use the exact column names from the schema.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%pd1%' OR \"class_of_ici\" ILIKE '%pd-l1%' AND \"type_of_control\" = 'Chemotherapy'",
+  "answer": "The query retrieves Colorectal phase 3 trials that compared ICI to chemotherapy.",
+  "assumptions": "Assumes that 'ICI' refers to PD-1 or PD-L1 inhibitors and that 'Chemotherapy' is explicitly mentioned in the control regimen."
+}

@@ -1,0 +1,27 @@
+- Use valid PostgreSQL syntax.
+- Use the exact column names from the table.
+
+I need to write a PostgreSQL query to find trials related to Renal cell cancer that involve PD1 or CTLA-4 therapies, and were conducted in 2018 or later. Let me break this down step by step.
+
+First, I need to filter for Renal cell cancer. The relevant column is "cancer_type", so I'll use a condition like "cancer_type" = 'Renal cell'.
+
+Next, I need to identify trials that involve PD1 or CTLA-4. The "class_of_ici" column is for the class of ICI, so I'll check for 'PD1' (since PD-1 is mentioned and should be mapped to 'PD1') and 'CTLA-4'. However, there's also a "name_of_ici" column that might have specific names like 'CTLA-4'. I should check both columns for these terms.
+
+Then, I need to consider the year of the trial. The "year" column should be >= 2018.
+
+I also need to include the "nct", "author", "year", and "pubmed_id" in the results as per the requirements.
+
+Now, I need to structure the query. I'll select the required columns from the table, applying the filters on "cancer_type", "class_of_ici", "name_of_ici", and "year". I'll use ILIKE with %...% for free text searches on the "class_of_ici" and "name_of_ici" columns to capture any variations.
+
+I should also check if there are any other columns that might contain the therapy names, like "treatment_regimen" or "monotherapy_combination", but since the question specifically mentions PD1 and CTLA-4, focusing on the ICI-related columns seems sufficient.
+
+Finally, I'll order the results by year to show the most recent trials first.
+
+Let me put this all together into a valid PostgreSQL query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' OR \"name_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%CTLA-4%') AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Renal cell cancer involving PD1/CTLA-4 ICIs from 2018 onwards.",
+  "assumptions": "Assumed 'PD1' maps to PD-1 and 'CTLA-4' is explicitly mentioned in ICI columns."
+}

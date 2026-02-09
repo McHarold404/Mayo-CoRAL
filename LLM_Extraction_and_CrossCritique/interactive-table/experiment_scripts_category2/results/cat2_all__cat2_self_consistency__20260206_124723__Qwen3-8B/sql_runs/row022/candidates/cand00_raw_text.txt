@@ -1,0 +1,16 @@
+- Values must be strings.
+- Use double quotes for all strings.
+- No trailing commas.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" ILIKE '%ICI+Vaccine%';",
+  "answer": "This query retrieves clinical trials for Pancreatic cancer that used ICI+Vaccine combinations.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" ILIKE '%ICI+Vaccine%';",
+  "answer": "The query returns distinct NCT IDs, authors, years, and PubMed IDs for Pancreatic cancer trials using ICI+Vaccine combinations.",
+  "assumptions": "Assumes 'ICI+Vaccine' is explicitly mentioned in the \"type_of_combination\" field."
+}

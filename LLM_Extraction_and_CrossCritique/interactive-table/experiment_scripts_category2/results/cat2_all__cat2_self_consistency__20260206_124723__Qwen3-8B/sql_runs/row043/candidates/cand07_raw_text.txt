@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- Only include the keys sql, answer, and assumptions.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"included_in_ma\" = 'yes' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%')",
+  "answer": "The query retrieves Non-Small Cell Lung studies included in the meta-analysis that used PD-L1 or CTLA-4 agents.",
+  "assumptions": "Assuming 'included_in_ma' indicates whether the study was included in the meta-analysis and 'cancer_type' contains the term 'non-small cell lung'."
+}

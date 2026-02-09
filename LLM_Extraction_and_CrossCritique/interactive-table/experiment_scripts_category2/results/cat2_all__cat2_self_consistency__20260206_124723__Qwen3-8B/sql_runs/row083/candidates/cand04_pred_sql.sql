@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" ILIKE '%neoadjuvant%';

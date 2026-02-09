@@ -1,0 +1,18 @@
+- Use double quotes for strings.
+- Use exact column names from the list.
+- Use ILIKE for free text, and exact match for enum values.
+- Include "nct", "author", "year", "pubmed_id" in the output.
+- When counting, use COUNT(DISTINCT "nct").
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Mesothelioma PD1 conducted in 2018 or later.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Mesothelioma PD1 conducted in 2018 or later.",
+  "assumptions": ""
+}

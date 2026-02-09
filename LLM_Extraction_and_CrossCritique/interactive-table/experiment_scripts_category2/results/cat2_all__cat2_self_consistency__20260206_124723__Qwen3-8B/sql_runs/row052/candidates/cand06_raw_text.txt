@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the schema.
+- Do NOT use any DDL or DML.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"name_of_ici\" = 'Atezolizumab' AND \"trial_phase\" = '3'",
+  "answer": "The Non-Small Cell Lung trials that evaluated Atezolizumab in phase 3 are listed with their respective nct, author, year, and pubmed_id.",
+  "assumptions": ""
+}

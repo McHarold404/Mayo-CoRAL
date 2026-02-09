@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Breast%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves breast cancer trials using PD1 checkpoint inhibitors where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed that \"cancer_type\" contains 'Breast' and \"class_of_ici\" is mapped correctly to 'PD1'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Breast%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "The query returns breast cancer trials using PD1 checkpoint inhibitors with PD-L1 positivity as an inclusion criterion.",
+  "assumptions": "Assumed \"cancer_type\" includes 'Breast' and \"class_of_ici\" is correctly mapped to 'PD1'."
+}

@@ -1,0 +1,15 @@
+- Answer must be <= 2 sentences.
+- Assumptions must be a single string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Prostate';",
+  "answer": "The query retrieves prostate cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes that 'Prostate' is the exact value for the cancer_type column and that 't' and 'f' are used for boolean values in the inclusion criteria columns."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f';",
+  "answer": "This query lists prostate cancer trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'Prostate' is the exact value for \"cancer_type\" and 't'/'f' represent boolean values for biomarker criteria."
+}

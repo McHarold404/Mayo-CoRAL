@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "The query retrieves Non-Small Cell Lung studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "The query retrieves Non-Small Cell Lung studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}

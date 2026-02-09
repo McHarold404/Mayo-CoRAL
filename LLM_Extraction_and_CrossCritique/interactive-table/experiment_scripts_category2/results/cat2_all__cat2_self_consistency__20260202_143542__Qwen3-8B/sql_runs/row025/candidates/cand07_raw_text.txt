@@ -1,0 +1,10 @@
+- No markdown.
+- Ensure valid JSON.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_control\" IS NOT NULL;",
+  "answer": "The query retrieves Renal cell trials with median follow-up duration by arm, showing the overall, RX, and control follow-up in months.",
+  "assumptions": "Assuming that 'median follow-up' refers to the 'follow_up_duration_for_primary_endpoint_s_in_months_overall' field and that all required follow-up fields are present for the trials."
+}

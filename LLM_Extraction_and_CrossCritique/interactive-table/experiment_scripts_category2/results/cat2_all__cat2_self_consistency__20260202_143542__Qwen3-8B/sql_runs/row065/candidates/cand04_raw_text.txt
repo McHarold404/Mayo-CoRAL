@@ -1,0 +1,16 @@
+- Use double quotes for all strings.
+- Use lowercase for keys.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%co-primary%';",
+  "answer": "The query retrieves PD-L1 (PD1) and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND (\"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%co-primary%')",
+  "answer": "The query lists PD-L1 (PD1) and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'co-primary' refers to co-primary endpoints."
+}

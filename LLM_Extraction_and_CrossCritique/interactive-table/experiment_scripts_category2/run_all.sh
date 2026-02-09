@@ -20,23 +20,25 @@ set -euo pipefail
 # -----------------------------
 # Config (hardcode here)
 # -----------------------------
-SCRIPTS="cat2_simple_sql.py"
+SCRIPTS="cat2_self_consistency.py"
 RESULTS_ROOT="results"
 XLSX=""
 
 # ---- MODELS ARRAY (EDIT THIS) ----
 MODELS=(
-  # "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28|Qwen2.5-7B-Instruct"
-  # "/mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659|Llama-3.1-8B-Instruct"
-  # "/mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a|Mistral-7B-Instruct-v0.3"
-  # "/mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.2-1B/snapshots/4e20de362430cd3b72f300e6b0f18e50e7166e08|Llama-3.2-1B"
-  # "/mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b|Lexi-Uncensored-8B"
-  "/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a|gpt-oss-120b"
+  # # "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen2.5-7B-Instruct/snapshots/a09a35458c702b33eeacc393d103063234e8bc28|Qwen2.5-7B-Instruct"
+  # # "/mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659|Llama-3.1-8B-Instruct"
+  # # "/mnt/shared/shared_hf_home/hub/models--mistralai--Mistral-7B-Instruct-v0.3/snapshots/0d4b76e1efeb5eb6f6b5e757c79870472e04bd3a|Mistral-7B-Instruct-v0.3"
+  # # "/mnt/shared/shared_hf_home/hub/models--meta-llama--Llama-3.2-1B/snapshots/4e20de362430cd3b72f300e6b0f18e50e7166e08|Llama-3.2-1B"
+  # # "/mnt/shared/shared_hf_home/hub/models--Orenguteng--Llama-3-8B-Lexi-Uncensored/snapshots/ff95e3bfcd6142759ce82099b58bc7a789ac241b|Lexi-Uncensored-8B"
+  # "/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a|gpt-oss-120b"
+  # "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218|Qwen3-8B"
+  "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen2.5-72B-Instruct/snapshots/495f39366efef23836d0cfae4fbe635880d2be31|Qwen2.5-72B"
 )
 
 TP="1"
-GPU_MEM_UTIL="0.90"
-MAX_MODEL_LEN="8192"
+GPU_MEM_UTIL="0.75"
+MAX_MODEL_LEN="4096"
 DTYPE="bfloat16"
 TEMPERATURE="0.1"
 MAX_TOKENS="600"
@@ -46,7 +48,7 @@ NUM_RUNS="1"
 RUN_SQL="0"
 
 # Default GPU (can override via env or positional arg)
-GPU_DEFAULT="3"
+GPU_DEFAULT="4,5"
 GPU="${GPU:-$GPU_DEFAULT}"
 
 RUN_ID_PREFIX="cat2_all"
@@ -56,10 +58,13 @@ EXTRA_ARGS=""
 # -----------------------------
 # GPU override from positional arg
 # -----------------------------
-if [[ "${1:-}" =~ ^[0-9]+$ ]]; then
+# GPU override from positional arg
+# Accept "7" or "4,5" (or "0,1,2")
+if [[ "${1:-}" =~ ^[0-9]+([,][0-9]+)*$ ]]; then
   GPU="$1"
   shift
 fi
+
 
 # Anything else passed becomes EXTRA_ARGS forwarded to the python script(s)
 if [[ "$#" -gt 0 ]]; then

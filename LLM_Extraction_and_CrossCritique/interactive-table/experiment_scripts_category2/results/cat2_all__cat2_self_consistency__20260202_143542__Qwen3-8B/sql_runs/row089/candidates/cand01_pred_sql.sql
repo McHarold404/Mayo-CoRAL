@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Urothelial' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" = 'I' OR \"trial_phase\" = 'II' OR \"trial_phase\" = 'III';

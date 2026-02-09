@@ -1,0 +1,28 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+Okay, let's tackle this query. The user is asking for Hepatocellular trials that evaluated Pembrolizumab in phase 3.
+
+First, I need to check the relevant columns. The cancer_type should be 'Hepatocellular'. The name_of_ici should be 'Pembrolizumab'. The trial_phase needs to be '3'. 
+
+Wait, the user mentioned phase 3, so the trial_phase column should be exactly '3' or maybe 'III'? But according to the requirements, we should use exact equality for enumerated values. The column is called trial_phase, so I'll check if the data uses '3' or 'III'. But the user's question says phase 3, so probably '3' is the correct value here.
+
+Also, need to make sure that the query selects the required fields: nct, author, year, pubmed_id. The answer should list these trials. 
+
+I should use COUNT(DISTINCT "nct") if they want a count, but the question is asking which trials, so probably return the rows. But the user's example in the requirements says to include those four fields unless the question asks for a count. Since the question is asking for which trials, we need to return the rows with those fields.
+
+So the SQL would select those columns from the table where cancer_type is 'Hepatocellular', name_of_ici is 'Pembrolizumab', and trial_phase is '3'. 
+
+Wait, but what if the trial_phase is stored as 'Phase 3' or 'III'? The user's instruction says to use exact equality. So if the data has '3' as the value, then it's correct. But if it's stored as 'III', then the query would miss it. But since the user specified phase 3, maybe the data uses '3' as the value. 
+
+Also, need to check if there are any other conditions. For example, maybe the trial_phase is part of a larger string, but the column is supposed to be an enumerated value. So using exact match is better.
+
+So the query would be:
+
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'Hepatocellular'
+AND "name_of_ici" = 'Pembrolizumab'
+AND "trial_phase" = '3';
+
+But wait, the user might have trials where Pembrolizumab is part of a combination. However, the question is about trials that evaluated Pembrolizumab, so the name_of_ici should be Pembrolizumab. Unless the combination includes it, but the question is specific to Pembrolizumab. So the query is correct as is

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici_1\" = 'PD1') AND (\"name_of_ici\" ILIKE '%Pembrolizumab%' OR \"name_of_ici_1\" ILIKE '%Pembrolizumab%') AND \"year\" >= 2018;

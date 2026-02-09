@@ -1,0 +1,16 @@
+- The answer must be a string of 1–2 sentences.
+- The assumptions must be a string (empty if none).
+- The SQL must be a valid PostgreSQL SELECT statement.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" = 'ICI+Vaccine';",
+  "answer": "The query retrieves pancreatic trials that used ICI+Vaccine combinations, showing nct, author, year, and pubmed_id.",
+  "assumptions": "Assumes 'ICI+Vaccine' is an exact match for the combination type."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" = 'ICI+Vaccine';",
+  "answer": "The query retrieves pancreatic trials that used ICI+Vaccine combinations, showing nct, author, year, and pubmed_id.",
+  "assumptions": "Assumes 'ICI+Vaccine' is an exact match for the combination type."
+}

@@ -1,0 +1,11 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"lines_of_treatment\", \"clincal_setting_in_relation_to_surgery\", \"primary_endpoint\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"type_of_follow_up_given\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\", \"class_of_ici_1\", \"name_of_ici_1\", \"type_of_therapy\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint_1\", \"included_in_ma\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"class_of_ici_1\" ILIKE '%CTLA-4%' AND \"cancer_type\" ILIKE '%Non-Small Cell Lung%'",
+  "answer": "Phase 2 CTLA-4 combination trials in Non-Small Cell Lung are listed with their regimens.",
+  "assumptions": "Assuming 'CTLA-4' is specified in the class_of_ici_1 column and 'Non-Small Cell Lung' is mentioned in the cancer_type column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"lines_of_treatment\", \"clincal_setting_in_relation_to_surgery\", \"primary_endpoint\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"type_of_follow_up_given\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\", \"class_of_ici_1\", \"name_of_ici_1\", \"type_of_therapy\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint_1\", \"included_in_ma\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"class_of_ici_1\" ILIKE '%CTLA-4%' AND \"cancer_type\"

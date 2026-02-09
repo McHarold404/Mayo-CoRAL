@@ -1,0 +1,10 @@
+- "answer" must be a string, not a count.
+- "assumptions" must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'true' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'false'",
+  "answer": "Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assuming 'GEJ' refers to Gastroesophageal Junction and that the biomarker criteria are explicitly stated as non-PD-L1."
+}

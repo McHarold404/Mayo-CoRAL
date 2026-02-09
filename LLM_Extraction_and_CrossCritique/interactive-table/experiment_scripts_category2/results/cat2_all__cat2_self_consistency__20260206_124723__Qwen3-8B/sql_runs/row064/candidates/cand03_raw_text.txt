@@ -1,0 +1,15 @@
+- The answer should be a concise summary of the query's purpose.
+- The assumptions field should explain any assumptions made during query construction.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%urothelial%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials for urothelial PD-L1 and CTLA-4 treatments conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD-L1' is represented as 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is represented as 'CTLA4'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%urothelial%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials for urothelial cancer involving PD-L1 (PD1) or CTLA-4 treatments conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and 'CTLA-4' is represented as 'CTLA4'."
+}

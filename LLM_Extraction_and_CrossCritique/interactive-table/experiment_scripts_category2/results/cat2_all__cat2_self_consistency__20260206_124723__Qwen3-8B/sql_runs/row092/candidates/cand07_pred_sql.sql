@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Renal cell' AND \"number_of_arms\" > 1;

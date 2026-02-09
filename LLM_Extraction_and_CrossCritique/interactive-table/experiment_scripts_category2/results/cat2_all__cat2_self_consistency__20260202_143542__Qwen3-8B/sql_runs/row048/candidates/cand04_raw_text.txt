@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%chemo+anti-vegf%';",
+  "answer": "The query retrieves Non-Small Cell Lung trials that used Chemo+Anti-VEGF as the control arm by searching for the term in the control_arm column.",
+  "assumptions": "Assumes that 'Non-Small Cell Lung' is explicitly mentioned in the trial name or related fields, and that the control_arm field contains the exact or approximate term 'chemo+anti-vegf'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%chemo+anti-vegf%' AND \"cancer_type\" ILIKE '%non-small cell lung%';",
+  "answer": "The query returns Non-Small Cell Lung trials where the control arm was Chemo+Anti-VEGF, based on exact matches in the specified fields.",
+  "assumptions": "Assumes that 'Non-Small Cell Lung' is explicitly mentioned in the cancer_type column and that 'Chemo+Anti-VEGF' is accurately represented in the control_arm column."
+}

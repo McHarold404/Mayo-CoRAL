@@ -1,0 +1,68 @@
+========================================
+CAT2 SQL (vLLM) - GEN + (optional) EXEC + SAVE + COMPARE
+Model (load): /mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a
+Model (name): gpt-oss-120b
+Run ID: cat2_all__cat2_simple_sql__20260202_121150__gpt-oss-120b
+Results dir: results/cat2_all__cat2_simple_sql__20260202_121150__gpt-oss-120b
+XLSX: ../runs/query-cat2.xlsx
+qcol: natural_language_query | gt col: sql_rewritten
+engine_uri_set: True | run_sql: True
+Auto-fix GT: True | Auto-fix pred: False | max fixes: 6
+Relaxed EM threshold: 0.7
+Resume: 0 rows already completed
+========================================
+INFO 02-02 12:12:01 [utils.py:263] non-default args: {'dtype': 'bfloat16', 'max_model_len': 8192, 'swap_space': 0, 'disable_log_stats': True, 'enforce_eager': True, 'model': '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'}
+Traceback (most recent call last):
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 106, in _inner_fn
+    validate_repo_id(arg_value)
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 154, in validate_repo_id
+    raise HFValidationError(
+huggingface_hub.errors.HFValidationError: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'. Use `repo_type` argument if needed.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 532, in cached_files
+    _get_cache_file_to_return(path_or_repo_id, filename, cache_dir, revision, repo_type)
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/utils/hub.py", line 143, in _get_cache_file_to_return
+    resolved_file = try_to_load_from_cache(
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 106, in _inner_fn
+    validate_repo_id(arg_value)
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/huggingface_hub/utils/_validators.py", line 154, in validate_repo_id
+    raise HFValidationError(
+huggingface_hub.errors.HFValidationError: Repo id must be in the form 'repo_name' or 'namespace/repo_name': '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'. Use `repo_type` argument if needed.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py", line 978, in <module>
+    main()
+  File "/mnt/data1/srchowd3/Mayo-CoRAL/LLM_Extraction_and_CrossCritique/interactive-table/experiment_scripts_category2/cat2_simple_sql.py", line 758, in main
+    llm = LLM(
+          ^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 338, in __init__
+    self.llm_engine = LLMEngine.from_engine_args(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/v1/engine/llm_engine.py", line 168, in from_engine_args
+    vllm_config = engine_args.create_engine_config(usage_context)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/engine/arg_utils.py", line 1360, in create_engine_config
+    maybe_override_with_speculators(
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/vllm/transformers_utils/config.py", line 528, in maybe_override_with_speculators
+    config_dict, _ = PretrainedConfig.get_config_dict(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data2/srchowd3/miniconda3/envs/myenv/lib/python3.12/site-packages/transformers/configuration_utils.py", line 744, in _get_config_dict
+    raise OSError(
+OSError: Can't load the configuration of '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/mnt/shared/shared_hf_home/hub/models--openai--gpt-oss-120b/snapshots/b5c939de8f754692c1647ca79fbf85e8c1e70f8a' is the correct path to a directory containing a config.json file

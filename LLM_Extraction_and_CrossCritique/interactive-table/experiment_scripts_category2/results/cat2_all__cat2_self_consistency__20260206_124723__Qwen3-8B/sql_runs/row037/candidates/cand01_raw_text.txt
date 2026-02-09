@@ -1,0 +1,9 @@
+- Answer must be <= 1–2 sentences.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"monotherapy_combination\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"trial_phase\" = '2' AND \"class_of_ici\" = 'PD1' AND \"monotherapy_combination\" IS NULL;",
+  "answer": "Review Phase 2 PD-L1 monotherapy trials in Breast cancer, which include the specified regimens and ICIs.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the class_of_ici column and that 'monotherapy_combination' being NULL indicates a monotherapy trial."
+}

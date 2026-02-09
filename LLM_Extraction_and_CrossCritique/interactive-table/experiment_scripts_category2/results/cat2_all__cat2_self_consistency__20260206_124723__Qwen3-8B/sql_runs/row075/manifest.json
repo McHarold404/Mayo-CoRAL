@@ -1,0 +1,47 @@
+{
+  "row_index": 75,
+  "question": "Which Multiple Myeloma studies tested ICI+Chemo combinations, and what were the primary endpoints?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" ILIKE '%Chemo%' AND \"class_of_ici\" IS NOT NULL AND \"name_of_ici\" IS NOT NULL AND \"type_of_combination\" ILIKE '%ICI%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" ILIKE '%Chemo%' AND \"class_of_ici\" IS NOT NULL AND \"name_of_ici\" IS NOT NULL AND \"type_of_combination\" ILIKE '%ICI%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "pred_assumptions": "Assumes that 'ICI+Chemo' combinations are indicated by the presence of both ICI and Chemo in the combination type, and that 'Multiple Myeloma' is specified in the cancer_type column.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"combination_type\", \"cancer_type\", \"treatment_regimen\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Multiple Myeloma' AND \"combination_type\" = 'ICI+Chemo';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_combination\", \"cancer_type\", \"treatment_regimen\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4166666666666667,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.6527720727026463,
+  "pred_exec_error": null,
+  "pred_result_rows": 2,
+  "pred_result_hash": "17ad314655c032c8b6b6bac20d78b894",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.2156730517745018,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "0ab6ed112b1e66460db605c984a1e91c",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.4444444444444444,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row075",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row075/candidates"
+}

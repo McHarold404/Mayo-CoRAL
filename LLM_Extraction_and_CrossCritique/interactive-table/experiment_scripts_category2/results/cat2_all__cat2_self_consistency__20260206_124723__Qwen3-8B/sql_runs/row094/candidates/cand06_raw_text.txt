@@ -1,0 +1,16 @@
+- Answer must be <= 1–2 sentences.
+- Answer must be in English.
+- Assumptions must be in English, empty if none.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "The query retrieves trials for Mesothelioma involving Nivolumab and Ipilimumab with overall follow-up exceeding 21 months.",
+  "assumptions": "Assuming that 'Mesothelioma' is a valid cancer type and that the follow-up duration is recorded in the specified column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "The query retrieves trials for Mesothelioma involving Nivolumab and Ipilimumab with overall follow-up exceeding 21 months.",
+  "assumptions": "Assuming that 'Mesothelioma' is a valid cancer type and that the follow-up duration is recorded in the specified column."
+}

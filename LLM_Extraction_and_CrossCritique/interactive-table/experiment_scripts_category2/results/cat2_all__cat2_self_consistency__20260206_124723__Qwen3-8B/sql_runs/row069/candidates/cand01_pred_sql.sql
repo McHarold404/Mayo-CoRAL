@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" ILIKE '%Pd1%' OR \"class_of_ici\" ILIKE '%Checkpoint%' AND \"control_regimen\" ILIKE '%Chemotherapy%' OR \"control_regimen\" ILIKE '%Chemo%'",
+  "answer": "The query retrieves Colorectal phase 3 trials that compared ICI to Chemo.",
+  "assumptions": "Assumed that 'Chemo' refers to chemotherapy and that 'ICI' includes PD-1/PD-L1 inhibitors."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"trial_phase\" ILIKE '%Phase 3%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%Checkpoint%' AND \"control_regimen\" ILIKE '%Chemotherapy%' OR \"control_regimen\" ILIKE '%Chemo%'",
+  "answer": "The query retrieves Colorectal phase 3 trials comparing ICI (PD-1/PD-L1 inhibitors) to chemotherapy or chemo.",
+  "assumptions": "Assumed 'Chemo' refers to chemotherapy and 'ICI' includes PD-1/PD-L1 inhibitors."
+}

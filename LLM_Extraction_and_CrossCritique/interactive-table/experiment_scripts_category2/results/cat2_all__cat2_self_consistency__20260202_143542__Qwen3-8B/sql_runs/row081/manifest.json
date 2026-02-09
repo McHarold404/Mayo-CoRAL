@@ -1,0 +1,57 @@
+{
+  "row_index": 81,
+  "question": "Find Hodgkin Lymphoma trials with median follow\u2011up and show months by arm.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Hodgkin Lymphoma trials with median follow-up duration by arm, including overall, treatment, and control arms.",
+  "pred_assumptions": "Assuming that 'median follow-up' is represented by the 'follow_up_duration_for_primary_endpoint_s_in_months' fields and that the cancer type is mentioned as 'Hodgkin Lymphoma' in the 'cancer_type' column.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"follow_up_type\", \"cancer_type\", \"follow_up_duration_rx_months\", \"follow_up_duration_control_months\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Hodgkin Lymphoma' AND \"follow_up_type\" = 'Median';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_follow_up_given\", \"cancer_type\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Hodgkin Lymphoma' AND \"type_of_follow_up_given\" = 'Median';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_type",
+      "replaced_with": "type_of_follow_up_given",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_duration_rx_months",
+      "replaced_with": "follow_up_duration_for_primary_endpoint_s_in_months_rx",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_duration_control_months",
+      "replaced_with": "follow_up_duration_for_primary_endpoint_s_in_months_control",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3333333333333333,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 3.0079702846705914,
+  "pred_exec_error": null,
+  "pred_result_rows": 1,
+  "pred_result_hash": "f48dc8c80e1de9abea623071f87350e9",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 2.677419688552618,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "4c6e2e86cc13ac48758497f43330653f",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.5,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row081",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 1,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row081/candidates"
+}

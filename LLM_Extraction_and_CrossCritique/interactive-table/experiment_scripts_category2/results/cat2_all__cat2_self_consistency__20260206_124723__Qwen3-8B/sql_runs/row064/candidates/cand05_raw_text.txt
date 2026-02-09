@@ -1,0 +1,11 @@
+- The answer must be <= 1–2 sentences.
+- The answer must be in English.
+- The assumptions must be a string, not a list.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%urothelial%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "The query retrieves urothelial PD-L1 and CTLA-4 trials conducted in 2018 or later, including their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' and 'CTLA-4' is a valid class of ICI."
+}

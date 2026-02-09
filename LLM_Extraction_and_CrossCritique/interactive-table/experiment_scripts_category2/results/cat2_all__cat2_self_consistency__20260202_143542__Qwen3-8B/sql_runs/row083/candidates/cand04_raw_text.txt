@@ -1,0 +1,11 @@
+- "answer" is a string, not a query.
+- "assumptions" is a string, not a query.
+- Use the exact column names from the DATABASE list above.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" = 'Neoadjuvant' AND \"name_of_ici\" IS NOT NULL;",
+  "answer": "The query retrieves breast cancer trials that specified neoadjuvant ICI use.",
+  "assumptions": "Assuming that 'clincal_setting_in_relation_to_surgery' refers to the clinical setting related to surgery and 'name_of_ici' indicates the use of ICI."
+}

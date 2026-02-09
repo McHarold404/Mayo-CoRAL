@@ -1,0 +1,25 @@
+- Use the exact column names and table qualification.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let me try to figure out how to answer this question. The user wants a list of Head and Neck Nivolumab trials where the overall follow-up exceeded 21 months. 
+
+First, I need to check the columns available. The relevant columns here would be "cancer_type" for Head and Neck, "name_of_ici" for Nivolumab, and "follow_up_duration_for_primary_endpoint_s_in_months_overall" for the follow-up duration. 
+
+Wait, the question mentions "overall follow-up exceeded 21 months," so I should look at the "follow_up_duration_for_primary_endpoint_s_in_months_overall" column. The value there needs to be greater than 21. 
+
+But I need to make sure that the cancer type is exactly "Head and Neck". The column is called "cancer_type", so I should use an exact match. Also, the name_of_ici should be "Nivolumab". 
+
+Wait, but what if there are other entries for cancer types that include "Head and Neck" with other terms? The user specified "Head and Neck", so exact match is better. However, if the data might have variations like "Head and Neck Cancer" or "Head Neck", maybe using ILIKE with %...% would be safer. But the requirements say to prefer exact equality for enumerated values. So if "Head and Neck" is an exact value in the cancer_type column, then use equality. Otherwise, maybe use ILIKE. But the user hasn't specified that, so I should assume that "Head and Neck" is the exact value.
+
+Also, the class_of_ici might have PD-1, but the question is about Nivolumab, which is a specific ICI. So the "name_of_ici" should be "Nivolumab". 
+
+So the query should select the required columns (nct, author, year, pubmed_id) from the clinical_trials table where cancer_type is 'Head and Neck', name_of_ici is 'Nivolumab', and follow_up_duration_for_primary_endpoint_s_in_months_overall > 21. 
+
+Wait, but what if the follow-up duration is stored as a string? The column is numeric, I assume, since it's a duration in months. So comparing with > 21 should work. 
+
+I should also check if there are any

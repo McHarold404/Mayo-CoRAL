@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions: empty string if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"trial_phase\" = 'Phase 2' AND \"class_of_ici\" = 'PD1' AND \"monotherapy_combination\" = 'Yes' AND \"type_of_combination\" = 'Monotherapy' AND \"type_of_control\" = 'No control' ORDER BY \"year\" DESC;",
+  "answer": "Phase 2 PD-L1 monotherapy trials in Breast cancer and their regimens can be reviewed using the provided SQL query, which includes trial identifiers, authors, years, PubMed IDs, phases, regimens, and other relevant details.",
+  "assumptions": ""
+}

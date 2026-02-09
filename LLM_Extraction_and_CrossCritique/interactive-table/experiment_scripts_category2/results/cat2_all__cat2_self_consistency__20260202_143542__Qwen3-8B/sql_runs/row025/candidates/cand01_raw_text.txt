@@ -1,0 +1,15 @@
+- Values must be strings.
+- No markdown.
+
+{  
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal Cell Carcinoma' AND \"primary_endpoint\" ILIKE '%median follow-up%' ORDER BY \"year\";",
+  "answer": "The query retrieves renal cell carcinoma trials with median follow-up details by arm, including overall, RX, and control arm follow-up durations.",
+  "assumptions": "Assumes 'median follow-up' is mentioned in the primary endpoint description and that follow-up durations are stored as numeric values."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal Cell Carcinoma' AND \"primary_endpoint\" ILIKE '%median follow-up%' ORDER BY \"year\";",
+  "answer": "The query retrieves renal cell carcinoma trials with median follow-up details by arm, including overall, RX, and control arm follow-up durations.",
+  "assumptions": "Assumes 'median follow-up' is mentioned in the primary endpoint description and that follow-up durations are stored as numeric values."
+}

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'Yes' AND \"name_of_ici\" ILIKE '%ctla-4%';

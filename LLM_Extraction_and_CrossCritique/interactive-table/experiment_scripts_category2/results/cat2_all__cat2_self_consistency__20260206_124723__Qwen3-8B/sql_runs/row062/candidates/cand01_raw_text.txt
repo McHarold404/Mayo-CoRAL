@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assuming that 'GEJ' refers to Gastric-Esophageal Junction and that the biomarker criteria are correctly marked as other than PD-L1."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%') AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assuming that 'GEJ' refers to Gastric-Esophageal Junction and that the biomarker criteria are correctly marked as other than PD-L1."
+}

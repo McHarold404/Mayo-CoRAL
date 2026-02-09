@@ -1,0 +1,11 @@
+- The sql must be a valid PostgreSQL SELECT statement.
+- The answer must be a concise summary of the query's purpose.
+- The assumptions must explain any assumptions made.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "This query lists PD1 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming 'PD1' is the correct mapping for PD-1 and that 'Yes' indicates the presence of composite or co-primary endpoints."
+}

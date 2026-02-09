@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" ILIKE '%Chemo%' AND \"class_of_ici\" IS NOT NULL AND \"name_of_ici\" IS NOT NULL;",
+  "answer": "The query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming 'ICI+Chemo' combinations are indicated by the presence of both ICI and chemotherapy in the combination type, and that 'Multiple Myeloma' is the exact cancer type."
+}

@@ -1,0 +1,14 @@
+- No markdown, no extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%Chemotherapy%' AND \"type_of_control\" = 'Standard of Care' AND \"type_of_combination\" IS NULL;",
+  "answer": "Non-Small Cell Lung phase 2 trials that compared ICI to Chemo are listed in the results.",
+  "assumptions": "Assumed that 'Chemo' refers to Chemotherapy and that 'type_of_combination' being NULL indicates a direct comparison between ICI and Chemo."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%Chemotherapy%' AND \"type_of_control\" = 'Standard of Care' AND \"type_of_combination\" IS NULL;",
+  "answer": "Non-Small Cell Lung phase 2 trials that compared ICI to Chemo are listed in the results.",
+  "assumptions": "Assumed that 'Chemo' refers to Chemotherapy and that 'type_of_combination' being NULL indicates a direct comparison between ICI and Chemo."
+}

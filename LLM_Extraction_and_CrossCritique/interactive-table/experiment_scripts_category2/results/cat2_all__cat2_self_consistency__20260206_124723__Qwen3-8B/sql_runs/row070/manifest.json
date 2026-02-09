@@ -1,0 +1,47 @@
+{
+  "row_index": 70,
+  "question": "Which Esophageal/GEJ trials evaluated Pembrolizumab in phase 3?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%' AND \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"trial_phase\" = '3'",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%' AND \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"trial_phase\" = '3'",
+  "pred_sql_fixes": [],
+  "pred_answer": "The Esophageal/GEJ trials that evaluated Pembrolizumab in phase 3 are listed in the query results.",
+  "pred_assumptions": "Assumed that 'GEJ' refers to gastroesophageal junction and that 'Pembrolizumab' is correctly spelled.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_name\", \"trial_phase\", \"cancer_type\", \"trial_name\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Pembrolizumab' AND \"cancer_type\" = 'Esophageal/GEJ' AND \"trial_phase\" = 'Phase 3';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"name_of_ici\", \"trial_phase\", \"cancer_type\", \"trial_name\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Esophageal/GEJ' AND \"trial_phase\" = 'Phase 3';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.45454545454545453,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 3.6734030582010746,
+  "pred_exec_error": null,
+  "pred_result_rows": 2,
+  "pred_result_hash": "56dd4990d79745c861682ccfdca52eb0",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 2.5376202538609505,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "370874f7ab143509f4dcecc6be7643bb",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 1,
+  "column_overlap_ratio": 0.3,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row070",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 1,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row070/candidates"
+}

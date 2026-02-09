@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list provided.
+- If you need to make an assumption, state it clearly in the assumptions field.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" = 'Placebo' AND \"cancer_type\" = 'Gastric/GEJ';",
+  "answer": "The Gastric/GEJ trials that used Placebo as the control arm are listed in the query results.",
+  "assumptions": "Assumed that 'Gastric/GEJ' is the exact value for the cancer_type column."
+}

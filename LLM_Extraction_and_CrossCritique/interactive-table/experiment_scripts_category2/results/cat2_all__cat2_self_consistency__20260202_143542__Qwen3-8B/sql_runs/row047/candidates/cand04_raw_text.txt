@@ -1,0 +1,11 @@
+- The sql must be a valid PostgreSQL query with proper quoting.
+- The answer must be a concise summary of the query's purpose.
+- The assumptions must be a list of assumptions made, if any.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves Melanoma trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assuming that 'PD1' is the correct mapping for PD-1 and that 'Melanoma' is a substring in the cancer_type field."
+}

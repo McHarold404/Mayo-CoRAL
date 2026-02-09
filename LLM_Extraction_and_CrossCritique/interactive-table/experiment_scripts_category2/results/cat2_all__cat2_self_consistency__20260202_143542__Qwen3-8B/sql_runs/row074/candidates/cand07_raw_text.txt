@@ -1,0 +1,7 @@
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%GEJ%';",
+  "answer": "Trials requiring a biomarker other than PD-L1 for inclusion in Esophageal/GEJ cancer.",
+  "assumptions": "Assumes 'GEJ' refers to gastroesophageal junction and that 'Yes' in \"is_any_other_biomarker_used_for_inclusion_criteria\" indicates use of a biomarker other than PD-L1."
+}

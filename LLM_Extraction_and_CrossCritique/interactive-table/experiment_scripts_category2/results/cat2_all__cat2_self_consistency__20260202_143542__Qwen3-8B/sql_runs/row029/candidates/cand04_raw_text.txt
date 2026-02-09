@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+
+Please reason step by step, and then give the final answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND (\"is_pd_l1_positivity_inclusion_criteria\" = 'No' OR \"is_any_other_biomarker_used_for_inclusion\" = 'Yes')",
+  "answer": "List of Head and Neck trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'is_pd_l1_positivity_inclusion_criteria' being 'No' indicates absence of PD-L1 requirement, and 'is_any_other_biomarker_used_for_inclusion' being 'Yes' indicates use of another biomarker."
+}

@@ -1,0 +1,10 @@
+- Answer must be a string, not a JSON object.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Retrieved gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed that 'GEJ' refers to gastroesophageal junction and that 'PD1' is the correct class mapping for PD-1."
+}

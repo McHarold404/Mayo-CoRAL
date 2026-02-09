@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+I will now write the SQL query to answer the question.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"trial_phase\" = '3'",
+  "answer": "The Melanoma trials that evaluated Pembrolizumab in phase 3 are listed with their respective details.",
+  "assumptions": "Assumed that 'Pembrolizumab' is the exact name used in the 'name_of_ici' column and that 'phase 3' is represented as '3' in the 'trial_phase' column."
+}

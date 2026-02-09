@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%pd-1%' OR \"class_of_ici\" ILIKE '%ctla-4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%';",
+  "answer": "The query retrieves PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming 'PD-L1' is represented as 'PD-1' in the class_of_ici field and 'yes' indicates composite or co-primary endpoints."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%';",
+  "answer": "The query lists PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the class_of_ici field and 'yes' indicates composite or co-primary endpoints."
+}

@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"type_of_combination\" ILIKE '%ici%chemo%' AND \"cancer_type\" ILIKE '%urothelial%'",
+  "answer": "The query retrieves Urothelial cancer trials that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"type_of_combination\" ILIKE '%ici%chemo%' AND \"cancer_type\" ILIKE '%urothelial%\"",
+  "answer": "The query retrieves Urothelial cancer trials that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}

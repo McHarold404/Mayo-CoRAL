@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'Immunotherapy'",
+  "answer": "Retrieved trials with Head and Neck cancer, at least 2 prior lines of therapy, using combination immunotherapy treatment.",
+  "assumptions": "Assumed that 'type_of_therapy' = 'Immunotherapy' indicates combination treatment, and that 'type_of_combination' = 'Combination' correctly categorizes combination therapies."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'Immunotherapy'",
+  "answer": "Retrieved Head and Neck trials with at least 2 prior lines of therapy that used combination immunotherapy treatment.",
+  "assumptions": "Assumed that 'type_of_therapy' = 'Immunotherapy' indicates combination treatment, and that 'type_of_combination' = 'Combination' correctly categorizes combination therapies."
+}

@@ -1,0 +1,11 @@
+- Use standard PostgreSQL syntax.
+- Use the exact column names from the list.
+
+I will now generate the SQL query based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"class_of_ici\" = 'CTLA4' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials of Prostate cancer using CTLA-4 therapy from 2018 onwards.",
+  "assumptions": "Assumed 'CTLA-4' is specified as 'CTLA4' in the class_of_ici column and 'Prostate' is an exact match for cancer_type."
+}

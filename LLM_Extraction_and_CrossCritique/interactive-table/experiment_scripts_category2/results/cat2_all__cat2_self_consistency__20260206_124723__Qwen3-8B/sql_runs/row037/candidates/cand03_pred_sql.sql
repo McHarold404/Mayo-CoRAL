@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Breast' AND \"type_of_combination\" = 'monotherapy' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';

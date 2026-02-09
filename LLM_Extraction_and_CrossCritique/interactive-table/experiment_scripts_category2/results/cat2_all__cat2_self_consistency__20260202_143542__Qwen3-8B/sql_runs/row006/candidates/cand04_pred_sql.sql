@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%chemo%' AND \"type_of_control\" = 'Active Control' AND \"type_of_combination\" IS NULL;

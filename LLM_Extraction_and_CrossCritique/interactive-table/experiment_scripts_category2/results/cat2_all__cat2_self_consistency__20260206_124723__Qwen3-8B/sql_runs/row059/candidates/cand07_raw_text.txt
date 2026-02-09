@@ -1,0 +1,18 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions is a string (empty if none).
+
+Okay, let's tackle this query. The user wants Phase 3 trials involving Nivolumab and Ipilimumab in Non-Small Cell Lung Cancer that are original publications.
+
+First, I need to check the columns. The trial_phase should be 'Phase 3'. The treatment_regimen needs to include both Nivolumab and Ipilimumab. Wait, how are these stored? The treatment_regimen is a single column. Maybe it's a string that lists both drugs. So I can use ILIKE to check for both names. But since it's a single column, I need to ensure both are present. Maybe using ILIKE '%Nivolumab%' AND ILIKE '%Ipilimumab%'?
+
+Next, the cancer_type should be 'Non-Small Cell Lung'. The originial_publication_or_follow_up column should be 'original publication'. Also, the user mentioned original publication publications, so maybe that column's value is 'original publication'.
+
+Also, the class_of_ici might be PD1 for Nivolumab (since PD-1 is mapped to PD1). But the question says Nivolumab and Ipilimumab. Wait, Nivolumab is a PD-1 inhibitor, and Ipilimumab is a CTLA-4 inhibitor. So the class_of_ici for Nivolumab would be PD1, and for Ipilimumab, it's CTLA4. But the user might be referring to the drugs by name, not the class. Wait, the question says "Nivolumab, Ipilimumab trials", so maybe the treatment_regimen should include both drug names. So the treatment_regimen column should have both. So I'll check for both in that column.
+
+Also, the primary_endpoint and other endpoints might be relevant, but the user hasn't specified. So focus on the main criteria.
+
+So the query would select nct, author, year, pubmed_id from public."clinical_trials" where trial_phase = 'Phase 3', treatment_regimen ILIKE '%Nivolumab%' AND treatment_regimen ILIKE '%Ipilimumab%', cancer_type = 'Non-Small Cell Lung', and originial_publication_or_follow_up = 'original publication'.
+
+Wait, but the user might have the drugs in different columns. Wait, the treatment_regimen is one column, and there's also name_of_ici and class_of_ici. Maybe the treatment regimen includes the combination. Alternatively, maybe the name_of_ici could be Nivolumab and Ipilimumab. But the treatment_regimen might be more detailed. So perhaps checking the treatment_regimen for both drug names is better.
+
+Also, need to count distinct nct as per the requirements. Wait, but the user says "find" which might mean return the rows

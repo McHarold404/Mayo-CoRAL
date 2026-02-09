@@ -1,0 +1,9 @@
+- Do NOT add extra text.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"treatment_regimen\" ILIKE '%ici%chemo%' AND \"cancer_type\" = 'Urothelial' AND \"type_of_combination\" ILIKE '%chemo%';",
+  "answer": "The query retrieves Urothelial studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming 'ICI+Chemo' combinations are indicated by the presence of both 'ICI' and 'Chemo' in the treatment regimen, and that 'Urothelial' is the exact cancer type."
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "primary_endpoint" FROM public."clinical_trials" WHERE "trial_phase" ILIKE '%phase iii%' AND "treatment_regimen" ILIKE '%ici%chemo%' AND "cancer_type" ILIKE '%urothelial%'

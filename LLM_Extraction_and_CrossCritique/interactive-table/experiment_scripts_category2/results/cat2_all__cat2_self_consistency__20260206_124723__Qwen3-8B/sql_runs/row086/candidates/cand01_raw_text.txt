@@ -1,0 +1,11 @@
+- "answer" must be a concise sentence(s) NOT a query result.
+- "assumptions" must be a concise sentence(s) NOT a query result.
+- "sql" must be a valid PostgreSQL query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Colorectal' AND \"class_of_ici\" = 'PD1' AND \"number_of_arms\" = 1 AND \"type_of_combination\" = 'Monotherapy' AND \"type_of_control\" = 'Standard of Care' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'yes' AND \"is_any_other_biomarker_used_for_inclusion\" = 'no';",
+  "answer": "Phase 3 PD-L1 monotherapy trials in Colorectal that should be reviewed include their regimens, control regimens, and clinical settings.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'monotherapy' is indicated by 'number_of_arms' = 1 and 'type_of_combination' = 'Monotherapy'."
+}

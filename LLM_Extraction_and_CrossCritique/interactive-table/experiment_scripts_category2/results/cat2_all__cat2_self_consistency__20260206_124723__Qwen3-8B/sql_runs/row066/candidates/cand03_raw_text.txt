@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Answer and assumptions are strings, not lists.
+
+Here's the JSON response:
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"class_of_ici\" IS NOT NULL;",
+  "answer": "The query retrieves Melanoma studies that tested ICI+ICI combinations along with their primary endpoints.",
+  "assumptions": "Assumes that 'ICI+ICI' combinations are explicitly labeled in the \"type_of_combination\" column and that \"class_of_ici\" is populated for all relevant trials."
+}

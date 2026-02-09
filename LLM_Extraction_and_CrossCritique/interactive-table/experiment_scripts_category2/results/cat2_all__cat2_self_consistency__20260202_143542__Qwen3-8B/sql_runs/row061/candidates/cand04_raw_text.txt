@@ -1,0 +1,10 @@
+- Answer must be a string, not a JSON object.
+- Do not include any additional text.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"name_of_ici\" = 'Nivolumab' AND \"name_of_ici_1\" = 'Ipilimumab' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Non-Small Cell Lung Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assuming that 'Nivolumab' and 'Ipilimumab' are the correct names for the ICI and that the follow-up duration is stored as a numeric value."
+}

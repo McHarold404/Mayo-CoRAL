@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%pd-1%' OR \"class_of_ici\" ILIKE '%ctla-4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%'", 
+  "answer": "PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints are listed.", 
+  "assumptions": "Assumed that 'PD-1' is represented as 'PD-1' in the data and 'yes' indicates the presence of composite or co-primary endpoints."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%'", 
+  "answer": "PD-L1 and CTLA-4 trials with composite or co-primary endpoints are listed.", 
+  "assumptions": "Assumed 'PD-1' is stored as 'PD1' in the database and 'yes' indicates composite/co-primary endpoints."
+}

@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' OR \"primary_endpoint\" ILIKE '%composite%' OR \"primary_endpoint\" ILIKE '%co-primary%';",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD1' in \"class_of_ici\" refers to PD-L1 trials and that 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates composite or co-primary endpoints. Also, used ILIKE for partial matches in primary endpoint descriptions."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND (\"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' OR \"primary_endpoint\" ILIKE '%composite%' OR \"primary_endpoint\" ILIKE '%co-primary%')",
+  "answer": "PD-L1 trials with composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed 'PD1' maps to PD-L1, 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates composite/co-primary endpoints, and ILIKE is used for partial endpoint matches."
+}

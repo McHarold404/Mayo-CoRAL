@@ -1,0 +1,57 @@
+{
+  "row_index": 72,
+  "question": "Find Esophageal/GEJ trials with median follow\u2011up and show months by arm.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Esophageal/GEJ trials with median follow-up duration by arm, showing months for overall, RX, and control arms.",
+  "pred_assumptions": "Assumes that 'GEJ' refers to gastroesophageal junction and that 'median follow-up' is represented by the follow-up duration columns.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"follow_up_type\", \"cancer_type\", \"follow_up_duration_rx_months\", \"follow_up_duration_control_months\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"follow_up_type\" = 'Median';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_follow_up_given\", \"cancer_type\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Esophageal/GEJ' AND \"type_of_follow_up_given\" = 'Median';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_type",
+      "replaced_with": "type_of_follow_up_given",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_duration_rx_months",
+      "replaced_with": "follow_up_duration_for_primary_endpoint_s_in_months_rx",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_duration_control_months",
+      "replaced_with": "follow_up_duration_for_primary_endpoint_s_in_months_control",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.26666666666666666,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.145100850611925,
+  "pred_exec_error": null,
+  "pred_result_rows": 10,
+  "pred_result_hash": "1332e6121614aaf2d78d713b054e5c39",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.261744648218155,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "a841df20c66271c73d4a5aad6b98806f",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 8,
+  "column_overlap_ratio": 0.25,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row072",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row072/candidates"
+}

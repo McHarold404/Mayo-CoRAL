@@ -1,0 +1,9 @@
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" ILIKE '%ICI%Chemo%' AND \"type_of_combination_1\" ILIKE '%ICI%Chemo%';",
+  "answer": "The query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming that 'ICI+Chemo' combinations are indicated in the 'type_of_combination' or 'type_of_combination_1' fields."
+}

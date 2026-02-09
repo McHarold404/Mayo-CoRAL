@@ -1,0 +1,17 @@
+- Use double quotes for all strings.
+- Use single quotes for SQL string literals.
+- Use \ to escape " in SQL string literals.
+- Use the exact column names from the list.
+- Use the exact table name.
+- Use the exact spelling of the column names.
+- Use the exact spelling of the table name.
+- Use the exact spelling of the column names.
+- Use the exact spelling of the table name.
+- Use the exact spelling of the column names.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"treatment_regimen\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Urothelial' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" ILIKE '%I%'",
+  "answer": "The query retrieves urothelial cancer trials that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming 'ICI+Chemo' combinations are explicitly mentioned in the \"treatment_regimen\" or \"type_of_combination\" fields, and that trial phases with 'I' (Phase I) are included."
+}

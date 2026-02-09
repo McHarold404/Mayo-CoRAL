@@ -1,0 +1,9 @@
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"control_regimen\", \"cancer_type\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"trial_phase\" = '3' AND \"class_of_ici\" = 'PD1' AND \"type_of_combination\" IS NOT NULL AND \"type_of_combination\" != ''",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung cancer involve specific treatment and control regimens, which are listed in the results.",
+  "assumptions": "Assuming 'PD1' is the correct class for PD-1 inhibitors and that 'Non-Small Cell Lung' is a valid cancer type entry."
+}

@@ -1,0 +1,49 @@
+- "answer" must be <= 1–2 sentences.
+- "assumptions" must be empty or a string.
+
+I need to write a PostgreSQL query to find Phase 3 trials involving Nivolumab and Ipilimumab in Non-Small Cell Lung Cancer that were original publications.
+
+Let me break this down:
+
+1. Phase 3 trials: filter "trial_phase" = 'Phase 3'
+2. Nivolumab and Ipilimumab: need to check both "name_of_ici" and "name_of_ici_1" columns for these drugs
+3. Non-Small Cell Lung Cancer: filter "cancer_type" = 'Non-Small Cell Lung'
+4. Original publication: filter "originial_publication_or_follow_up" = 'original publication'
+
+I need to make sure I'm checking both "name_of_ici" and "name_of_ici_1" for the drugs since some trials might have multiple ICI treatments.
+
+Also, I need to ensure that the query returns the required columns: "nct", "author", "year", "pubmed_id".
+
+Let me write the query:
+
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "trial_phase" = 'Phase 3'
+  AND (
+    ("name_of_ici" = 'Nivolumab' OR "name_of_ici_1" = 'Nivolumab')
+    AND ("name_of_ici" = 'Ipilimumab' OR "name_of_ici_1" = 'Ipilimumab')
+  )
+  AND "cancer_type" = 'Non-Small Cell Lung'
+  AND "originial_publication_or_follow_up" = 'original publication';
+
+Wait, but the condition for both drugs might be better as:
+
+("name_of_ici" = 'Nivolumab' OR "name_of_ici_1" = 'Nivolumab')
+AND
+("name_of_ici" = 'Ipilimumab' OR "name_of_ici_1" = 'Ipilimumab')
+
+That way, it ensures that both drugs are present in either of the ICI columns.
+
+Also, need to check if the query is case-sensitive. Since the data might have varying capitalization, maybe using ILIKE with %...% would be better, but the requirements say to prefer exact equality for enumerated values. So I'll stick with exact matches.
+
+Now, let me check if I'm using the correct columns and double quotes.
+
+Yes, I'm using the exact column names from the list provided.
+
+I should also make sure that I'm not missing any other possible columns where the drugs might be mentioned, but based on the given columns, these are the main ones.
+
+So the final query should look like that.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"

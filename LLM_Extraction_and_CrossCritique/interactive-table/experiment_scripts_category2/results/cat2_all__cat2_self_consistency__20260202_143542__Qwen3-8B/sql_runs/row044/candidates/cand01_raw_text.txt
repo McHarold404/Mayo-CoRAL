@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"class_of_ici\" ILIKE '%CTLA4%' AND \"trial_phase\" = 'Phase 3' AND \"type_of_combination\" ILIKE '%combination%'",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung are available, with regimens detailed in the treatment_regimen column.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the class_of_ici column and that 'combination' in type_of_combination indicates a combination therapy."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"class_of_ici\" ILIKE '%CTLA4%' AND \"trial_phase\" = 'Phase 3' AND \"type_of_combination\" ILIKE '%combination%'",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung are available, with regimens detailed in the treatment_regimen column.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the class_of_ici column and that 'combination' in type_of_combination indicates a combination therapy."
+}

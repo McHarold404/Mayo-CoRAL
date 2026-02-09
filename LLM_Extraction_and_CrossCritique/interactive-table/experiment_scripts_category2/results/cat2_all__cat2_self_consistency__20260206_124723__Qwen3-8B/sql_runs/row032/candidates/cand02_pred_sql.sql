@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "class_of_ici", "priamry_multiple_composite_or_co_primary_endpoints" FROM public."clinical_trials" WHERE "class_of_ici" ILIKE '%PD1%' OR "class_of_ici" ILIKE '%CTLA-4%' AND "priamry_multiple_composite_or_co_primary_endpoints" ILIKE '%composite%' OR "priamry_multiple_composite_or_co_primary_endpoints" ILIKE '%co-primary%';

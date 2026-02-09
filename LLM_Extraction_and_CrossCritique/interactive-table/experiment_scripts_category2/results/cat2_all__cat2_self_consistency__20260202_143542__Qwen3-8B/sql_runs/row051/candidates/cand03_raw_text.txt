@@ -1,0 +1,13 @@
+- Use double quotes for all strings.
+- Use the exact column names from the schema.
+- Use the correct SQL syntax for PostgreSQL.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Map PD-1 to "PD1" in "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants to find Head and Neck trials using PD-L1 where PD-L1 positivity was an inclusion criterion.
+
+First, I need to check the relevant columns. The cancer_type should be 'Head and Neck' or maybe 'Head Neck'? The schema says 'cancer_type', so I should use ILIKE to cover possible variations. Then, the class_of_ici needs to be PD-L1. Wait, the instructions say if PD-1 is mentioned, map to PD1. But here it's PD-L1. Wait, the note says: "If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash)." But PD-L1 is different. Wait, maybe the user made a typo? Or maybe PD-L1 is considered as PD1? Wait, the note says PD-1, not PD-L1. Hmm. But the question specifically says PD-L1. So maybe the class_of_ici column might have entries like 'PD-L1' or 'PD1'? Wait, the note says to map PD-1 to PD1. So if the class_of_ici is 'PD-L1', then it's not mapped. Wait, maybe the user intended PD-L1 to be considered here. But the note is about PD-1. So perhaps in the data, PD-L1 is stored as 'PD-L1' and PD-1 as 'PD1'. But the question is about PD-L1. So I need to check the class_of_ici for 'PD-L1' or maybe 'PD1'? Wait, the note says if PD-1 is mentioned, map to PD1. So if the class_of_ici is PD-1, it's PD1. But the question is about PD-L1, so maybe the class_of_ici is 'PD-L1'. So I should check for 'PD-L1' in class_of_ici. But maybe the user intended PD-L1 to be considered as PD1? Wait, the note is specific to PD-1. So I think the correct approach is to look for 'PD-L1' in the class_of_ici column. Wait, but maybe the data has PD-L1 stored as 'PD1'? Not sure. But according to the

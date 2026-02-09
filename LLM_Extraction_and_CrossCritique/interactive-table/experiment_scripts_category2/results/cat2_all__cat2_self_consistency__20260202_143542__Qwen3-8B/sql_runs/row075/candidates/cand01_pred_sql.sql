@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo' AND \"type_of_combination_1\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "Multiple Myeloma studies that tested ICI+Chemo combinations and their primary endpoints are listed in the query results.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo' AND \"type_of_combination_1\" = 'ICI+Chemo' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "Multiple Myeloma studies that tested ICI+Chemo combinations and their primary endpoints are listed in the query results.",
+  "assumptions": ""
+}

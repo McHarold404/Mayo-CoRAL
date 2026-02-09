@@ -1,0 +1,15 @@
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%pd1%' AND \"name_of_ici\" ILIKE '%ctla-4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved non-small cell lung PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and 'CTLA-4' is in the 'name_of_ici' column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%pd1%' AND \"name_of_ici\" ILIKE '%ctla-4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved non-small cell lung PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and 'CTLA-4' is in the 'name_of_ici' column."
+}

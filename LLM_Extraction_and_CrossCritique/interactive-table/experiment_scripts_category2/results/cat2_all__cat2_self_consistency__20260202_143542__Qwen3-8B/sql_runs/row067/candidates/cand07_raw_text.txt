@@ -1,0 +1,10 @@
+- "answer" must be <= 1–2 sentences.
+- "assumptions" must be an empty string if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves Melanoma trials involving PD1 and CTLA-4 therapies from 2018 onwards.",
+  "assumptions": ""
+}

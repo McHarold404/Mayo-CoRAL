@@ -1,0 +1,10 @@
+- Answer must be a string (not a JSON object).
+- Assumptions must be a string (not a JSON object).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" = 'Neoadjuvant' AND \"name_of_ici\" IS NOT NULL;",
+  "answer": "The query retrieves Breast cancer trials that specified neoadjuvant ICI use.",
+  "assumptions": "Assuming that 'clincal_setting_in_relation_to_surgery' refers to the setting of ICI use and that 'name_of_ici' being non-null indicates ICI use."
+}

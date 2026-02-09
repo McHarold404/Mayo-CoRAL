@@ -1,0 +1,1001 @@
+row_index,question,gt_sql,status,error,result_rows,results_csv
+0,Show Melanoma trials that used ICI+Vaccine combinations.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+Vaccine';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+1,Show Melanoma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+2,List Melanoma trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+3,Show Ipilimumab combination trials in Melanoma with sample sizes.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Ipilimumab' AND ""cancer_type"" = 'Melanoma' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+4,"Which Phase 3 CTLA-4 combination trials in Melanoma should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+5,"Which Non-Small Cell Lung studies tested ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""combination_type"" = 'ICI+Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""combination_type"" = 'ICI+Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+6,Which Non-Small Cell Lung phase 2 trials compared ICI to Chemo?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""control_type"" = 'Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""control_type"" = 'Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+7,"Which Phase 2 CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+8,Which Small Cell Lung trials used Chemo as the control arm?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""control_type"" = 'Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""control_type"" = 'Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+9,Find Small Cell Lung trials with minimum follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""follow_up_type"" = 'Minimum';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""follow_up_type"" = 'Minimum';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+10,List Small Cell Lung trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+11,Show Prostate CTLA-4 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""ici_class"" = 'CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""ici_class"" = 'CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+12,Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+13,List Prostate trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Prostate' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+14,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+15,List CTLA-4 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+16,Show Melanoma studies included in the meta‑analysis that used CTLA-4 agents.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA-4' AND ""included_in_ma"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""include...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'CTLA-4' AND ""included_in_ma"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+17,Which Small Cell Lung phase 3 trials compared ICI to Chemo?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+18,List Renal cell trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+19,Show Non-Small Cell Lung trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+20,Find Phase 2 Pembrolizumab trials in Melanoma that were original publication publications.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+21,Find Melanoma trials with minimum follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""follow_up_type"" = 'Minimum';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""follow_up_type"" = 'Minimum';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+22,Show Pancreatic trials that used ICI+Vaccine combinations.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""combination_type"" = 'ICI+Vaccine';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Pancreatic' AND ""combination_type"" = 'ICI+Vaccine';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+23,"Which Phase 2 CTLA-4 combination trials in Pancreatic should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+24,Find Phase 2 Atezolizumab trials in Non-Small Cell Lung that were original publication publications.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 2' AND ""publication_type"" = 'Original publication';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+25,Find Renal cell trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+26,Show Renal cell trials using PD-L1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+27,List Non-Small Cell Lung trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""other_biomarker_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+28,Find Head and Neck trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+29,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+30,List Head and Neck Nivolumab trials where overall follow‑up exceeded 21 months.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_name"" = 'Nivolumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+31,"Show Renal cell PD1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+32,"List PD1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+33,List PD1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+34,Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+35,Which Gastric/GEJ trials used Placebo as the control arm?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""control_type"" = 'Placebo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""control_type"" = 'Placebo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+36,Show Gastric/GEJ trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+37,"Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Breast' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Monotherapy';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Breast' AND ""trial_phase"" = 'Phase 2' AND ""therapy_modality"" = 'Monotherapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+38,Show Bladder PD-L1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+39,List Bladder trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Bladder' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+40,List CTLA-4 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+41,"Show Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+42,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+43,"Show Non-Small Cell Lung studies included in the meta‑analysis that used PD-L1, CTLA-4 agents.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""include...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+44,"Which Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+45,Which Pancreatic trials evaluated Pembrolizumab in phase 2?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Pancreatic' AND ""trial_phase"" = 'Phase 2';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+46,Which Melanoma trials evaluated Pembrolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Melanoma' AND ""trial_phase"" = 'Phase 3';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+47,Show Melanoma trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+48,Which Non-Small Cell Lung trials used Chemo+Anti-VEGF as the control arm?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""control_type"" = 'Chemo+Anti-VEGF';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""control_type"", ""cancer_type"", ""control_regimen"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""control_type"" = 'Chemo+Anti-VEGF';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+49,"Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+50,Show Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+51,Show Head and Neck trials using PD-L1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""ici_class"" = 'PD-L1' AND ""pdl1_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+52,Which Non-Small Cell Lung trials evaluated Atezolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Atezolizumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+53,List PD-L1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+54,Find Breast trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+55,List PD-L1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Multiple';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+56,List Breast trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+57,Show Non-Small Cell Lung trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+58,List PD1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+59,"Find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Nivolumab, Ipilimumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Original publication';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Nivolumab, Ipilimumab' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Original publication';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+60,"Show Non-Small Cell Lung studies included in the meta‑analysis that used PD1, CTLA-4 agents.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1, CTLA-4' AND ""included_in_ma"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""include...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_class"" = 'PD1, CTLA-4' AND ""included_in_ma"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+61,"List Non-Small Cell Lung Nivolumab, Ipilimumab trials where overall follow‑up exceeded 21 months.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Non-Small Cell Lung' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+62,List Gastric/GEJ trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+63,Find Urothelial trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+64,"Show Urothelial PD-L1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""ici_class"" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+65,"List PD-L1, CTLA-4 trials that reported composite or co-primary endpoints.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1, CTLA-4' AND ""primary_endpoint_is_multiple_or_composite"" = 'Co-primary';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+66,"Which Melanoma studies tested ICI+ICI combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+ICI';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""combination_type"" = 'ICI+ICI';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+67,"Show Melanoma PD1, CTLA-4 trials conducted in 2018 or later.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Melanoma' AND ""ici_class"" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+68,List Breast Chemotherapy trials where overall follow‑up exceeded 21 months.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_name"" = 'Chemotherapy' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_name"" = 'Chemotherapy' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+69,Which Colorectal phase 3 trials compared ICI to Chemo?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""control_type"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""control_type"" = 'Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+70,Which Esophageal/GEJ trials evaluated Pembrolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Esophageal/GEJ' AND ""trial_phase"" = 'Phase 3';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Esophageal/GEJ' AND ""trial_phase"" = 'Phase 3';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+71,List Esophageal/GEJ trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+72,Find Esophageal/GEJ trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+73,Show Esophageal/GEJ PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+74,List Esophageal/GEJ trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Esophageal/GEJ' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+75,"Which Multiple Myeloma studies tested ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""combination_type"" = 'ICI+Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND ""combination_type"" = 'ICI+Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+76,Show Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Multiple Myeloma' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+77,"Which Phase 3 PD1 combination trials in Multiple Myeloma should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Multiple Myeloma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Multiple Myeloma' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+78,"Which Phase 3 PD1 combination trials in Non-Small Cell Lung should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""cancer_type"" = 'Non-Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+79,Show Gastric/GEJ PD-L1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Gastric/GEJ' AND ""ici_class"" = 'PD-L1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+80,Find NSCLC trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'NSCLC' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+81,Find Hodgkin Lymphoma trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hodgkin Lymphoma' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hodgkin Lymphoma' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+82,List PD1 trials that reported composite or co-primary endpoints.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Dual, unspecified';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""primary_endpoint_is_multiple_or_composite"", ""ici_name"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD1' AND ""primary_endpoint_is_multiple_or_composite"" = 'Dual, unspecified';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+83,Which Breast trials specified neoadjuvant ICI use?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""cancer_type"", ""therapy_modality"", ""trial_phase"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""clinical_setting_in_relation_to_surgery"" = 'Neoadjuvant';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""cancer_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""cancer_type"", ""therapy_modality"", ""trial_phase"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""clinical_setting_in_relation_to_surgery"" = 'Neoadjuvant';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+84,Which Hepatocellular trials evaluated Pembrolizumab in phase 3?,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Hepatocellular' AND ""trial_phase"" = 'Phase 3';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Hepatocellular' AND ""trial_phase"" = 'Phase 3';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+85,List Hepatocellular trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hepatocellular' AND ""other_biomarker_inclusion"" = 'No';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Hepatocellular' AND ""other_biomarker_inclusion"" = 'No';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+86,"Which Phase 3 PD-L1 monotherapy trials in Colorectal should I review, and what were their regimens?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Monotherapy';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_p...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""trial_phase"", ""ici_class"", ""therapy_modality"", ""cancer_type"", ""ici_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_class"" = 'PD-L1' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 3' AND ""therapy_modality"" = 'Monotherapy';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+87,Find Colorectal trials with median follow‑up and show months by arm.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""follow_up_type"" = 'Median';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""follow_up_type"", ""cancer_type"", ""follow_up_duration_rx_months"", ""follow_up_duration_control_months""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND ""follow_up_type"" = 'Median';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+88,Show Colorectal trials with at least 2 prior lines of therapy that used combination treatment.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_o...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""lines_of_treatment"", ""therapy_modality"", ""cancer_type"", ""combination_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Colorectal' AND NULLIF(regexp_replace((""lines_of_treatment"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2 AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+89,"Which Urothelial studies tested ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""combination_type"" = 'ICI+Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Urothelial' AND ""combination_type"" = 'ICI+Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+90,Show Breast trials using PD1 where PD‑L1 positivity was an inclusion criterion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_in...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""pdl1_inclusion"", ""ici_class"", ""cancer_type"", ""ici_name"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Breast' AND ""ici_class"" = 'PD1' AND ""pdl1_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+91,Show Renal cell PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Renal cell' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+92,Show Pembrolizumab combination trials in Renal cell with sample sizes.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Renal cell' AND ""therapy_modality"" = 'Combination';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""therapy_modality"", ""cancer_type"", ""total_sample_size"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Pembrolizumab' AND ""cancer_type"" = 'Renal cell' AND ""therapy_modality"" = 'Combination';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+93,"Which Colorectal trials evaluated Durvalumab, Tremelimumab in phase 2?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 2';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type"", ""trial_name"", ""treatment_regimen""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Colorectal' AND ""trial_phase"" = 'Phase 2';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+94,"List Mesothelioma Nivolumab, Ipilimumab trials where overall follow‑up exceeded 21 months.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""follow_up_duration_overall_months"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_name"" = 'Nivolumab, Ipilimumab' AND NULLIF(regexp_replace((""follow_up_duration_overall_months"")::text, '[^0-9\.-]', '', 'g'), '')::numeric > 21;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+95,Show Mesothelioma PD1 trials conducted in 2018 or later.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_cla...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_class"", ""cancer_type"", ""trial_phase""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Mesothelioma' AND ""ici_class"" = 'PD1' AND NULLIF(regexp_replace((""year"")::text, '[^0-9\.-]', '', 'g'), '')::numeric >= 2018;]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+96,List Head and Neck trials requiring a biomarker other than PD‑L1 for inclusion.,"SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_b...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""other_biomarker_inclusion"", ""cancer_type"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Head and Neck' AND ""other_biomarker_inclusion"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+97,"Find Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Follow-up';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_nam...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""ici_name"", ""trial_phase"", ""cancer_type""
+FROM public.""clinical_trials""
+WHERE ""ici_name"" = 'Durvalumab, Tremelimumab' AND ""cancer_type"" = 'Small Cell Lung' AND ""trial_phase"" = 'Phase 3' AND ""publication_type"" = 'Follow-up';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+98,"Which Small Cell Lung studies tested ICI+ICI+Chemo combinations, and what were the primary endpoints?","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combina...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""combination_type"", ""cancer_type"", ""treatment_regimen"", ""primary_endpoint""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""combination_type"" = 'ICI+ICI+Chemo';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,
+99,"Show Small Cell Lung studies included in the meta‑analysis that used PD-L1, CTLA-4 agents.","SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';",error,"(psycopg2.errors.UndefinedColumn) column ""publication_type"" does not exist
+LINE 1: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""include...
+                                        ^
+
+[SQL: SELECT ""nct"", ""author"", ""year"", ""publication_type"", ""included_in_ma"", ""ici_class"", ""cancer_type"", ""ici_name""
+FROM public.""clinical_trials""
+WHERE ""cancer_type"" = 'Small Cell Lung' AND ""ici_class"" = 'PD-L1, CTLA-4' AND ""included_in_ma"" = 'Yes';]
+(Background on this error at: https://sqlalche.me/e/20/f405)",,

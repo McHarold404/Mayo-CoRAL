@@ -1,0 +1,16 @@
+- Answer must be <= 1–2 sentences.
+- No markdown.
+- Do NOT include explanations.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Urothelial' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" = 'I' OR \"trial_phase\" = 'II' OR \"trial_phase\" = 'III';",
+  "answer": "The query retrieves Urothelial clinical trials that tested ICI+Chemo combinations along with their primary endpoints, focusing on Phase I, II, and III trials.",
+  "assumptions": "Assumed that 'ICI+Chemo' refers to combinations involving immune checkpoint inhibitors and chemotherapy, and that Phase I, II, and III trials are relevant."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Urothelial' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" IN ('I', 'II', 'III');",
+  "answer": "The query retrieves Urothelial clinical trials that tested ICI+Chemo combinations along with their primary endpoints, focusing on Phase I, II, and III trials.",
+  "assumptions": "Assumed that 'ICI+Chemo' refers to combinations involving immune checkpoint inhibitors and chemotherapy, and that Phase I, II, and III trials are relevant."
+}

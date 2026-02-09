@@ -1,0 +1,10 @@
+- "answer" must be a string with 1–2 sentences.
+- "assumptions" must be a string (empty if none).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%NSCLC%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL;",
+  "answer": "This query retrieves NSCLC trials with median follow-up durations by arm, including overall, treatment, and control arms.",
+  "assumptions": "Assumes that 'NSCLC' is a substring of the cancer_type field and that follow-up durations are provided in months."
+}

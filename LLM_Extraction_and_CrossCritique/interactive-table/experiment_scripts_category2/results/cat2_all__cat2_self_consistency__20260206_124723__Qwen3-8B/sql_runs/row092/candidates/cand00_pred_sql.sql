@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%'", 
+  "answer": "The query retrieves Pembrolizumab combination trials in Renal cell cancer with their total sample sizes.", 
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%'", 
+  "answer": "The query retrieves Pembrolizumab combination trials in Renal cell cancer with their total sample sizes.", 
+  "assumptions": ""
+}

@@ -1,0 +1,15 @@
+- "answer" must be a summary of the query's purpose, not the result.
+- "assumptions" must be a list of assumptions made, if any.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials involving PD1 and CTLA-4 inhibitors for Renal cell cancer conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD1' and 'CTLA-4' refer to the immune checkpoint inhibitors, and that 'Renal cell' corresponds to the 'cancer_type' field."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials involving PD1 and CTLA-4 inhibitors for Renal cell cancer conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD1' and 'CTLA-4' refer to the immune checkpoint inhibitors, and that 'Renal cell' corresponds to the 'cancer_type' field."
+}

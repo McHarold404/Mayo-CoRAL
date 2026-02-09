@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%'",
+  "answer": "Retrieved trials for Hodgkin Lymphoma with median follow-up durations by arm.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up and that values are in months."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%'",
+  "answer": "Retrieved Hodgkin Lymphoma trials with median follow-up durations by arm, showing overall, RX, and control arm follow-up in months.",
+  "assumptions": "Assumed 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up and values are in months. Also assumed trial arms are labeled as RX and control."
+}

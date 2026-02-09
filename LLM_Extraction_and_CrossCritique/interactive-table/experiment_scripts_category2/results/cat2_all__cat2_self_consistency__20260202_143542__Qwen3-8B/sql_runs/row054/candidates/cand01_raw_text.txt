@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS median_overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS median_rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS median_control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_control\" IS NOT NULL;",
+  "answer": "The query retrieves breast cancer trials with median follow-up durations by arm, including overall, RX, and control arms.",
+  "assumptions": "Assumes that the follow-up durations are available for all arms in the selected trials."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS median_overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS median_rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS median_control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_control\" IS NOT NULL;",
+  "answer": "The query retrieves breast cancer trials with median follow-up durations by arm, including overall, RX, and control arms.",
+  "assumptions": "Assumes that the follow-up durations are available for all arms in the selected trials."
+}

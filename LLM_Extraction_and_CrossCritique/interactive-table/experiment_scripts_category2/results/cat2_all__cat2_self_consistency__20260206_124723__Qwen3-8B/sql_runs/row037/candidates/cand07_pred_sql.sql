@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_phase", "treatment_regimen", "name_of_ici", "class_of_ici" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%breast%' AND "trial_phase" = '2' AND "class_of_ici" = 'PD1' AND "number_of_arms" = 1 AND "type_of_combination" IS NULL;

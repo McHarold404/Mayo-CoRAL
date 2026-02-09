@@ -1,0 +1,29 @@
+- No markdown.
+- Use the exact column names from the list, always quoted.
+
+I need to write a PostgreSQL query to find trials related to Prostate cancer that involve CTLA-4 as the immunotherapy checkpoint inhibitor (ICI), and were conducted in 2018 or later.
+
+First, I'll check the columns available in the table. The relevant columns for this query are:
+
+- "cancer_type" for the cancer type (Prostate)
+- "name_of_ici" for the specific ICI (CTLA-4)
+- "year" to filter trials from 2018 onwards
+
+I need to make sure that the query selects the required columns: "nct", "author", "year", "pubmed_id". 
+
+I should use the ILIKE operator for the "cancer_type" and "name_of_ici" columns since they might contain free text. 
+
+I'll construct the query to select the specified columns from the "clinical_trials" table where "cancer_type" ILIKE '%Prostate%' and "name_of_ici" ILIKE '%CTLA-4%', and "year" >= 2018. 
+
+I need to verify that there are no other columns that might be relevant, but based on the list provided, these are the key ones. 
+
+I should also ensure that the query is properly formatted with double quotes around the column names as specified. 
+
+Finally, I'll make sure the query is a SELECT statement and does not include any DDL or DML operations.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Prostate%' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved Prostate CTLA-4 trials conducted in 2018 or later with required metadata.",
+  "assumptions": "Assumed 'CTLA-4' is the exact name_of_ici; used ILIKE for partial matches."
+}

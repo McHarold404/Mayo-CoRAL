@@ -1,0 +1,9 @@
+- SQL must be a valid PostgreSQL query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" = 'Esophageal/GEJ' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No';",
+  "answer": "The query lists Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes that 'Yes' in \"is_any_other_biomarker_used_for_inclusion_criteria\" indicates the use of a biomarker other than PD-L1, and 'No' in \"is_pd_l1_positivity_inclusion_criteria\" confirms PD-L1 is not required."
+}

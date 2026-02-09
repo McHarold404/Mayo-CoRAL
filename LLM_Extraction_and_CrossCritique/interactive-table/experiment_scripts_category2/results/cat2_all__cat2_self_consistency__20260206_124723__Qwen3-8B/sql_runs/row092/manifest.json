@@ -1,0 +1,52 @@
+{
+  "row_index": 92,
+  "question": "Show Pembrolizumab combination trials in Renal cell with sample sizes.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%' AND \"number_of_arms\" > 1;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%' AND \"number_of_arms\" > 1;",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Pembrolizumab combination trials in Renal cell cancer with their sample sizes.",
+  "pred_assumptions": "Assuming that trials with more than one arm are considered combination trials, and that 'Pembrolizumab' is mentioned in the 'name_of_ici' field.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_name\", \"therapy_modality\", \"cancer_type\", \"total_sample_size\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Pembrolizumab' AND \"cancer_type\" = 'Renal cell' AND \"therapy_modality\" = 'Combination';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"name_of_ici\", \"monotherapy_combination\", \"cancer_type\", \"total_sample_size\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Renal cell' AND \"monotherapy_combination\" = 'Combination';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "therapy_modality",
+      "replaced_with": "monotherapy_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4166666666666667,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.7378958873450756,
+  "pred_exec_error": null,
+  "pred_result_rows": 3,
+  "pred_result_hash": "c4f8e9c8c2514b83012c55af057e4962",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.6910750418901443,
+  "gt_exec_error": null,
+  "gt_result_rows": 3,
+  "gt_result_hash": "0fe5850c29ea46abe35b2e9ef212a57b",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.4,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row092",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 1,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row092/candidates"
+}

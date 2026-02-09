@@ -1,0 +1,19 @@
+- Use the exact column names from the list, including double quotes.
+- Use ILIKE for free text, and exact match for enum values.
+
+Okay, let's tackle this query. The user wants Breast trials with median follow-up and show months by arm. First, I need to identify the relevant columns. The cancer_type should be 'Breast' exactly. Then, the follow-up durations are spread across several columns: follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control. These probably correspond to overall, treatment arm, and control arm respectively.
+
+The user mentioned "median follow-up," but the data might not have a median specifically. Maybe they mean the follow-up duration for the primary endpoint. So I should include all three columns to show months by arm. Also, the question says "show months by arm," which suggests including all three durations. 
+
+I need to make sure to use the exact column names with double quotes. The answer should count distinct NCTs, authors, years, and pubmed_ids. The assumptions would be that the follow-up durations are in those columns and that 'Breast' is the exact value for cancer_type. 
+
+Wait, the user didn't mention anything about the arms directly, but the columns for follow-up by arm are there. So the query should select those columns along with the required fields. Also, the answer needs to mention that it's showing the follow-up months for each arm. 
+
+I should structure the SQL to select the necessary columns, filter where cancer_type is 'Breast', and include all the follow-up duration columns. The answer should state that it's retrieving the follow-up months for each arm. Assumptions are that the columns correctly represent the follow-up durations and that 'Breast' is the correct value.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast'",
+  "answer": "Retrieved breast cancer trials with median follow-up durations shown by arm (overall, treatment, and control arms).",
+  "assumptions": "Assumes 'Breast' is the exact value for \"cancer_type\" and that follow-up duration columns represent median values."
+}

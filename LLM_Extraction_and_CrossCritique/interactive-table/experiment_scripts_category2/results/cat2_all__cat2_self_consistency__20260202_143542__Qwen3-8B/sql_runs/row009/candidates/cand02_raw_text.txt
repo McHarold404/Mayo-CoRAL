@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+I will now generate the SQL query and answer based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" DESC;",
+  "answer": "Retrieved Small Cell Lung trials with minimum follow-up durations by arm, sorted by overall follow-up duration.",
+  "assumptions": "Assumed 'minimum follow-up' refers to the lowest overall follow-up duration. If multiple arms have varying follow-up, the overall duration is used for sorting."
+}

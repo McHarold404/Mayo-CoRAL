@@ -1,0 +1,10 @@
+- "answer" must be a concise summary of the query's purpose.
+- "assumptions" must be a brief description of any assumptions made.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "List of Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming that 'GEJ' refers to Gastric-Esophageal Junction cancer and that 'is_any_other_biomarker_used_for_inclusion_criteria' indicates the use of a biomarker other than PD-L1."
+}

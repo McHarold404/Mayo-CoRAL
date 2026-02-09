@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Mesothelioma' AND \"name_of_ici\" = 'Nivolumab' AND \"name_of_ici_1\" = 'Ipilimumab' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;

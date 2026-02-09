@@ -1,0 +1,13 @@
+- Use the exact column names from the table.
+
+You are an expert clinical-trials data analyst. Write a PostgreSQL query on table public."clinical_trials" to answer the question.
+
+QUESTION:
+Which Phase 3 PD1 combination trials in Non-Small Cell Lung should I review, and what were their regimens?
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"treatment_regimen\", \"control_regimen\", \"type_of_combination\", \"class_of_ici\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung are listed with their treatment regimens and control regimens.",
+  "assumptions": "Assuming 'PD1' is the correct mapping for PD-1 and 'Non-Small Cell Lung' is the exact cancer type value in the database."
+}

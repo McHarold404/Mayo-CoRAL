@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "trial_phase" = '3' AND "class_of_ici" ILIKE '%pd1%' OR "class_of_ici" ILIKE '%pd-l1%' AND "type_of_control" = 'Chemotherapy' AND "trial_phase" = '3' AND "cancer_type" = 'Colorectal Cancer';

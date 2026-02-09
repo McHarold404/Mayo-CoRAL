@@ -1,0 +1,14 @@
+- Do NOT include extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head%neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Head and Neck trials using PD-L1 with PD-L1 positivity as an inclusion criterion are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the \"class_of_ici\" column and that 'Head and Neck' is captured by the ILIKE pattern '%head%neck%'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head%neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Head and Neck trials using PD-L1 with PD-L1 positivity as an inclusion criterion are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the \"class_of_ici\" column and that 'Head and Neck' is captured by the ILIKE pattern '%head%neck%'."
+}

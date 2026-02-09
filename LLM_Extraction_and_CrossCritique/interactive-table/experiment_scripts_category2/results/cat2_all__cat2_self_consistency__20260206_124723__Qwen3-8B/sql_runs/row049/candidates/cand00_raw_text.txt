@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"year\" >= 2018;",
+  "answer": "The query retrieves Head and Neck PD-L1 and CTLA-4 trials conducted in 2018 or later by selecting relevant trials from the clinical_trials table.",
+  "assumptions": "Assumes that 'PD-L1' is referred to as 'PD1' in the class_of_ici column and that 'CTLA-4' is referred to as 'CTLA4' in the same column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"year\" >= 2018;",
+  "answer": "The query retrieves Head and Neck PD-L1 and CTLA-4 trials conducted in 2018 or later by selecting relevant trials from the clinical_trials table.",
+  "assumptions": "Assumes that 'PD-L1' is referred to as 'PD1' in the class_of_ici column and that 'CTLA-4' is referred to as 'CTLA4' in the same column."
+}

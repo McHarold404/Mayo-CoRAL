@@ -1,0 +1,47 @@
+{
+  "row_index": 31,
+  "question": "Show Renal cell PD1, CTLA-4 trials conducted in 2018 or later.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' OR \"name_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%CTLA-4%') AND \"year\" >= 2018;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' OR \"name_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%CTLA-4%') AND \"year\" >= 2018;",
+  "pred_sql_fixes": [],
+  "pred_answer": "Retrieved trials for Renal cell cancer involving PD1/CTLA-4 ICIs from 2018 onwards.",
+  "pred_assumptions": "Assumed 'PD1' maps to PD-1 and 'CTLA-4' is explicitly mentioned in ICI columns.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_class\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Renal cell' AND \"ici_class\" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"class_of_ici\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Renal cell' AND \"class_of_ici\" = 'PD1, CTLA-4' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.2857142857142857,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 3.1135696917772293,
+  "pred_exec_error": null,
+  "pred_result_rows": 8,
+  "pred_result_hash": "e690ea634578df93ea761b934bc1adf1",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.174248617142439,
+  "gt_exec_error": null,
+  "gt_result_rows": 3,
+  "gt_result_hash": "d069d2187cb849c462eadbff8b88bf89",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 5,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row031",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 1,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row031/candidates"
+}

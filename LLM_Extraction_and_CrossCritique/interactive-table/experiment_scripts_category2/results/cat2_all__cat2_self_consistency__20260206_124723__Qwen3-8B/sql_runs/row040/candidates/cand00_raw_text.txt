@@ -1,0 +1,14 @@
+- Answer must be <= 1–2 sentences.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'CTLA-4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "CTLA-4 trials that reported composite or co-primary endpoints are listed with their details.",
+  "assumptions": "Assumed that 'priamry_multiple_composite_or_co_primary_endpoints' column is correctly named and contains 'Yes' for composite or co-primary endpoints."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'CTLA-4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%co-primary%';",
+  "answer": "CTLA-4 trials reporting composite or co-primary endpoints are listed with their details.",
+  "assumptions": "Assumed the column \"priamry_multiple_composite_or_co_primary_endpoints\" contains text indicating composite or co-primary endpoints, and the name_of_ici is correctly specified as 'CTLA-4'."
+}

@@ -1,0 +1,12 @@
+- Use single quotes for string literals in SQL.
+- Use double quotes for column names.
+- Use double quotes for table names.
+- Use double quotes for JSON keys.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" ILIKE '%PD-L1%' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Bladder cancer with PD-L1 ICI conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD-L1' in the class_of_ici column refers to PD-1/PD-L1 inhibitors."
+}

@@ -1,0 +1,24 @@
+- Use the exact column names from the table.
+- Use the exact spelling in the column names.
+- Use double quotes for column names.
+
+I need to write a SQL query to find all Multiple Myeloma studies that tested ICI+Chemo combinations and retrieve their primary endpoints.
+
+First, I'll filter for "cancer_type" = 'Multiple Myeloma'.
+
+Next, I need to identify trials that used ICI+Chemo combinations. Looking at the columns, "type_of_combination" and "type_of_combination_1" might be relevant. Since the question mentions "ICI+Chemo", I should check if either of these columns contains "Chemo" in combination with an ICI.
+
+I'll use ILIKE to search for "Chemo" in the combination type columns. Also, I need to ensure that the ICI class is present, so I'll check "class_of_ici" and "class_of_ici_1" for values like "PD1" or "PD-L1" (though the instructions say to map PD-1 to "PD1").
+
+I'll also include the primary endpoints from both "primary_endpoint" and "primary_endpoint_1" columns, as there might be multiple primary endpoints.
+
+I'll make sure to include the required columns: "nct", "author", "year", "pubmed_id".
+
+Now, I'll construct the SQL query with these considerations.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\", \"primary_endpoint_1\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND (\"type_of_combination\" ILIKE '%Chemo%' OR \"type_of_combination_1\" ILIKE '%Chemo%') AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici_1\" ILIKE '%PD1%')",
+  "answer": "The query retrieves Multiple Myeloma trials testing ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assumes 'ICI+Chemo' combinations are indicated by 'Chemo' in type_of_combination columns and PD1 in ICI class columns."
+}

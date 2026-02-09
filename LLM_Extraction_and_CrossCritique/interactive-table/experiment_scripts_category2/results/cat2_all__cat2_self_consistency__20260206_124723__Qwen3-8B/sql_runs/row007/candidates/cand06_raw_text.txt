@@ -1,0 +1,11 @@
+- Use the exact column names from the table.
+- Use double quotes around column names.
+- Do NOT use any backticks or other formatting.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"trial_phase\" = '2' AND \"class_of_ici\" = 'CTLA4' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Phase 2 CTLA-4 combination trials in Non-Small Cell Lung cancer involve specific regimens and control regimens, which can be reviewed using the provided query.",
+  "assumptions": "Assumes that 'CTLA-4' is correctly mapped to 'CTLA4' in the 'class_of_ici' column and that 'Non-Small Cell Lung' is a valid search term for the 'cancer_type' column."
+}

@@ -1,0 +1,11 @@
+- "answer" must be a string of 1–2 sentences.
+- "assumptions" must be a string of 0–2 sentences.
+- "sql" must be a valid PostgreSQL query that returns the required data.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes'",
+  "answer": "The query lists PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assumes 'PD1' and 'CTLA4' are the exact values for class_of_ici for PD-L1 and CTLA-4 respectively."
+}

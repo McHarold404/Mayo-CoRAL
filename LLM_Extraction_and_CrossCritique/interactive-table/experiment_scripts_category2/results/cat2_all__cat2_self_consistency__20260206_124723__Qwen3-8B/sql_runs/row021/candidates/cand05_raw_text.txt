@@ -1,0 +1,14 @@
+- No markdown, no extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "The query retrieves Melanoma trials with the minimum follow-up duration for primary endpoints, showing the follow-up months by arm (overall, RX, and control).",
+  "assumptions": "Assumes that the follow-up duration for each arm is recorded in the respective columns and that 'Melanoma' is an exact match for the cancer_type column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "The query retrieves Melanoma trials with the minimum follow-up duration for primary endpoints, showing the follow-up months by arm (overall, RX, and control).",
+  "assumptions": "Assumes that the follow-up duration for each arm is recorded in the respective columns and that 'Melanoma' is an exact match for the cancer_type column."
+}

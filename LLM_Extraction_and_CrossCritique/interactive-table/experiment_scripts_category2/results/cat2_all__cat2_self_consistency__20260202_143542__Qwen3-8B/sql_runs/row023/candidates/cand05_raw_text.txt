@@ -1,0 +1,27 @@
+- "answer" must be a string, not a list.
+- "assumptions" must be a string, not a list.
+- "sql" must be a valid PostgreSQL query (no backticks, no markdown).
+- "sql" must reference columns with double quotes.
+- "sql" must qualify the table as public."clinical_trials".
+- "sql" must use COUNT(DISTINCT "nct") when counting trials.
+- "sql" must include "nct", "author", "year", "pubmed_id" in SELECT unless the question explicitly asks for a count or summary statistic.
+
+Okay, let's tackle this query. The user is asking for Phase 2 CTLA-4 combination trials in Pancreatic cancer and their regimens. 
+
+First, I need to identify the relevant columns. The trial_phase should be 'Phase 2'. The class_of_ici needs to be 'CTLA4' since they mentioned CTLA-4. The cancer_type is 'Pancreatic'. Also, the trials are combinations, so the monotherapy_combination should be 'Combination' or maybe the type_of_combination is relevant. Wait, the columns include 'monotherapy_combination' and 'type_of_combination'. The question says "combination trials", so maybe the monotherapy_combination is 'Combination' or the type_of_combination is something like 'Combination'. 
+
+Wait, looking at the columns, there's 'monotherapy_combination' which could indicate if it's a combination. But the user is asking for combination trials, so maybe that field should be 'Combination'. Also, the 'type_of_combination' might have values like 'Combination' or other types. 
+
+But the user specifically mentions "CTLA-4 combination trials", so the class_of_ici is 'CTLA4' and the type_of_combination might be 'Combination'. Alternatively, maybe the 'monotherapy_combination' is 'Combination' meaning it's a combination regimen. 
+
+Also, the 'name_of_ici' could be 'CTLA-4', but the class_of_ici is mapped as 'CTLA4' (without dash). So the class_of_ici should be 'CTLA4'. 
+
+The cancer_type is 'Pancreatic'. 
+
+So the query needs to select trials where trial_phase is 'Phase 2', class_of_ici is 'CTLA4', cancer_type is 'Pancreatic', and maybe monotherapy_combination is 'Combination' or type_of_combination is 'Combination'. 
+
+Wait, the user is asking for combination trials, so perhaps the monotherapy_combination is 'Combination' (since that column's description is 'monotherapy_combination', which would indicate if it's a combination regimen). Alternatively, the type_of_combination might be 'Combination'. 
+
+But the exact column names are important. The columns are:
+
+- mon

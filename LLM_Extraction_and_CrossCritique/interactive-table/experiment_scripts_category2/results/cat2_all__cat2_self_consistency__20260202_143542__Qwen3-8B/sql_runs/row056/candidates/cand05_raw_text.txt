@@ -1,0 +1,14 @@
+- Answer must be <= 1–2 sentences.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "This query retrieves breast cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes that 'Breast' is the exact value for cancer_type and that the presence of a biomarker other than PD-L1 is indicated by the is_any_other_biomarker_used_for_inclusion flag."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE AND NOT \"is_pd_l1_positivity_inclusion_criteria\";",
+  "answer": "The query lists breast cancer trials requiring biomarkers other than PD-L1 for patient inclusion.",
+  "assumptions": "Assumes 'Breast' is the exact value for cancer_type and that the flags correctly indicate biomarker requirements."
+}

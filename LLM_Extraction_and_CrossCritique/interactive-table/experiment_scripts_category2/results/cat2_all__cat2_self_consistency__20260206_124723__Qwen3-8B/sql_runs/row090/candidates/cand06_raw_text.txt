@@ -1,0 +1,11 @@
+- Use the exact column names from the list.
+- For the answer, provide a concise summary of the query result.
+- For assumptions, explain any assumptions made in the query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "The query returns breast cancer trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed that 'PD1' is the correct mapping for PD-1 and that 'Breast' is the exact value for the cancer type."
+}

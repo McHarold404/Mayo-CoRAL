@@ -1,0 +1,11 @@
+- Answer must be a string, not a JSON object.
+- Use the exact column names from the table.
+
+I will now generate the SQL query and answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Bladder' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Retrieved trials for Bladder cancer using PD1 with PD-L1 positivity as an inclusion criterion.",
+  "assumptions": "Assumed 'PD1' maps to PD-1 and 'PD-L1 positivity' is captured by the boolean flag."
+}

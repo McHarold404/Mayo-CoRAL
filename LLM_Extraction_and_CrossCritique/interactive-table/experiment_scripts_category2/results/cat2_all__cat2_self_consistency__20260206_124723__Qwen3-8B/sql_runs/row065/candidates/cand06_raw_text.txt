@@ -1,0 +1,14 @@
+- Do NOT include anything else.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%pd-1%' OR \"class_of_ici\" ILIKE '%pd1%') OR \"class_of_ici\" ILIKE '%ctla-4%' AND \"priamry_multiple_composite_or_co_primary_endpoints\"::boolean = true;",
+  "answer": "PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints are listed.",
+  "assumptions": "Assumed that 'PD-L1' is represented as 'PD1' in the class_of_ici column and that 'priamry_multiple_composite_or_co_primary_endpoints' is a boolean field."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%pd1%' OR \"class_of_ici\" ILIKE '%ctla-4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\"::boolean = true;",
+  "answer": "PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints are listed.",
+  "assumptions": "Assumed that 'PD-L1' is represented as 'PD1' in the class_of_ici column, and that 'priamry_multiple_composite_or_co_primary_endpoints' is a boolean field indicating composite/co-primary endpoints."
+}

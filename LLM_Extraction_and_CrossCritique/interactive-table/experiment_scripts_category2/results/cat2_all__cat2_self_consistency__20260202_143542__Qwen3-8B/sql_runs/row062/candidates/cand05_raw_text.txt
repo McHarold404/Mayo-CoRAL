@@ -1,0 +1,15 @@
+- Use double-quotes for all strings.
+- Do NOT include any other text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"class_of_ici\" != 'PD1' AND \"class_of_ici\" != 'PD1' ORDER BY \"year\" DESC;",
+  "answer": "Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assuming that 'GEJ' refers to Gastric/GEJ adenocarcinoma and that the 'class_of_ici' column correctly identifies the ICI class, excluding PD1."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%') AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true AND \"class_of_ici\" != 'PD1' ORDER BY \"year\" DESC;",
+  "answer": "Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assuming 'GEJ' refers to Gastric/GEJ adenocarcinoma and that 'class_of_ici' correctly identifies the ICI class, excluding PD1."
+}

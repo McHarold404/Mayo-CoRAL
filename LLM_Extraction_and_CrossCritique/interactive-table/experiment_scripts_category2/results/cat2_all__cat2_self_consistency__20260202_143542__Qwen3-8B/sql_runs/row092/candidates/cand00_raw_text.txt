@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+
+I will now generate the SQL query based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%';",
+  "answer": "Retrieved trials with Pembrolizumab combinations in Renal cell cancer along with their sample sizes.",
+  "assumptions": "Assuming 'combination' is implied by the presence of Pembrolizumab with other therapies, as the exact combination type may not be explicitly stated."
+}

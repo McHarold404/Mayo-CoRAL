@@ -1,0 +1,14 @@
+- No markdown.
+
+{  
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Melanoma trials with the minimum follow-up duration by arm are listed, showing overall, RX, and control follow-up in months.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents the minimum follow-up across all arms, and that non-null values indicate valid follow-up data."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Melanoma trials with the minimum follow-up duration by arm are listed, showing overall, RX, and control follow-up in months.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents the minimum follow-up across all arms, and that non-null values indicate valid follow-up data."
+}

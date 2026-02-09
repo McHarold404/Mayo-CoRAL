@@ -1,0 +1,10 @@
+- "answer" must be a string, not a count.
+- "assumptions" must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%pd1%' OR \"class_of_ici\" ILIKE '%checkpoint% inhibitor%' AND \"type_of_control\" ILIKE '%chemotherapy%';",
+  "answer": "The query retrieves Colorectal phase 3 trials that compared ICI to chemotherapy.",
+  "assumptions": "Assuming 'ICI' refers to immune checkpoint inhibitors and 'Chemo' refers to chemotherapy, and that the terms are captured by the specified patterns."
+}

@@ -1,0 +1,20 @@
+- Use the exact column names and double quotes.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants Esophageal/GEJ trials with median follow-up and show months by arm. First, I need to identify the relevant columns. The cancer_type should be 'Esophageal/GEJ' or similar. The follow-up durations are in columns like follow_up_duration_for_primary_endpoint_s_in_months_overall, but the question mentions median follow-up, which might be in the overall or per arm. Wait, the user says "by arm," so maybe we need to check the control arm and treatment arms.
+
+Looking at the columns, there's follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control. The 'rx' might stand for treatment arm, and 'control' for the control group. So, to show months by arm, I should include these three columns. However, the question says "median follow-up," but the data might have the median as a value in those columns. 
+
+Also, the user wants to show the months by arm, so I need to include all three follow-up durations. But the question is about Esophageal/GEJ trials, so filter cancer_type like '%Esophageal/GEJ%'. Also, check if there are any other columns related to arms, like number_of_arms or control_arm. The control_arm column might indicate the control group's name, but the user might just want the durations. 
+
+The required columns to include are nct, author, year, pubmed_id as per the requirements. So the query should select those plus the follow-up durations. The answer should explain that the query retrieves the trials with Esophageal/GEJ cancer type and includes the median follow-up months for each arm. Assumptions: that the follow-up durations are stored in the specified columns and that the cancer_type is correctly captured with the ILIKE condition.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal/gej%';",
+  "answer": "

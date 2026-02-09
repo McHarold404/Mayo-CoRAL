@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Bladder' AND "class_of_ici" = 'PD1' AND "is_pd_l1_positivity_inclusion_criteria" = true;

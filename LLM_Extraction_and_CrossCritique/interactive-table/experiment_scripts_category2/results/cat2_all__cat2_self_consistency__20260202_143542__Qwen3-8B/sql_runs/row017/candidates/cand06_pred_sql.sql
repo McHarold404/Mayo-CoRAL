@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"type_of_control\" = 'Chemotherapy' AND \"type_of_therapy\" = 'Immune Checkpoint Inhibitor';

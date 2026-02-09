@@ -1,0 +1,15 @@
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Head and Neck Nivolumab trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assuming that 'Nivolumab' is specified in the 'name_of_ici' column and that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' is the correct column for overall follow-up duration."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"name_of_ici\" = 'Nivolumab' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Head and Neck Nivolumab trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assuming that 'Nivolumab' is specified in the 'name_of_ici' column and that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' is the correct column for overall follow-up duration."
+}

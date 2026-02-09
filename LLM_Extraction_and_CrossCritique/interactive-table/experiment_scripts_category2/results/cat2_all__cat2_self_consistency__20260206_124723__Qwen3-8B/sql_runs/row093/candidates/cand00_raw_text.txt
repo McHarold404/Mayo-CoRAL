@@ -1,0 +1,12 @@
+- Values must be strings.
+- No markdown.
+- Use the exact column names from the table.
+
+I will now generate the SQL query and answer based on the given question.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Colorectal' AND (\"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%') AND \"trial_phase\" = 'Phase 2';",
+  "answer": "The SQL query retrieves Colorectal trials that evaluated Durvalumab or Tremelimumab in Phase 2 from the clinical_trials table.",
+  "assumptions": "Assumes 'Colorectal' is the exact value for the cancer_type column and that 'Phase 2' is the exact value for the trial_phase column."
+}

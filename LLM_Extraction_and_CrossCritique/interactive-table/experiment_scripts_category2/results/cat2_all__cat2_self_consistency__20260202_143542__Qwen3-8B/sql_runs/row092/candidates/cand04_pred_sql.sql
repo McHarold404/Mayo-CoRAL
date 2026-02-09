@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "total_sample_size" FROM public."clinical_trials" WHERE ("name_of_ici" ILIKE '%pembrolizumab%' OR "monotherapy_combination" ILIKE '%pembrolizumab%') AND "cancer_type" ILIKE '%renal cell%';

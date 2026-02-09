@@ -1,0 +1,27 @@
+- Use the exact column names from the list, with double quotes.
+- Use the exact spelling of the column names.
+- Use the exact spelling of the table name.
+- You must use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+
+Okay, let's tackle this question. The user wants to find Non-Small Cell Lung trials that used Chemo+Anti-VEGF as the control arm.
+
+First, I need to check the columns available. The relevant columns here are "cancer_type" and "control_arm". The cancer_type should be 'Non-Small Cell Lung' and the control_arm should be 'Chemo+Anti-VEGF'. 
+
+Wait, the user specified "Non-Small Cell Lung" trials, so I should look for exact matches in the "cancer_type" column. Also, the control_arm needs to exactly match 'Chemo+Anti-VEGF'. 
+
+I should use the COUNT(DISTINCT "nct") to count the trials. The query should select the required columns: "nct", "author", "year", "pubmed_id". 
+
+I need to make sure to qualify the table as public."clinical_trials". Also, check if there are any assumptions. For example, maybe the control_arm is stored with different capitalization or additional text. But the user didn't mention that, so I'll assume exact match. 
+
+So the SQL query would be selecting the specified columns from the table where cancer_type is 'Non-Small Cell Lung' and control_arm is 'Chemo+Anti-VEGF', then count the distinct nct. 
+
+Wait, the answer needs to be a count, so the query should include the count. But the user also said to include the rows with the specified columns unless the question asks for a count. However, the question is asking which trials, so maybe they want the list. But the example in the requirements says to return rows and include the specified columns. However, the answer part should be the count. 
+
+Wait, the instructions say that unless the question asks for a count, return rows. But the user's question is "Which trials...", so they want the list. But the answer should be a sentence. So perhaps the answer is the count, and the SQL selects the rows. 
+
+Wait, the output format says that if the question asks for a count or summary, use COUNT(DISTINCT). Otherwise, return rows. The user's question is "Which Non-Small Cell Lung trials...", so they want the list. But the answer part should be a sentence. So maybe the answer is the count, and the SQL selects the rows. 
+
+But the user might want

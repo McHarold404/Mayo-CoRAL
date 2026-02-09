@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%'",
+  "answer": "Retrieved combination trials involving Pembrolizumab in Renal cell cancer with their sample sizes.",
+  "assumptions": "Assumed that 'Renal cell' refers to Renal Cell Carcinoma and that 'combination' is implied by the presence of Pembrolizumab with other therapies."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%'",
+  "answer": "Retrieved combination trials involving Pembrolizumab in Renal cell cancer with their sample sizes.",
+  "assumptions": "Assumed that 'Renal cell' refers to Renal Cell Carcinoma and that 'combination' is implied by the presence of Pembrolizumab with other therapies."
+}

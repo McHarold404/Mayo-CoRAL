@@ -1,0 +1,23 @@
+- "answer" must be <= 1–2 sentences.
+- "assumptions" must be empty if none.
+
+I need to write a PostgreSQL query to find Small Cell Lung studies that tested ICI+ICI+Chemo combinations and their primary endpoints.
+
+First, I'll filter for "cancer_type" = 'Small Cell Lung'.
+
+Next, I need to check for combinations of ICI+ICI+Chemo. The "treatment_regimen" column might contain this information. I'll look for rows where "treatment_regimen" ILIKE '%ICI%ICI%Chemo%'.
+
+For the primary endpoints, I'll select the "primary_endpoint" column.
+
+I'll also include the required fields: "nct", "author", "year", "pubmed_id".
+
+I'll make sure to use the correct column names with double quotes and qualify the table as public."clinical_trials".
+
+I'll construct the SQL query accordingly.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"treatment_regimen\" ILIKE '%ICI%ICI%Chemo%';",
+  "answer": "Small Cell Lung studies testing ICI+ICI+Chemo combinations and their primary endpoints are listed with their respective NCT IDs, authors, publication years, and PubMed IDs.",
+  "assumptions": ""
+}

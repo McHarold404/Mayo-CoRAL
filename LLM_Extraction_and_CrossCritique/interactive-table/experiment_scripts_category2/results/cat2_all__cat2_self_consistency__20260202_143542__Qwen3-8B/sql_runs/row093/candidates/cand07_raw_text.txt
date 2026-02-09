@@ -1,0 +1,9 @@
+- Use the exact column names from the table.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%' AND \"trial_phase\" = '2' AND \"cancer_type\" = 'Colorectal Cancer';",
+  "answer": "The query retrieves Colorectal Cancer trials that evaluated Durvalumab and/or Tremelimumab in phase 2.",
+  "assumptions": "Assuming 'Colorectal Cancer' is the exact value for the cancer type and that 'phase 2' is the exact value for the trial phase."
+}

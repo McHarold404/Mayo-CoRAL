@@ -1,0 +1,8 @@
+- Answer must be <= 1–2 sentences.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" = 'Breast Cancer' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No';",
+  "answer": "This query lists breast cancer trials that require a biomarker other than PD-L1 for patient inclusion.",
+  "assumptions": "Assumes 'Breast Cancer' is the exact value for cancer_type and 'Yes'/'No' are the exact values for the biomarker criteria fields."
+}

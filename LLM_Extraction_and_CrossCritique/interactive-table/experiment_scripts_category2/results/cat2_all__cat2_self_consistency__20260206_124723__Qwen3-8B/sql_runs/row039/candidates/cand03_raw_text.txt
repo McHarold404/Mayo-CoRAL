@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the schema.
+- If no rows match, answer is "No matching trials found."
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No' AND \"cancer_type\" = 'Bladder Cancer';",
+  "answer": "List of Bladder trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'Bladder Cancer' is the exact value for the cancer_type column and that 'Yes' and 'No' are the exact values for the biomarker inclusion criteria."
+}

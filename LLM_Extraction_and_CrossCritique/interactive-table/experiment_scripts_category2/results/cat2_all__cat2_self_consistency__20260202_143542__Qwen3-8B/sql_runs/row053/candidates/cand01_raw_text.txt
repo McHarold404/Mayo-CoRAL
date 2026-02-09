@@ -1,0 +1,14 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+- Use the exact spelling of the column names.
+- Qualify the table as public."clinical_trials".
+- When counting trials, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this question. The user wants a list of PD-L1 trials that reported composite or co-primary endpoints. 
+
+First, I need to understand the columns involved. The relevant columns here are "class_of_ici" for PD-L1, which should be checked for 'PD-L1' or 'PD1' as per the note. Wait, the requirement says if PD-1 is mentioned, map to "PD1". But the column is "class_of_ici". So PD-L1 would be 'PD-L1' in the column, but if there's PD-1, it should be mapped to PD1. However, the user is asking for PD-L1 trials, so maybe we should check for 'PD-L1' in the class_of_ici column. Wait, the instruction says to map PD-1 to PD1. But the column is called class_of_ici. So if the value is 'PD-1', we need to map it to 'PD1'. But the question is about PD-L1 trials, so maybe the class_of_ici should be 'PD-L1'. However, the user might have entries with PD-1, which should be converted to PD1. Wait, the instruction says if PD-1 is mentioned, map to PD1 for class_of_ici. So the column 'class_of_ici' could have values like 'PD1' or 'PD-L1', but if it's 'PD-1', we need to map it to 'PD1'. Wait, the note says to map PD-1 to PD1. So perhaps the column might have entries like 'PD-1', which we should convert to 'PD1'. But since we are using exact equality for enumerated values, maybe the column has 'PD-L1' as the exact value. But the user might have entries with 'PD-1', which should be considered as PD1. However, the problem is that the column's exact spelling is 'class_of_ici', and the user's instruction says to use exact equality unless free text is needed. So maybe the correct approach is to check if 'class_of_ici' is 'PD-L1' or 'PD1' (

@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"monotherapy_combination\", \"type_of_combination\", \"class_of_ici\", \"name_of_ici\", \"control_regimen\", \"type_of_control\", \"primary_endpoint\", \"secondary_endpoint\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Pancreatic' AND \"class_of_ici\" = 'CTLA4' AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'Immunotherapy' AND \"name_of_ici\" = 'Ipilimumab' AND \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Pancreatic' AND \"class_of_ici\" = 'CTLA4' AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'Immunotherapy' AND \"name_of_ici\" = 'Ipilimumab'",
+  "answer": "Phase 2 CTLA-4 combination trials in Pancreatic cancer with Ipilimumab as the ICI are available. Review the listed trials for their specific regimens and details.",
+  "assumptions": "Assumed that 'CTLA-4' is mapped to 'CTLA4' in the class_of_ici column and that 'Ipilimumab' is the correct name_of_ici for CTLA-4 inhibitors."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"monotherapy_combination\", \"type_of_combination\", \"class_of_ici\", \"name_of_ici\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Pancreatic' AND \"class_of_ici\" = 'CTLA4' AND \"type_of_combination\" = 'Combination' AND \"name_of_ici\" = 'Ipilimumab'",
+  "answer": "Phase 2 CTLA-4 combination trials in Pancreatic cancer involving Ipilimumab are listed. Review the results for detailed regimen information.",
+  "assumptions": "Assumed 'CTLA-4' maps to 'CTLA4' in the class_of_ici column and that 'Ipilimumab' is the correct name_of_ici for CTLA-4 inhibitors."
+}

@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Esophageal%' OR \"cancer_type\" ILIKE '%GEJ%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f'",
+  "answer": "List of Esophageal/GEJ trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumed that 'GEJ' refers to Gastroesophageal Junction and that the biomarker criteria are explicitly marked as 't' for other biomarkers and 'f' for PD-L1."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"cancer_type\" ILIKE '%Esophageal%' OR \"cancer_type\" ILIKE '%GEJ%') AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f'",
+  "answer": "List of Esophageal/GEJ trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumed that 'GEJ' refers to Gastroesophageal Junction and that the biomarker criteria are explicitly marked as 't' for other biomarkers and 'f' for PD-L1."
+}

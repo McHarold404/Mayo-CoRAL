@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'yes' AND \"class_of_ici\" = 'CTLA4'",
+  "answer": "The query retrieves Melanoma studies included in the meta-analysis that used CTLA-4 agents.",
+  "assumptions": "Assumes that 'included_in_ma' indicates inclusion in a meta-analysis and 'class_of_ici' correctly identifies CTLA-4 agents."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"included_in_ma\" = 'yes' AND \"class_of_ici\" = 'CTLA4'",
+  "answer": "The query retrieves Melanoma studies included in the meta-analysis that used CTLA-4 agents.",
+  "assumptions": "Assumes that 'included_in_ma' indicates inclusion in a meta-analysis and 'class_of_ici' correctly identifies CTLA-4 agents."
+}

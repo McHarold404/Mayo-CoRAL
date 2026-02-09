@@ -1,0 +1,13 @@
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"control_regimen\", \"type_of_combination\", \"class_of_ici\", \"name_of_ici\", \"monotherapy_combination\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" = 'PD1' AND \"type_of_combination\" = 'Combination' AND \"type_of_combination_1\" = 'Combination' AND \"type_of_control\" = 'Standard of Care' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes' AND \"is_any_other_biomarker_used_for_inclusion\" = 'No' ORDER BY \"year\" DESC;",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung are listed with their regimens, control regimens, and other details.",
+  "assumptions": "Assuming 'PD1' corresponds to PD-1 inhibitors and 'Combination' type_of_combination indicates combination therapy."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"control_regimen\", \"type_of_combination\", \"class_of_ici\", \"name_of_ici\", \"monotherapy_combination\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" = 'PD1' AND \"type_of_combination\" = 'Combination' AND \"type_of_combination_1\" = 'Combination' AND \"type_of_control\" = 'Standard of Care' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes' AND \"is_any_other_biomarker_used_for_inclusion\" = 'No' ORDER BY \"year\" DESC;",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung are listed with

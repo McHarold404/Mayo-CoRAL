@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- Use proper PostgreSQL syntax.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'CTLA4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' AND \"primary_endpoint\" IS NOT NULL;",
+  "answer": "The query returns CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assumes that 'CTLA4' is the correct class_of_ici value for CTLA-4 and that 'Yes' indicates composite or co-primary endpoints."
+}

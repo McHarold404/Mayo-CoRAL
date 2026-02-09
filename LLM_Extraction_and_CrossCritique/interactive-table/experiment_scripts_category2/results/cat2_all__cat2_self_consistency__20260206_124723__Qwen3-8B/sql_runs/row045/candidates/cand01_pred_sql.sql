@@ -1,0 +1,5 @@
+SELECT ...", "answer": "Three trials...", "assumptions": "Assuming ..."}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 2';

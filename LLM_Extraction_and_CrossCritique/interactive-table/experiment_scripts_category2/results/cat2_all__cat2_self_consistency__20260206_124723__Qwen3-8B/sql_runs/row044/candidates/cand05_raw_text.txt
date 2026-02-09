@@ -1,0 +1,15 @@
+- Use the exact column names from the table, always with double quotes.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung. First, I need to check the columns available.
+
+The relevant columns for the question are trial_phase, class_of_ici, name_of_ici, cancer_type, and treatment_regimen. Also, the combination is PD-L1 and CTLA-4, so I need to check if both are present. But wait, the columns are class_of_ici and name_of_ici. So maybe the class_of_ici would be PD1 and CTLA4? Or perhaps the name_of_ici would have the specific names. Let me think. The class_of_ici is like PD1, CTLA4, etc. So if the trial uses both, maybe the class_of_ici would have both? But the question mentions PD-L1 and CTLA-4 as combination, so maybe the class_of_ici_1 and class_of_ici_2? Wait, looking back at the columns, there's class_of_ici and name_of_ici, but also class_of_ici_1 and name_of_ici_1. Hmm, maybe the first set refers to the first ICI, and the second set is another? Or perhaps the treatment_regimen includes the combination. Alternatively, the combination could be in the monotherapy_combination or type_of_combination. Wait, the user is asking for combination trials, so maybe the type_of_combination is 'combination' and the treatment_regimen includes both ICI classes. 
+
+Wait, the user is asking for Phase 3 trials. So trial_phase should be 'Phase 3'. The cancer_type is 'Non-Small Cell Lung'. The class_of_ici should be PD1 (since PD-L1 is mapped to PD1) and CTLA4. But how to check that both are present? Maybe the class_of_ici and name_of_ici columns have both. But the columns are singular, so perhaps the treatment_regimen includes both. Alternatively, maybe the class_of_ici_1 and name_of_ici_1 are for the first ICI, and the combination is in the monotherapy_combination or type_of_combination. 
+
+Alternatively, the combination could be in the treatment_regimen. Let me check the columns again.

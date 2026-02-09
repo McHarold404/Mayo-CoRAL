@@ -1,0 +1,52 @@
+{
+  "row_index": 12,
+  "question": "Show Prostate trials with at least 2 prior lines of therapy that used combination treatment.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%prostate%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"type_of_combination\\\" IS NOT NULL\", \"answer\": \"Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.\", \"assumptions\": \"Assumed \\\"type_of_combination\\\" indicates combination treatment.\"}\n</think>\n\n{\"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%prostate%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"type_of_combination\\\" IS NOT NULL\", \"answer\": \"Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.\", \"assumptions\": \"Assumed \\\"type_of_combination\\\" indicates combination treatment.\"}",
+  "pred_sql_final": "SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%prostate%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"type_of_combination\\\" IS NOT NULL\", \"answer\": \"Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.\", \"assumptions\": \"Assumed \\\"type_of_combination\\\" indicates combination treatment.\"}\n</think>\n\n{\"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%prostate%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"type_of_combination\\\" IS NOT NULL\", \"answer\": \"Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.\", \"assumptions\": \"Assumed \\\"type_of_combination\\\" indicates combination treatment.\"}",
+  "pred_sql_fixes": [],
+  "pred_answer": "",
+  "pred_assumptions": "",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"lines_of_treatment\", \"therapy_modality\", \"cancer_type\", \"combination_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Prostate' AND NULLIF(regexp_replace((\"lines_of_treatment\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2 AND \"therapy_modality\" = 'Combination';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"lines_of_treatment\", \"monotherapy_combination\", \"cancer_type\", \"type_of_combination\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Prostate' AND NULLIF(regexp_replace((\"lines_of_treatment\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2 AND \"monotherapy_combination\" = 'Combination';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "therapy_modality",
+      "replaced_with": "monotherapy_combination",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.15151515151515152,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "error",
+  "pred_exec_ms": 1.6275118105113506,
+  "pred_exec_error": "(psycopg2.errors.SyntaxError) syntax error at or near \"\\\"\nLINE 1: SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM pub...\n               ^\n\n[SQL: SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%%prostate%%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"type_of_combination\\\" IS NOT NULL\", \"answer\": \"Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.\", \"assumptions\": \"Assumed \\\"type_of_combination\\\" indicates combination treatment.\"}\n</think>\n\n{\"sql\": \"SELECT \\\"nct\\\", \\\"author\\\", \\\"year\\\", \\\"pubmed_id\\\" FROM public.\\\"clinical_trials\\\" WHERE \\\"cancer_type\\\" ILIKE '%%prostate%%' AND \\\"lines_of_treatment\\\" >= 2 AND \\\"type_of_combination\\\" IS NOT NULL\", \"answer\": \"Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.\", \"assumptions\": \"Assumed \\\"type_of_combination\\\" indicates combination treatment.\"}]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+  "pred_result_rows": null,
+  "pred_result_hash": "",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.6404351703822613,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "7d9220eea815ff75ec5c80b8364022ff",
+  "results_equal_exact": null,
+  "results_equal_normalized": null,
+  "rowcount_delta_pred_minus_gt": null,
+  "column_overlap_ratio": null,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row012",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row012/candidates"
+}

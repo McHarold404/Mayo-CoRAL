@@ -1,0 +1,47 @@
+{
+  "row_index": 79,
+  "question": "Show Gastric/GEJ PD-L1 trials conducted in 2018 or later.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Gastric/GEJ' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Gastric/GEJ' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "pred_sql_fixes": [],
+  "pred_answer": "Retrieved trials of Gastric/GEJ PD-L1 studies conducted in 2018 or later with distinct NCT identifiers.",
+  "pred_assumptions": "",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_class\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Gastric/GEJ' AND \"ici_class\" = 'PD-L1' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"class_of_ici\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Gastric/GEJ' AND \"class_of_ici\" = 'PD-L1' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3076923076923077,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.9361089691519737,
+  "pred_exec_error": null,
+  "pred_result_rows": 4,
+  "pred_result_hash": "9c3a5a525e3b82ec7a891173eb118006",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 2.09596985951066,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "afb29de3f1d051e234f1936c5d4775b8",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 2,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row079",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 3,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row079/candidates"
+}

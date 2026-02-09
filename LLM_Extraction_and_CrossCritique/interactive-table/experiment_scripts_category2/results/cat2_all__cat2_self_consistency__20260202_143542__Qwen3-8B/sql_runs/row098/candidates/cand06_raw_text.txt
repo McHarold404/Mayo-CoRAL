@@ -1,0 +1,10 @@
+- "answer" must be a string, not a list.
+- "assumptions" must be a string, not a list.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"type_of_combination\" ILIKE '%ICI+ICI+Chemo%';",
+  "answer": "The query retrieves Small Cell Lung studies that tested ICI+ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assuming 'ICI+ICI+Chemo' is a valid combination type and 'Small Cell Lung' is a valid cancer type."
+}

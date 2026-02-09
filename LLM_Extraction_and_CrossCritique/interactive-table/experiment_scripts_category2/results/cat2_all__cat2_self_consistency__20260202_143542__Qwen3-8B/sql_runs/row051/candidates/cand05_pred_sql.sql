@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Head and Neck%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'true'",
+  "answer": "The query retrieves Head and Neck cancer trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'is_pd_l1_positivity_inclusion_criteria' is a boolean column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Head and Neck%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"is_pd_l1_positivity_inclusion_criteria\" = 't'",
+  "answer": "Head and Neck cancer trials using PD-L1 with PD-L1 positivity as an inclusion criterion are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed 'PD-L1' is mapped to 'PD1' in 'class_of_ici' and 'is_pd_l1_positivity_inclusion_criteria' uses 't' for true."
+}

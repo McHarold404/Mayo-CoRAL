@@ -1,0 +1,14 @@
+- "answer" must be a string of 1–2 sentences.
+- "assumptions" must be a string of 0+ sentences.
+
+You must include the columns:
+- "nct", "author", "year", "pubmed_id"
+
+If there are multiple rows per nct, include all.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" DESC;",
+  "answer": "This query retrieves small cell lung trials with their follow-up durations by arm, sorted by overall follow-up time.",
+  "assumptions": "Assumes 'small cell lung' is a valid search term for cancer_type and that follow-up durations are stored as numeric values."
+}

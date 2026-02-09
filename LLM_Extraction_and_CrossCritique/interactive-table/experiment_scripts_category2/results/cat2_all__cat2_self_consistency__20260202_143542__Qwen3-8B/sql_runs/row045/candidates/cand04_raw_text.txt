@@ -1,0 +1,13 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+For the query, use the columns in the list provided. Qualify the table as public."clinical_trials". When counting trials, use COUNT(DISTINCT "nct").
+
+I will now generate the query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%pancreatic%' AND \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"trial_phase\" = '2';",
+  "answer": "The query retrieves pancreatic trials that evaluated Pembrolizumab in phase 2 from the clinical_trials table.",
+  "assumptions": "Assumes 'Pembrolizumab' is spelled correctly and 'phase 2' is represented exactly as '2' in the trial_phase column."
+}

@@ -1,0 +1,7 @@
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"class_of_ici\" AS pd1, \"name_of_ici\", \"priamry_multiple_composite_or_co_primary_endpoints\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%PD-1%' OR \"class_of_ici_1\" ILIKE '%PD1%' OR \"name_of_ici_1\" ILIKE '%PD-1%' OR \"type_of_combination\" ILIKE '%PD-1%' OR \"type_of_combination_1\" ILIKE '%PD-1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%co-primary%';",
+  "answer": "The query retrieves PD-1 and CTLA-4 trials with composite or co-primary endpoints by checking relevant columns and using case-insensitive matching for PD-1 references.",
+  "assumptions": "Assumes that PD-1 references in combination therapies are captured by checking \"type_of_combination\" and \"type_of_combination_1\" columns."
+}

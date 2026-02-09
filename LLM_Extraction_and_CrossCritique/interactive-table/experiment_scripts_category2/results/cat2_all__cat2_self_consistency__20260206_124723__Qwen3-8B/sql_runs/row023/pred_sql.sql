@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_phase", "treatment_regimen", "monotherapy_combination", "type_of_combination", "control_regimen", "type_of_control" FROM public."clinical_trials" WHERE "trial_phase" ILIKE '%2%' AND "class_of_ici" ILIKE '%CTLA4%' AND "cancer_type" ILIKE '%Pancreatic%';

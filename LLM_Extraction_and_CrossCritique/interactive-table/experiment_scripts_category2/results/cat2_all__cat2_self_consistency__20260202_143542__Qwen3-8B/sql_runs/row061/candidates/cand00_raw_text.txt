@@ -1,0 +1,16 @@
+- No markdown.
+- No explanations.
+- No extra text.
+- No comments in SQL.
+- No SQL comments.
+- No SQL keywords in lowercase.
+- Use double quotes for column names.
+- Use double quotes for string values.
+- Use ILIKE for free text.
+- Use = for exact matches.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Always include "nct", "author", "year", "pubmed_id" in SELECT unless the question explicitly asks for a count or summary statistic.
+
+</think>
+
+{"sql":"SELECT \"nct\",\"author\",\"year\",\"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"name_of_ici\" ILIKE '%Nivolumab%' AND \"name_of_ici\" ILIKE '%Ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21","answer":"Retrieved trials with Non-Small Cell Lung cancer involving Nivolumab and Ipilimumab with overall follow-up exceeding 21 months.","assumptions":"Assumed \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" is in months and represents the overall follow-up duration."}

@@ -1,0 +1,10 @@
+- "answer" must be <= 1–2 sentences.
+- "assumptions" must be empty string if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\", \"lines_of_treatment\", \"clincal_setting_in_relation_to_surgery\", \"primary_endpoint\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"type_of_follow_up_given\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\", \"class_of_ici_1\", \"name_of_ici_1\", \"type_of_therapy\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' AND \"type_of_combination\" ILIKE '%combination%'",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung cancer are listed with their regimens.",
+  "assumptions": ""
+}

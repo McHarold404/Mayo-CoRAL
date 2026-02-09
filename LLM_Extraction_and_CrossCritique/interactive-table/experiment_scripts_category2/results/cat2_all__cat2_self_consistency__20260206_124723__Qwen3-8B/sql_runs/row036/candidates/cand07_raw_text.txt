@@ -1,0 +1,12 @@
+- Use the exact column names and double quotes.
+- For "class_of_ici", map PD-1 to "PD1".
+- Use ILIKE for free text.
+
+I will now write the query to answer the question.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumes 'GEJ' refers to gastroesophageal junction and that 'PD1' is mapped from 'PD-1' as specified."
+}

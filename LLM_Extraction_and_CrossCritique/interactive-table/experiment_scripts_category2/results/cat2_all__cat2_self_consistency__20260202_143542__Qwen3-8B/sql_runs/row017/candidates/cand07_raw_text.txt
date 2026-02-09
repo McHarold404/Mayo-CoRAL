@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%Chemotherapy%'",
+  "answer": "The SQL query retrieves Small Cell Lung phase 3 trials that compared an ICI to chemotherapy.",
+  "assumptions": "Assuming 'Chemo' refers to chemotherapy and that 'ICI' is correctly mapped to the 'class_of_ici' column."
+}

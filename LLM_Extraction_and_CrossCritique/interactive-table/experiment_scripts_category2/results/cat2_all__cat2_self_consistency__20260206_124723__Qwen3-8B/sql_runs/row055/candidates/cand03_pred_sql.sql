@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD1' corresponds to PD-L1 and that 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates composite or co-primary endpoints."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' AND \"primary_endpoint\" IS NOT NULL",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD1' corresponds to PD-L1 and that 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates composite or co-primary endpoints."
+}

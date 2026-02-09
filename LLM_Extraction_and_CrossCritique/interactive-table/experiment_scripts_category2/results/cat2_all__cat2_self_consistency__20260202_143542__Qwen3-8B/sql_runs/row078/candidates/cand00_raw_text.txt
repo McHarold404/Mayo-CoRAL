@@ -1,0 +1,10 @@
+- "answer" must be <= 1–2 sentences.
+- "assumptions" is a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"control_regimen\", \"type_of_combination\", \"class_of_ici\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Review Phase 3 PD1 combination trials in Non-Small Cell Lung cancer, including their treatment and control regimens.",
+  "assumptions": "Assumes \"type_of_combination\" is used to identify combination therapies and that \"class_of_ici\" is mapped correctly."
+}

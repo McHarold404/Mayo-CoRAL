@@ -1,0 +1,12 @@
+- Use the exact column names from the table.
+
+The query should select all relevant rows from the table where the trial is for Head and Neck cancer and the inclusion criteria involves a biomarker other than PD-L1. The "is_any_other_biomarker_used_for_inclusion" column indicates if any other biomarker is used, and we need to exclude PD-L1 specifically. The query should check that "is_any_other_biomarker_used_for_inclusion" is true and "is_pd_l1_positivity_inclusion_criteria" is false.
+
+The answer should state that the query lists the required trials, and the assumption is that the columns correctly represent the inclusion criteria for biomarkers.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"is_any_other_biomarker_used_for_inclusion\" = true AND \"is_pd_l1_positivity_inclusion_criteria\" = false;",
+  "answer": "The query lists Head and Neck trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'is_any_other_biomarker_used_for_inclusion' accurately indicates use of non-PD-L1 biomarkers and 'is_pd_l1_positivity_inclusion_criteria' correctly identifies PD-L1-specific criteria."
+}

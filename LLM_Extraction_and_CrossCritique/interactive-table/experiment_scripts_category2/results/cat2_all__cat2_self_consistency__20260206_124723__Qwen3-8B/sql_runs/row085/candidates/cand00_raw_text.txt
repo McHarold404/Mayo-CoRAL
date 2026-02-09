@@ -1,0 +1,29 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+
+Now, let me think through this query.
+
+First, I need to find trials related to Hepatocellular cancer. The column "cancer_type" likely contains this value. So I'll filter where "cancer_type" ILIKE '%Hepatocellular%'.
+
+Next, the question asks for trials requiring a biomarker other than PD-L1. The relevant columns are "is_any_other_biomarker_used_for_inclusion" and "class_of_ici". 
+
+The "is_any_other_biomarker_used_for_inclusion" column probably indicates whether any other biomarker is used. So I need to filter where this column is true.
+
+However, the question specifies "other than PD-L1". The "class_of_ici" column might include PD-1 or PD-L1. But the user mentioned that if PD-1 is mentioned, map to "PD1" for "class_of_ici". However, in this case, we're looking for trials that do NOT use PD-L1 as the biomarker.
+
+Wait, the question is about trials that require a biomarker other than PD-L1. So the trials must have "is_any_other_biomarker_used_for_inclusion" = true, and the biomarker used is not PD-L1.
+
+But how to check that? The "class_of_ici" might not directly indicate the biomarker. Maybe the "is_any_other_biomarker_used_for_inclusion" column is a boolean indicating if any other biomarker is used. But we need to ensure that PD-L1 is not the biomarker used.
+
+Alternatively, the "is_any_other_biomarker_used_for_inclusion" might be a flag that says if any biomarker (other than PD-L1) is used. But the wording is ambiguous.
+
+Assuming that "is_any_other_biomarker_used_for_inclusion" is true when any other biomarker (other than PD-L1) is used, then the query would be:
+
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" ILIKE '%Hepatocellular%'
+  AND "is_any_other_biomarker_used_for_inclusion" = true;
+
+But the question says "other than PD-L1", so we need to make sure that PD-L1 is not the biomarker. However, if the "is_any_other_biomarker_used_for_inclusion" is true, it might mean that PD-L1 is not the only one used. But without more information, I'll proceed with the above query.
+
+Another possibility is that the "class_of_ici" includes PD-L1, and we need to exclude those. But the question is about trials requiring a biomarker other than PD-L1, so we need to ensure that PD-L1 is not used. However

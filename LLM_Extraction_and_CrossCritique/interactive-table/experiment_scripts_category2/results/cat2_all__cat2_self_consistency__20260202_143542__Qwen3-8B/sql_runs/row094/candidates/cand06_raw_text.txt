@@ -1,0 +1,16 @@
+- Do not include any other keys.
+- Use double quotes for all strings.
+- Do not include any markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed meet the criteria of Mesothelioma involving Nivolumab and Ipilimumab with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Nivolumab' and 'Ipilimumab' are the ICI names and that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' is the correct field for overall follow-up duration."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed meet the criteria of Mesothelioma involving Nivolumab and Ipilimumab with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Nivolumab' and 'Ipilimumab' are the ICI names and that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' is the correct field for overall follow-up duration."
+}

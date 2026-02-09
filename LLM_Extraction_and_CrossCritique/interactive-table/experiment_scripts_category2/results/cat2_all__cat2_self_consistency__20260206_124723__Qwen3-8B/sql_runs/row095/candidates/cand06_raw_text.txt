@@ -1,0 +1,14 @@
+- Answer must be <= 1–2 sentences.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "This query retrieves Mesothelioma PD1 trials conducted in 2018 or later by selecting relevant trials from the clinical_trials table.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%mesothelioma%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "The query returns Mesothelioma trials using PD1 inhibitors from 2018 onwards, including trial identifiers, authors, years, and PubMed IDs.",
+  "assumptions": "Assumes 'PD1' is the correct mapping for PD-1 inhibitors and that 'mesothelioma' appears in the cancer_type field."
+}

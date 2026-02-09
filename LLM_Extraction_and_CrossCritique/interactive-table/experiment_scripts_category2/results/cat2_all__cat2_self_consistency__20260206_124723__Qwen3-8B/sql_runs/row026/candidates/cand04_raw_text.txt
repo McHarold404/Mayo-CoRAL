@@ -1,0 +1,16 @@
+- SQL must be a valid PostgreSQL query.
+- Answer must be a concise summary of the query's purpose.
+- Assumptions must be a brief explanation of any assumptions made.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Renal cell%' AND \"class_of_ici\" ILIKE '%PD-L1%' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'yes' ORDER BY \"year\" DESC;",
+  "answer": "This query retrieves clinical trials for Renal cell cancer using PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed 'PD-L1' is correctly mapped to 'class_of_ici' and 'is_pd_l1_positivity_inclusion_criteria' is a boolean field with 'yes' as valid input."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Renal cell%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'yes' ORDER BY \"year\" DESC;",
+  "answer": "This query retrieves clinical trials for Renal cell cancer using PD-1/PD-L1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumed 'PD-L1' is mapped to 'PD1' in \"class_of_ici\", and 'is_pd_l1_positivity_inclusion_criteria' is a boolean field with 'yes' as valid input."
+}

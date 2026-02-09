@@ -1,0 +1,9 @@
+- Use double quotes for all strings.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%' AND \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Colorectal Cancer';",
+  "answer": "The query retrieves Colorectal Cancer trials that evaluated Durvalumab or Tremelimumab in Phase 2.",
+  "assumptions": "Assumes 'Colorectal Cancer' is the exact value for the cancer_type column and that 'Durvalumab' and 'Tremelimumab' are mentioned in the name_of_ici column."
+}

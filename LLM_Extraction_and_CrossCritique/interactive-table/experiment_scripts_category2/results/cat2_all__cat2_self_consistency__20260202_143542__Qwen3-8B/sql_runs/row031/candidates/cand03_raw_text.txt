@@ -1,0 +1,21 @@
+- Use proper PostgreSQL syntax.
+- Don't use COUNT(DISTINCT "nct") unless asked for counts.
+
+I need to write a PostgreSQL query to find trials related to Renal cell cancer that involve PD1 or CTLA-4 therapies and were conducted in 2018 or later.
+
+First, I'll check the columns available in the table. The relevant columns for this query are "cancer_type", "class_of_ici", "name_of_ici", and "year". The "class_of_ici" should be mapped to "PD1" if PD-1 is mentioned. The "name_of_ici" can be used to check for "CTLA-4". The "year" should be greater than or equal to 2018.
+
+I need to make sure that the query selects the required columns: "nct", "author", "year", "pubmed_id". Also, I should use ILIKE for the free text search on "cancer_type" and "name_of_ici". For "class_of_ici", I should check for "PD1" as per the requirement. The "year" condition should be ">= 2018".
+
+I should also consider that "cancer_type" might have variations like "Renal Cell Cancer" or "Renal Cell Carcinoma", so using ILIKE with %...% would help capture those variations. Similarly, "name_of_ici" might have variations in spelling or formatting, so using ILIKE is appropriate.
+
+I need to construct the query with these conditions and ensure that the table is properly qualified as public."clinical_trials".
+
+Now, I'll put it all together into a SELECT statement that meets all the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal%' AND (\"class_of_ici\" = 'PD1' OR \"name_of_ici\" ILIKE '%CTLA-4%') AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Renal cell cancer using PD1 or CTLA-4 therapies from 2018 onwards.",
+  "assumptions": "Assumed 'Renal cell' variations are captured by ILIKE '%renal%', and PD-1 is mapped to 'PD1' as specified."
+}

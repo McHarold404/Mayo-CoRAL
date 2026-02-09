@@ -1,0 +1,15 @@
+- "answer" must be a concise summary of the query's purpose.
+- "assumptions" must be a concise summary of any assumptions made.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "List of breast cancer trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumed that 'Breast' is the exact value for cancer_type and that the absence of PD-L1 positivity as an inclusion criterion and the presence of another biomarker are correctly captured by the respective boolean fields."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" IS TRUE;",
+  "answer": "List of breast cancer trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumed that 'Breast' is the exact value for cancer_type and that the absence of PD-L1 positivity as an inclusion criterion and the presence of another biomarker are correctly captured by the respective boolean fields."
+}

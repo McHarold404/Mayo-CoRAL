@@ -1,0 +1,11 @@
+- Use the exact column names from the table.
+- Do NOT use any other tables.
+- Do NOT use COUNT(DISTINCT "nct") unless the question asks for counts.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "The query retrieves breast cancer trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": ""
+}

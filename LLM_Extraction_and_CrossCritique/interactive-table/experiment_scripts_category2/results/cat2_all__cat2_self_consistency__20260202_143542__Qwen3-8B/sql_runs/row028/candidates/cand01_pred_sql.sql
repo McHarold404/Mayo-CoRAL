@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head%neck%' AND \"primary_endpoint\" ILIKE '%median follow-up%'",
+  "answer": "This query retrieves Head and Neck trials with median follow-up duration by arm, showing months of follow-up for each arm.",
+  "assumptions": "Assumes that 'median follow-up' is mentioned in the primary endpoint and that follow-up durations are recorded in the specified columns."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head%neck%' AND \"primary_endpoint\" ILIKE '%median follow-up%'",
+  "answer": "This query retrieves Head and Neck trials with median follow-up duration by arm, showing months of follow-up for each arm.",
+  "assumptions": "Assumes that 'median follow-up' is mentioned in the primary endpoint and that follow-up durations are recorded in the specified columns."
+}

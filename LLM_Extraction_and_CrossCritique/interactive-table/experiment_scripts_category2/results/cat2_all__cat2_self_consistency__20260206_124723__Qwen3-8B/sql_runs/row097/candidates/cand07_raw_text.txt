@@ -1,0 +1,17 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+Okay, let's tackle this query. The user wants Phase 3 trials involving Durvalumab and Tremelimumab in Small Cell Lung Cancer that are follow-up publications.
+
+First, I need to check the columns. The trial_phase should be 'Phase 3'. The name_of_ici needs to include both Durvalumab and Tremelimumab. Wait, but how are they stored? The columns are name_of_ici and name_of_ici_1. Maybe the combination is in name_of_ici_1? Or perhaps the main name_of_ici is one, and the combination is in another column. Wait, looking at the columns, there's "name_of_ici" and "name_of_ici_1". Also, "monotherapy_combination" might be relevant. But the question says "Durvalumab, Tremelimumab trials", so maybe both are in the name_of_ici or name_of_ici_1. Alternatively, maybe the treatment_regimen includes both. But the user specified "Durvalumab, Tremelimumab", which are both ICI (immune checkpoint inhibitors). So the class_of_ici would be PD1 or PD-L1? Wait, Durvalumab is a PD-L1 inhibitor, and Tremelimumab is a CTLA-4 inhibitor. So their classes would be PD-L1 and CTLA-4. But the user might be looking for trials where both are used. So perhaps the name_of_ici and name_of_ici_1 columns should include both. But the question says "Durvalumab, Tremelimumab trials", so maybe the treatment regimen includes both. However, the exact columns to check are "name_of_ici" and "name_of_ici_1", and maybe "treatment_regimen". 
+
+Wait, the user's question is about trials that include both Durvalumab and Tremelimumab. So the name_of_ici should include both. But how are they stored? Maybe in the name_of_ici and name_of_ici_1 columns. For example, if a trial uses both, maybe name_of_ici is Durvalumab and name_of_ici_1 is Tremelimumab. Alternatively, the treatment_regimen might list both. But the user might be looking for trials where both are part of the treatment regimen. 
+
+Also, the cancer_type should be 'Small Cell Lung'. The originial_publication_or_follow_up column should indicate follow-up publications. So the value here might be 'follow-up' or similar. 
+
+Putting it all together: 
+
+- trial_phase = 'Phase 3'
+- cancer_type = 'Small Cell Lung'
+- originial_publication_or_follow_up = 'follow-up' (assuming that's the value)
+-

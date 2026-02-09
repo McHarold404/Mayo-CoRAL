@@ -1,0 +1,14 @@
+- No markdown, no extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo' AND \"trial_phase\" = 'Phase III' ORDER BY \"year\" DESC;",
+  "answer": "Multiple Myeloma studies that tested ICI+Chemo combinations and their primary endpoints are listed in the query results.",
+  "assumptions": "Assumed that 'Phase III' trials are relevant for clinical practice and that 'type_of_combination' field accurately reflects the combination therapy used."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo' ORDER BY \"year\" DESC;",
+  "answer": "The query retrieves Multiple Myeloma studies testing ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assumed that the 'type_of_combination' field correctly identifies ICI+Chemo regimens and that all relevant studies are included regardless of trial phase."
+}

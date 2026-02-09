@@ -1,0 +1,28 @@
+- Use standard PostgreSQL syntax.
+- Avoid using unnest or json functions.
+- Do NOT use the keyword "AS" in the SELECT clause.
+- Use ILIKE for free text comparisons.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Use exact equality for enumerated values.
+- Qualify the table as public."clinical_trials".
+- Always include "nct", "author", "year", "pubmed_id" in the output.
+
+Okay, let's tackle this query. The user wants Melanoma PD1, CTLA-4 trials from 2018 onwards.
+
+First, I need to check the columns. The relevant ones are "cancer_type" for Melanoma, "class_of_ici" for PD1 (since PD-1 is mapped to PD1), and "name_of_ici" for CTLA-4. Also, the year should be >= 2018.
+
+Wait, the user mentioned both PD1 and CTLA-4. Are they looking for trials that include either PD1 or CTLA-4, or both? The question says "PD1, CTLA-4 trials", which might mean trials that use either of these. So I should check if "class_of_ici" is 'PD1' or "name_of_ici" is 'CTLA-4'. But maybe some trials use both. However, the columns are separate, so I need to check both conditions.
+
+But wait, the "class_of_ici" is for the ICI class, and "name_of_ici" is the specific ICI. For example, PD1 could be a class, and the name might be Pembrolizumab. But the user is asking for trials that involve PD1 (as a class) and CTLA-4 (as a name?), or maybe both. Wait, the question is a bit ambiguous. Let me re-read it.
+
+The question says "Melanoma PD1, CTLA-4 trials conducted in 2018 or later." So maybe they want trials that have either PD1 or CTLA-4 as part of their treatment. So the query should include trials where the ICI class is PD1 or the name is CTLA-4. But need to make sure that the "class_of_ici" is mapped correctly. Also, the user mentioned PD-1, which should be mapped to PD1.
+
+So the conditions would be:
+
+"cancer_type" = 'Melanoma'
+
+AND ( "class_of_ici" = 'PD1' OR "name_of_ici" = 'CTLA-4' )
+
+AND "year" >= 2018
+
+But wait, maybe the trial uses both PD1 and CTLA-4? But the user might just want trials that include either. However, the exact requirement is to include trials with PD1 or CTLA-4. Also

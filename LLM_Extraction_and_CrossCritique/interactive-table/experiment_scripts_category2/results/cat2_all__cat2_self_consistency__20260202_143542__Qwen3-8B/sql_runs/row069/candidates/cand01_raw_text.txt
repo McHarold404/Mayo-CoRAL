@@ -1,0 +1,12 @@
+- For "answer", return the count of trials (as a string) and the names of the trials (as a string, comma separated, sorted).
+- For "assumptions", say "Assuming that 'Chemo' refers to chemotherapy and that 'ICI' refers to immune checkpoint inhibitors." if needed.
+
+Okay, let me tackle this question. The user wants to find Colorectal phase 3 trials that compared ICI to Chemo. First, I need to check the columns available in the table. The relevant columns here would be "cancer_type", "trial_phase", "class_of_ici", "control_regimen", and "type_of_control". 
+
+The cancer_type should be 'Colorectal'. The trial_phase needs to be '3'. For the comparison between ICI and Chemo, the class_of_ici would likely be something like 'PD1' or 'PD-L1' (but according to the requirements, PD-1 is mapped to PD1). The control_regimen should be 'Chemo' and the type_of_control should be 'Standard of Care' or similar. Wait, but the user mentioned "Chemo" specifically, so maybe the control_regimen is 'Chemo' and the type_of_control is 'Chemotherapy' or 'Standard of Care'. 
+
+Wait, the columns are "control_regimen" and "type_of_control". So the control_regimen would be the regimen used in the control arm, which in this case is Chemo. The type_of_control might indicate that it's a standard treatment. But the user's question is about comparing ICI to Chemo, so the control_regimen should be Chemo, and the class_of_ici should be the ICI. 
+
+Also, the trial_phase is phase 3. So the WHERE clause would include "trial_phase = '3' AND cancer_type = 'Colorectal'". Then, the ICI part: class_of_ici like '%PD1%' or similar. But the user might have entries where class_of_ici is PD1, PD-L1, etc. But the requirement says if PD-1 is mentioned, map to PD1. However, in the database, the column is "class_of_ici", so maybe entries are stored as PD1, PD-L1, or other. So using ILIKE to check for PD1 or other ICI classes. Wait, but the user is asking for trials that compared ICI to Chemo. So the control_regimen should be Chemo, and the treatment_regimen should be ICI. Alternatively, maybe the class_of_ici is the ICI, and the control_regimen is Chemo. 
+
+Wait, looking at the columns again: the "class_of_ici" and "name_of_ici" are present. So the trials using ICI would have entries in those columns. The control_regimen would be the control group's

@@ -1,0 +1,10 @@
+- The "answer" should be a concise summary of the query result.
+- The "assumptions" should list any assumptions made during query construction.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" = 'Chemo' AND \"cancer_type\" = 'Small Cell Lung Cancer';",
+  "answer": "The Small Cell Lung Cancer trials that used Chemo as the control arm are listed with their respective details.",
+  "assumptions": "Assumed that 'Chemo' is the exact value for the control arm and 'Small Cell Lung Cancer' is the exact value for the cancer type."
+}

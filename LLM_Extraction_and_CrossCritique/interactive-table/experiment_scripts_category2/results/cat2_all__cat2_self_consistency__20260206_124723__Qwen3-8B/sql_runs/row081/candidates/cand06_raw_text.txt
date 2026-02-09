@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%';",
+  "answer": "Retrieved Hodgkin Lymphoma trials with median follow-up duration by arm, showing months for overall, RX, and control arms.",
+  "assumptions": "Assumed 'median follow-up' is represented by 'follow_up_duration_for_primary_endpoint_s_in_months_overall' and arms are indicated by RX and control fields."
+}

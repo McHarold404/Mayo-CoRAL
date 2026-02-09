@@ -1,0 +1,15 @@
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Retrieved Small Cell Lung trials with minimum follow-up duration, showing follow-up months by arm.",
+  "assumptions": "Assumed 'minimum follow-up' refers to the lowest overall follow-up duration. Used ILIKE for cancer type flexibility. Excluded trials with missing follow-up data."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Retrieved Small Cell Lung trials with minimum follow-up duration, showing follow-up months by arm.",
+  "assumptions": "Assumed 'minimum follow-up' refers to the lowest overall follow-up duration. Used ILIKE for cancer type flexibility. Excluded trials with missing follow-up data."
+}

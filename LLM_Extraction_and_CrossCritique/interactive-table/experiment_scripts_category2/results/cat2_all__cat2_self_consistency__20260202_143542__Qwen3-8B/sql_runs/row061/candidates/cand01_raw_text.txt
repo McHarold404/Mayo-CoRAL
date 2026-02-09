@@ -1,0 +1,15 @@
+- "answer" must be a string of 1–2 sentences.
+- "assumptions" must be a string of 0–2 sentences.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "The query retrieves Non-Small Cell Lung Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' is the exact cancer type term used in the database. Assumed that the follow-up duration is stored as a numeric value."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Non-Small Cell Lung Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assumed 'Non-Small Cell Lung' is the exact cancer type term in the database. Assumed follow-up duration is stored as a numeric value."
+}

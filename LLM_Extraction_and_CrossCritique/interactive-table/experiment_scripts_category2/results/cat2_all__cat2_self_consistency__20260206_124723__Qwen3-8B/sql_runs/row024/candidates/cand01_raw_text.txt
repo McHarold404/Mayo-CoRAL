@@ -1,0 +1,10 @@
+- For "answer", provide the count of trials, e.g. "There are X trials..."
+
+I will now generate the query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '2' AND \"name_of_ici\" = 'Atezolizumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'original publication';",
+  "answer": "There are X trials",
+  "assumptions": "Assuming 'Phase 2' is exactly stored as '2' in the trial_phase column and 'original publication' is exactly stored as specified."
+}

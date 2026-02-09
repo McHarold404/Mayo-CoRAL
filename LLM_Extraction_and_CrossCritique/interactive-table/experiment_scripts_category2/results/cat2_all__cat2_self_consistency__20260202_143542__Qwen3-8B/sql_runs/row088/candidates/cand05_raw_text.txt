@@ -1,0 +1,10 @@
+- "answer" must be a string, not a count.
+- "assumptions" must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%colorectal%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL",
+  "answer": "Colorectal trials with at least 2 prior lines of therapy that used combination treatment are listed.",
+  "assumptions": "Assuming that 'combination treatment' is indicated by non-null values in \"type_of_combination\" and that 'lines_of_treatment' refers to prior lines of therapy."
+}

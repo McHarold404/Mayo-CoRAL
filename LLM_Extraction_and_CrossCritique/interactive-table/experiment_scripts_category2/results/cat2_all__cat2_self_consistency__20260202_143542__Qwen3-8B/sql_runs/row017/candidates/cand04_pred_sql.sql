@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%Chemo%'",
+  "answer": "The following Small Cell Lung phase 3 trials compared ICI to Chemo: [list of trials].",
+  "assumptions": "Assumed that 'Chemo' refers to chemotherapy and that 'class_of_ici' indicates the use of an ICI."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%Chemo%'",
+  "answer": "The following Small Cell Lung phase 3 trials compared ICI to Chemo: [list of trials].",
+  "assumptions": "Assumed that 'Chemo' refers to chemotherapy and that 'class_of_ici' indicates the use of an ICI."
+}

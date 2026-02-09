@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"included_in_ma\" = 'Yes' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%';",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD-L1 or CTLA-4 agents are listed.",
+  "assumptions": "Assuming 'included_in_ma' is a boolean field with 'Yes' indicating inclusion in meta-analysis."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"included_in_ma\" = 'Yes' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%');",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD-L1 or CTLA-4 agents are listed.",
+  "assumptions": "Assuming 'included_in_ma' is a boolean field with 'Yes' indicating inclusion in meta-analysis."
+}

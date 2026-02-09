@@ -1,0 +1,10 @@
+- Use double quotes for strings.
+- Ensure valid JSON.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'Ipilimumab' AND \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'Combination' AND \"number_of_arms\" > 1;",
+  "answer": "The query retrieves Ipilimumab combination trials in Melanoma with their sample sizes.",
+  "assumptions": "Assuming that 'Ipilimumab' is the exact name of the ICI and 'Melanoma' is the exact cancer type. Also, assuming that combination trials have more than one arm."
+}

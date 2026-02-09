@@ -1,0 +1,16 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+- Use ILIKE for free text, and exact equality for enumerated values.
+- When counting, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include: "nct", "author", "year", "pubmed_id".
+
+I will now generate the SQL query based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%pd-l1%' OR \"name_of_ici\" ILIKE '%pd-l1%' OR \"class_of_ici_1\" ILIKE '%pd-l1%' OR \"name_of_ici_1\" ILIKE '%pd-l1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%'",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their details.",
+  "assumptions": "Assuming that any mention of PD-L1 in the name or class of ICI qualifies as a PD-L1 trial. Assuming 'priamry_multiple_composite_or_co_primary_endpoints' field contains 'yes' when composite or co-primary endpoints are reported."
+}

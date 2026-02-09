@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Colorectal' AND \"primary_endpoint\" ILIKE '%median follow-up%';",
+  "answer": "This query retrieves Colorectal trials with median follow-up and displays the follow-up duration by arm in months.",
+  "assumptions": "Assumes that the 'primary_endpoint' field contains the term 'median follow-up' and that the follow-up durations are stored as numeric values in the specified columns."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Colorectal' AND \"primary_endpoint\" ILIKE '%median follow-up%';",
+  "answer": "The query retrieves Colorectal trials that include median follow-up data, showing the follow-up duration by arm in months.",
+  "assumptions": "Assumes 'median follow-up' is mentioned in the primary endpoint description and that follow-up durations are stored as numeric values in the specified columns."
+}

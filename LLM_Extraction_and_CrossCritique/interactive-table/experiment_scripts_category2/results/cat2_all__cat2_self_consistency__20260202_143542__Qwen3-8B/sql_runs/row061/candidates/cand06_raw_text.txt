@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed meet the criteria of Non-Small Cell Lung Nivolumab, Ipilimumab with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' refers to the cancer type and that 'Nivolumab, Ipilimumab' are the ICI names. Also, assumed that the follow-up duration is stored as a numeric value in the specified column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Trials listed meet the criteria of Non-Small Cell Lung Nivolumab, Ipilimumab with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' refers to the cancer type and that 'Nivolumab, Ipilimumab' are the ICI names. Also, assumed that the follow-up duration is stored as a numeric value in the specified column."
+}

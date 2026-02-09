@@ -1,0 +1,13 @@
+- The answer must be a string (not a JSON object) with <= 1–2 sentences.
+- The answer must be in English.
+- The assumptions must be a string (not a JSON object) with <= 1–2 sentences.
+- The answer and assumptions must not contain any markdown.
+- The sql must be a valid PostgreSQL query that can be run as-is.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici_1\" = 'PD1') AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' AND (\"class_of_ici\" = 'CTLA-4' OR \"class_of_ici_1\" = 'CTLA-4');",
+  "answer": "The query lists trials involving PD1 or CTLA-4 that reported composite or co-primary endpoints.",
+  "assumptions": "Assumes that 'PD1' is mapped from 'PD-1' and that 'CTLA-4' is correctly specified in the 'class_of_ici' or 'class_of_ici_1' columns."
+}

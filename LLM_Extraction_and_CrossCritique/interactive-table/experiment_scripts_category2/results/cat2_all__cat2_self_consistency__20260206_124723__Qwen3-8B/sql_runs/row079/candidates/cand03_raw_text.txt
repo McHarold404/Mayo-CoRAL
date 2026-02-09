@@ -1,0 +1,9 @@
+- Use double-quotes for all strings.
+- Assume that "Gastric/GEJ" is a valid value for "cancer_type".
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Gastric/GEJ' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials of Gastric/GEJ PD-L1 studies conducted in 2018 or later with distinct NCT identifiers.",
+  "assumptions": ""
+}

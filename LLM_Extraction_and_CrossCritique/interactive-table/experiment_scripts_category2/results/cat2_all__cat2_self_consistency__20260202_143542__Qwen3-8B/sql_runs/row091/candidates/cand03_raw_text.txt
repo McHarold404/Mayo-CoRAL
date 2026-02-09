@@ -1,0 +1,16 @@
+- The sql must be a valid PostgreSQL query.
+- The answer must be a concise summary of the query's purpose.
+- The assumptions must list any assumptions made, if any.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Renal cell' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials involving PD1 inhibitors for Renal cell cancer conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD1' is the correct mapping for PD-1 and that 'Renal cell' is the exact cancer type spelling in the database."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Renal cell' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials involving PD1 inhibitors for Renal cell cancer conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD1' is the correct mapping for PD-1 and that 'Renal cell' is the exact cancer type spelling in the database."
+}

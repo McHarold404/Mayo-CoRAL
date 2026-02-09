@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion_criteria\" IS TRUE",
+  "answer": "This query retrieves trials for Head and Neck cancer that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion_criteria\" IS TRUE",
+  "answer": "This query lists Head and Neck cancer trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'Head and Neck' is a valid subset of \"cancer_type\" and that \"is_any_other_biomarker_used_for_inclusion_criteria\" correctly identifies trials using biomarkers other than PD-L1."
+}

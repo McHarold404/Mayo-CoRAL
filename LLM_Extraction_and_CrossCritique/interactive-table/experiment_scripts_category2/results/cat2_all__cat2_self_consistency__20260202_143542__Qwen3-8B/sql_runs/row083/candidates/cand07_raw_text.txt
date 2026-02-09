@@ -1,0 +1,25 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+I need to find breast cancer trials that use neoadjuvant ICI. Let me think about how to approach this.
+
+First, I should check the "cancer_type" column for entries that include "Breast" or "Breast Cancer". Since the user is asking specifically for breast trials, I need to ensure the cancer_type is related to breast cancer.
+
+Next, I need to identify trials that specify neoadjuvant ICI use. The "clinical_setting_in_relation_to_surgery" column might indicate the setting of treatment. "Neoadjuvant" refers to treatment given before surgery, so I should look for entries in this column that contain "neoadjuvant".
+
+Additionally, the "class_of_ici" and "name_of_ici" columns can help identify the ICI used. If the class_of_ici is "PD1" or "PD-L1" and the name_of_ici is a specific ICI, that would indicate the use of ICI. However, I need to check if the trial specifies that the ICI is used in a neoadjuvant setting.
+
+I should also consider the "treatment_regimen" column, which might include information about the regimen used. If the treatment regimen includes an ICI in a neoadjuvant setting, that would be relevant.
+
+Another possibility is the "clinical_setting" column, which might provide information about the setting of the trial. If it mentions neoadjuvant treatment, that would be useful.
+
+I need to construct a query that selects the relevant columns and filters based on the above criteria. I should use ILIKE for the free text search on "cancer_type", "clinical_setting_in_relation_to_surgery", and "clinical_setting". For the ICI class, I should check if it's "PD1" or "PD-L1" and possibly the name of the ICI. However, since the user is specifically asking about neoadjuvant ICI use, the key is to find trials where the ICI is used in a neoadjuvant setting.
+
+I should also make sure to include the required columns in the SELECT statement: "nct", "author", "year", "pubmed_id".
+
+Finally, I need to verify that the query is correct and that it returns the desired results. I should also check for any possible assumptions I might have made, such as the exact wording in the columns or the interpretation of the data.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"clinical_setting_in_relation_to_surgery\" ILIKE '%neoadjuvant%';",
+  "answer": "Breast cancer trials specifying neoadjuvant ICI

@@ -1,0 +1,29 @@
+- Use proper PostgreSQL syntax, e.g., ILIKE for partial matches.
+
+I need to write a PostgreSQL query to find trials related to Urothelial PD-L1 and CTLA-4 that were conducted in 2018 or later.
+
+First, I'll check the columns available in the table. The relevant columns for this query are "cancer_type", "class_of_ici", "name_of_ici", and "year".
+
+The user is asking for trials involving PD-L1 and CTLA-4. Since "class_of_ici" might have "PD-L1" and "CTLA-4" as entries, I should check if those are present. However, the instruction says to map PD-1 to "PD1" in "class_of_ici". But since the user is asking for PD-L1, I should look for "PD-L1" in the "class_of_ici" column.
+
+The "name_of_ici" column might have specific drug names like "Pembrolizumab" (PD-1 inhibitor) or "Ipilimumab" (CTLA-4 inhibitor). But since the user is asking for PD-L1 and CTLA-4, I might need to check both "class_of_ici" and "name_of_ici" columns.
+
+However, the user might be referring to trials where the ICI class is PD-L1 and the ICI name is CTLA-4, which is unlikely. So perhaps the user is looking for trials that involve either PD-L1 or CTLA-4 as the ICI class or name.
+
+I need to make sure to include both possibilities. So I should use ILIKE with %PD-L1% and %CTLA-4% in the "class_of_ici" and "name_of_ici" columns.
+
+Additionally, the user is asking for trials conducted in 2018 or later, so the "year" should be >= 2018.
+
+The "cancer_type" should be "Urothelial" as per the user's request.
+
+I should construct the query to select the required columns and apply the filters.
+
+I need to make sure that the query uses the correct column names with double quotes and qualifies the table as public."clinical_trials".
+
+I should also use COUNT(DISTINCT "nct") if the user is asking for a count, but since the user is asking to "show" the trials, I should return the rows.
+
+I need to include the "nct", "author", "year", and "pubmed_id" in the SELECT clause as per the requirements.
+
+I should also check if the "class_of_ici" has "PD1" instead of "PD-L1" and map it accordingly, but since the user is asking for PD-L1, I should look for "PD-L1" in the class_of_ici column.
+
+I should also

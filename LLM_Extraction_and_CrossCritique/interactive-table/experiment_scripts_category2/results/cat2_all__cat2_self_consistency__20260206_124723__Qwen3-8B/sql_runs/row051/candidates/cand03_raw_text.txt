@@ -1,0 +1,10 @@
+- For "answer", provide a concise summary of what the query does, not the result.
+- For "assumptions", list any assumptions made (e.g., "Assuming that 'PD-L1' is mapped to 'PD1' in the class_of_ici column").
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves clinical trials for Head and Neck cancer using PD-L1 as a class of ICI where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assuming that 'PD-L1' is mapped to 'PD1' in the class_of_ici column."
+}

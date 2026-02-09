@@ -1,0 +1,10 @@
+- The answer should be a concise summary of the query result.
+- The assumptions should note any assumptions made in constructing the query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" = 'Neoadjuvant' AND \"name_of_ici\" IS NOT NULL;",
+  "answer": "The query returns breast cancer trials that specified neoadjuvant ICI use, including their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'neoadjuvant ICI use' is indicated by the 'clincal_setting_in_relation_to_surgery' column being 'Neoadjuvant' and that 'name_of_ici' is not null to ensure ICI use is specified."
+}

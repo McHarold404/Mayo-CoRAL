@@ -1,0 +1,12 @@
+- "answer" must be a string of 1–2 sentences.
+- "assumptions" must be a string of 0–2 sentences.
+
+For example:
+{"sql": "SELECT ...", "answer": "There are 3 trials ...", "assumptions": "Assuming ..."}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%pancreatic%' AND \"type_of_combination\" ILIKE '%ici%vaccine%';",
+  "answer": "The query retrieves pancreatic trials that used ICI+Vaccine combinations, showing distinct NCT identifiers, authors, years, and PubMed IDs.",
+  "assumptions": "Assuming 'ICI+Vaccine' combinations are explicitly mentioned in the \"type_of_combination\" field. Assuming 'Pancreatic' is mentioned in the \"cancer_type\" field."
+}

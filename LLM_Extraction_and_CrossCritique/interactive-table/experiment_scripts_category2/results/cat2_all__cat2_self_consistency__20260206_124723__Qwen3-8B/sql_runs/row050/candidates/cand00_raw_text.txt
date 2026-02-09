@@ -1,0 +1,15 @@
+- Do NOT add any other keys.
+- Do NOT add any comments.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" ILIKE '%combination%';",
+  "answer": "This query retrieves Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assuming that 'combination treatment' is indicated by the presence of the word 'combination' in the \"type_of_combination\" field."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" ILIKE '%combination%';",
+  "answer": "This query retrieves Head and Neck trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assuming that 'combination treatment' is indicated by the presence of the word 'combination' in the \"type_of_combination\" field."
+}

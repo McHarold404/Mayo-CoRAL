@@ -1,0 +1,15 @@
+- The answer must be a short string (1–2 sentences).
+- The assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' ORDER BY \"year\" DESC;",
+  "answer": "PD1 and CTLA-4 trials that reported composite or co-primary endpoints are listed with their details.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%' ORDER BY \"year\" DESC;",
+  "answer": "PD1 and CTLA-4 trials reporting composite or co-primary endpoints are listed with their details.",
+  "assumptions": "The column \"priamry_multiple_composite_or_co_primary_endpoints\" may contain variations of 'Yes' or related text requiring case-insensitive partial match."
+}

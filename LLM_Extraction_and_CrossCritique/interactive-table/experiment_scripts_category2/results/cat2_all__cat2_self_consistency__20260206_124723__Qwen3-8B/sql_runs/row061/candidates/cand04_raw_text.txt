@@ -1,0 +1,15 @@
+- Answer is a short summary (1–2 sentences) of the query result.
+- Assumptions is a brief explanation of any assumptions made.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"name_of_ici\" ILIKE '%Nivolumab%' AND \"name_of_ici\" ILIKE '%Ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "The query returns non-small cell lung nivolumab, ipilimumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' refers to the cancer type and that 'Nivolumab' and 'Ipilimumab' are the ICI names."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Non-Small Cell Lung%' AND \"name_of_ici\" ILIKE '%Nivolumab%' AND \"name_of_ici\" ILIKE '%Ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "The query returns non-small cell lung nivolumab, ipilimumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' refers to the cancer type and that 'Nivolumab' and 'Ipilimumab' are the ICI names."
+}

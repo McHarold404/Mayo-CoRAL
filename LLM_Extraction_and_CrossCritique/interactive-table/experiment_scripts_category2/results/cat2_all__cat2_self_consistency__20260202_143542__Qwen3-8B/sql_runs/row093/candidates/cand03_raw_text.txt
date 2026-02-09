@@ -1,0 +1,10 @@
+- For the "answer" field, state the number of trials found (e.g. "There is 1 trial...") and list the names of the trials.
+- For the "assumptions" field, state any assumptions made (e.g. "Assuming that 'Durvalumab' and 'Tremelimumab' refer to the same drug...").
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"trial_name\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '2' AND (\"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%') AND \"cancer_type\" = 'Colorectal';",
+  "answer": "There are 0 trials found that evaluated Durvalumab, Tremelimumab in phase 2 for Colorectal cancer.",
+  "assumptions": "Assuming that 'Durvalumab' and 'Tremelimumab' refer to the same drug and that the 'cancer_type' field accurately specifies Colorectal cancer."
+}

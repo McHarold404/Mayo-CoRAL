@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", COUNT(DISTINCT "nct") OVER () AS count FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%breast%' AND "clinical_setting_in_relation_to_surgery" ILIKE '%neoadjuvant%'

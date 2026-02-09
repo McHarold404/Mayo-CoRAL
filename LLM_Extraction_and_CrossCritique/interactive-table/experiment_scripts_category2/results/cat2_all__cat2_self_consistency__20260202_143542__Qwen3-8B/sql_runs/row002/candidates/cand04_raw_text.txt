@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Use the exact column names and double quotes.
+
+I will now write the query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND (\"is_pd_l1_positivity_inclusion_criteria\" = false OR \"is_any_other_biomarker_used_for_inclusion\" = true)",
+  "answer": "Melanoma trials requiring a biomarker other than PD-L1 for inclusion are listed with their details.",
+  "assumptions": "Assumes 'PD-L1' is the only biomarker explicitly mentioned in the 'is_pd_l1_positivity_inclusion_criteria' column and that 'is_any_other_biomarker_used_for_inclusion' indicates the presence of other biomarkers."
+}

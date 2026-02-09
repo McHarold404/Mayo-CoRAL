@@ -1,0 +1,8 @@
+- No markdown in answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"class_of_ici\" ILIKE '%CTLA4%' AND \"trial_phase\" = 'Phase 3' AND \"type_of_combination\" ILIKE '%combination%' ORDER BY \"year\" DESC;",
+  "answer": "Phase 3 PD-L1/CTLA-4 combination trials in Non-Small Cell Lung cancer include trials with regimens involving PD-1/CTLA-4 inhibitors, along with their respective control regimens. Review the listed trials for detailed regimen information.",
+  "assumptions": "Assuming 'PD-L1' and 'CTLA-4' are mapped to 'PD1' and 'CTLA4' in the 'class_of_ici' field, and that 'Non-Small Cell Lung' is a subset of 'cancer_type' entries."
+}

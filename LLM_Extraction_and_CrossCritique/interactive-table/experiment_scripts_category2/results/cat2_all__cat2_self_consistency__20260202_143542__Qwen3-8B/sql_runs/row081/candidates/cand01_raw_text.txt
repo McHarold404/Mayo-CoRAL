@@ -1,0 +1,10 @@
+- "answer" must be a string (not a list).
+- "assumptions" must be a string (not a list).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%';",
+  "answer": "The query retrieves Hodgkin Lymphoma trials with median follow-up duration by arm, including overall, treatment, and control arms.",
+  "assumptions": "Assuming that 'median follow-up' is represented by the 'follow_up_duration_for_primary_endpoint_s_in_months' fields and that the cancer type is mentioned as 'Hodgkin Lymphoma' in the 'cancer_type' column."
+}

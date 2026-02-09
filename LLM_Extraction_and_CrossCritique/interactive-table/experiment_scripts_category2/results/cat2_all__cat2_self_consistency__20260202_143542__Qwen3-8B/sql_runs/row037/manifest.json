@@ -1,0 +1,57 @@
+{
+  "row_index": 37,
+  "question": "Which Phase 2 PD-L1 monotherapy trials in Breast should I review, and what were their regimens?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\", \"lines_of_treatment\", \"clincal_setting_in_relation_to_surgery\", \"primary_endpoint\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"type_of_follow_up_given\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\", \"class_of_ici_1\", \"name_of_ici_1\", \"type_of_therapy\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint_1\", \"included_in_ma\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Breast' AND \"type_of_combination\" = 'Monotherapy' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\", \"lines_of_treatment\", \"clincal_setting_in_relation_to_surgery\", \"primary_endpoint\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"secondary_endpoint\", \"is_pd_l1_positivity_inclusion_criteria\", \"is_any_other_biomarker_used_for_inclusion\", \"type_of_follow_up_given\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\", \"class_of_ici_1\", \"name_of_ici_1\", \"type_of_therapy\", \"type_of_combination_1\", \"control_arm\", \"clinical_setting\", \"primary_endpoint_1\", \"included_in_ma\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Breast' AND \"type_of_combination\" = 'Monotherapy' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The SQL query retrieves Phase 2 PD-L1 monotherapy trials in Breast cancer, including their regimens and other relevant details.",
+  "pred_assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'Yes' in 'is_pd_l1_positivity_inclusion_criteria' indicates PD-L1 positivity inclusion criteria.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"trial_phase\", \"ici_class\", \"therapy_modality\", \"cancer_type\", \"ici_name\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_class\" = 'PD-L1' AND \"cancer_type\" = 'Breast' AND \"trial_phase\" = 'Phase 2' AND \"therapy_modality\" = 'Monotherapy';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"trial_phase\", \"class_of_ici\", \"monotherapy_combination\", \"cancer_type\", \"name_of_ici\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"class_of_ici\" = 'PD-L1' AND \"cancer_type\" = 'Breast' AND \"trial_phase\" = 'Phase 2' AND \"monotherapy_combination\" = 'Monotherapy';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "therapy_modality",
+      "replaced_with": "monotherapy_combination",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.16666666666666666,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 4.85420785844326,
+  "pred_exec_error": null,
+  "pred_result_rows": 0,
+  "pred_result_hash": "830a1e10e55266ca76b87e8e5e926d3c",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.5119522362947464,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "28c62176d5f273f9b91f82141698fade",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": -1,
+  "column_overlap_ratio": 0.23529411764705882,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row037",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row037/candidates"
+}

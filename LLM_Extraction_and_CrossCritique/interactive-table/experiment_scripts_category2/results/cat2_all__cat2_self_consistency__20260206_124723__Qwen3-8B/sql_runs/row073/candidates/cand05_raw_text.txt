@@ -1,0 +1,15 @@
+- Values must be strings.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Esophageal%GEJ%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "The query retrieves Esophageal/GEJ PD1 trials conducted in 2018 or later by selecting relevant trials from the clinical_trials table.",
+  "assumptions": "Assumes that 'PD1' is the correct mapping for PD-1 and that the cancer_type field contains the keywords 'Esophageal' and 'GEJ' in the same string."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Esophageal%GEJ%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "The query retrieves Esophageal/GEJ PD1 trials conducted in 2018 or later by selecting relevant trials from the clinical_trials table.",
+  "assumptions": "Assumes that 'PD1' is the correct mapping for PD-1 and that the cancer_type field contains the keywords 'Esophageal' and 'GEJ' in the same string."
+}

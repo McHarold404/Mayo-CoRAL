@@ -1,0 +1,10 @@
+- "answer" should be a concise summary of the query's purpose.
+- "assumptions" should explain any assumptions made in the query.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" DESC;",
+  "answer": "This query retrieves Small Cell Lung trials with their follow-up durations by arm, sorted by overall follow-up duration in descending order.",
+  "assumptions": "Assuming that 'Small Cell Lung' is a valid cancer type and that follow-up durations are stored in the specified columns."
+}

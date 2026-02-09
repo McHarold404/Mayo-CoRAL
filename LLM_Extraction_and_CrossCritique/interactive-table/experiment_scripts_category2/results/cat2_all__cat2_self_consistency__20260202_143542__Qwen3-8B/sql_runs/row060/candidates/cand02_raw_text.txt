@@ -1,0 +1,21 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+
+I need to write a PostgreSQL query to find Non-Small Cell Lung studies included in the meta-analysis that used PD1, CTLA-4 agents.
+
+First, I need to filter for "Non-Small Cell Lung" in the "cancer_type" column. Then, I need to check for the use of PD1 or CTLA-4 agents. Since "PD1" is a specific class, I need to map any mention of PD-1 to "PD1" in the "class_of_ici" column. Also, I need to check if the study was included in the meta-analysis by looking at the "included_in_ma" column.
+
+So, the query should select the required columns and filter using these conditions. I will use ILIKE for the cancer type since it's a free text search. For the ICI class, I'll check for "PD1" and "CTLA-4". Also, I need to make sure that "included_in_ma" is true.
+
+I need to make sure that I'm using the correct column names and that I'm using double quotes around them. Also, I need to count distinct NCTs if the question asks for a count, but the question here is to show the studies, so I just need to select the rows.
+
+I should also check if there are any other possible ways the agents might be mentioned, but the question seems to specify PD1 and CTLA-4, so I'll stick with those exact values.
+
+Putting it all together, the query should select the required columns and apply the filters.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%') AND \"included_in_ma\" = true;",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'PD1' is mapped from any PD-1 mentions and 'Non-Small Cell Lung' is matched using case-insensitive partial match."
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "is_pd_l1_positivity_inclusion_criteria" = true AND "priamry_multiple_composite_or_co_primary_endpoints" = true ORDER BY "year";

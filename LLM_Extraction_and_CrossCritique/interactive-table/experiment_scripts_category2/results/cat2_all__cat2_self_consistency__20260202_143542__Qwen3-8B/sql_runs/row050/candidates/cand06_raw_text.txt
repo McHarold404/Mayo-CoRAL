@@ -1,0 +1,12 @@
+- Answer must be <= 1–2 sentences.
+- Answer must be in English.
+- Assumptions must be in English.
+- If no data meets the criteria, answer is "No trials found." and assumptions is empty.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Head and Neck trials with at least 2 prior lines of therapy that used combination treatment are shown.",
+  "assumptions": "Assumed that 'Head and Neck' is a valid cancer type and that 'type_of_combination' indicates combination treatment."
+}

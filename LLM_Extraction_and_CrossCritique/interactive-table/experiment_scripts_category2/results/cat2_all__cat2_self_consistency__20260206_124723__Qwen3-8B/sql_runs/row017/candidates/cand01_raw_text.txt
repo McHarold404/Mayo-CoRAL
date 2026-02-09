@@ -1,0 +1,25 @@
+- The answer must be <= 1–2 sentences.
+- The answer must be in English.
+- The answer must be a summary of the query result.
+- The assumptions field is optional, but should be used to clarify any assumptions made in the query.
+
+I need to write a SQL query to find Small Cell Lung phase 3 trials that compared ICI to Chemo.
+
+First, I need to filter for "Small Cell Lung" in the cancer_type column.
+
+Next, I should look for trials in phase 3 by checking the trial_phase column.
+
+Now, I need to identify trials where ICI was compared to Chemo. This could involve checking the treatment_regimen and control_regimen columns. I'll look for entries where treatment_regimen includes ICI and control_regimen includes Chemo.
+
+I also need to make sure that the comparison is between ICI and Chemo, not other combinations. So I'll check if the treatment_regimen contains ICI and the control_regimen contains Chemo.
+
+I should also consider the class_of_ici column to ensure it's mapped correctly, like PD1 for PD-1.
+
+Finally, I'll select the required columns and count the distinct trials.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%small cell lung%' AND \"trial_phase\" = '3' AND \"treatment_regimen\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%chemo%' AND \"class_of_ici\" ILIKE '%PD1%';",
+  "answer": "There are 2 Small Cell Lung phase 3 trials comparing ICI (PD1) to chemotherapy.",
+  "assumptions": "Assuming 'Chemo' refers to chemotherapy and 'ICI' refers to PD1-class immunotherapy. Trials with both ICI and chemotherapy in treatment and control regimens respectively were included."
+}

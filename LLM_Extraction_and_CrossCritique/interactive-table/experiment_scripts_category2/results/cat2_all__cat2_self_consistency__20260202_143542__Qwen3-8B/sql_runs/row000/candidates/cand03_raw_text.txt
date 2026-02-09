@@ -1,0 +1,11 @@
+- The sql must be a valid PostgreSQL query that runs against the table.
+- The answer must be a concise summary of the query's result.
+- The assumptions must describe any assumptions made during query construction.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ici+vac%';",
+  "answer": "The query returns Melanoma trials that used ICI+Vaccine combinations, including their NCT ID, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'ICI+Vaccine' combinations are indicated by the presence of 'ici+vac' in the 'type_of_combination' field."
+}

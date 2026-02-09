@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assume that "included_in_ma" is a boolean field (TRUE / FALSE).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' AND \"included_in_ma\" = TRUE;",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents are listed with their details.",
+  "assumptions": "Assuming 'included_in_ma' is a boolean field (TRUE/FALSE) and 'cancer_type' contains 'non-small cell lung' as a substring."
+}

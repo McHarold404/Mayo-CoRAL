@@ -1,0 +1,14 @@
+- Answer and assumptions are strings; sql is a string with valid PostgreSQL.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'true' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'false' AND \"cancer_type\" = 'Small Cell Lung Cancer';",
+  "answer": "The query retrieves Small Cell Lung Cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'Small Cell Lung Cancer' is the exact value for cancer_type and that 'true' and 'false' are the exact values for the boolean fields."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Small Cell Lung Cancer';",
+  "answer": "The query retrieves Small Cell Lung Cancer trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'Small Cell Lung Cancer' is the exact value for cancer_type and that 't'/'f' are the exact boolean representations in the database."
+}

@@ -1,0 +1,57 @@
+{
+  "row_index": 90,
+  "question": "Show Breast trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves distinct clinical trials for Breast cancer using PD1 immunotherapy where PD-L1 positivity was an inclusion criterion.",
+  "pred_assumptions": "Assumes 'PD1' is the correct mapping for PD-1 and that 'Yes' indicates PD-L1 positivity was an inclusion criterion.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"pdl1_inclusion\", \"ici_class\", \"cancer_type\", \"ici_name\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Breast' AND \"ici_class\" = 'PD1' AND \"pdl1_inclusion\" = 'Yes';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"is_pd_l1_positivity_inclusion_criteria\", \"class_of_ici\", \"cancer_type\", \"name_of_ici\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Breast' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "pdl1_inclusion",
+      "replaced_with": "is_pd_l1_positivity_inclusion_criteria",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3333333333333333,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 3.7564090453088284,
+  "pred_exec_error": null,
+  "pred_result_rows": 1,
+  "pred_result_hash": "b31b7dc167835606eab74ac86eb0f867",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.7650340236723423,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "20bdc1dec44ba037d479d99a5c2433d8",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.3,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row090",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 2,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row090/candidates"
+}

@@ -1,0 +1,11 @@
+- "answer" is a sentence or two, not a query.
+- "assumptions" is a sentence or two, not a query.
+- Use the exact column names and table name from the DATABASE section.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "The query lists PD1 trials that reported composite or co-primary endpoints by selecting the relevant columns from the clinical_trials table where the class_of_ici is PD1 and the priamry_multiple_composite_or_co_primary_endpoints is 'Yes'.",
+  "assumptions": "Assuming that 'PD1' is the correct mapping for PD-1 and that 'Yes' indicates the presence of composite or co-primary endpoints."
+}

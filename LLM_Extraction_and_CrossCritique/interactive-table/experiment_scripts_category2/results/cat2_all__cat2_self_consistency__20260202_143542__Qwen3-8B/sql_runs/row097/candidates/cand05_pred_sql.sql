@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Durvalumab%' AND \"trial_name\" ILIKE '%Tremelimumab%' AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"originial_publication_or_follow_up\" = 'follow-up'",
+  "answer": "Found 0 Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Durvalumab%' AND \"trial_name\" ILIKE '%Tremelimumab%' AND \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"originial_publication_or_follow_up\" = 'follow-up'",
+  "answer": "Found 0 Phase 3 Durvalumab, Tremelimumab trials in Small Cell Lung that were follow-up publications.",
+  "assumptions": ""
+}

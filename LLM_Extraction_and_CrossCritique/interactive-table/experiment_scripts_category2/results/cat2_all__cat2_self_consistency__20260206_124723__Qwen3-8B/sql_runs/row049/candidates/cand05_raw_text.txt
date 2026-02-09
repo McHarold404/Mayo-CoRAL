@@ -1,0 +1,14 @@
+- Answer must be a string, not a JSON object.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials matching the criteria.",
+  "assumptions": "Assumed that 'PD-L1' is represented as 'PD1' in the class_of_ici column and that 'CTLTA-4' is represented as 'CTLA4'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"year\" >= 2018;",
+  "answer": "Retrieved Head and Neck PD-L1 and CTLA-4 trials conducted in 2018 or later.",
+  "assumptions": "Assumed 'PD-L1' is mapped to 'PD1' in class_of_ici and 'CTLTA-4' is represented as 'CTLA4'."
+}

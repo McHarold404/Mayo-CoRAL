@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Renal cell' AND "is_any_other_biomarker_used_for_inclusion_criteria" = true AND "is_pd_l1_positivity_inclusion_criteria" = false;

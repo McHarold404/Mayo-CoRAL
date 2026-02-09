@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- Do NOT include any other text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%pd-l1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%yes%';",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assuming that the column \"priamry_multiple_composite_or_co_primary_endpoints\" contains 'yes' when composite or co-primary endpoints are reported."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%PD-L1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%yes%';",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assuming that the column \"priamry_multiple_composite_or_co_primary_endpoints\" contains 'yes' when composite or co-primary endpoints are reported. Also, PD-1 is mapped to 'PD1' in the \"class_of_ici\" column."
+}

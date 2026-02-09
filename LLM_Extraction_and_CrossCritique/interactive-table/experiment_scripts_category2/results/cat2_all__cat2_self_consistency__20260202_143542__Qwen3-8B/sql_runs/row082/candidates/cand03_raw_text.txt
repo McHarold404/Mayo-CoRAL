@@ -1,0 +1,17 @@
+- Use double quotes for all strings.
+- Use lowercase for keys.
+- No trailing commas.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%co-primary%'",
+  "answer": "The query retrieves PD1 trials that reported composite or co-primary endpoints by selecting relevant trials from the clinical_trials table.",
+  "assumptions": "Assumed that 'priamry_multiple_composite_or_co_primary_endpoints' column contains text describing the endpoints, and that PD1 is correctly mapped as 'PD1' in the 'class_of_ici' column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND (\"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\"::text ILIKE '%co-primary%')",
+  "answer": "PD1 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'priamry_multiple_composite_or_co_primary_endpoints' contains endpoint descriptions and that PD1 is correctly mapped in 'class_of_ici'."
+}

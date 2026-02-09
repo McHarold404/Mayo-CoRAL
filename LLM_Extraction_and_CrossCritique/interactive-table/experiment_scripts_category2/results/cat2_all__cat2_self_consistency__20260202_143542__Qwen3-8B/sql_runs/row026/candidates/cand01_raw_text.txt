@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves the nct, author, year, and pubmed_id of renal cell trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "The query returns renal cell carcinoma trials using PD-L1 as an immune checkpoint inhibitor where PD-L1 positivity was a required inclusion criterion.",
+  "assumptions": "Assumes 'PD1' is the correct mapping for PD-L1 in the class_of_ici column and that 'Renal cell' exactly matches the cancer_type entry."
+}

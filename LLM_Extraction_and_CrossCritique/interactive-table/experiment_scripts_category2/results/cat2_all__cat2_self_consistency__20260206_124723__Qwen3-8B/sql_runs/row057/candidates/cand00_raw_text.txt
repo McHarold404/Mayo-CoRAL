@@ -1,0 +1,13 @@
+- Use double-quotes for all strings.
+- No markdown.
+- Use the exact column names from the list, with double quotes.
+
+Please write in English.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL",
+  "answer": "Retrieved trials for Non-Small Cell Lung cancer with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' is a valid cancer type and that 'type_of_combination' indicates combination treatment."
+}

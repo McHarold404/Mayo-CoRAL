@@ -1,0 +1,20 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+Okay, let's tackle this query. The user wants Hodgkin Lymphoma trials with median follow-up and show months by arm. First, I need to check the columns available. The table has columns like "cancer_type", "follow_up_duration_for_primary_endpoint_s_in_months_overall", "follow_up_duration_for_primary_endpoint_s_in_months_rx", and "follow_up_duration_for_primary_endpoint_s_in_months_control". 
+
+Wait, the question mentions "median follow-up" but the columns are named with "follow_up_duration_for_primary_endpoint_s_in_months". Maybe the user is referring to the overall follow-up duration. Also, they want to show months by arm, which might mean distinguishing between the treatment arm (rx) and control arm. 
+
+So, I should filter "cancer_type" to 'Hodgkin Lymphoma'. Then, select the relevant follow-up durations. The user might need the median, but since the data might already be in months, perhaps the columns are the median values. However, the question says "median follow-up", but the columns are named as durations. Maybe the user is using "median" in a general sense, so I'll include those columns.
+
+Also, the user wants to show months by arm, so including all three durations: overall, rx, and control. Need to make sure to alias them for clarity. The answer should list the trials with those follow-up durations. 
+
+I should also check if there are any other conditions, but the question doesn't specify. So, the main filter is "cancer_type" = 'Hodgkin Lymphoma'. The answer will include the nct, author, year, pubmed_id, and the follow-up durations. 
+
+Wait, the user might be confused about the column names. The columns are "follow_up_duration_for_primary_endpoint_s_in_months_overall", "follow_up_duration_for_primary_endpoint_s_in_months_rx", and "follow_up_duration_for_primary_endpoint_s_in_months_control". So, perhaps the overall is the total, rx is the treatment arm, and control is the control arm. Including all three would show the months by arm. 
+
+So the SQL query would select those columns, filter on cancer_type, and include the required fields. The answer should mention that the query retrieves trials with Hodgkin Lymphoma, showing follow-up durations by arm. Assumptions might include that the columns represent median durations as intended.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\"

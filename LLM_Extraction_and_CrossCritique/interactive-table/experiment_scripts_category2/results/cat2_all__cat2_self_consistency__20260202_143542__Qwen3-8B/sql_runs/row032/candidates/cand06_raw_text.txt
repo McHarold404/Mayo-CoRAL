@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' OR \"class_of_ici_1\" = 'PD1' OR \"name_of_ici\" ILIKE '%PD-1%' OR \"name_of_ici_1\" ILIKE '%PD-1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "The query lists PD-1 and CTLA-4 trials that reported composite or co-primary endpoints.",
+  "assumptions": "Assuming that 'PD-1' is mentioned in the name_of_ici or class_of_ici fields, and that 'CTLA-4' is mapped to 'PD1' in the class_of_ici or class_of_ici_1 fields."
+}

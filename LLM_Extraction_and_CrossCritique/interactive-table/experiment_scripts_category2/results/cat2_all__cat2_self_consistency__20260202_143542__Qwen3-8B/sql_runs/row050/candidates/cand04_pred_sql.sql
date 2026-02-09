@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'combination treatment';

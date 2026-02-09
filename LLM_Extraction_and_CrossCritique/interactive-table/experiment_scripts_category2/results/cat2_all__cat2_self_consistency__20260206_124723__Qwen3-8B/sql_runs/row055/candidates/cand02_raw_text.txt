@@ -1,0 +1,13 @@
+- Use double quotes for all strings.
+- Use the exact column names from the schema.
+- Use ILIKE for free text searches.
+- Use COUNT(DISTINCT "nct") when counting trials.
+
+Also, for the answer, be precise and concise.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%pd-l1%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%'",
+  "answer": "PD-L1 trials that reported composite or co-primary endpoints are listed with their corresponding details.",
+  "assumptions": "Assuming 'PD-L1' is mentioned in the 'class_of_ici' column and 'yes' indicates composite or co-primary endpoints."
+}

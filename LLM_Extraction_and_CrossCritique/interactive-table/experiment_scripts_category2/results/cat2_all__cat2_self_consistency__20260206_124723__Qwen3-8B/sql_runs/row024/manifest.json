@@ -1,0 +1,47 @@
+{
+  "row_index": 24,
+  "question": "Find Phase 2 Atezolizumab trials in Non-Small Cell Lung that were original publication publications.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"name_of_ici\" = 'Atezolizumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'original publication';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"name_of_ici\" = 'Atezolizumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'original publication';",
+  "pred_sql_fixes": [],
+  "pred_answer": "This query retrieves Phase 2 Atezolizumab trials in Non-Small Cell Lung cancer that were original publications.",
+  "pred_assumptions": "",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_name\", \"trial_phase\", \"cancer_type\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Atezolizumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"trial_phase\" = 'Phase 2' AND \"publication_type\" = 'Original publication';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"name_of_ici\", \"trial_phase\", \"cancer_type\"\nFROM public.\"clinical_trials\"\nWHERE \"name_of_ici\" = 'Atezolizumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"trial_phase\" = 'Phase 2' AND \"originial_publication_or_follow_up\" = 'Original publication';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.5,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.5791961923241615,
+  "pred_exec_error": null,
+  "pred_result_rows": 0,
+  "pred_result_hash": "1d9e0c36491c45ff946e09de54ac4223",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.4421632513403893,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "e2e49bbce37ee539241897ae8307eabe",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": -1,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row024",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row024/candidates"
+}

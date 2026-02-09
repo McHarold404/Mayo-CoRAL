@@ -1,0 +1,10 @@
+- Use the exact column names from the database as listed.
+- Use double quotes around column names.
+- Assume that "Multiple Myeloma" is the exact value for "cancer_type".
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'ICI+Chemo'",
+  "answer": "The query retrieves Multiple Myeloma studies that tested ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": "Assumes 'Multiple Myeloma' is the exact value for cancer_type and 'ICI+Chemo' is the exact value for type_of_combination."
+}

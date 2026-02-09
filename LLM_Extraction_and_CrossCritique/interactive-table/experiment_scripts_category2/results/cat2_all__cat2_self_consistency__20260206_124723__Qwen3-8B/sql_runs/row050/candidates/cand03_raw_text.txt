@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL",
+  "answer": "This query retrieves Head and Neck cancer trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assumes that 'Head and Neck' is a valid value for the 'cancer_type' column and that 'type_of_combination' is not null for combination treatments."
+}

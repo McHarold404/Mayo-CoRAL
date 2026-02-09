@@ -1,0 +1,15 @@
+- Use the exact column names from the table.
+- Use double quotes for all column names.
+- Use ILIKE for free text searches.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Map PD-1 to "PD1" in "class_of_ici".
+- Prefer exact equality for enumerated values.
+- Return only the keys sql, answer, assumptions.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f'",
+  "answer": "List of Gastric/GEJ trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'GEJ' refers to Gastric-Esophageal Junction cancer and that 'is_any_other_biomarker_used_for_inclusion_criteria' indicates the use of a biomarker other than PD-L1."
+}

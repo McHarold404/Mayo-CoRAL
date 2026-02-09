@@ -1,0 +1,12 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+- SQL must be a valid PostgreSQL SELECT statement.
+- Include "nct", "author", "year", "pubmed_id" in output.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" IS NOT NULL AND \"control_regimen\" ILIKE '%Chemotherapy%' AND \"type_of_control\" = 'Chemotherapy';",
+  "answer": "The query retrieves Non-Small Cell Lung phase 2 trials that compared an ICI to chemotherapy.",
+  "assumptions": "Assumed that 'ICI' refers to immune checkpoint inhibitors and that 'Chemotherapy' is explicitly mentioned in the control regimen."
+}

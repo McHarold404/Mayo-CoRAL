@@ -1,0 +1,12 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+- Use ILIKE for free text, NOT LIKE for exact matches.
+- Ensure the query is runnable as-is.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal cell%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves renal cell carcinoma trials using PD-1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumes that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'renal cell' is a substring of the 'cancer_type' field."
+}

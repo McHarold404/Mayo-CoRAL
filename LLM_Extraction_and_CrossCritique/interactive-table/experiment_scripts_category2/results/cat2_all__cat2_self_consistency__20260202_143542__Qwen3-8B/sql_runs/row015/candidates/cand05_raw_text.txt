@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+- Do not include any other information.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'CTLA-4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' OR \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%composite%' OR \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%co-primary%';",
+  "answer": "CTLA-4 trials that reported composite or co-primary endpoints are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assuming 'priamry_multiple_composite_or_co_primary_endpoints' is a typo and should be 'primary_endpoint' or 'priamry_multiple_composite_or_co_primary_endpoints' is the correct column name."
+}

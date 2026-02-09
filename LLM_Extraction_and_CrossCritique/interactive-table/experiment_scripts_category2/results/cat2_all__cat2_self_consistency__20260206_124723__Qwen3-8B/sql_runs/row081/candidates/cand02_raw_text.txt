@@ -1,0 +1,11 @@
+- Use the exact column names and double quotes.
+- For the answer, summarize the query's purpose in 1–2 sentences.
+- For assumptions, list any assumptions made (e.g., about data quality, mappings, etc.).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" IS NOT NULL AND \"follow_up_duration_for_primary_endpoint_s_in_months_control\" IS NOT NULL;",
+  "answer": "This query retrieves Hodgkin Lymphoma trials with median follow-up durations by arm, including overall, treatment, and control arm follow-up in months.",
+  "assumptions": "Assumes that 'Hodgkin Lymphoma' is mentioned in the 'cancer_type' field and that follow-up durations are available for all arms."
+}

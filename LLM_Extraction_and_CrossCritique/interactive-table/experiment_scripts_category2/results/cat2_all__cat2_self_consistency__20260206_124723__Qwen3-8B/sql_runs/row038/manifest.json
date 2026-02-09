@@ -1,0 +1,47 @@
+{
+  "row_index": 38,
+  "question": "Show Bladder PD-L1 trials conducted in 2018 or later.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" ILIKE '%pd-l1%' AND \"year\" >= 2018;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" ILIKE '%pd-l1%' AND \"year\" >= 2018;",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves clinical trials for Bladder cancer with PD-L1 inhibitors conducted in 2018 or later.",
+  "pred_assumptions": "Assuming that 'PD-L1' is correctly mapped to 'PD1' in the 'class_of_ici' column and that 'Bladder' is a valid substring for bladder cancer.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_class\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Bladder' AND \"ici_class\" = 'PD-L1' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"class_of_ici\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Bladder' AND \"class_of_ici\" = 'PD-L1' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3076923076923077,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 4.893472883850336,
+  "pred_exec_error": null,
+  "pred_result_rows": 1,
+  "pred_result_hash": "ad00fd2786836debce36b4c7b57a60ff",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.5582703053951263,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "6424d26c1181e43dec0cb6c9833f9325",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row038",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row038/candidates"
+}

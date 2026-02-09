@@ -1,0 +1,30 @@
+- Use the exact column names from the table.
+
+I need to write a SQL query to find Hepatocellular trials that evaluated Pembrolizumab in phase 3.
+
+First, I'll filter for "cancer_type" = 'Hepatocellular'.
+
+Next, I need to check for Pembrolizumab. The "name_of_ici" column might have it. I'll use ILIKE to handle any variations in case or formatting.
+
+Then, I'll filter for "trial_phase" = '3'.
+
+I should also include the required columns: "nct", "author", "year", "pubmed_id".
+
+So the query will select those columns from the table where the cancer type is Hepatocellular, the name of the ICI is Pembrolizumab (case-insensitive), and the trial phase is 3.
+
+I need to make sure to use double quotes around the column names and qualify the table name as public."clinical_trials".
+
+I should also use COUNT(DISTINCT "nct") if the question asks for a count, but since it's asking for which trials, I'll return the rows.
+
+I need to check if there are other columns that might contain Pembrolizumab, like "name_of_ici_1" or "monotherapy_combination", but the question specifically mentions Pembrolizumab as an ICI, so focusing on "name_of_ici" is correct.
+
+I should also check if the "class_of_ici" might have "PD1" for Pembrolizumab, but since the question specifies Pembrolizumab by name, it's better to search the name directly.
+
+I'll construct the query accordingly.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Hepatocellular' AND \"name_of_ici\" ILIKE '%Pembrolizumab%' AND \"trial_phase\" = '3';",
+  "answer": "Hepatocellular trials evaluating Pembrolizumab in phase 3 are listed with their corresponding NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'Pembrolizumab' is explicitly mentioned in the \"name_of_ici\" field and 'phase 3' is exactly specified in \"trial_phase\"."
+}

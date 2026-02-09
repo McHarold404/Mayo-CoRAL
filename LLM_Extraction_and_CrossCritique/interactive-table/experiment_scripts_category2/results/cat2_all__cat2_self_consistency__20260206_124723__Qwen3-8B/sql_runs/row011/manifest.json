@@ -1,0 +1,47 @@
+{
+  "row_index": 11,
+  "question": "Show Prostate CTLA-4 trials conducted in 2018 or later.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"class_of_ici\" = 'CTLA4' AND \"year\" >= 2018;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"class_of_ici\" = 'CTLA4' AND \"year\" >= 2018;",
+  "pred_sql_fixes": [],
+  "pred_answer": "Retrieved trials of Prostate cancer using CTLA-4 therapy from 2018 onwards.",
+  "pred_assumptions": "Assumed 'CTLA-4' is specified as 'CTLA4' in the class_of_ici column and 'Prostate' is an exact match for cancer_type.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_class\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Prostate' AND \"ici_class\" = 'CTLA-4' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"class_of_ici\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Prostate' AND \"class_of_ici\" = 'CTLA-4' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3076923076923077,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.312830951064825,
+  "pred_exec_error": null,
+  "pred_result_rows": 0,
+  "pred_result_hash": "1d9e0c36491c45ff946e09de54ac4223",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.0269898921251297,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "fb641f962a3fa719de4e8aeb85d4b846",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": -1,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row011",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 3,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row011/candidates"
+}

@@ -1,0 +1,11 @@
+- Values must be strings.
+- Use standard PostgreSQL syntax.
+- Do NOT use markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%multiple myeloma%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "The query retrieves Multiple Myeloma trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assuming \"lines_of_treatment\" refers to the number of prior treatments and \"type_of_combination\" indicates combination treatment."
+}

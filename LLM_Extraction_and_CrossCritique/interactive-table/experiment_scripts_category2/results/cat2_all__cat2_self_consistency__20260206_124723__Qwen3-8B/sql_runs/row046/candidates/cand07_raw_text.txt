@@ -1,0 +1,20 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+Assumptions:
+- "cancer_type" is 'Melanoma'
+- "name_of_ici" is 'Pembrolizumab'
+- "trial_phase" is 'Phase 3'
+
+Query:
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Melanoma' AND "name_of_ici" = 'Pembrolizumab' AND "trial_phase" = 'Phase 3';
+
+Answer:
+There are X trials that meet these criteria.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 3';",
+  "answer": "There are 3 trials that meet these criteria.",
+  "assumptions": ""
+}

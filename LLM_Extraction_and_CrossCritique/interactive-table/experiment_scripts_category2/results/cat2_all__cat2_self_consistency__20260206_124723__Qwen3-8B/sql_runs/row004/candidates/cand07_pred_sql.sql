@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_phase", "treatment_regimen", "control_regimen", "class_of_ici", "name_of_ici", "type_of_combination", "control_arm" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 3' AND "cancer_type" = 'Melanoma' AND "class_of_ici" = 'CTLA4' AND "name_of_ici" = 'Ipilimumab' AND "type_of_combination" IS NOT NULL;

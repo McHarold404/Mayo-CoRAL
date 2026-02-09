@@ -1,0 +1,13 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"clinical_setting\", \"primary_endpoint\", \"secondary_endpoint\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%PDL1%' AND \"name_of_ici\" ILIKE '%CTLA4%' AND \"cancer_type\" = 'Non-Small Cell Lung Cancer' AND \"type_of_combination\" = 'combination' AND \"type_of_control\" = 'standard of care' AND \"clinical_setting_in_relation_to_surgery\" IS NULL;",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials for Non-Small Cell Lung Cancer involve regimens combining these ICIs with standard of care, with follow-up durations as specified.",
+  "assumptions": "Assumed 'PD-L1' is mapped to 'PD1' in class_of_ici, and 'CTLA-4' is included in name_of_ici. Also, clinical_setting_in_relation_to_surgery is assumed to be irrelevant here."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"clinical_setting\", \"primary_endpoint\", \"secondary_endpoint\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%PDL1%' AND \"name_of_ici\" ILIKE '%CTLA4%' AND \"cancer_type\" = 'Non-Small Cell Lung Cancer' AND \"type_of_combination\" = 'combination' AND \"type_of_control\" = 'standard of care' AND \"clinical_setting_in_relation_to_surgery\" IS NULL;",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials for Non-Small Cell Lung Cancer involve regimens combining these ICIs with standard of care, with follow-up durations as specified.",
+  "assumptions": "Assumed 'PD-L1' is mapped to 'PD1' in class_of_ici, and 'CTLA-4' is included in name_of_ici. Also

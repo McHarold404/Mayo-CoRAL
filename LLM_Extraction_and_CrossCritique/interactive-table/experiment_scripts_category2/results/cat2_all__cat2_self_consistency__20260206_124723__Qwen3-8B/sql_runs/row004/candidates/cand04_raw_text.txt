@@ -1,0 +1,16 @@
+- Use proper PostgreSQL syntax.
+- Ensure all column names are properly quoted.
+- Do NOT include any extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\", \"type_of_control\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Melanoma' AND \"class_of_ici\" = 'CTLA4' AND \"name_of_ici\" ILIKE '%CTLA-4%';",
+  "answer": "Phase 3 CTLA-4 combination trials in Melanoma include the listed trials with their regimens and control regimens.",
+  "assumptions": "Assuming that the combination trials involve CTLA-4 and that the name_of_ici includes 'CTLA-4' as a keyword."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\", \"type_of_control\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Melanoma' AND \"class_of_ici\" = 'CTLA4' AND \"name_of_ici\" ILIKE '%CTLA-4%';",
+  "answer": "Phase 3 CTLA-4 combination trials in Melanoma include the listed trials with their regimens and control regimens.",
+  "assumptions": "Assuming that the combination trials involve CTLA-4 and that the name_of_ici includes 'CTLA-4' as a keyword."
+}

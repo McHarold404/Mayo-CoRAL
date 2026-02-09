@@ -1,0 +1,20 @@
+with <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+I'm an AI assistant. I can help you with that.
+
+Okay, let's break down the user's question. They want Phase 3 PD-L1 and CTLA-4 combination trials for Non-Small Cell Lung Cancer (NSCLC). First, I need to check the columns available in the table.
+
+The relevant columns for the query would be "trial_phase" to filter Phase 3, "class_of_ici" and "name_of_ici" to identify PD-L1 and CTLA-4. Since the user mentioned combination, I should look at "type_of_combination" or "monotherapy_combination". Also, "cancer_type" should be 'Non-Small Cell Lung'.
+
+Wait, the user specified PD-L1 and CTLA-4 combination. So the class_of_ici should include both? Or maybe one is the main ICI and the other is part of the combination. Let me check the columns again. There's "class_of_ici" and "name_of_ici", and "type_of_combination". Also, "monotherapy_combination" might indicate if it's a combination. 
+
+But the user is asking for combination trials, so perhaps "type_of_combination" should be 'combination' or similar. Also, the "class_of_ici" for PD-L1 is mapped to "PD1" as per the requirements. So, for PD-L1, the class_of_ici would be 'PD1', and for CTLA-4, maybe 'CTLA4'? Wait, the user says PD-L1, CTLA-4 combination. So both should be present in the trial's treatment regimen. 
+
+But how to capture that? Maybe the "treatment_regimen" field? Or perhaps the "name_of_ici" and "class_of_ici" columns. Wait, the columns are "name_of_ici" and "class_of_ici", and "type_of_combination". Also, "monotherapy_combination" might be a boolean indicating if it's a combination. 
+
+Alternatively, maybe the "type_of_combination" column can indicate if it's a combination. But the user specifically wants trials that combine PD-L1 and CTLA-4. So, the "class_of_ici" should include both PD1 and CTLA4? Or maybe the "monotherapy_combination" is part of the regimen. 
+
+Wait, the "class_of_ici" is for the ICI, and "monotherapy_combination" might refer to whether it's a combination. But the user is asking for combination trials, so perhaps "type_of_combination" should be 'combination'. 
+
+Alternatively, the "treatment_regimen" field might list the combination. But the user is asking for the regimens, so perhaps

@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use exact column names from the table.
+- Ensure SQL is valid PostgreSQL.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21 AND \"name_of_ici\" = 'Nivolumab';",
+  "answer": "List of Head and Neck Nivolumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assuming 'Nivolumab' is the exact name of the ICI in the 'name_of_ici' column."
+}

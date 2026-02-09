@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "trial_phase", "cancer_type", "treatment_regimen", "name_of_ici", "class_of_ici", "type_of_combination", "control_regimen" FROM public."clinical_trials" WHERE "trial_phase" = 'Phase 2' AND "cancer_type" = 'Non-Small Cell Lung' AND "class_of_ici" = 'CTLA4' AND "type_of_combination" IS NOT NULL;

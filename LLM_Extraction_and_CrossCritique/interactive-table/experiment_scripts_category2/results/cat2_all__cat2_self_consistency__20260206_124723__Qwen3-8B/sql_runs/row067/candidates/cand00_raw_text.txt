@@ -1,0 +1,14 @@
+- Do not include any additional text or explanation.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici_1\" = 'PD1') AND (\"name_of_ici\" ILIKE '%Pembrolizumab%' OR \"name_of_ici_1\" ILIKE '%Pembrolizumab%') AND \"year\" >= 2018;",
+  "answer": "Melanoma PD1, CTLA-4 trials conducted in 2018 or later are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed Pembrolizumab is a PD1 inhibitor and that the query should include trials with PD1 in either class_of_ici or class_of_ici_1."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici_1\" = 'PD1') AND (\"name_of_ici\" ILIKE '%Pembrolizumab%' OR \"name_of_ici_1\" ILIKE '%Pembrolizumab%') AND \"year\" >= 2018;",
+  "answer": "Melanoma PD1, CTLA-4 trials conducted in 2018 or later are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed Pembrolizumab is a PD1 inhibitor and that the query should include trials with PD1 in either class_of_ici or class_of_ici_1."
+}

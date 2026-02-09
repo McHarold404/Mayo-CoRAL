@@ -1,0 +1,32 @@
+- Use double quotes for string values.
+- Use single quotes for SQL string literals.
+- Use the exact column names from the schema.
+- Use the exact spelling of the column names.
+- Qualify the table as public."clinical_trials".
+- When counting trials, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants a list of Head and Neck Nivolumab trials where the overall follow-up exceeded 21 months.
+
+First, I need to check the relevant columns. The cancer_type should be 'Head and Neck' and the name_of_ici should be 'Nivolumab'. Also, the follow_up_duration_for_primary_endpoint_s_in_months_overall needs to be greater than 21.
+
+Wait, the column name is a bit long. Let me confirm: follow_up_duration_for_primary_endpoint_s_in_months_overall. Yes, that's the exact name. So I'll use that in the WHERE clause.
+
+I should select the required fields: nct, author, year, pubmed_id. Also, include the columns mentioned in the requirements. The user didn't specify any other columns, so just those four.
+
+Need to make sure to use double quotes around the column names. Also, the table is public."clinical_trials".
+
+So the SQL would be a SELECT with those columns from the table where cancer_type is 'Head and Neck', name_of_ici is 'Nivolumab', and the follow_up_duration... is > 21. Also, check if there are any other conditions. The question says "overall follow-up exceeded 21 months", which refers to the overall duration, so the correct column is follow_up_duration_for_primary_endpoint_s_in_months_overall.
+
+I think that's all. Let me structure the query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"name_of_ici\" = 'Nivolumab' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Head and Neck Nivolumab trials with overall follow-up exceeding 21 months are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": ""
+}

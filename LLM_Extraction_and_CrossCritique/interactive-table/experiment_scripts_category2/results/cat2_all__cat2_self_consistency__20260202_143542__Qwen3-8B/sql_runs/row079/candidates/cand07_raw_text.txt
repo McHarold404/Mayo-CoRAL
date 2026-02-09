@@ -1,0 +1,15 @@
+- "answer" must be a string, not a count.
+- "assumptions" must be a string, empty if none.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Gastric/GEJ PD-L1 trials conducted in 2018 or later are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%') AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Gastric/GEJ PD-L1 trials conducted in 2018 or later are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": ""
+}

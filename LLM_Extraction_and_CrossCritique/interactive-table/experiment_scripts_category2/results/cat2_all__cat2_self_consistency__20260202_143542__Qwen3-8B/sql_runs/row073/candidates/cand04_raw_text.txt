@@ -1,0 +1,10 @@
+- Values must be strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved Esophageal/GEJ PD1 trials conducted in 2018 or later with their respective nct, author, year, and pubmed_id.",
+  "assumptions": "Assumed that 'GEJ' refers to Gastroesophageal Junction and that 'PD1' is the correct class_of_ici value for PD-1."
+}

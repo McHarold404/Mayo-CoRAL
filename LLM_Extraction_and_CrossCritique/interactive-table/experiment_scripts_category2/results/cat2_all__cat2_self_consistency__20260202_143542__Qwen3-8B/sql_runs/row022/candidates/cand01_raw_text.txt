@@ -1,0 +1,26 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+
+I need to write a SQL query to find pancreatic trials that used ICI+Vaccine combinations.
+
+First, I need to filter trials where the cancer type is "Pancreatic" (or similar, like "Pancreatic cancer").
+
+Next, I need to check for combinations involving ICI and Vaccine. The "monotherapy_combination" and "type_of_combination" columns might be relevant here. But there's also "type_of_combination_1" and "name_of_ici_1" for the second ICI. Wait, the question is about ICI+Vaccine combinations. So the combination should include both an ICI and a vaccine. 
+
+I should look for rows where the "type_of_combination" is "ICI + Vaccine" or similar. Also, check if "type_of_combination_1" is "ICI + Vaccine" or if "name_of_ici_1" indicates a vaccine. But the question is about ICI+Vaccine combinations, so the combination should include both an ICI and a vaccine. 
+
+Wait, the columns "monotherapy_combination" and "type_of_combination" might indicate if the combination includes an ICI and a vaccine. However, the question is about trials that used ICI+Vaccine combinations, so I need to look for rows where the combination type includes both an ICI and a vaccine. 
+
+Alternatively, the "monotherapy_combination" might indicate the combination, and "type_of_combination" might describe the type. If "type_of_combination" is "ICI + Vaccine", that would be a match. Also, check if "treatment_regimen" includes both ICI and vaccine. 
+
+But the exact columns available are "monotherapy_combination", "type_of_combination", "name_of_ici", "class_of_ici", "name_of_ici_1", "class_of_ici_1", "type_of_combination_1", etc. 
+
+So, the approach would be: filter where "cancer_type" is "Pancreatic", and check if "type_of_combination" is "ICI + Vaccine" or if "type_of_combination_1" is "ICI + Vaccine". Also, check if the combination includes both an ICI and a vaccine. 
+
+Wait, the question is about ICI+Vaccine combinations, so the combination should include both an ICI and a vaccine. The "monotherapy_combination" might be the combination type, and "type_of_combination" might describe it. 
+
+Alternatively, the "type_of_combination" could be "ICI + Vaccine", which would be a direct match. Also, the "type_of_combination_1" might indicate the second combination. 
+
+But the user might have used "monotherapy_combination" to indicate the combination. 
+
+So,

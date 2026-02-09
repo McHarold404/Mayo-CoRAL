@@ -1,0 +1,15 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Head and Neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "The query retrieves Head and Neck cancer trials using PD-1 (PD-L1) where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Head and Neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Head and Neck cancer trials using PD-1 (PD-L1) with PD-L1 positivity as an inclusion criterion are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and 'Head and Neck' is a substring of the 'cancer_type' field."
+}

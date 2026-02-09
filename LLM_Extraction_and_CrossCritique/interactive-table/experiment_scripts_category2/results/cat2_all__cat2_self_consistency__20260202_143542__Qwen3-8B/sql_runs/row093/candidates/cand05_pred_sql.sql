@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "trial_phase" = '2' AND ("name_of_ici" ILIKE '%durvalumab%' OR "name_of_ici" ILIKE '%tremelimumab%') AND "cancer_type" = 'Colorectal';

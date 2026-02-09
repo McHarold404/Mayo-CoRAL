@@ -1,0 +1,12 @@
+- Use the exact column names from the table.
+- Use the exact spelling of the column names.
+- Do NOT use any column names that are not in the table.
+- Do NOT add any extra information.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ICI+ICI%';",
+  "answer": "The query retrieves Melanoma studies that tested ICI+ICI combinations along with their primary endpoints.",
+  "assumptions": ""
+}

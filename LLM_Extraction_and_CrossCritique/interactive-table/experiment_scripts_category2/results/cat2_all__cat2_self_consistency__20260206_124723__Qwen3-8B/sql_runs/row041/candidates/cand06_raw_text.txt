@@ -1,0 +1,11 @@
+- Ensure valid JSON syntax (no trailing commas, etc.)
+- Use double quotes for strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%pd-l1%' AND \"class_of_ici_1\" ILIKE '%ctla-4%' AND \"year\" >= 2018;",
+  "answer": "Non-Small Cell Lung PD-L1, CTLA-4 trials conducted in 2018 or later are shown.",
+  "assumptions": "Assuming that the presence of 'PD-L1' and 'CTLA-4' in the class_of_ici fields indicates trials involving these immunotherapies."
+}

@@ -1,0 +1,11 @@
+- Answer must be a string of 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+I will now generate the SQL query and answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' AND \"primary_endpoint\" IS NOT NULL;",
+  "answer": "The query retrieves PD1 trials that reported composite or co-primary endpoints along with their basic metadata.",
+  "assumptions": "Assumed that 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates composite/co-primary endpoints, and that \"primary_endpoint\" is not null for these cases."
+}

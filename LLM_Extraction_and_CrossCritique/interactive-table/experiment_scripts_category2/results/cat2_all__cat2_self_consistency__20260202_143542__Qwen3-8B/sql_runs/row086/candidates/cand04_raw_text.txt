@@ -1,0 +1,14 @@
+- No markdown, no extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Colorectal' AND \"class_of_ici\" = 'PD1' AND \"monotherapy_combination\" = 'Monotherapy' AND \"type_of_combination\" = 'Monotherapy' AND \"type_of_therapy\" = 'Immunotherapy' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "answer": "Phase 3 PD-L1 monotherapy trials in Colorectal include the listed trials with their regimens.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the class_of_ici column, and 'Monotherapy' is specified in both monotherapy_combination and type_of_combination fields."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Colorectal' AND \"class_of_ici\" = 'PD1' AND \"monotherapy_combination\" = 'Monotherapy' AND \"type_of_combination\" = 'Monotherapy' AND \"type_of_therapy\" = 'Immunotherapy' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "answer": "Phase 3 PD-L1 monotherapy trials in Colorectal include the listed trials with their regimens.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the class_of_ici column, and 'Monotherapy' is specified in both monotherapy_combination and type_of_combination fields."
+}

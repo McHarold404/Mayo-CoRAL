@@ -1,0 +1,10 @@
+- Use double quotes for all strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\", \"class_of_ici\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"cancer_type\" = 'Pancreatic' AND \"class_of_ici\" = 'CTLA4' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "The query retrieves Phase 2 CTLA-4 combination trials in Pancreatic cancer along with their regimens, control regimens, and other relevant details.",
+  "assumptions": "Assuming 'CTLA-4' is mapped to 'CTLA4' in the 'class_of_ici' column and that 'type_of_combination' is non-null indicates combination trials."
+}

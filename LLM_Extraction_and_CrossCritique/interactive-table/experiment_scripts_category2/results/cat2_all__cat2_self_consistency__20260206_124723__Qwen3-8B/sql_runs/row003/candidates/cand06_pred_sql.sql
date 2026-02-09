@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "total_sample_size" FROM public."clinical_trials" WHERE "name_of_ici" = 'Ipilimumab' AND "cancer_type" = 'Melanoma' AND "type_of_combination" = 'Combination' AND "number_of_arms" > 1;

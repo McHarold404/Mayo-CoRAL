@@ -1,0 +1,18 @@
+- Use the exact column names from the table.
+
+I will now generate the SQL query based on the requirements.
+
+The query needs to:
+1. Filter for Non-Small Cell Lung cancer type
+2. Check for PD1 or CTLA-4 in the class_of_ici column
+3. Include trials that are part of a meta-analysis (included_in_ma = 'Yes')
+4. Return the required columns
+
+Let me construct the SQL query accordingly.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND (LOWER(\"class_of_ici\") ILIKE '%pd1%' OR LOWER(\"class_of_ici\") ILIKE '%ctla-4%') AND \"included_in_ma\" = 'Yes';",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents.",
+  "assumptions": "Assuming 'included_in_ma' indicates meta-analysis inclusion and 'class_of_ici' contains PD1/CTLA-4 terminology."
+}

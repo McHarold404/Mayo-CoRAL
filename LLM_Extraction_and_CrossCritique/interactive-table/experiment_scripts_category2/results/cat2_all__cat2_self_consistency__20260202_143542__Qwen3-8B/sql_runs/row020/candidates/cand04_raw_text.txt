@@ -1,0 +1,10 @@
+- Use only the columns listed in the DATABASE section.
+- Use the exact spelling of the column names, and always double-quote them.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Melanoma' AND \"originial_publication_or_follow_up\" = 'original publication';",
+  "answer": "Phase 2 Pembrolizumab trials in Melanoma that were original publications are listed with their respective details.",
+  "assumptions": "Assumes 'Pembrolizumab' is correctly spelled and 'Melanoma' is the exact cancer type specified in the database."
+}

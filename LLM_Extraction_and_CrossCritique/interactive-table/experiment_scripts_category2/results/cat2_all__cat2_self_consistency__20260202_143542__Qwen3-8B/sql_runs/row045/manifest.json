@@ -1,0 +1,47 @@
+{
+  "row_index": 45,
+  "question": "Which Pancreatic trials evaluated Pembrolizumab in phase 2?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 2';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"name_of_ici\" = 'Pembrolizumab' AND \"trial_phase\" = 'Phase 2';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Phase 2 pancreatic trials that evaluated Pembrolizumab.",
+  "pred_assumptions": "Assumes 'Pembrolizumab' is correctly spelled and 'Phase 2' is specified exactly as stored in the database.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_name\", \"trial_phase\", \"cancer_type\", \"trial_name\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Pembrolizumab' AND \"cancer_type\" = 'Pancreatic' AND \"trial_phase\" = 'Phase 2';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"name_of_ici\", \"trial_phase\", \"cancer_type\", \"trial_name\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Pancreatic' AND \"trial_phase\" = 'Phase 2';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.45454545454545453,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.895168960094452,
+  "pred_exec_error": null,
+  "pred_result_rows": 1,
+  "pred_result_hash": "ad41d65561fe987d1111b8f2324baedd",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.1472942791879177,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "d70bf8edfdba823802f5a8970c032323",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.3,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row045",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 2,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row045/candidates"
+}

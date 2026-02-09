@@ -1,0 +1,7 @@
+- Use the exact column names and double quotes.
+- No markdown.
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Melanoma' AND \"class_of_ici\" = 'CTLA4' AND \"name_of_ici\" ILIKE '%CTLA-4%';", "answer": "Phase 3 CTLA-4 combination trials in Melanoma are listed with their regimens.", "assumptions": "Assuming 'CTLA-4' is the correct ICI class and 'Melanoma' is the correct cancer type."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Melanoma' AND \"class_of_ici\" = 'CTLA4' AND \"name_of_ici\" ILIKE '%CTLA-4%';", "answer": "Phase 3 CTLA-4 combination trials in Melanoma are listed with their regimens.", "assumptions": "Assuming 'CTLA-4' is the correct ICI class and 'Melanoma' is the correct cancer type."}

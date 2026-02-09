@@ -1,0 +1,10 @@
+- Use the exact column names from the table, with double quotes.
+
+I will now generate the SQL query and answer based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Phase 3 PD1 combination trials in Non-Small Cell Lung include regimens with PD1 inhibitors combined with other therapies, along with their respective control regimens and trial details.",
+  "assumptions": "Assuming 'PD1' is the correct classification for PD-1 inhibitors and that 'Non-Small Cell Lung' exactly matches the cancer_type field."
+}

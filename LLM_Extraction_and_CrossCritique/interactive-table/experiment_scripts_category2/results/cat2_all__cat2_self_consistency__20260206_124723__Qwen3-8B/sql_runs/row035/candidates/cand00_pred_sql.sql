@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" = 'Placebo' AND \"cancer_type\" = 'Gastric/GEJ';

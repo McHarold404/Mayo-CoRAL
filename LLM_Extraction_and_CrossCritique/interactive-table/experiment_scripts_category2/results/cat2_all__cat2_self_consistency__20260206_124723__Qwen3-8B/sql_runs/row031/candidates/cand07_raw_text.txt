@@ -1,0 +1,15 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%PD1%' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "The query retrieves clinical trials involving PD1 and CTLA-4 inhibitors for renal cell carcinoma conducted in 2018 or later.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%renal%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"year\" >= 2018;",
+  "answer": "The query retrieves clinical trials for renal cell carcinoma using PD1 and CTLA-4 inhibitors conducted in 2018 or later.",
+  "assumptions": "Assumed 'renal cell' is specified in the cancer_type field; 'PD1' and 'CTLA-4' are mapped to their respective class_of_ici and name_of_ici fields."
+}

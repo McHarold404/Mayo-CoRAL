@@ -1,0 +1,17 @@
+- Use only the columns listed in the DATABASE section.
+- Use the exact column names and double quotes.
+- Use the exact spelling and double quotes for the column names.
+- Qualify the table as public."clinical_trials".
+- When counting trials, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" ILIKE '%phase iii%' AND \"class_of_ici\" ILIKE '%pd1%' AND \"type_of_combination\" ILIKE '%chemotherapy%' AND \"cancer_type\" ILIKE '%urothelial%';",
+  "answer": "The query retrieves urothelial cancer trials testing PD-1 inhibitor plus chemotherapy combinations, including their primary endpoints.",
+  "assumptions": "Assumes 'ICI' refers to PD-1 inhibitors and 'chemotherapy' is explicitly mentioned in combination type."
+}

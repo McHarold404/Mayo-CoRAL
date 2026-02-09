@@ -1,0 +1,14 @@
+- "answer" must be <= 1–2 sentences.
+- "assumptions" must be empty string if none.
+
+You are an expert clinical-trials data analyst. Write a PostgreSQL query on table public."clinical_trials" to answer the question.
+
+QUESTION:
+Show Bladder trials using PD1 where PD‑L1 positivity was an inclusion criterion.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves clinical trials for bladder cancer using PD1 as the ICI, where PD-L1 positivity was a required inclusion criterion.",
+  "assumptions": ""
+}

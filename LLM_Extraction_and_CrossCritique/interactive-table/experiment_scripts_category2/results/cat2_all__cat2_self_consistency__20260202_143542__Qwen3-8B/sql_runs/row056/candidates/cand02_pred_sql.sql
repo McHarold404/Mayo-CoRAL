@@ -1,0 +1,16 @@
+with proper quoting of identifiers.
+- Answer must be a concise summary of the query's purpose.
+- Assumptions must explain any simplifications or missing information.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true",
+  "answer": "This query lists breast cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true",
+  "answer": "This query lists breast cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": ""
+}

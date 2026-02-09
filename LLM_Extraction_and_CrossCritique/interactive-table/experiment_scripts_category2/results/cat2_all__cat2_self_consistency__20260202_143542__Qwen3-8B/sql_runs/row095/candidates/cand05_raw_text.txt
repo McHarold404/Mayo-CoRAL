@@ -1,0 +1,11 @@
+- Use the exact column names from the table.
+- Use double quotes for column names.
+
+I will now generate the SQL query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Mesothelioma' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved clinical trials for Mesothelioma PD1 therapies from 2018 onwards with their basic metadata.",
+  "assumptions": "Assumed 'PD1' is the correct mapping for PD-1 and that 'Mesothelioma' is the exact value in the cancer_type column."
+}

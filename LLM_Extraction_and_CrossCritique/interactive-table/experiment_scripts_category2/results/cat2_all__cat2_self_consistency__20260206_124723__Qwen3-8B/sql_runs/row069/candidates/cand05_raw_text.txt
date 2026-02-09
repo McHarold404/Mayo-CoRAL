@@ -1,0 +1,12 @@
+- Use single quotes for strings in SQL.
+- Use double quotes for column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Ensure SQL is runnable.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemotherapy%'",
+  "answer": "The query retrieves Colorectal phase 3 trials that compared ICI to Chemotherapy.",
+  "assumptions": "Assumes that 'ICI' refers to immune checkpoint inhibitors and 'Chemotherapy' refers to chemotherapy regimens."
+}

@@ -1,0 +1,16 @@
+- SQL must be a valid, runnable PostgreSQL query.
+- Answer must be a clear, concise summary of the query's purpose.
+- Assumptions must be a brief description of any assumptions made.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Retrieves gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumes that 'GEJ' refers to gastroesophageal junction and that 'PD1' is the correct class for PD-1 inhibitors."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%') AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Retrieves gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumes that 'GEJ' refers to gastroesophageal junction and that 'PD1' is the correct class for PD-1 inhibitors."
+}

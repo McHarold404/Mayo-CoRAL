@@ -1,0 +1,14 @@
+- Use the output format strictly.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%';",
+  "answer": "The SQL query retrieves PD-L1 and CTLA-4 trials with composite or co-primary endpoints by selecting relevant trials from the clinical_trials table.",
+  "assumptions": "Assuming that 'PD-L1' is represented as 'PD1' in the class_of_ici column and that 'yes' indicates composite or co-primary endpoints."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%';",
+  "answer": "The query lists PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints by filtering on the specified criteria.",
+  "assumptions": "Assuming 'PD-L1' is mapped to 'PD1' in the class_of_ici column and that 'yes' indicates composite or co-primary endpoints."
+}

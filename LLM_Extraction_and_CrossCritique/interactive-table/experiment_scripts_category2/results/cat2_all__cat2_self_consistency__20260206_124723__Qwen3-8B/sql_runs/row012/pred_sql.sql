@@ -1,0 +1,4 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%prostate%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL", "answer": "Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.", "assumptions": "Assumed \"type_of_combination\" indicates combination treatment."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%prostate%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL", "answer": "Retrieved trials with prostate cancer, at least 2 prior lines of therapy, and combination treatment.", "assumptions": "Assumed \"type_of_combination\" indicates combination treatment."}

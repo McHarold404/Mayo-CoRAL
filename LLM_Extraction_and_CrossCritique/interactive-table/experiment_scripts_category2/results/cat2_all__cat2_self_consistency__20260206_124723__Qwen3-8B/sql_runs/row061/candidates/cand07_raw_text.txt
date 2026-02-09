@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"name_of_ici\" ILIKE '%nivolumab%' AND \"name_of_ici\" ILIKE '%ipilimumab%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Non-Small Cell Lung Nivolumab, Ipilimumab trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assumed that 'Non-Small Cell Lung' is a valid cancer type and that 'Nivolumab' and 'Ipilimumab' are the correct ICI names."
+}

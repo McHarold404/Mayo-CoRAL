@@ -1,0 +1,16 @@
+- Use the exact column names from the table.
+- Use double quotes for column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants Mesothelioma PD1 trials from 2018 or later.
+
+First, I need to check the columns. The relevant ones are "cancer_type", "class_of_ici", and "year". Also, they want the "nct", "author", "year", "pubmed_id" in the results.
+
+For cancer_type, the exact value should be 'Mesothelioma'. Then, class_of_ici needs to be 'PD1' since PD-1 is mentioned. The year should be >= 2018.
+
+Wait, the user said "conducted in 2018 or later", so year >= 2018. Also, need to make sure that the class_of_ici is mapped correctly. If the data has 'PD-1', it should be converted to 'PD1'. But the column is stored as 'class_of_ici', so maybe the data already has 'PD1' or 'PD-1'? The instruction says if PD-1 is mentioned, map to PD1. So perhaps the column might have 'PD-1', so we need to check for that. But the user says to use exact equality for enumerated values. Hmm. Wait, the requirement says: "If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash)." So maybe the data might have 'PD-1' stored, but we need to replace it with 'PD1'. However, the user also says to prefer exact equality. So perhaps the column already has 'PD1' as the value. But maybe the data could have 'PD-1', so we need to account for that. Wait, but the instruction says to use exact equality for enumerated values. So maybe the column is stored as 'PD1' and 'PD-1' is not present. But since the user says to map PD-1 to PD1, perhaps the query should check for 'PD-1' and replace it. However, in PostgreSQL, how do we handle that? Maybe using a CASE statement or a condition. But the user says to use exact equality for enumerated values. So perhaps the column already has 'PD1' as the value, and we can just check for that. Alternatively, if the

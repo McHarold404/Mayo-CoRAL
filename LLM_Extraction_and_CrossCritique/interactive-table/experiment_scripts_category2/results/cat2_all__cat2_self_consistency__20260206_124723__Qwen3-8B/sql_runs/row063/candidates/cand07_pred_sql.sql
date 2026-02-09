@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS median_overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS median_rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS median_control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%urothelial%';

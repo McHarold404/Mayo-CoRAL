@@ -1,0 +1,16 @@
+- SQL must be valid PostgreSQL and runnable.
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Renal cell carcinoma';",
+  "answer": "There are trials listed that meet the criteria of requiring a biomarker other than PD-L1 for inclusion in Renal cell carcinoma trials.",
+  "assumptions": "Assuming 'Renal cell carcinoma' is the exact value for cancer_type and that 't' and 'f' are the correct boolean values for the inclusion criteria flags."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Renal cell carcinoma';",
+  "answer": "There are trials listed that meet the criteria of requiring a biomarker other than PD-L1 for inclusion in Renal cell carcinoma trials.",
+  "assumptions": "Assuming 'Renal cell carcinoma' is the exact value for cancer_type and that 't' and 'f' are the correct boolean values for the inclusion criteria flags."
+}

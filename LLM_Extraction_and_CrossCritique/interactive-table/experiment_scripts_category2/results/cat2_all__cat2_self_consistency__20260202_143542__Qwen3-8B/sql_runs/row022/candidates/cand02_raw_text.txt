@@ -1,0 +1,12 @@
+- Use the exact column names as listed.
+- Use double quotes for column names.
+- Use the exact spelling of the column names.
+
+I will now generate the SQL query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" ILIKE '%ICI+Vaccine%';",
+  "answer": "This query retrieves distinct clinical trials for Pancreatic cancer that used ICI+Vaccine combinations, showing their NCT ID, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'ICI+Vaccine' combinations are explicitly mentioned in the \"type_of_combination\" field."
+}

@@ -1,0 +1,57 @@
+{
+  "row_index": 36,
+  "question": "Show Gastric/GEJ trials using PD1 where PD\u2011L1 positivity was an inclusion criterion.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "pred_sql_fixes": [],
+  "pred_answer": "This query retrieves gastric/GEJ trials using PD1 where PD-L1 positivity was an inclusion criterion.",
+  "pred_assumptions": "Assumed that 'GEJ' refers to gastroesophageal junction and that 'PD1' is mapped correctly from the data.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"pdl1_inclusion\", \"ici_class\", \"cancer_type\", \"ici_name\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Gastric/GEJ' AND \"ici_class\" = 'PD1' AND \"pdl1_inclusion\" = 'No';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"is_pd_l1_positivity_inclusion_criteria\", \"class_of_ici\", \"cancer_type\", \"name_of_ici\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Gastric/GEJ' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "pdl1_inclusion",
+      "replaced_with": "is_pd_l1_positivity_inclusion_criteria",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3076923076923077,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "error",
+  "pred_exec_ms": 1.579501200467348,
+  "pred_exec_error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text = boolean\nLINE 1: ...= 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;\n                                                                ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%gastric%%' OR \"cancer_type\" ILIKE '%%gej%%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+  "pred_result_rows": null,
+  "pred_result_hash": "",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 4.525742959231138,
+  "gt_exec_error": null,
+  "gt_result_rows": 3,
+  "gt_result_hash": "d8fcfe6d045d520dfc4740ccf916af42",
+  "results_equal_exact": null,
+  "results_equal_normalized": null,
+  "rowcount_delta_pred_minus_gt": null,
+  "column_overlap_ratio": null,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row036",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row036/candidates"
+}

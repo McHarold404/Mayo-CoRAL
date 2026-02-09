@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%placebo%' AND \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%';

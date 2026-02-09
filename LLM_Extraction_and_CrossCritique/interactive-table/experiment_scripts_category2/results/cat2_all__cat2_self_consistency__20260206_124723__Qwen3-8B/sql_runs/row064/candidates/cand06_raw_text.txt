@@ -1,0 +1,20 @@
+- Use only the columns listed in the DATABASE section.
+- Use the exact spelling of the column names as listed.
+- Use double quotes for all column names.
+- Use the exact spelling of the table name as listed.
+- When counting trials, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants to find trials related to Urothelial PD-L1 and CTLA-4 conducted in 2018 or later.
+
+First, I need to check the relevant columns. The cancer_type should be 'Urothelial' or maybe 'Urothelial Cancer'? The question says "Urothelial PD-L1", so maybe the cancer_type is 'Urothelial' and the class_of_ici is 'PD1' (since PD-1 is mapped to PD1). Also, CTLA-4 is another ICI class. Wait, the question mentions both PD-L1 and CTLA-4. Are they looking for trials that include both? Or trials that are either PD-L1 or CTLA-4?
+
+The question says "Urothelial PD-L1, CTLA-4 trials", so maybe they want trials where the ICI is either PD-L1 or CTLA-4. But need to check the columns. The class_of_ici column is for the ICI class. So if the trial uses PD-L1 (mapped to PD1) or CTLA-4, then class_of_ici would be PD1 or CTLA4? Wait, the column is called class_of_ici. The example says if PD-1 is mentioned, map to PD1. So for CTLA-4, it's likely CTLA4. So the class_of_ici should be either PD1 or CTLA4.
+
+But also, there's a column called name_of_ici. Maybe the trial uses a specific drug, like Pembrolizumab (PD-1 inhibitor) or Ipilimumab (CTLA-4 inhibitor). But the user might not have that data. The question is about the ICI class, so class_of_ici is the key here.
+
+So, the query should filter where cancer_type is 'Urothelial' (assuming that's the exact value), and class_of_ici is either 'PD1' or 'CTLA4', and year >= 2018. Also, the question mentions PD-L1, which is PD1 in the class_of

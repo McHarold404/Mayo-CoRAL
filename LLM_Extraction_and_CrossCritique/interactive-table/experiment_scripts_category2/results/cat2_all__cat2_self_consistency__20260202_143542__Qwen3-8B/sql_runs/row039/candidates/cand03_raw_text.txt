@@ -1,0 +1,17 @@
+- Use double quotes for all strings.
+- Use \n for newlines.
+- Use \t for tabs.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Bladder Cancer' AND \"cancer_type\" IS NOT NULL;",
+  "answer": "The query retrieves nct, author, year, and pubmed_id for bladder cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming that 'Bladder Cancer' is the exact value for the cancer_type column and that 't' and 'f' are used for boolean values in the inclusion criteria columns."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Bladder Cancer' AND \"cancer_type\" IS NOT NULL;",
+  "answer": "The query retrieves nct, author, year, and pubmed_id for bladder cancer trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assuming that 'Bladder Cancer' is the exact value for the cancer_type column and that 't' and 'f' are used for boolean values in the inclusion criteria columns."
+}

@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string (empty if none).
+
+Now, please write the query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"type_of_therapy\" ILIKE '%chemotherapy%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Breast chemotherapy trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assuming \"type_of_therapy\" contains 'chemotherapy' and \"cancer_type\" includes 'breast' in the description."
+}

@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND (\"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%') AND \"cancer_type\" = 'Colorectal Cancer'",
+  "answer": "The query retrieves Phase 2 Colorectal Cancer trials that evaluated Durvalumab or Tremelimumab.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 2' AND (\"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%') AND \"cancer_type\" = 'Colorectal Cancer'",
+  "answer": "The query retrieves Phase 2 Colorectal Cancer trials that evaluated Durvalumab or Tremelimumab.",
+  "assumptions": ""
+}

@@ -1,0 +1,16 @@
+- Answer must be a string, not a JSON.
+- Assumptions must be a string, not a JSON.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Gastric/GEJ' AND \"control_arm\" = 'Placebo';",
+  "answer": "The following Gastric/GEJ trials used Placebo as the control arm: [list of nct numbers].",
+  "assumptions": "Assuming 'Gastric/GEJ' is the exact value for cancer_type and 'Placebo' is the exact value for control_arm."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Gastric/GEJ' AND \"control_arm\" = 'Placebo';",
+  "answer": "The following Gastric/GEJ trials used Placebo as the control arm: [list of nct numbers].",
+  "assumptions": "Assuming 'Gastric/GEJ' is the exact value for cancer_type and 'Placebo' is the exact value for control_arm."
+}

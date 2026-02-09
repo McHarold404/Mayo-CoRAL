@@ -1,0 +1,14 @@
+- Do not include any other text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%colorectal%'",
+  "answer": "Retrieved Colorectal trials with median follow-up durations by arm, showing overall, RX, and control arm months.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up for the overall trial, 'follow_up_duration_for_primary_endpoint_s_in_months_rx' for the RX arm, and 'follow_up_duration_for_primary_endpoint_s_in_months_control' for the control arm."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%colorectal%'",
+  "answer": "Retrieved Colorectal trials with median follow-up durations by arm, including overall, RX, and control arm months.",
+  "assumptions": "Assumed that the specified follow-up columns represent median durations for each arm and that 'colorectal' is a substring of the cancer_type field."
+}

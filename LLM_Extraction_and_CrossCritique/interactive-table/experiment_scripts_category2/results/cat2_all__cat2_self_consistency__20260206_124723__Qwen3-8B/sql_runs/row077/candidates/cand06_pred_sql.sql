@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" ILIKE '%multiple myeloma%' AND \"type_of_combination\" IS NOT NULL;

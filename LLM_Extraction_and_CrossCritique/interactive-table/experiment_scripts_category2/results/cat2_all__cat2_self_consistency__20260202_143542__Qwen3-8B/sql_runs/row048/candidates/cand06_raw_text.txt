@@ -1,0 +1,10 @@
+- No markdown.
+
+{...}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_regimen\" ILIKE '%chemo+anti-vegf%' AND \"cancer_type\" = 'Non-Small Cell Lung';",
+  "answer": "The query retrieves Non-Small Cell Lung trials that used Chemo+Anti-VEGF as the control arm.",
+  "assumptions": "Assumes 'Chemo+Anti-VEGF' is specified in the \"control_regimen\" field and 'Non-Small Cell Lung' is the exact value for \"cancer_type\"."
+}

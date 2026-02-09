@@ -1,0 +1,16 @@
+- Values must be strings.
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA-4') AND \"cancer_type\" = 'Renal cell' AND \"year\" >= 2018;",
+  "answer": "The query retrieves clinical trials for Renal cell cancer using PD1 or CTLA-4 inhibitors conducted from 2018 onwards, including their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD1' and 'CTLA-4' are correctly mapped and that 'Renal cell' is the exact cancer type."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA-4') AND \"cancer_type\" = 'Renal cell' AND \"year\" >= 2018;",
+  "answer": "The query retrieves clinical trials for Renal cell cancer using PD1 or CTLA-4 inhibitors conducted from 2018 onwards, including their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD1' and 'CTLA-4' are correctly mapped and that 'Renal cell' is the exact cancer type."
+}

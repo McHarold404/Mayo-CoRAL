@@ -1,0 +1,9 @@
+- "answer" and "assumptions" are strings; "sql" is a string with valid PostgreSQL syntax.
+- No markdown.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"name_of_ici\" ILIKE '%CTLA-4%' AND \"included_in_ma\" = 'Yes'",
+  "answer": "The query retrieves Non-Small Cell Lung studies included in the meta-analysis that used PD-1 or CTLA-4 agents.",
+  "assumptions": "Assumes 'included_in_ma' is a boolean field with 'Yes' indicating inclusion in the meta-analysis and that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' field."
+}

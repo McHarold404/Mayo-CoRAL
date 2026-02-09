@@ -1,0 +1,13 @@
+- Answer is a sentence or two, not a list.
+- Assumptions is a sentence or two, not a list.
+- Answer must be in English.
+- Use markdown for code blocks (but not in JSON).
+- Do not include any other text.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"type_of_combination\" ILIKE '%ICI+ICI%'",
+  "answer": "The query retrieves Melanoma studies that tested ICI+ICI combinations along with their primary endpoints.",
+  "assumptions": "Assumes that 'ICI+ICI' combinations are explicitly mentioned in the 'type_of_combination' field and that 'Melanoma' is mentioned in the 'cancer_type' field."
+}

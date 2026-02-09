@@ -1,0 +1,29 @@
+- Use the exact column names and table name as specified.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici" (no dash).
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this question. The user is asking for Colorectal phase 3 trials that compared ICI to Chemo. First, I need to make sure I understand the columns available. The table is public."clinical_trials", and the relevant columns include "cancer_type", "trial_phase", "class_of_ici", "control_regimen", and "type_of_control". 
+
+So, the cancer_type should be 'Colorectal'. The trial_phase needs to be 'Phase 3'. The comparison is between ICI and Chemo. The ICI would be in the "class_of_ici" or "name_of_ici" columns. But the user mentioned "ICI to Chemo", so the control_regimen should be Chemo. Also, the type_of_control might be 'Chemotherapy' or similar. 
+
+Wait, the control_regimen column might have the control group's treatment. So if the trial is comparing ICI to Chemo, then the control_regimen would be Chemo, and the treatment_regimen would be ICI. Alternatively, the "class_of_ici" might be part of the treatment regimen. But the question is about comparing ICI to Chemo, so the control_regimen should be Chemo, and the treatment regimen could be ICI. 
+
+Also, the class_of_ici might be PD1, PD-L1, etc. But the user said to map PD-1 to PD1. So if the class_of_ici is 'PD-1', it should be treated as 'PD1'. 
+
+So, the query should filter where cancer_type = 'Colorectal', trial_phase = 'Phase 3', control_regimen ILIKE '%Chemo%', and the treatment_regimen includes ICI. Wait, but the treatment_regimen is a column. Wait, looking back at the columns: there's "treatment_regimen" and "control_regimen". So the treatment_regimen would be the ICI, and the control_regimen would be Chemo. 
+
+So the conditions would be:
+
+cancer_type = 'Colorectal'
+
+trial_phase = 'Phase 3'
+
+treatment_regimen ILIKE '%ICI%'
+
+control_regimen ILIKE '%Chemo%'
+
+Wait, but the user might have entries where the treatment is a combination. But the question is about comparing ICI

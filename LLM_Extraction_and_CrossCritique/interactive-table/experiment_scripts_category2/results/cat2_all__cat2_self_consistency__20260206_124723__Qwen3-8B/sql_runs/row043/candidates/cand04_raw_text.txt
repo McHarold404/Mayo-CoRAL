@@ -1,0 +1,32 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions: empty string if none.
+- SQL must be valid PostgreSQL and use the exact column names.
+
+I will now generate the SQL query based on the requirements.
+
+The query needs to:
+1. Filter for "Non-Small Cell Lung" in "cancer_type"
+2. Filter for studies included in the meta-analysis ("included_in_ma" = 'yes')
+3. Filter for trials using PD-L1 or CTLA-4 agents
+4. Return the required columns
+
+I need to check if "PD-L1" should be mapped to "PD1" in "class_of_ici" as per the requirements.
+
+The SQL query would look like:
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" = 'Non-Small Cell Lung'
+AND "included_in_ma" = 'yes'
+AND ("class_of_ici" = 'PD1' OR "class_of_ici" = 'CTLA-4'
+OR "name_of_ici" ILIKE '%PD-L1%' OR "name_of_ici" ILIKE '%CTLA-4%');
+
+I need to make sure the column names are correctly quoted and the query is valid PostgreSQL.
+
+Let me finalize the query and the answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"included_in_ma\" = 'yes' AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA-4' OR \"name_of_ici\" ILIKE '%PD-L1%' OR \"name_of_ici\" ILIKE '%CTLA-4%')",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD-L1 or CTLA-4 agents are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": ""
+}

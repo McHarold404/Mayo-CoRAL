@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Head and Neck%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" ILIKE '%combination%';",
+  "answer": "This query retrieves Head and Neck cancer trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assuming that the \"type_of_combination\" field indicates combination treatment when it contains the word 'combination'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Head and Neck%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" ILIKE '%combination%';",
+  "answer": "This query retrieves Head and Neck cancer trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assuming that the \"type_of_combination\" field indicates combination treatment when it contains the word 'combination'."
+}

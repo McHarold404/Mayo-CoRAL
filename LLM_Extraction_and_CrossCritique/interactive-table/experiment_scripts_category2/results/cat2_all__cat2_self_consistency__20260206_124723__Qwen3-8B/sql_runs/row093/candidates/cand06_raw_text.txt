@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%Durvalumab%' OR \"name_of_ici\" ILIKE '%Tremelimumab%' AND \"trial_phase\" = '2'",
+  "answer": "The query retrieves Colorectal trials that evaluated Durvalumab or Tremelimumab in phase 2 from the clinical_trials table.",
+  "assumptions": "Assumes that 'Colorectal' is specified in the 'cancer_type' column and that 'phase 2' refers to the 'trial_phase' column."
+}

@@ -1,0 +1,22 @@
+- Use double quotes for all strings, including SQL.
+- Answer must be <= 1–2 sentences.
+- Assumptions must be a string, empty if none.
+
+Okay, let's break down the user's question. They want Phase 3 trials involving Durvalumab and Tremelimumab in Small Cell Lung Cancer that are follow-up publications. 
+
+First, I need to check the columns available. The relevant ones here are trial_phase, trial_name, cancer_type, and originial_publication_or_follow_up. The user mentioned "follow-up publications," so I should look for entries where originial_publication_or_follow_up is 'follow-up'.
+
+Next, the trial names. The question specifies Durvalumab and Tremelimumab. Since the trial_name column might list both drugs, I'll use ILIKE to check if both are present. But wait, the columns for the ICI names are name_of_ici and name_of_ici_1. Maybe the trial_name includes both drugs, so checking trial_name ILIKE '%Durvalumab%' AND trial_name ILIKE '%Tremelimumab%' makes sense. However, the user might also want to consider if the ICI names are listed in the name_of_ici or name_of_ici_1 columns. But since the trial name is more likely to mention both drugs, I'll go with that.
+
+The cancer_type should be 'Small Cell Lung'. Also, the trial_phase must be 'Phase 3'. 
+
+So the SQL query would select the required columns from the table where these conditions are met. I need to make sure to use the correct column names with double quotes and qualify the table. 
+
+Assumptions: The trial_name includes both drugs, and 'follow-up' is correctly marked in originial_publication_or_follow_up. Also, the cancer_type is exactly 'Small Cell Lung'.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Durvalumab%' AND \"trial_name\" ILIKE '%Tremelimumab%' AND \"cancer_type\" = 'Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'follow-up';",
+  "answer": "Found Phase 3 Durvalumab/Tremelimumab trials in Small Cell Lung Cancer with follow-up publications.",
+  "assumptions": "Assumed 'follow-up' is explicitly marked in originial_publication_or_follow_up and trial_name contains both drugs."
+}

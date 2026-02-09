@@ -1,0 +1,15 @@
+- "answer" must be a sentence or two, not a list.
+- "assumptions" is empty unless there's an assumption.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" = 'Renal cell' ORDER BY \"year\";",
+  "answer": "There are trials for Renal cell cancer that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumed that 'Renal cell' is the exact value for cancer_type and that 't' and 'f' are the values for the boolean fields."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' ORDER BY \"year\";",
+  "answer": "Several renal cell carcinoma trials require biomarkers other than PD-L1 for patient inclusion.",
+  "assumptions": "Assumed 'Renal cell' is the exact value in \"cancer_type\" and that boolean fields use 't' and 'f' values."
+}

@@ -1,0 +1,27 @@
+- Use the exact column names from the table.
+
+I will now generate the SQL query based on the requirements.
+
+The query needs to:
+1. Select trials where "is_any_other_biomarker_used_for_inclusion_criteria" is true
+2. Filter for Small Cell Lung cancer type
+3. Include required columns: "nct", "author", "year", "pubmed_id"
+4. Use ILIKE for free text search on "cancer_type"
+5. Use exact equality for boolean values
+
+The SQL query would look like:
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" ILIKE '%Small Cell Lung%'
+AND "is_any_other_biomarker_used_for_inclusion_criteria" = true;
+
+The answer would state that we're listing trials meeting these criteria.
+
+Assumptions: That "Small Cell Lung" is the exact phrase used in the cancer_type column, and that the boolean column is properly stored as true/false.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Small Cell Lung%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = true;",
+  "answer": "Listing Small Cell Lung trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assuming 'Small Cell Lung' is the exact phrase in cancer_type and the boolean column is properly stored."
+}

@@ -1,0 +1,47 @@
+{
+  "row_index": 49,
+  "question": "Show Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Head and Neck PD-L1 and CTLA-4 trials conducted in 2018 or later, including their NCT, author, year, and PubMed ID.",
+  "pred_assumptions": "Assumes that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is correctly represented as 'CTLA4'.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_class\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Head and Neck' AND \"ici_class\" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"class_of_ici\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Head and Neck' AND \"class_of_ici\" = 'PD-L1, CTLA-4' AND NULLIF(regexp_replace((\"year\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric >= 2018;",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3076923076923077,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.6237857528030872,
+  "pred_exec_error": null,
+  "pred_result_rows": 6,
+  "pred_result_hash": "902b193c4b239a46419c9806c19f3996",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 2.10179528221488,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "7103e934f21e1beb0dd05e09e70ea443",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 5,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row049",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 2,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row049/candidates"
+}

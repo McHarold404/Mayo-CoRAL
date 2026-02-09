@@ -1,0 +1,10 @@
+- Use the exact column names and double quotes.
+- Make sure your SQL is valid and runnable.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'true' AND \"cancer_type\" = 'Non-Small Cell Lung Cancer'",
+  "answer": "Non-Small Cell Lung Cancer trials requiring a biomarker other than PD-L1 for inclusion are listed.",
+  "assumptions": "Assuming 'Non-Small Cell Lung Cancer' is the exact value for the cancer_type column and that 'is_any_other_biomarker_used_for_inclusion_criteria' indicates the use of a biomarker other than PD-L1."
+}

@@ -1,0 +1,10 @@
+- Answer must be a string, not a JSON object.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%chemo%' AND \"cancer_type\" ILIKE '%small cell lung%';",
+  "answer": "The SQL query retrieves Small Cell Lung trials where the control arm was Chemo.",
+  "assumptions": "Assuming 'Chemo' is a valid value in the control_arm column and that 'Small Cell Lung' is a valid cancer type."
+}

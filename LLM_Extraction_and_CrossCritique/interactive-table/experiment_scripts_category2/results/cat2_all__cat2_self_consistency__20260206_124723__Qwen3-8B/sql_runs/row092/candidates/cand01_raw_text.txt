@@ -1,0 +1,10 @@
+- The answer must be a string, not a JSON object.
+- The sql must be a valid PostgreSQL query that can be run directly.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"cancer_type\" ILIKE '%renal cell%' AND \"number_of_arms\" > 1;",
+  "answer": "The query retrieves Pembrolizumab combination trials in Renal cell cancer with their sample sizes.",
+  "assumptions": "Assuming that trials with more than one arm are considered combination trials, and that 'Pembrolizumab' is mentioned in the 'name_of_ici' field."
+}

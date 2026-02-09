@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the schema.
+- Use ILIKE for free text.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"class_of_ici\" ILIKE '%PD1%' AND \"name_of_ici\" ILIKE '%ctla-4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves trials for Melanoma with PD1 and CTLA-4 treatment regimens conducted in 2018 or later.",
+  "assumptions": "Assumes that 'PD1' and 'CTLA-4' are correctly mapped and that 'Melanoma' is mentioned in the cancer_type field."
+}

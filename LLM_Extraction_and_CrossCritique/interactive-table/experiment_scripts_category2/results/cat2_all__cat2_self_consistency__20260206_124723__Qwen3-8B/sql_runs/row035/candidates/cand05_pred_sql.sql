@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%placebo%'", 
+  "answer": "The following Gastric/GEJ trials used Placebo as the control arm: [list of trials].", 
+  "assumptions": "Assuming that 'Placebo' is mentioned in the 'control_arm' field."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" ILIKE '%placebo%'", 
+  "answer": "The following Gastric/GEJ trials used Placebo as the control arm: [list of trials].", 
+  "assumptions": "Assuming that 'Placebo' is mentioned in the 'control_arm' field."
+}

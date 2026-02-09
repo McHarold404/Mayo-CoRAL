@@ -1,0 +1,5 @@
+select nct, author, year, pubmed_id from public."clinical_trials" where trial_phase = 'Phase 3', treatment_regimen ILIKE '%Nivolumab%' AND treatment_regimen ILIKE '%Ipilimumab%', cancer_type = 'Non-Small Cell Lung', and originial_publication_or_follow_up = 'original publication'.
+
+Wait, but the user might have the drugs in different columns. Wait, the treatment_regimen is one column, and there's also name_of_ici and class_of_ici. Maybe the treatment regimen includes the combination. Alternatively, maybe the name_of_ici could be Nivolumab and Ipilimumab. But the treatment_regimen might be more detailed. So perhaps checking the treatment_regimen for both drug names is better.
+
+Also, need to count distinct nct as per the requirements. Wait, but the user says "find" which might mean return the rows

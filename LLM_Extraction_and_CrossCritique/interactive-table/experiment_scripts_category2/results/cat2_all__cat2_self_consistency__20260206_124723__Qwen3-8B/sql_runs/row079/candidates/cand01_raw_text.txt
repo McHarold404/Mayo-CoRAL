@@ -1,0 +1,15 @@
+- Values must be strings.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "This query retrieves trials for Gastric/GEJ cancers using PD-L1 inhibitors (mapped to PD1) conducted in 2018 or later.",
+  "assumptions": "Assumes that 'GEJ' refers to Gastric/GEJ cancers and that 'PD-L1' is mapped to 'PD1' in the class_of_ici column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%') AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "The query returns Gastric/GEJ PD-L1 inhibitor trials from 2018 onwards with distinct NCT identifiers, authors, years, and PubMed IDs.",
+  "assumptions": "Assumes 'GEJ' is included in 'Gastric/GEJ' cancer type entries and 'PD-L1' is mapped to 'PD1' in the class_of_ici column."
+}

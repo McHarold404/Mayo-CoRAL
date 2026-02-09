@@ -1,0 +1,47 @@
+{
+  "row_index": 59,
+  "question": "Find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Nivolumab%' AND \"trial_name\" ILIKE '%Ipilimumab%' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'original publication';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"trial_name\" ILIKE '%Nivolumab%' AND \"trial_name\" ILIKE '%Ipilimumab%' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'original publication';",
+  "pred_sql_fixes": [],
+  "pred_answer": "This query retrieves Phase 3 clinical trials involving Nivolumab and Ipilimumab in Non-Small Cell Lung cancer that were original publications.",
+  "pred_assumptions": "Assumes that 'Nivolumab' and 'Ipilimumab' are mentioned in the trial name and that 'Non-Small Cell Lung' is the exact cancer type.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_name\", \"trial_phase\", \"cancer_type\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_name\" = 'Nivolumab, Ipilimumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"publication_type\" = 'Original publication';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"name_of_ici\", \"trial_phase\", \"cancer_type\"\nFROM public.\"clinical_trials\"\nWHERE \"name_of_ici\" = 'Nivolumab, Ipilimumab' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"originial_publication_or_follow_up\" = 'Original publication';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.5,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.0405598916113377,
+  "pred_exec_error": null,
+  "pred_result_rows": 0,
+  "pred_result_hash": "1d9e0c36491c45ff946e09de54ac4223",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 3.004583064466715,
+  "gt_exec_error": null,
+  "gt_result_rows": 2,
+  "gt_result_hash": "fcabc99a4fb6600d33ce15465b3eb9a0",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": -2,
+  "column_overlap_ratio": 0.375,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row059",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row059/candidates"
+}

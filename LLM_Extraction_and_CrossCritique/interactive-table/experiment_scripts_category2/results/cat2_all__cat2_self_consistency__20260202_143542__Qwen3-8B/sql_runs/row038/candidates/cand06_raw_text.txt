@@ -1,0 +1,10 @@
+- The answer must be a concise summary of the query result.
+- The assumptions field must explain any assumptions made.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials for Bladder PD-L1 conducted in 2018 or later.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'Bladder' is mentioned in the 'cancer_type' field."
+}

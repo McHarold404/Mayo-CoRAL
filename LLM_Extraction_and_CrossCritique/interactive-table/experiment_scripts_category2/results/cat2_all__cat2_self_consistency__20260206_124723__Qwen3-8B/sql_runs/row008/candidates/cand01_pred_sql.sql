@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" = 'Chemo'",
+  "answer": "The Small Cell Lung trials that used Chemo as the control arm are listed in the results.",
+  "assumptions": "Assuming 'Chemo' is the exact value for the control arm in the database."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_arm\" = 'Chemo' AND \"cancer_type\" = 'Small Cell Lung Cancer'",
+  "answer": "The Small Cell Lung Cancer trials that used Chemo as the control arm are listed in the results.",
+  "assumptions": "Assuming 'Chemo' is the exact value for the control arm and 'Small Cell Lung Cancer' is the exact value for the cancer type in the database."
+}

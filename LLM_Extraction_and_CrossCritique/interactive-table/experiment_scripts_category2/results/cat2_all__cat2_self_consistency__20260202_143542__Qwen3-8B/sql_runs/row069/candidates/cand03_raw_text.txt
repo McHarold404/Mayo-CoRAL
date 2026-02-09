@@ -1,0 +1,26 @@
+- Use the exact column names from the table.
+- Use double quotes for column names.
+
+I need to write a PostgreSQL query to find Colorectal phase 3 trials that compared ICI to Chemo. Let me think about how to approach this.
+
+First, I need to filter the trials where the cancer type is Colorectal. The column for cancer type is "cancer_type", so I'll use "cancer_type" = 'Colorectal'.
+
+Next, the trials must be in phase 3. The column for trial phase is "trial_phase", so I'll check "trial_phase" = '3'.
+
+Now, the main part is comparing ICI to Chemo. The question is about comparing ICI (immunotherapy checkpoint inhibitors) to chemotherapy. I need to look at the treatment regimens and control regimens.
+
+Looking at the columns, "treatment_regimen" would be the ICI regimen and "control_regimen" would be the chemotherapy. I need to check if one of the treatment regimens includes ICI and the control regimen includes Chemo.
+
+However, the "class_of_ici" and "name_of_ici" columns might also be relevant. For example, if the treatment regimen includes an ICI and the control is Chemo. Also, the "type_of_control" might indicate if it's Chemo.
+
+But since the question is about comparing ICI to Chemo, I need to ensure that the treatment regimen includes an ICI and the control regimen is chemotherapy. Alternatively, there might be a column that directly indicates the comparison, like "type_of_control" = 'Chemotherapy' or "control_regimen" includes 'Chemotherapy'.
+
+I should check the "treatment_regimen" and "control_regimen" columns. ICI is usually a class like PD1 (PD-1 inhibitors) or PD-L1 inhibitors. So, if the treatment regimen includes an ICI (like PD1) and the control regimen includes Chemo, that would be a match.
+
+Also, the "class_of_ici" column might have values like 'PD1' or 'PD-L1', so if "class_of_ici" is not null and the control regimen is 'Chemotherapy', that would indicate the comparison.
+
+Additionally, the "type_of_control" column could be 'Chemotherapy' or 'Placebo' or other. So, checking "type_of_control" = 'Chemotherapy' might be useful.
+
+Putting this together, the query should select trials where "cancer_type" is 'Colorectal', "trial_phase" is '3', and the treatment regimen includes an ICI and the control regimen is Chemo. But how to represent this in SQL?
+
+I need to check if the treatment regimen includes ICI (like PD1 or PD-L1) and the control regimen is Chemo. Alternatively, the "class_of_ici" and "name_of_ici" might

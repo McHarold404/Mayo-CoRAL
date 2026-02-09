@@ -1,0 +1,12 @@
+- Use double-quotes for all strings.
+- Use the "class_of_ici" column for the ICI class.
+- Use the "is_pd_l1_positivity_inclusion_criteria" column for the inclusion criterion.
+- Use the "cancer_type" column for the cancer type.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Renal cell' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'Yes';",
+  "answer": "The query retrieves renal cell carcinoma trials using PD-1 inhibitors where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": ""
+}

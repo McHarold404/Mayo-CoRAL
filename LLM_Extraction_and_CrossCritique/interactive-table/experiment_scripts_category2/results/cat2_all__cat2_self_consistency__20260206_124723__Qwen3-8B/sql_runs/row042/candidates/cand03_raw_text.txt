@@ -1,0 +1,37 @@
+- Use double quotes for all strings.
+- Use the exact column names from the schema.
+
+Now, let's write the query.
+
+First, identify the columns needed:
+- PD-L1 is in "class_of_ici" (map "PD-1" to "PD1")
+- CTLA-4 is in "class_of_ici"
+- Composite or co-primary endpoints are in "priamry_multiple_composite_or_co_primary_endpoints"
+
+Need to check if "priamry_multiple_composite_or_co_primary_endpoints" is true.
+
+Also, need to include "nct", "author", "year", "pubmed_id" in the output.
+
+So the query would select those columns where "class_of_ici" is either 'PD1' or 'CTLA-4' and "priamry_multiple_composite_or_co_primary_endpoints" is true.
+
+Wait, but the column is "priamry_multiple_composite_or_co_primary_endpoints", which has a typo. It should be "primary_multiple_composite_or_co_primary_endpoints". But the user provided the schema with that exact name.
+
+So the query would be:
+
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "class_of_ici" IN ('PD1', 'CTLA-4')
+AND "priamry_multiple_composite_or_co_primary_endpoints" = true;
+
+But I need to check if the column is correctly named. The schema shows "priamry_multiple_composite_or_co_primary_endpoints" (with 'priamry' instead of 'primary'). So the query is correct.
+
+Assumptions: The column names are as provided, including the typo in "priamry".
+
+Now, format the JSON.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" IN ('PD1', 'CTLA-4') AND \"priamry_multiple_composite_or_co_primary_endpoints\" = true;",
+  "answer": "Retrieved trials with PD-L1 (PD1) or CTLA-4 ICI classes that reported composite/co-primary endpoints.",
+  "assumptions": "Assumed 'PD-1' is mapped to 'PD1' in \"class_of_ici\" and the column name typo 'priamry' is correct as per schema."
+}

@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "answer": "The query retrieves Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%') AND \"year\" >= 2018;",
+  "answer": "The query retrieves Head and Neck PD-L1, CTLA-4 trials conducted in 2018 or later.",
+  "assumptions": "Assumes that 'PD1' and 'CTLA4' are correctly mapped to the 'class_of_ici' column and that 'head and neck' is a valid subset of the 'cancer_type' field."
+}

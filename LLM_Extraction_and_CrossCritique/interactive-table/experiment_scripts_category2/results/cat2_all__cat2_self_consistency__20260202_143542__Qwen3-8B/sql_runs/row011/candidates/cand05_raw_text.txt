@@ -1,0 +1,9 @@
+- No markdown.
+- Use double quotes for all strings.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"class_of_ici\" = 'CTLA4' AND \"year\" >= 2018;",
+  "answer": "Retrieved trials of Prostate cancer using CTLA-4 as the ICI class from 2018 onwards.",
+  "assumptions": "Assumed 'CTLA-4' is mapped to 'CTLA4' in the class_of_ici column and that 'Prostate' is the exact value for cancer_type."
+}

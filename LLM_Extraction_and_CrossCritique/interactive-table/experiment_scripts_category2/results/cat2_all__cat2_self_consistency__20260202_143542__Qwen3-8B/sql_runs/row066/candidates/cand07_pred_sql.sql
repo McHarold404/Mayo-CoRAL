@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"type_of_combination_1\" = 'ICI+ICI';

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%non-small cell lung%' AND "name_of_ici" ILIKE '%atezolizumab%' AND "trial_phase" = '3';

@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemo%'",
+  "answer": "The query retrieves Small Cell Lung phase 3 trials that compared ICI to Chemo.",
+  "assumptions": "Assuming that 'Chemo' refers to chemotherapy and 'ICI' refers to immune checkpoint inhibitors."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung' AND \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemo%'", 
+  "answer": "The query retrieves Small Cell Lung phase 3 trials comparing ICI to chemotherapy.", 
+  "assumptions": "Assuming 'Chemo' refers to chemotherapy and 'ICI' refers to immune checkpoint inhibitors."
+}

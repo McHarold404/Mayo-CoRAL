@@ -1,0 +1,15 @@
+- Use double quotes for strings.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Retrieved Melanoma trials with minimum follow-up duration by arm, showing months for overall, RX, and control arms.",
+  "assumptions": "Assumed that 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents the minimum follow-up across all arms, and that 'rx' and 'control' arms are explicitly tracked in the dataset."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' ORDER BY \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" ASC;",
+  "answer": "Retrieved Melanoma trials with the minimum overall follow-up duration, showing follow-up months for each arm (overall, RX, and control).",
+  "assumptions": "Assumed 'follow_up_duration_for_primary_endpoint_s_in_months_overall' reflects the minimum follow-up across all arms, and that RX and control arms are explicitly recorded in the dataset."
+}

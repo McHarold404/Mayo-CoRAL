@@ -1,0 +1,47 @@
+{
+  "row_index": 22,
+  "question": "Show Pancreatic trials that used ICI+Vaccine combinations.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" ILIKE '%ICI+Vaccine%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" ILIKE '%ICI+Vaccine%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "This query retrieves distinct clinical trials for Pancreatic cancer that used ICI+Vaccine combinations, including their NCT ID, author, year, and PubMed ID.",
+  "pred_assumptions": "Assumes that 'ICI+Vaccine' combinations are explicitly mentioned in the 'type_of_combination' field.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"combination_type\", \"cancer_type\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Pancreatic' AND \"combination_type\" = 'ICI+Vaccine';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"type_of_combination\", \"cancer_type\", \"treatment_regimen\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Pancreatic' AND \"type_of_combination\" = 'ICI+Vaccine';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "combination_type",
+      "replaced_with": "type_of_combination",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.4,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.6493899747729301,
+  "pred_exec_error": null,
+  "pred_result_rows": 1,
+  "pred_result_hash": "62b8697cac1fabdbb4a7216b42558454",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.8345010466873646,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "9ab5c3087ed99c3e1eceeaf8a30ff8a8",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.3333333333333333,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row022",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260202_143542__Qwen3-8B/sql_runs/row022/candidates"
+}

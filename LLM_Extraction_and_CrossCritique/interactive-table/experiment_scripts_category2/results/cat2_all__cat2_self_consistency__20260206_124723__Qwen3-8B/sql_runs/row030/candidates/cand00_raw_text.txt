@@ -1,0 +1,11 @@
+- Answer must be <= 1–2 sentences.
+- No markdown.
+- Use the exact column names from the table.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "List of Head and Neck Nivolumab trials with overall follow-up exceeding 21 months.",
+  "assumptions": "Assumed that 'Nivolumab' is the name_of_ici and that 'Head and Neck' is part of the cancer_type description."
+}

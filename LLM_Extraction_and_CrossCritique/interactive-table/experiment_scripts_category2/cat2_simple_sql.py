@@ -15,6 +15,8 @@ Adds:
 - Save pred/gt result CSVs per row + hashes
 - Compare pred vs gt results (exact + normalized hash + RELAXED EXACT MATCH)
 - Auto-fix GT SQL (and optionally pred SQL) on "column does not exist" by rewriting columns + retrying
+- Relaxed EM metric on SQL text (token-jaccard >= threshold)
+- Print count of predicted SQLs that executed successfully (pred_exec_status == "ok")
 """
 
 import os
@@ -381,7 +383,9 @@ def column_overlap_ratio(df_pred: Optional[pd.DataFrame], df_gt: Optional[pd.Dat
     return len(A & B) / max(1, len(A | B))
 
 
-# --- Relaxed EM helpers (SQL token Jaccard)
+# ----------------------------------------------------------------------------
+# Relaxed EM: SQL token Jaccard
+# ----------------------------------------------------------------------------
 def normalize_sql_tokens(sql: str) -> List[str]:
     if not sql:
         return []
@@ -410,6 +414,13 @@ def jaccard(a: List[str], b: List[str]) -> float:
     if not A and not B:
         return 1.0
     return len(A & B) / max(1, len(A | B))
+
+
+def relaxed_em_sql(pred_sql: str, gt_sql: str, threshold: float) -> Tuple[Optional[float], Optional[bool]]:
+    if not (gt_sql or "").strip():
+        return None, None
+    score = jaccard(normalize_sql_tokens(pred_sql or ""), normalize_sql_tokens(gt_sql or ""))
+    return score, (score >= float(threshold))
 
 
 # --- Auto-fix: undefined column rewrite + retry
@@ -442,8 +453,6 @@ def replace_identifier(sql: str, old: str, new: str) -> str:
     return sql2
 
 
-# This mapping is the KEY part that made your 100/100 GT queries fail:
-# GT uses older schema names; DB columns are different.
 KNOWN_MAP = {
     "publication_type": "originial_publication_or_follow_up",
     "ici_name": "name_of_ici",
@@ -466,18 +475,15 @@ def pick_replacement(missing_col: str, cols_set: Set[str], norm_map: Dict[str, s
     if not missing_col:
         return None, None
 
-    # 1) explicit map
     if missing_col in KNOWN_MAP and KNOWN_MAP[missing_col] in cols_set:
         return KNOWN_MAP[missing_col], "known_map"
 
-    # 2) normalized fuzzy exact
     nm = norm(missing_col)
     if nm in norm_map:
         cand = norm_map[nm]
         if cand in cols_set:
             return cand, "norm_fuzzy"
 
-    # 3) token overlap heuristic
     tokens = [t for t in re.split(r"[_\W]+", missing_col.lower()) if t]
     best = None
     best_score = 0
@@ -500,12 +506,6 @@ def execute_with_autofix(
     norm_map: Dict[str, str],
     max_fixes: int = 6,
 ) -> Tuple[str, Optional[pd.DataFrame], Optional[str], float, str, List[Dict[str, Any]]]:
-    """
-    Execute SQL; if it fails with undefined-column, rewrite and retry.
-
-    Returns:
-      status, df, err, ms, final_sql, fixes
-    """
     if engine is None:
         return "skipped", None, "No DB engine available", 0.0, sql, []
 
@@ -638,7 +638,6 @@ def reflect_columns(engine, schema: str, table: str) -> List[str]:
 # MAIN
 # ----------------------------------------------------------------------------
 def main():
-    # IMPORTANT: declare globals BEFORE any reference in this function
     global actual_columns, normalized_to_actual
 
     parser = argparse.ArgumentParser()
@@ -663,8 +662,6 @@ def main():
                         help="SQLAlchemy URI (or set CAT2_ENGINE_URI).")
 
     # Auto-fix controls
-    # NOTE: argparse store_true cannot have default True in the way you intend.
-    # This keeps behavior simple: enabled by default, can be disabled with --no-autofix-gt.
     parser.add_argument("--no-autofix-gt", action="store_true",
                         help="Disable auto-fix GT SQL on undefined-column.")
     parser.add_argument("--autofix-pred", action="store_true", default=False,
@@ -672,8 +669,9 @@ def main():
     parser.add_argument("--autofix-max", type=int, default=int(os.getenv("AUTOFIX_MAX", "6")),
                         help="Max number of undefined-column rewrites per SQL execution.")
 
-    # Relaxed EM
-    parser.add_argument("--relaxed-em-threshold", type=float, default=float(os.getenv("RELAXED_EM_THRESHOLD", "0.70")),
+    # Relaxed EM threshold
+    parser.add_argument("--relaxed-em-threshold", type=float,
+                        default=float(os.getenv("RELAXED_EM_THRESHOLD", "0.70")),
                         help="Jaccard threshold over normalized SQL tokens for relaxed EM.")
 
     args = parser.parse_args()
@@ -818,6 +816,9 @@ def main():
         pred_sql = qualify_table(pred_sql_raw)
         gt_sql = qualify_table(gt_sql_raw) if gt_sql_raw else ""
 
+        # ---- Relaxed EM metric (SQL text) ----
+        sql_jaccard, relaxed_em = relaxed_em_sql(pred_sql, gt_sql, args.relaxed_em_threshold)
+
         per_row_dir = sqls_root / f"row{int(idx):03d}"
         per_row_dir.mkdir(parents=True, exist_ok=True)
 
@@ -825,13 +826,6 @@ def main():
         (per_row_dir / "raw_text.txt").write_text(gen.get("raw_text") or "", encoding="utf-8")
         (per_row_dir / "pred_sql.sql").write_text(pred_sql, encoding="utf-8")
         (per_row_dir / "gt_sql.sql").write_text(gt_sql or "", encoding="utf-8")
-
-        # Relaxed EM on SQL strings
-        sql_jaccard = None
-        relaxed_em = None
-        if gt_sql:
-            sql_jaccard = jaccard(normalize_sql_tokens(pred_sql), normalize_sql_tokens(gt_sql))
-            relaxed_em = (sql_jaccard >= float(args.relaxed_em_threshold))
 
         # Execute pred + gt (optional)
         pred_status, pred_df, pred_err, pred_ms = ("skipped", None, None, 0.0)
@@ -905,7 +899,7 @@ def main():
             "gt_sql_final": gt_sql_final,
             "gt_sql_fixes": gt_fixes,
 
-            # relaxed EM
+            # ---- Relaxed EM fields ----
             "sql_jaccard": sql_jaccard,
             "relaxed_exact_match": relaxed_em,
             "relaxed_em_threshold": float(args.relaxed_em_threshold),
@@ -952,12 +946,21 @@ def main():
     print(f"Completed rows:   {len(df_out)} / {len(df_in)}")
     print(f"Runtime:          {elapsed:.2f}s")
 
+    # ---- Run-level relaxed EM metric ----
     if len(df_out) > 0 and "relaxed_exact_match" in df_out:
         rem = df_out["relaxed_exact_match"].dropna()
         if len(rem) > 0:
             print(f"Relaxed EM rate (SQL Jaccard >= {args.relaxed_em_threshold}): {float(rem.mean()):.4f}")
 
     if args.run_sql and len(df_out) > 0:
+        # How many predicted SQLs executed successfully?
+        pred_ok = (df_out.get("pred_exec_status") == "ok") if "pred_exec_status" in df_out else None
+        if pred_ok is not None:
+            pred_ok_count = int(pred_ok.sum())
+            pred_total = int(pred_ok.shape[0])
+            print("\n------------- PRED SQL EXECUTION -------------")
+            print(f"Pred SQL executed successfully: {pred_ok_count} / {pred_total} ({pred_ok_count / max(1, pred_total):.4f})")
+
         ok_rate_pred = float((df_out["pred_exec_status"] == "ok").mean()) if "pred_exec_status" in df_out else None
         ok_rate_gt = float((df_out["gt_exec_status"] == "ok").mean()) if "gt_exec_status" in df_out else None
         eq_exact = float(df_out["results_equal_exact"].fillna(False).astype(bool).mean()) if "results_equal_exact" in df_out else None

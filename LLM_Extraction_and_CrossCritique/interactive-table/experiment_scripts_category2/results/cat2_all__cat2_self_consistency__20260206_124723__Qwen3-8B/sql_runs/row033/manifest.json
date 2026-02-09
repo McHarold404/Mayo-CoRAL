@@ -1,0 +1,57 @@
+{
+  "row_index": 33,
+  "question": "List PD1 trials that reported composite or co-primary endpoints.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "pred_sql_fixes": [],
+  "pred_answer": "This query lists PD1 trials that reported composite or co-primary endpoints.",
+  "pred_assumptions": "Assuming 'PD1' is the correct mapping for PD-1 and that 'Yes' indicates the presence of composite or co-primary endpoints.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_class\", \"primary_endpoint_is_multiple_or_composite\", \"ici_name\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"ici_class\" = 'PD1' AND \"primary_endpoint_is_multiple_or_composite\" = 'Multiple';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"class_of_ici\", \"priamry_multiple_composite_or_co_primary_endpoints\", \"name_of_ici\", \"primary_endpoint\"\nFROM public.\"clinical_trials\"\nWHERE \"class_of_ici\" = 'PD1' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Multiple';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_class",
+      "replaced_with": "class_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "primary_endpoint_is_multiple_or_composite",
+      "replaced_with": "priamry_multiple_composite_or_co_primary_endpoints",
+      "reason": "token_overlap(score=5)"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.2727272727272727,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.5794383361935616,
+  "pred_exec_error": null,
+  "pred_result_rows": 0,
+  "pred_result_hash": "1d9e0c36491c45ff946e09de54ac4223",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.1303671635687351,
+  "gt_exec_error": null,
+  "gt_result_rows": 19,
+  "gt_result_hash": "548165b817e228fdac8ccf8c028f075b",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": -19,
+  "column_overlap_ratio": 0.3333333333333333,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row033",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 1,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row033/candidates"
+}

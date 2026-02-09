@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%head and neck%' AND "follow_up_duration_for_primary_endpoint_s_in_months_overall" > 21;

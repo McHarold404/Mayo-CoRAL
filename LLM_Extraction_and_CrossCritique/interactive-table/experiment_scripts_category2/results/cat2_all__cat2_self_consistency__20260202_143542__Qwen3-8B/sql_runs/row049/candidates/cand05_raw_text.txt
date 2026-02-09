@@ -1,0 +1,10 @@
+- Use the exact column names from the table.
+- Be precise and concise.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA4%' AND \"year\" >= 2018;",
+  "answer": "This query retrieves clinical trials for Head and Neck cancer involving PD-1 or CTLA-4 inhibitors conducted in 2018 or later.",
+  "assumptions": "Assumes that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is mapped to 'CTLA4' as per the requirements."
+}

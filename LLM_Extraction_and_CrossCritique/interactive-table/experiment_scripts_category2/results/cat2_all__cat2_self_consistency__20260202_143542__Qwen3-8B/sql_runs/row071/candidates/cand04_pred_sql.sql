@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "is_any_other_biomarker_used_for_inclusion_criteria" = 'Yes' AND "cancer_type" ILIKE '%Esophageal%GEJ%'

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" = 'combination' AND \"type_of_therapy\" = 'combination treatment';

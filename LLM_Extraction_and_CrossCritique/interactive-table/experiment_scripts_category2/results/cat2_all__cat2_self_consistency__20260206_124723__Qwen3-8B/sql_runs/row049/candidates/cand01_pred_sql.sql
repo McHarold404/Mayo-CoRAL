@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE ("class_of_ici" = 'PD1' OR "class_of_ici_1" = 'PD1') AND ("class_of_ici" = 'CTLA4' OR "class_of_ici_1" = 'CTLA4') AND "year" >= 2018 AND "cancer_type" = 'Head and Neck';

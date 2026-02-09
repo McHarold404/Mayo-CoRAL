@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%'",
+  "answer": "The query retrieves Esophageal/GEJ trials with median follow-up durations by arm, showing overall, RX, and control follow-up in months.",
+  "assumptions": "Assumes that 'GEJ' refers to Gastroesophageal Junction and that follow-up durations are stored as numerical values."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%' OR \"cancer_type\" ILIKE '%gej%'", 
+  "answer": "The query retrieves Esophageal/GEJ trials with median follow-up durations by arm, showing overall, RX, and control follow-up in months.", 
+  "assumptions": "Assumes 'GEJ' refers to Gastroesophageal Junction and that follow-up durations are stored as numerical values."
+}

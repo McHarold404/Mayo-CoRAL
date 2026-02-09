@@ -1,0 +1,16 @@
+- SQL must be a valid, runnable PostgreSQL query.
+- Answer must be a string, not a JSON object.
+- Assumptions must be a string, not a JSON object.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Renal cell' AND \"number_of_arms\" > 1;",
+  "answer": "Pembrolizumab combination trials in Renal cell with sample sizes are listed above.",
+  "assumptions": "Assuming that trials with more than one arm are combination trials."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" = 'Pembrolizumab' AND \"cancer_type\" = 'Renal cell' AND \"number_of_arms\" > 1;",
+  "answer": "Pembrolizumab combination trials in Renal cell with sample sizes are listed above.",
+  "assumptions": "Assuming that trials with more than one arm are combination trials."
+}

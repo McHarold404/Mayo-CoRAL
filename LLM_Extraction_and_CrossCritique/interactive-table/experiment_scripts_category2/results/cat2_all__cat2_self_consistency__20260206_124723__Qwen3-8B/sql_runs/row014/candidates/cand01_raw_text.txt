@@ -1,0 +1,9 @@
+- Answer must be a string, not a JSON object.
+- Use the exact column names from the schema.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" = 'Breast Cancer' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No'",
+  "answer": "List of breast cancer trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'Yes' indicates use of other biomarkers and 'No' indicates PD-L1 is not required."
+}

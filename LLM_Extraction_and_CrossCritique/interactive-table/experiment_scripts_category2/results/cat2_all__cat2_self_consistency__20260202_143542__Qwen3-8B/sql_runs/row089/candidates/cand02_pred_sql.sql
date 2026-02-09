@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_name", "primary_endpoint" FROM public."clinical_trials" WHERE "name_of_ici" IS NOT NULL AND "type_of_combination" ILIKE '%chemo%' AND "cancer_type" ILIKE '%urothelial%';

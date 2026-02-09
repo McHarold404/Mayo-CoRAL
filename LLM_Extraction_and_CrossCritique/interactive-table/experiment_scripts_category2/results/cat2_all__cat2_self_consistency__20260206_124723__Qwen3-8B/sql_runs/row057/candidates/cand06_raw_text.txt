@@ -1,0 +1,9 @@
+- Use proper JSON syntax (double quotes, commas, etc.)
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"lines_of_treatment\" >= 2 AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "This query retrieves non-small cell lung cancer trials with at least 2 prior lines of therapy that used combination treatment.",
+  "assumptions": "Assumes that 'Non-Small Cell Lung' is a valid subset of cancer_type and that type_of_combination being non-null indicates combination treatment."
+}

@@ -1,0 +1,10 @@
+- Use standard PostgreSQL syntax (e.g., ILIKE for case-insensitive matching).
+- Ensure the SQL is runnable as-is.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" ILIKE '%pd-l1%' AND \"year\" >= 2018;",
+  "answer": "The query retrieves clinical trials for Bladder cancer with PD-L1 inhibitors conducted in 2018 or later.",
+  "assumptions": "Assuming that 'PD-L1' is correctly mapped to 'PD1' in the 'class_of_ici' column and that 'Bladder' is a valid substring for bladder cancer."
+}

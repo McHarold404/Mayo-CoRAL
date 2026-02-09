@@ -1,0 +1,38 @@
+- "answer" must be a string (not a JSON object).
+- "assumptions" must be a string (not a JSON object).
+- Use the exact column names from the schema.
+- Use double-quotes for all column names.
+
+I need to write a PostgreSQL query to find trials for Melanoma that used ICI+Vaccine combinations.
+
+First, I'll check the columns available. The relevant columns for this query are "cancer_type" and "type_of_combination". The "cancer_type" should be 'Melanoma' and the "type_of_combination" should be 'ICI+Vaccine'.
+
+I need to select the specified columns: "nct", "author", "year", "pubmed_id". 
+
+I should use the ILIKE operator for the "cancer_type" to allow for case-insensitive matching. For the "type_of_combination", I'll use exact match since it's a specific combination.
+
+I should also make sure to qualify the table as public."clinical_trials".
+
+So the query would look like:
+
+SELECT "nct", "author", "year", "pubmed_id"
+FROM public."clinical_trials"
+WHERE "cancer_type" ILIKE '%Melanoma%'
+AND "type_of_combination" = 'ICI+Vaccine';
+
+I need to check if there are any other columns that might be relevant, but based on the question, the main ones are "cancer_type" and "type_of_combination".
+
+I should also consider if there are any other possible variations in how the combination is described, but the question specifies 'ICI+Vaccine', so I'll stick to the exact match.
+
+I'll also ensure that the query returns distinct trials by using COUNT(DISTINCT "nct") if needed, but since the question asks to show the trials, not count them, I'll just select the rows.
+
+I should also check if the "type_of_combination" column might have different formats, but based on the schema, it's a text field, so using ILIKE might be necessary. However, the question specifies 'ICI+Vaccine', so an exact match is better.
+
+I think that's all. The query should return the required information.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Melanoma%' AND \"type_of_combination\" = 'ICI+Vaccine';",
+  "answer": "Melanoma trials that used ICI+Vaccine combinations are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumes 'ICI+Vaccine' is the exact value in \"type_of_combination\" and 'Melanoma' is a substring in \"cancer_type\"."
+}

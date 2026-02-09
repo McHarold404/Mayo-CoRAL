@@ -1,0 +1,10 @@
+- For answer, summarize the query's purpose in 1–2 sentences.
+- For assumptions, state any assumptions made (e.g., "Assuming 'Pembrolizumab' is in 'name_of_ici' or 'monotherapy_combination'").
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"total_sample_size\" FROM public.\"clinical_trials\" WHERE (\"name_of_ici\" ILIKE '%pembrolizumab%' OR \"monotherapy_combination\" ILIKE '%pembrolizumab%') AND \"cancer_type\" ILIKE '%renal cell%';",
+  "answer": "This query retrieves Pembrolizumab combination trials in Renal cell cancer along with their sample sizes.",
+  "assumptions": "Assuming 'Pembrolizumab' is in 'name_of_ici' or 'monotherapy_combination' and 'Renal cell' is in 'cancer_type'."
+}

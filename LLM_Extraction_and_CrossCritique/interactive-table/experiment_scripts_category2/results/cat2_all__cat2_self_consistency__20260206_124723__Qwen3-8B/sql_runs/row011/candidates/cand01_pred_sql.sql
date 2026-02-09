@@ -1,0 +1,5 @@
+SELECT ...", "answer": "...", "assumptions": "..."}
+
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Prostate' AND \"class_of_ici\" = 'CTLA4' AND \"year\" >= 2018;

@@ -1,0 +1,24 @@
+- Answer must be a string, not a JSON object.
+- Use the exact column names as listed, with double quotes.
+
+I need to write a PostgreSQL query to find Phase 3 Nivolumab, Ipilimumab trials in Non-Small Cell Lung that were original publication publications.
+
+Let me break down the requirements:
+
+1. Phase 3 trials: Filter "trial_phase" = 'Phase 3'
+2. Nivolumab and Ipilimumab: Check if both are in the treatment regimen or combinations
+3. Non-Small Cell Lung: Filter "cancer_type" = 'Non-Small Cell Lung'
+4. Original publication: Filter "originial_publication_or_follow_up" = 'original publication'
+
+I need to make sure the query selects the correct columns and uses the correct table qualification.
+
+I should also consider if the treatment regimen might include both drugs together, so I'll check if both are present in the treatment regimen or in the combination therapies.
+
+Let me put this together into a query.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"originial_publication_or_follow_up\" = 'original publication' AND (\"treatment_regimen\" ILIKE '%Nivolumab%' AND \"treatment_regimen\" ILIKE '%Ipilimumab%')",
+  "answer": "Found Phase 3 Nivolumab and Ipilimumab trials in Non-Small Cell Lung that were original publications.",
+  "assumptions": "Assumed treatment regimen contains both Nivolumab and Ipilimumab. If they are in separate fields, additional checks would be needed."
+}

@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Renal cell%' AND \"class_of_ici\" ILIKE '%PD-L1%' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'yes' ORDER BY \"year\" DESC;

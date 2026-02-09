@@ -1,0 +1,11 @@
+- "answer" should be a string of 1–2 sentences.
+- "assumptions" should be a string, possibly empty.
+
+I will now generate the SQL query and answer.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"included_in_ma\" = 'yes' AND (\"class_of_ici\" = 'PD1' OR \"class_of_ici\" = 'CTLA4')",
+  "answer": "This query retrieves Non-Small Cell Lung studies included in the meta-analysis that used PD1 or CTLA-4 agents.",
+  "assumptions": "Assumes 'PD1' and 'CTLA4' are valid values for \"class_of_ici\" and that 'yes' indicates inclusion in the meta-analysis."
+}

@@ -1,0 +1,15 @@
+- Answer must be a string (not JSON), <= 1–2 sentences.
+- Assumptions must be a string (not JSON), empty if none.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"type_of_therapy\" = 'Chemotherapy' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Breast Chemotherapy trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assumed that 'Breast Chemotherapy' refers to trials where 'cancer_type' includes 'breast' and 'type_of_therapy' is 'Chemotherapy'."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"type_of_therapy\" = 'Chemotherapy' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "answer": "Breast Chemotherapy trials with overall follow-up exceeding 21 months are listed.",
+  "assumptions": "Assumed that 'Breast Chemotherapy' refers to trials where 'cancer_type' includes 'breast' and 'type_of_therapy' is 'Chemotherapy'."
+}

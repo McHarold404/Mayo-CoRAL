@@ -1,0 +1,15 @@
+- Use the exact column names from the table, including quotes.
+- Use COUNT(DISTINCT "nct") for counts.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%gej%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Esophageal/GEJ PD1 trials conducted in 2018 or later are listed with their respective details.",
+  "assumptions": "Assuming 'GEJ' refers to gastroesophageal junction and that 'PD1' is used consistently for PD-1 in the class_of_ici column."
+}

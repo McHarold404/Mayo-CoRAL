@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Esophageal%GEJ%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;

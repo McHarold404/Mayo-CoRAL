@@ -1,0 +1,16 @@
+- Answer must be <= 1–2 sentences.
+- Answer must be in English.
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" ILIKE '%Esophageal%' OR \"cancer_type\" ILIKE '%GEJ%';",
+  "answer": "The query retrieves Esophageal/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes that 'GEJ' refers to Gastric Esophageal Junction and that the inclusion criteria are explicitly marked with 't' for other biomarkers and 'f' for PD-L1."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND (\"cancer_type\" ILIKE '%Esophageal%' OR \"cancer_type\" ILIKE '%GEJ%');",
+  "answer": "The query lists Esophageal/GEJ trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'GEJ' refers to Gastric Esophageal Junction and that inclusion criteria flags are stored as 't' or 'f'."
+}

@@ -1,0 +1,52 @@
+{
+  "row_index": 68,
+  "question": "List Breast Chemotherapy trials where overall follow\u2011up exceeded 21 months.",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"type_of_therapy\" ILIKE '%chemotherapy%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND \"type_of_therapy\" ILIKE '%chemotherapy%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;",
+  "pred_sql_fixes": [],
+  "pred_answer": "Breast Chemotherapy trials with overall follow-up exceeding 21 months are listed.",
+  "pred_assumptions": "Assumes 'Breast' is identified in the \"cancer_type\" column and 'chemotherapy' is identified in the \"type_of_therapy\" column.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"ici_name\", \"follow_up_duration_overall_months\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Breast' AND \"ici_name\" = 'Chemotherapy' AND NULLIF(regexp_replace((\"follow_up_duration_overall_months\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric > 21;",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"name_of_ici\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"cancer_type\", \"trial_phase\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Breast' AND \"name_of_ici\" = 'Chemotherapy' AND NULLIF(regexp_replace((\"follow_up_duration_for_primary_endpoint_s_in_months_overall\")::text, '[^0-9\\.-]', '', 'g'), '')::numeric > 21;",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "follow_up_duration_overall_months",
+      "replaced_with": "follow_up_duration_for_primary_endpoint_s_in_months_overall",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.26666666666666666,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "error",
+  "pred_exec_ms": 1.8615811131894588,
+  "pred_exec_error": "(psycopg2.errors.UndefinedFunction) operator does not exist: text > integer\nLINE 1: ..._up_duration_for_primary_endpoint_s_in_months_overall\" > 21;\n                                                                  ^\nHINT:  No operator matches the given name and argument types. You might need to add explicit type casts.\n\n[SQL: SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%%breast%%' AND \"type_of_therapy\" ILIKE '%%chemotherapy%%' AND \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" > 21;]\n(Background on this error at: https://sqlalche.me/e/20/f405)",
+  "pred_result_rows": null,
+  "pred_result_hash": "",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 6.003943737596273,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "881070589770dbe5b6993087b766d10e",
+  "results_equal_exact": null,
+  "results_equal_normalized": null,
+  "rowcount_delta_pred_minus_gt": null,
+  "column_overlap_ratio": null,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row068",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row068/candidates"
+}

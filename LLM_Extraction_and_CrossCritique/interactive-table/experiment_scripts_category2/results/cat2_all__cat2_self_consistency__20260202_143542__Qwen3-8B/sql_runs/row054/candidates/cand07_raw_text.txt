@@ -1,0 +1,12 @@
+- Use double quotes for all strings.
+- Do not include any extra fields.
+- SQL must be valid PostgreSQL.
+- Answer must be a concise summary of what the query does.
+- Assumptions must be a list of assumptions made, if any.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%';",
+  "answer": "Retrieves breast cancer trials with median follow-up duration by arm, including overall, RX, and control arm follow-up in months.",
+  "assumptions": "Assumes 'median follow-up' is represented by 'follow_up_duration_for_primary_endpoint_s_in_months_overall' and that RX and control arms are captured in the respective fields."
+}

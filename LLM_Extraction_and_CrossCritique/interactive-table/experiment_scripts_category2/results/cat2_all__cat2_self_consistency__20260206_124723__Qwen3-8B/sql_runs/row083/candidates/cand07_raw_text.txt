@@ -1,0 +1,16 @@
+- Use the exact column names from the table.
+
+I need to find breast cancer trials that used neoadjuvant ICI. Let me think about the relevant columns.
+
+The cancer_type column should be 'Breast'. For neoadjuvant ICI, I need to check if the trial used an ICI in the neoadjuvant setting. The clinical_setting_in_relation_to_surgery column might indicate this, looking for terms like 'neoadjuvant' or 'neoadjuvant treatment'.
+
+I'll filter where cancer_type is 'Breast' and clinical_setting_in_relation_to_surgery ILIKE '%neoadjuvant%'. Also, I should include the required columns: nct, author, year, pubmed_id.
+
+I need to make sure to use the correct column names with quotes. Let me structure the query accordingly.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clinical_setting_in_relation_to_surgery\" ILIKE '%neoadjuvant%';",
+  "answer": "Breast cancer trials that specified neoadjuvant ICI use are listed with their respective details.",
+  "assumptions": "Assuming 'neoadjuvant' in the clinical_setting_in_relation_to_surgery field indicates neoadjuvant ICI use."
+}

@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves Head and Neck trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Head and Neck' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "The query returns Head and Neck cancer trials using PD-L1 as an immunotherapy class where PD-L1 positivity was a required inclusion criterion.",
+  "assumptions": "Assumes 'PD1' is the correct mapping for PD-1 in the \"class_of_ici\" column and that 'Head and Neck' is the exact value in \"cancer_type\"."
+}

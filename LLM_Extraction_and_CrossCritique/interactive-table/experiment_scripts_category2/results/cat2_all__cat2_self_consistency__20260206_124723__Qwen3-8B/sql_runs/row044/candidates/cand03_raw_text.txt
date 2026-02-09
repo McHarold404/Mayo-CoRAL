@@ -1,0 +1,11 @@
+- Use only the columns listed in the DATABASE section.
+- Follow the REQUIREMENTS.
+- Use the OUTPUT FORMAT.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"trial_phase\", \"cancer_type\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"clinical_setting\", \"primary_endpoint\", \"secondary_endpoint\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"name_of_ici\" ILIKE '%PD-L1%' AND \"name_of_ici\" ILIKE '%CTLA-4%' AND \"cancer_type\" = 'Non-Small Cell Lung Cancer' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "Phase 3 PD-L1 and CTLA-4 combination trials in Non-Small Cell Lung Cancer include trials with specified regimens, which can be reviewed using the retrieved data.",
+  "assumptions": "Assuming that 'PD-L1' and 'CTLA-4' are mentioned in the 'name_of_ici' field and that 'Non-Small Cell Lung Cancer' is the exact value for 'cancer_type'."
+}

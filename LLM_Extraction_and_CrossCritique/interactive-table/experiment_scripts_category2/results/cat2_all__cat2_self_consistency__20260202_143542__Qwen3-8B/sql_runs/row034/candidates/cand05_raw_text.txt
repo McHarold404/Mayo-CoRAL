@@ -1,0 +1,5 @@
+- Ensure valid JSON syntax (no trailing commas, etc).
+
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%bladder%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;", "answer": "Retrieved trials for Bladder cancer using PD1 where PD-L1 positivity was an inclusion criterion.", "assumptions": "Assumed that 'PD1' is the correct mapping for PD-1 and that 'ILIKE' will capture variations in spelling for 'Bladder'."}

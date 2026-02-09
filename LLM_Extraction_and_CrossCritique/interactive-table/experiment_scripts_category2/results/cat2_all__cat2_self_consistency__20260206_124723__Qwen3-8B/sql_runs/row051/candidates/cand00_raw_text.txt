@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Use markdown-style code blocks for SQL (no PostgreSQL syntax highlighting).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%head and neck%' AND \"class_of_ici\" = 'PD1' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "This query retrieves Head and Neck trials using PD-L1 where PD-L1 positivity was an inclusion criterion.",
+  "assumptions": "Assumes that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'Head and Neck' is a substring in the 'cancer_type' field."
+}

@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung Cancer' AND \"type_of_combination\" ILIKE '%ICI+ICI+Chemo%'",
+  "answer": "The query retrieves Small Cell Lung Cancer trials that tested ICI+ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Small Cell Lung Cancer' AND \"type_of_combination\" ILIKE '%ICI+ICI+Chemo%'",
+  "answer": "The query retrieves Small Cell Lung Cancer trials that tested ICI+ICI+Chemo combinations along with their primary endpoints.",
+  "assumptions": ""
+}

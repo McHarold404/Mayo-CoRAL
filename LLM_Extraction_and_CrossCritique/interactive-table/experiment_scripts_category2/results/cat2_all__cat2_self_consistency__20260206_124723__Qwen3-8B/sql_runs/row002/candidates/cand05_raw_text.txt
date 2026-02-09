@@ -1,0 +1,10 @@
+- Values must be strings.
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'Yes' AND \"cancer_type\" = 'Melanoma' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'No'",
+  "answer": "The query lists Melanoma trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes that 'Yes' in \"is_any_other_biomarker_used_for_inclusion_criteria\" indicates the use of a biomarker other than PD-L1, and 'No' in \"is_pd_l1_positivity_inclusion_criteria\" confirms PD-L1 is not the required biomarker."
+}

@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id" FROM public."clinical_trials" WHERE "cancer_type" = 'Non-Small Cell Lung' AND (LOWER("class_of_ici") ILIKE '%pd1%' OR LOWER("class_of_ici") ILIKE '%ctla-4%') AND "included_in_ma" = 'Yes';

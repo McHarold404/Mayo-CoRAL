@@ -1,0 +1,14 @@
+- Use double quotes for all strings.
+- Use the exact column names from the table.
+- Use ILIKE for free text searches.
+- For counts, use COUNT(DISTINCT "nct").
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+
+I will now generate the SQL query to answer the question.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%breast%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion_criteria\" IS TRUE;",
+  "answer": "Breast cancer trials requiring biomarkers other than PD-L1 for inclusion.",
+  "assumptions": "Assuming \"is_any_other_biomarker_used_for_inclusion_criteria\" is a boolean column indicating if other biomarkers are required."
+}

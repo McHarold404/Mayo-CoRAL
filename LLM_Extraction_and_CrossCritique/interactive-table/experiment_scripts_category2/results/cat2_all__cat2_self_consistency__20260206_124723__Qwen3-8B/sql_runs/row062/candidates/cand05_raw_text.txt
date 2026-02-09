@@ -1,0 +1,9 @@
+- No markdown.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%gastric%' OR \"cancer_type\" ILIKE '%gej%' AND \"is_any_other_biomarker_used_for_inclusion_criteria\" = 'true' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'false'",
+  "answer": "The query lists gastric/GEJ trials that require a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumes 'GEJ' refers to gastroesophageal junction and that 'is_any_other_biomarker_used_for_inclusion_criteria' indicates the presence of other biomarkers besides PD-L1."
+}

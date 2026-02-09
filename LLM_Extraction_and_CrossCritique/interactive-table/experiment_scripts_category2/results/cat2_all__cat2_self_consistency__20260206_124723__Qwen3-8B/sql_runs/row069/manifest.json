@@ -1,0 +1,52 @@
+{
+  "row_index": 69,
+  "question": "Which Colorectal phase 3 trials compared ICI to Chemo?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemotherapy%' OR \"control_regimen\" ILIKE '%Chemo%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = '3' AND \"class_of_ici\" ILIKE '%ICI%' AND \"control_regimen\" ILIKE '%Chemotherapy%' OR \"control_regimen\" ILIKE '%Chemo%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Colorectal phase 3 trials that compared ICI to chemotherapy.",
+  "pred_assumptions": "Assumed that 'Chemo' in the control regimen refers to chemotherapy. If 'Chemo' appears in other contexts, it may lead to false positives.",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"trial_phase\", \"control_type\", \"cancer_type\", \"ici_name\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Colorectal' AND \"trial_phase\" = 'Phase 3' AND \"control_type\" = 'Chemo';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"trial_phase\", \"type_of_control\", \"cancer_type\", \"name_of_ici\", \"treatment_regimen\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Colorectal' AND \"trial_phase\" = 'Phase 3' AND \"type_of_control\" = 'Chemo';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "control_type",
+      "replaced_with": "type_of_control",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.3333333333333333,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 2.100207842886448,
+  "pred_exec_error": null,
+  "pred_result_rows": 20,
+  "pred_result_hash": "ec7f7c8194be31ec25ad11395f44da7c",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.4423388056457043,
+  "gt_exec_error": null,
+  "gt_result_rows": 1,
+  "gt_result_hash": "d0c549aee7c7385fac2dbf8aa022bcda",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 19,
+  "column_overlap_ratio": 0.3,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row069",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 7,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row069/candidates"
+}

@@ -1,0 +1,15 @@
+- The answer must be a string, not a query result.
+- The answer must be <= 1–2 sentences.
+- The assumptions must be a string, not a list.
+
+Okay, let's tackle this query. The user wants Phase 3 PD-L1 monotherapy trials in Colorectal and their regimens.
+
+First, I need to check the columns available. The relevant ones are trial_phase, class_of_ici, cancer_type, and treatment_regimen. Also, since they mentioned PD-L1, I should map "PD-L1" to "PD1" as per the requirements. 
+
+Wait, the user specified "PD-L1 monotherapy". So the class_of_ici should be "PD1" and the monotherapy_combination should be true? Or is monotherapy_combination indicating if it's a combination? Wait, looking back, the columns: "monotherapy_combination" might be a boolean. But the question is about monotherapy, so maybe the combination is not present. Wait, the column names are a bit confusing. Let me check again.
+
+The columns are: "class_of_ici", "monotherapy_combination", "treatment_regimen". So if it's a monotherapy, maybe "monotherapy_combination" is true? Or maybe "monotherapy_combination" is a column that indicates if the regimen is a monotherapy. Wait, the exact column names are important here. Let me recheck.
+
+The columns include "monotherapy_combination" and "treatment_regimen". The question is about PD-L1 monotherapy trials. So the monotherapy_combination might be a boolean field. But I need to be careful here. Alternatively, maybe the treatment_regimen would indicate that it's a monotherapy. But the user is asking for monotherapy trials. So perhaps the "monotherapy_combination" is a column that is true if the trial is a monotherapy. Wait, but the column is named "monotherapy_combination", which might be a bit ambiguous. Maybe it's a typo and should be "monotherapy". But according to the given columns, it's "monotherapy_combination". So perhaps the value is 'Yes' or 'No' indicating if it's a monotherapy combination. But the user wants monotherapy, so maybe that column should be 'Yes'? Or maybe the treatment_regimen would indicate that. 
+
+Alternatively, maybe the "monotherapy_combination" is a column that indicates whether the treatment is a monotherapy. For example, if the treatment is PD-L1 as a single agent, then monotherapy_combination would be 'Yes'. But I need to make sure. Since the user is asking for monotherapy trials, perhaps the "monotherapy_combination" should be 'Yes' or similar. However, the exact values in the data are unknown. But according to the requirements, when using columns, I should use exact equality unless free text. So

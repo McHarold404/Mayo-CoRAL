@@ -1,0 +1,57 @@
+{
+  "row_index": 83,
+  "question": "Which Breast trials specified neoadjuvant ICI use?",
+  "model_name": "Qwen3-8B",
+  "model_load_path_or_id": "/mnt/shared/shared_hf_home/hub/models--Qwen--Qwen3-8B/snapshots/b968826d9c46dd6066d109eabc6255188de91218",
+  "pred_sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" ILIKE '%neoadjuvant%';",
+  "pred_sql_final": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" ILIKE '%neoadjuvant%';",
+  "pred_sql_fixes": [],
+  "pred_answer": "The query retrieves Breast cancer trials that specified neoadjuvant ICI use by checking the 'clincal_setting_in_relation_to_surgery' column for the term 'neoadjuvant'.",
+  "pred_assumptions": "",
+  "raw_text": "",
+  "ground_truth_sql": "SELECT \"nct\", \"author\", \"year\", \"publication_type\", \"cancer_type\", \"therapy_modality\", \"trial_phase\", \"ici_name\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Breast' AND \"clinical_setting_in_relation_to_surgery\" = 'Neoadjuvant';",
+  "gt_sql_final": "SELECT \"nct\", \"author\", \"year\", \"originial_publication_or_follow_up\", \"cancer_type\", \"monotherapy_combination\", \"trial_phase\", \"name_of_ici\"\nFROM public.\"clinical_trials\"\nWHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" = 'Neoadjuvant';",
+  "gt_sql_fixes": [
+    {
+      "missing": "publication_type",
+      "replaced_with": "originial_publication_or_follow_up",
+      "reason": "known_map"
+    },
+    {
+      "missing": "therapy_modality",
+      "replaced_with": "monotherapy_combination",
+      "reason": "known_map"
+    },
+    {
+      "missing": "ici_name",
+      "replaced_with": "name_of_ici",
+      "reason": "known_map"
+    },
+    {
+      "missing": "clinical_setting_in_relation_to_surgery",
+      "replaced_with": "clincal_setting_in_relation_to_surgery",
+      "reason": "known_map"
+    }
+  ],
+  "sql_jaccard": 0.36363636363636365,
+  "relaxed_exact_match": false,
+  "relaxed_em_threshold": 0.7,
+  "pred_exec_status": "ok",
+  "pred_exec_ms": 1.63352582603693,
+  "pred_exec_error": null,
+  "pred_result_rows": 4,
+  "pred_result_hash": "0ab2100c214f8bff077166b6ab9e0eff",
+  "gt_exec_status": "ok",
+  "gt_exec_ms": 1.6625970602035522,
+  "gt_exec_error": null,
+  "gt_result_rows": 4,
+  "gt_result_hash": "72582dab7b3d88a94b71bfc2a6c9c9ee",
+  "results_equal_exact": false,
+  "results_equal_normalized": false,
+  "rowcount_delta_pred_minus_gt": 0,
+  "column_overlap_ratio": 0.3333333333333333,
+  "row_artifacts_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row083",
+  "self_consistency_num_candidates": 8,
+  "self_consistency_best_candidate_index": 0,
+  "self_consistency_candidates_dir": "results/cat2_all__cat2_self_consistency__20260206_124723__Qwen3-8B/sql_runs/row083/candidates"
+}

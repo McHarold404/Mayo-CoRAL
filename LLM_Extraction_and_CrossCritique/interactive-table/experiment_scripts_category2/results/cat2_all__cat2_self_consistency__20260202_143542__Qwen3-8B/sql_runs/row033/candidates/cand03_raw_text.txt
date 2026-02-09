@@ -1,0 +1,28 @@
+- Use the exact column names from the list.
+- Use double quotes for all column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let's tackle this query. The user wants PD1 trials that reported composite or co-primary endpoints.
+
+First, I need to check the columns related to the PD1. The "class_of_ici" column should be 'PD1' as per the requirement. Also, the question mentions composite or co-primary endpoints. The columns involved here are "priamry_multiple_composite_or_co_primary_endpoints". Wait, the column name has a typo: "priamry" instead of "primary". But the user provided the exact column names, so I have to use the exact spelling. So the correct column is "priamry_multiple_composite_or_co_primary_endpoints". 
+
+The user wants trials where this column indicates composite or co-primary endpoints. So I need to check if that column is not null or has a value that implies composite. But the exact values aren't specified. Maybe the presence of the term 'composite' or 'co-primary' in that column would be the key. Since the user says to use ILIKE with %...% for free text, I should use ILIKE to check if the column contains 'composite' or 'co-primary'.
+
+So the condition would be "priamry_multiple_composite_or_co_primary_endpoints" ILIKE '%composite%' OR "priamry_multiple_composite_or_co_primary_endpoints" ILIKE '%co-primary%'. 
+
+Also, the "class_of_ici" should be 'PD1'. 
+
+Additionally, the user wants the query to return rows with "nct", "author", "year", "pubmed_id". So the SELECT clause includes those columns. 
+
+Wait, the user's question says "List PD1 trials that reported composite or co-primary endpoints." So the answer should be a list of trials (rows) with those details. The query should select those columns and filter based on the conditions. 
+
+I also need to make sure that the "class_of_ici" is exactly 'PD1'. But the note says if PD-1 is mentioned, map to "PD1". So the column value should be 'PD1'. 
+
+Putting it all together, the SQL query would select the required columns from the table where "class_of_ici" = 'PD1' and the composite endpoint condition is met. 
+
+I should also check if there are any other columns that might

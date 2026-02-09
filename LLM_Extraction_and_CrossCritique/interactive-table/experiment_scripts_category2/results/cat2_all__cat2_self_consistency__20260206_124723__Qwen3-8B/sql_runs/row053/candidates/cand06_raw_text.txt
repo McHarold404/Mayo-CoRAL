@@ -1,0 +1,18 @@
+- Use double-quotes for all strings.
+- Use the exact column names from the list, always double quoted.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- If PD-1 is mentioned, map to "PD1" for "class_of_ici".
+- Prefer exact equality for enumerated values; use ILIKE with %...% for free text.
+- SELECT queries only; no DDL/DML.
+- Unless the question explicitly asks for a count or summary statistic, return rows and always include:
+  "nct", "author", "year", "pubmed_id".
+
+Okay, let me tackle this query. The user wants a list of PD-L1 trials that reported composite or co-primary endpoints.
+
+First, I need to check the columns related to PD-L1. The "class_of_ici" column should be checked for 'PD1' since PD-1 is mapped to PD1. Also, there's "is_pd_l1_positivity_inclusion_criteria" which might indicate if PD-L1 positivity was an inclusion criterion. But the question is about trials that reported composite endpoints, so maybe the primary endpoint is composite.
+
+The primary endpoints are in "primary_endpoint" and "priamry_multiple_composite_or_co_primary_endpoints". Wait, the column name is "priamry_multiple_composite_or_co_primary_endpoints" which seems like a typo. The user mentioned "composite or co-primary endpoints", so I should check if that column is relevant. The column name might be "priamry_multiple_composite_or_co_primary_endpoints" but that's a typo for "primary_multiple_composite_or_co_primary_endpoints". But the exact column name is as listed. So the correct column is "priamry_multiple_composite_or_co_primary_endpoints", which might indicate if there are multiple endpoints. However, the user wants trials that reported composite or co-primary endpoints. So maybe the presence of a value in that column indicates that. Alternatively, maybe the "primary_endpoint" is composite. But the question says "composite or co-primary endpoints", which could be in the primary or secondary endpoints.
+
+But the exact column names are crucial. The user mentioned "priamry_multiple_composite_or_co_primary_endpoints" (probably a typo for "primary_multiple_composite_or_co_primary_endpoints"). So I should check if that column is not null or has a value. Alternatively, maybe the primary_endpoint is a composite. But the user's question is about trials that reported composite or co-primary endpoints. So perhaps the presence of a value in "priamry_multiple_composite_or_co_primary_endpoints" indicates that. But I need to check the exact column name. Also, the "primary_endpoint" and "secondary_endpoint" columns might have values indicating composite endpoints. But the exact column names are as given. 
+
+So, the query should select trials where "class_of_ici" is 'PD1' (since

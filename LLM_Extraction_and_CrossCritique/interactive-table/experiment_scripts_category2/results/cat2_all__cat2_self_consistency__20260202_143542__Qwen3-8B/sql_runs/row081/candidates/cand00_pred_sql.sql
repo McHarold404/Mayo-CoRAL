@@ -1,0 +1,11 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%'",
+  "answer": "Found trials with Hodgkin Lymphoma, showing median follow-up months by arm.",
+  "assumptions": "Assuming 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up across all arms, 'follow_up_duration_for_primary_endpoint_s_in_months_rx' for the experimental arm, and 'follow_up_duration_for_primary_endpoint_s_in_months_control' for the control arm."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%Hodgkin Lymphoma%'",
+  "answer": "Found trials with Hodgkin Lymphoma, showing median follow-up months by arm.",
+  "assumptions": "Assuming 'follow_up_duration_for_primary_endpoint_s_in_months_overall' represents median follow-up across all arms, 'follow_up_duration_for_primary_endpoint_s_in_months_rx' for the experimental arm, and 'follow_up_duration_for_primary_endpoint_s_in_months_control' for the control arm."
+}

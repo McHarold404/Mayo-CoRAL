@@ -1,0 +1,16 @@
+- Use double quotes for all strings.
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true",
+  "answer": "Retrieved trials that require a biomarker other than PD-L1 for inclusion in Non-Small Cell Lung trials.",
+  "assumptions": ""
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Non-Small Cell Lung' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true",
+  "answer": "List of Non-Small Cell Lung trials requiring a biomarker other than PD-L1 for inclusion.",
+  "assumptions": "Assumed 'Non-Small Cell Lung' is the exact value in the cancer_type column."
+}

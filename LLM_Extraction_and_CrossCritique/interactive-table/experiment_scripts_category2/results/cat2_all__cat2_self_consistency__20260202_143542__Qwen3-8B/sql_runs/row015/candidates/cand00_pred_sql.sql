@@ -1,0 +1,1 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" = 'CTLA4' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes' ORDER BY \"year\" DESC;

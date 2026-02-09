@@ -1,0 +1,25 @@
+- Answer must be <= 1–2 sentences.
+- Use the exact column names from the list.
+
+Now, let's tackle this question. The user wants to find Urothelial trials with median follow-up and show months by arm.
+
+First, I need to filter the trials where the cancer type is Urothelial. The column for cancer type is "cancer_type", so I'll use ILIKE to match 'Urothelial' (since it's free text).
+
+Next, the user is asking for median follow-up and months by arm. The follow-up durations are stored in several columns: follow_up_duration_for_primary_endpoint_s_in_months_overall, follow_up_duration_for_primary_endpoint_s_in_months_rx, and follow_up_duration_for_primary_endpoint_s_in_months_control. These likely represent overall, treatment arm, and control arm follow-up durations, respectively.
+
+I need to include these columns in the SELECT statement to show the months by arm. Also, the user wants to show the median follow-up, which might mean they want the median value across all trials or per arm. However, since the question is to show the months by arm, it's more likely they want the actual values for each arm rather than a calculated median. So I'll include all three follow-up columns.
+
+Additionally, the user requires the output to include "nct", "author", "year", "pubmed_id" as per the requirements. So I'll make sure to include those columns in the SELECT.
+
+I should also check if there are any other columns that might be relevant, like trial_phase or treatment_regimen, but the question doesn't mention those, so I'll stick to the required columns.
+
+Now, putting it all together, the SQL query should select the specified columns and filter for Urothelial cancer type. I'll use ILIKE with %Urothelial% to account for any variations in spelling or formatting.
+
+Assumptions: The follow-up duration columns are correctly named and represent the required data. The cancer type is listed as 'Urothelial' in the database. The user wants the actual follow-up values, not a calculated median, since they specified to show months by arm.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\", \"follow_up_duration_for_primary_endpoint_s_in_months_rx\", \"follow_up_duration_for_primary_endpoint_s_in_months_control\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%urothelial%';",
+  "answer": "Retrieved urothelial trials with median follow-up durations across overall, treatment (RX), and control arms.",
+  "assumptions": "Follow-up duration columns represent median values; 'urothelial' matches exact or variant spellings in \"cancer_type\"."
+}

@@ -1,5 +1,0 @@
-SELECT "nct", "author", "year", "pubmed_id"
-FROM public."clinical_trials"
-WHERE "cancer_type" ILIKE '%Melanoma%'
-  AND "is_any_other_biomarker_used_for_inclusion" ILIKE '%yes%'
-  AND ("is_pd_l1_positivity_inclusion_criteria" IS NULL OR "is_pd_l1_positivity_inclusion_criteria" ILIKE '%no%');

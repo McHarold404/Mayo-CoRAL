@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "primary_endpoint", "primary_endpoint_1" FROM public."clinical_trials" WHERE "cancer_type" = 'Multiple Myeloma' AND ("type_of_combination" ILIKE '%Chemo%' OR "type_of_combination_1" ILIKE '%Chemo%') AND ("class_of_ici" ILIKE '%PD1%' OR "class_of_ici_1" ILIKE '%PD1%')

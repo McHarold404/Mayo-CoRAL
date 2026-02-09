@@ -1,0 +1,4 @@
+SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" ILIKE '%esophageal%'", "answer": "Found 3 trials requiring a biomarker other than PD-L1 for inclusion in Esophageal/GEJ trials.", "assumptions": "Assumed 'GEJ' is included in '%esophageal%' pattern."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"is_any_other_biomarker_used_for_inclusion_criteria\" = 't' AND \"is_pd_l1_positivity_inclusion_criteria\" = 'f' AND \"cancer_type\" ILIKE '%esophageal%'", "answer": "Found 3 trials requiring a biomarker other than PD-L1 for inclusion in Esophageal/GEJ trials.", "assumptions": "Assumed 'GEJ' is included in '%esophageal%' pattern."}

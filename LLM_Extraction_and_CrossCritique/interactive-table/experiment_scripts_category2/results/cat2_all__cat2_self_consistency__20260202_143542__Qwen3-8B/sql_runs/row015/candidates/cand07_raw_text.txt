@@ -1,0 +1,27 @@
+- Use standard PostgreSQL syntax.
+- Use the exact column names from the table definition.
+
+I will write a query to find all trials with "CTLA-4" in the "name_of_ici" column and where the "priamry_multiple_composite_or_co_primary_endpoints" column indicates that there are multiple endpoints. I will make sure to use the correct column names and qualify the table as public."clinical_trials".
+
+I will also include the "nct", "author", "year", and "pubmed_id" columns as required.
+
+I will use the ILIKE operator to search for "CTLA-4" in the "name_of_ici" column, since the column may contain other text.
+
+I will use the COUNT(DISTINCT "nct") function to count the number of trials, as the question asks for a count.
+
+I will make sure to use double quotes around all column names to match the table definition.
+
+I will not include any DDL or DML statements, as the question only asks for a SELECT query.
+
+I will not use any functions or operators that are not specified in the table definition.
+
+I will not make any assumptions about the data, and will only use the information provided in the table definition.
+
+I will make sure to return the answer in the specified JSON format, with the keys "sql", "answer", and "assumptions".
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"name_of_ici\" ILIKE '%CTLA-4%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" = 'Yes';",
+  "answer": "Retrieved trials with CTLA-4 ICIs that reported composite or co-primary endpoints.",
+  "assumptions": "Assumed 'Yes' in \"priamry_multiple_composite_or_co_primary_endpoints\" indicates composite/co-primary endpoints."
+}

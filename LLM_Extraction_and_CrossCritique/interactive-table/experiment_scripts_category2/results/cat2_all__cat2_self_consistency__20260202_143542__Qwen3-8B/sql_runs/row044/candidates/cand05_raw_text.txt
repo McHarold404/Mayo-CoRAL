@@ -1,0 +1,10 @@
+- Answer must be <= 1–2 sentences.
+- Assume that the question is asking for trials that include PD-L1 as a biomarker, not necessarily that the trial is PD-L1 positive.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_name\", \"treatment_regimen\", \"name_of_ici\", \"class_of_ici\", \"monotherapy_combination\", \"type_of_combination\", \"control_regimen\", \"type_of_control\", \"cancer_type\", \"trial_phase\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Non-Small Cell Lung' AND \"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%' AND \"is_pd_l1_positivity_inclusion_criteria\" = true;",
+  "answer": "Phase 3 PD-L1, CTLA-4 combination trials in Non-Small Cell Lung include specific regimens and control arms, which can be reviewed using the provided query.",
+  "assumptions": "Assuming PD-L1 is included as a biomarker, not that the trial is PD-L1 positive."
+}

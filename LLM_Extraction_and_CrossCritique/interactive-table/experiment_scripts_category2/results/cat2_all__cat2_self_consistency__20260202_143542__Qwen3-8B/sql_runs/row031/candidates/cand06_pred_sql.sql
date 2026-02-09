@@ -1,0 +1,49 @@
+with %...%.
+- Do NOT use DISTINCT unless explicitly asked.
+- Do NOT use ORDER BY unless explicitly asked.
+- Do NOT use LIMIT unless explicitly asked.
+- Do NOT use OFFSET unless explicitly asked.
+- Do NOT use TRUNCATE, DELETE, etc.
+- Do NOT use schema qualification unless necessary.
+- Do NOT use string functions like SUBSTRING(), TRIM(), etc.
+- Do NOT use arithmetic operations.
+- Do NOT use aggregate functions unless explicitly asked.
+- Do NOT use GROUP BY unless explicitly asked.
+- Do NOT use HAVING unless explicitly asked.
+- Do NOT use window functions.
+- Do NOT use regular expressions.
+- Do NOT use array functions.
+- Do NOT use JSON functions.
+- Do NOT use date functions.
+- Do NOT use time functions.
+- Do NOT use interval functions.
+- Do NOT use cast functions.
+- Do NOT use conditional aggregation.
+- Do NOT use nested queries.
+- Do NOT use lateral joins.
+- Do NOT use common table expressions.
+- Do NOT use materialized views.
+- Do NOT use temporary tables.
+- Do NOT use savepoints.
+- Do NOT use transactions.
+- Do NOT use functions like NOW(), CURRENT_DATE(), etc.
+- Do NOT use functions like random(), generate_series(), etc.
+- Do NOT use functions like array_agg(), json_build_object(), etc.
+- Do NOT use functions like array_to_json(), jsonb_build_object(), etc.
+- Do NOT use functions like jsonb_pretty(), etc.
+- Do NOT use functions like jsonb_path_exists(), etc.
+- Do NOT use functions like jsonb_path_query(), etc.
+- Do NOT use functions like jsonb_path_scalar_query(), etc.
+- Do NOT use functions like jsonb_path_exists(), etc.
+- Do NOT use functions like jsonb_path_query(), etc.
+- Do NOT use functions like jsonb_path_scalar_query(), etc.
+- Do NOT use functions like jsonb_path_exists(), etc.
+- Do NOT use functions like jsonb_path_query(), etc.
+- Do NOT use functions like jsonb_path_scalar_query(), etc.
+- Do NOT use functions like jsonb_path_exists(), etc.
+- Do NOT use functions like jsonb_path_query(), etc.
+- Do NOT use functions like jsonb_path_scalar_query(), etc.
+- Do NOT use functions like jsonb_path_exists(), etc.
+- Do NOT use functions like jsonb_path_query(), etc.
+- Do NOT use functions like jsonb_path_scalar_query(), etc.
+- Do NOT use functions

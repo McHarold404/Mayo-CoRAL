@@ -1,0 +1,9 @@
+- Use markdown-style code blocks for the SQL string (backticks are allowed inside the JSON string).
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"clincal_setting_in_relation_to_surgery\" = 'Neoadjuvant' AND \"type_of_therapy\" = 'ICI';",
+  "answer": "The query retrieves Breast cancer trials that specified neoadjuvant ICI use.",
+  "assumptions": "Assuming that 'clincal_setting_in_relation_to_surgery' refers to the setting of ICI use and 'type_of_therapy' correctly identifies ICI as the therapy type."
+}

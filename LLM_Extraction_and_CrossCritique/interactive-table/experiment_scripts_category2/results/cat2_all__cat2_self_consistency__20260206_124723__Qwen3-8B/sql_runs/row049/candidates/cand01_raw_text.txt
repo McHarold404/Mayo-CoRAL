@@ -1,0 +1,13 @@
+- Answer must be <= 1–2 sentences.
+- Assume that "PD-L1" in the text refers to "PD1" for "class_of_ici" and "name_of_ici".
+- Assume that "CTLA-4" in the text refers to "CTLA4" for "class_of_ici" and "name_of_ici".
+- Assume that "PD-L1" in the text refers to "PD1" for "class_of_ici_1" and "name_of_ici_1".
+- Assume that "CTLA-4" in the text refers to "CTLA4" for "class_of_ici_1" and "name_of_ici_1".
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE (\"class_of_ici\" = 'PD1' OR \"class_of_ici_1\" = 'PD1') AND (\"class_of_ici\" = 'CTLA4' OR \"class_of_ici_1\" = 'CTLA4') AND \"year\" >= 2018 AND \"cancer_type\" = 'Head and Neck';",
+  "answer": "The query retrieves Head and Neck cancer trials involving PD-L1 (mapped to PD1) and CTLA-4 (mapped to CTLA4) conducted in 2018 or later.",
+  "assumptions": "Assuming that 'PD-L1' refers to 'PD1' and 'CTLA-4' refers to 'CTLA4' in the class_of_ici and class_of_ici_1 fields."
+}

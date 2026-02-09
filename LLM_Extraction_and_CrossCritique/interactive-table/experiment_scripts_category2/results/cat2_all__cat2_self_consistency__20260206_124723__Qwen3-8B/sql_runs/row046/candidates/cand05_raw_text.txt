@@ -1,0 +1,8 @@
+- Use markdown-style code blocks for the SQL (no real code execution).
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%melanoma%' AND \"name_of_ici\" ILIKE '%pembrolizumab%' AND \"trial_phase\" = '3'",
+  "answer": "The SQL query retrieves Melanoma trials that evaluated Pembrolizumab in phase 3 from the clinical_trials table.",
+  "assumptions": "Assumes 'phase 3' is represented exactly as '3' in the trial_phase column and that 'Melanoma' is mentioned in the cancer_type field."
+}

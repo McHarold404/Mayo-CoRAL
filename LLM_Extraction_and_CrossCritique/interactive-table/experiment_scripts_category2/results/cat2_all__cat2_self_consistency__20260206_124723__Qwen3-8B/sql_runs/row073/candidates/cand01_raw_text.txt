@@ -1,0 +1,11 @@
+- Use double quotes for all strings.
+- Use the exact column names from the list.
+
+I will now generate the SQL query based on the requirements.
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%esophageal%gej%' AND \"class_of_ici\" = 'PD1' AND \"year\" >= 2018;",
+  "answer": "Retrieved Esophageal/GEJ PD1 trials conducted in 2018 or later with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD1' is the correct mapping for PD-1 and that 'Esophageal/GEJ' is a valid cancer type combination."
+}

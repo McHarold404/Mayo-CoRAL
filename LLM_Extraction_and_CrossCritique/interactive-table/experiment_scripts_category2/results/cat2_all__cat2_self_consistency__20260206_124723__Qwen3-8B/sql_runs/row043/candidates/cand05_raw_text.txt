@@ -1,0 +1,9 @@
+- Ensure valid JSON formatting.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND \"included_in_ma\" = 'yes' AND (\"class_of_ici\" ILIKE '%PD1%' OR \"class_of_ici\" ILIKE '%CTLA-4%')",
+  "answer": "Non-Small Cell Lung studies included in the meta-analysis that used PD-L1 or CTLA-4 agents are listed with their NCT, author, year, and PubMed ID.",
+  "assumptions": "Assumed that 'PD-L1' is mapped to 'PD1' in the 'class_of_ici' column and that 'CTLA-4' is directly mentioned in the 'class_of_ici' or 'name_of_ici' columns."
+}

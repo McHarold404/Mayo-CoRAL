@@ -1,0 +1,9 @@
+with an 'a' instead of 'm'? That's probably a typo. But the exact spelling matters. Let me check the original list again.
+
+Looking back, the columns list shows "priamry_multiple_composite_or_co_primary_endpoints". So the correct column name is "priamry_multiple_composite_or_co_primary_endpoints". But that seems like a typo. However, the user might have intended it as "primary_multiple_composite_or_co_primary_endpoints". But since the column is named as such, I have to use it as is.
+
+So, the query needs to select trials where "class_of_ici" is 'PD1' (since PD-1 is mapped to PD1) and "priamry_multiple_composite_or_co_primary_endpoints" is true or has some value indicating composite endpoints. Wait, the column's name suggests that it's a flag indicating if the primary endpoints are composite or co-primary. So maybe the value is a boolean or a text field. But the user might want trials where this field is not null or has a specific value. However, the exact data isn't known, so the safest approach is to check if the column is not null or contains 'composite' or 'co-primary' in the text. But the user's instruction says to use ILIKE with %...% for free text. 
+
+Alternatively, maybe the column is a boolean indicating whether it's a composite endpoint. But without knowing the data, it's safer to use ILIKE to check for any occurrence of 'composite' or 'co-primary' in the column. However, the column name is "priamry_multiple_composite_or_co_primary_endpoints", which might be a typo. But I have to use the exact column name. 
+
+So, putting it all together: select the required columns, filter where

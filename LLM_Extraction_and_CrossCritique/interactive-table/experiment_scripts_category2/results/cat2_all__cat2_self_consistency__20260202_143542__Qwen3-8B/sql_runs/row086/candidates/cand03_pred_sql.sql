@@ -1,0 +1,1 @@
+SELECT "nct", "author", "year", "pubmed_id", "trial_phase", "treatment_regimen", "name_of_ici", "class_of_ici", "monotherapy_combination", "type_of_combination", "control_regimen", "type_of_control", "cancer_type" FROM public."clinical_trials" WHERE "cancer_type" ILIKE '%colorectal%' AND "trial_phase" = '3' AND "class_of_ici" = 'PD1' AND "monotherapy_combination" IS NOT TRUE;

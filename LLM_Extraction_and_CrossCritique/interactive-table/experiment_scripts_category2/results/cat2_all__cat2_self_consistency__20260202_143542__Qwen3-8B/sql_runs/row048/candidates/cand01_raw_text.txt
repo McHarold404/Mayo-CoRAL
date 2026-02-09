@@ -1,0 +1,9 @@
+- "answer" must be a string, not a count.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"control_regimen\" ILIKE '%chemo+anti-vegf%' AND \"cancer_type\" ILIKE '%non-small cell lung%';",
+  "answer": "The Non-Small Cell Lung trials that used Chemo+Anti-VEGF as the control arm are listed in the query results.",
+  "assumptions": "Assuming 'Non-Small Cell Lung' is a valid entry in the 'cancer_type' column and 'Chemo+Anti-VEGF' is a valid entry in the 'control_regimen' column."
+}

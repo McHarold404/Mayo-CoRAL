@@ -1,0 +1,15 @@
+- No markdown.
+- No explanation.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"primary_endpoint\" IS NOT NULL;",
+  "answer": "Retrieved breast cancer trials with median follow-up duration by arm.",
+  "assumptions": "Assuming that the follow-up durations represent median values and that the columns correspond to overall, RX, and control arms."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"follow_up_duration_for_primary_endpoint_s_in_months_overall\" AS overall_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_rx\" AS rx_follow_up, \"follow_up_duration_for_primary_endpoint_s_in_months_control\" AS control_follow_up FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Breast' AND \"primary_endpoint\" IS NOT NULL;",
+  "answer": "Breast cancer trials with median follow-up durations by arm have been retrieved, showing overall, RX, and control arm follow-up periods in months.",
+  "assumptions": "Assuming the follow-up duration columns represent median values and that the entries correspond to the specified arms."
+}

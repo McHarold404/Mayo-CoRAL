@@ -1,0 +1,7 @@
+- No markdown.
+- No extra text.
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true", "answer": "Retrieved trials requiring a biomarker other than PD-L1 for inclusion in Non-Small Cell Lung trials.", "assumptions": "Assumed that 'Non-Small Cell Lung' is specified in 'cancer_type' or related fields, but the question does not specify how to filter for this cancer type. The query as written does not include a filter for cancer type, which may lead to incomplete results."}
+</think>
+
+{"sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" ILIKE '%non-small cell lung%' AND NOT \"is_pd_l1_positivity_inclusion_criteria\" AND \"is_any_other_biomarker_used_for_inclusion\" = true", "answer": "Retrieved Non-Small Cell Lung trials requiring a biomarker other than PD-L1 for inclusion.", "assumptions": "Assumed that 'Non-Small Cell Lung' can be identified using ILIKE with '%non-small cell lung%' in the \"cancer_type\" field. This may not capture all variations in how the cancer type is described."}

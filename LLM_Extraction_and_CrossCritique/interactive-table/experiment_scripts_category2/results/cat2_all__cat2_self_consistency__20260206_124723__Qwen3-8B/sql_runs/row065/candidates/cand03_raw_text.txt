@@ -1,0 +1,13 @@
+- Use the exact column names from the schema.
+- Use double quotes for column names.
+- Use COUNT(DISTINCT "nct") when counting trials.
+- Use ILIKE for free text searches.
+- Return only the JSON object, no extra text.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"class_of_ici\" ILIKE '%pd-1%' OR \"class_of_ici\" ILIKE '%ctla-4%' AND \"priamry_multiple_composite_or_co_primary_endpoints\" ILIKE '%yes%'",
+  "answer": "PD-L1 and CTLA-4 trials that reported composite or co-primary endpoints are listed with their details.",
+  "assumptions": "Assuming that 'PD-1' and 'CTLA-4' are referred to as 'PD1' and 'CTLA-4' in the data, and that 'priamry_multiple_composite_or_co_primary_endpoints' indicates the presence of composite or co-primary endpoints."
+}

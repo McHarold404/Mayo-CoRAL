@@ -1,0 +1,9 @@
+- Use the exact column names from the table.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"primary_endpoint\" FROM public.\"clinical_trials\" WHERE \"cancer_type\" = 'Melanoma' AND \"type_of_combination\" = 'ICI+ICI' AND \"class_of_ici\" = 'PD1';",
+  "answer": "The query retrieves the NCT, author, year, PubMed ID, and primary endpoint of Melanoma studies that tested PD-1 inhibitor combinations.",
+  "assumptions": "Assumed that 'ICI+ICI' refers to combinations of immune checkpoint inhibitors, and 'PD-1' is mapped to 'PD1' as per the requirements."
+}

@@ -1,0 +1,9 @@
+- Use the output format as described.
+
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"cancer_type\" = 'Small Cell Lung Cancer' AND \"class_of_ici\" ILIKE '%Pd1%' AND \"type_of_control\" = 'Chemotherapy'",
+  "answer": "The SQL query retrieves Small Cell Lung Cancer phase 3 trials that compared ICI to chemotherapy.",
+  "assumptions": "Assumed that 'ICI' refers to immunotherapy agents classified under 'PD1' and that 'Chemotherapy' is the control regimen."
+}

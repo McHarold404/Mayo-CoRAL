@@ -1,0 +1,15 @@
+- No markdown.
+- No extra text.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" ILIKE '%multiple myeloma%' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "The SQL query retrieves Phase 3 PD1 combination trials in Multiple Myeloma, including their regimens, control regimens, and combination types.",
+  "assumptions": "Assuming that 'PD1' is the correct class for PD-1 inhibitors and that 'Multiple Myeloma' is spelled correctly in the cancer_type column."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"control_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" ILIKE '%multiple myeloma%' AND \"type_of_combination\" IS NOT NULL;",
+  "answer": "The SQL query retrieves Phase 3 PD1 combination trials in Multiple Myeloma, including their regimens, control regimens, and combination types.",
+  "assumptions": "Assuming that 'PD1' is the correct class for PD-1 inhibitors and that 'Multiple Myeloma' is spelled correctly in the cancer_type column."
+}

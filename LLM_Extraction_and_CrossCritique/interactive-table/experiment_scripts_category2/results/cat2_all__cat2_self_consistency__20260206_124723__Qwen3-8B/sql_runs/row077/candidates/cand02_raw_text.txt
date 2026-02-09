@@ -1,0 +1,14 @@
+- No markdown.
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'Immunotherapy' ORDER BY \"year\" DESC;",
+  "answer": "Phase 3 PD1 combination trials in Multiple Myeloma include [list of trials] with regimens [list of regimens].",
+  "assumptions": "Assuming 'PD1' is the correct class for PD-1 inhibitors and 'Combination' type_of_combination indicates combination therapy."
+}
+</think>
+
+{
+  "sql": "SELECT \"nct\", \"author\", \"year\", \"pubmed_id\", \"trial_phase\", \"treatment_regimen\", \"class_of_ici\", \"name_of_ici\", \"type_of_combination\" FROM public.\"clinical_trials\" WHERE \"trial_phase\" = 'Phase 3' AND \"class_of_ici\" = 'PD1' AND \"cancer_type\" = 'Multiple Myeloma' AND \"type_of_combination\" = 'Combination' AND \"type_of_therapy\" = 'Immunotherapy' ORDER BY \"year\" DESC;",
+  "answer": "Phase 3 PD1 combination trials in Multiple Myeloma include trials with regimens such as [regimen details] and [regimen details].",
+  "assumptions": "Assuming 'PD1' is the correct class for PD-1 inhibitors and 'Combination' type_of_combination indicates combination therapy."
+}
